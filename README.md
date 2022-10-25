@@ -9,3 +9,8 @@ yarn install
 ```
 npm run dev
 ```
+
+## Deploy to pomootskey.enjoychallenge.tech
+```shell
+npm run deploy-do
+```

@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy-do": "next build && next export && ./copy-to-digitalocean.sh"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
