@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HelpIcon from '@mui/icons-material/Help';
 import AboutDialog from "../component/AboutDialog";
+import styles from '../styles/index.module.css'
 
 export default function ButtonAppBar() {
   const [aboutOpen, setAboutOpen] = React.useState(false);
@@ -36,8 +37,22 @@ export default function ButtonAppBar() {
               </IconButton>
             </Toolbar>
           </AppBar>
+          <Box component="main" className={styles.buttons}  sx={{color: 'primary.main'}}>
+            <div>
+              <HelpIcon />
+              <Typography variant="h5">Morseovka</Typography>
+            </div>
+            <div>
+              <HelpIcon />
+              <Typography variant="h5">Braille</Typography>
+            </div>
+            <div>
+              <HelpIcon />
+              <Typography variant="h5">Semafor</Typography>
+            </div>
+          </Box>
         </Box>
-        <AboutDialog open={aboutOpen} handleClose={handleAboutClose} />
+        <AboutDialog open={aboutOpen} handleClose={handleAboutClose}/>
       </>
   );
 }

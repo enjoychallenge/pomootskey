@@ -1,0 +1,25 @@
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.buttons > * {
+    height: 25vmin;
+    width: 25vmin;
+    min-width: 130px;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons > * > svg {
+    width: 20vmin;
+    height: 20vmin;
+    min-width: 80px;
+    min-height: 80px;
+}
