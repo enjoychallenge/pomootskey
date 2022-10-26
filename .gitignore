@@ -38,5 +38,11 @@ next-env.d.ts
 # idea
 .idea
 
+
 # map files
 **/*.js.map
+
+# next-pwa
+**/public/workbox-*.js
+**/public/sw.js
+**/public/worker-*.js
