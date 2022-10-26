@@ -1,4 +1,7 @@
 import Head from 'next/head'
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '../component/theme';
 import { Provider } from 'react-redux'
 import '../styles/globals.css'
 
@@ -34,7 +37,10 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Provider>
   )
 }
