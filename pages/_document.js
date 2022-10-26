@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import theme from '../src/theme';
+import theme from '../component/theme';
 
 export default class MyDocument extends Document {
   render() {
