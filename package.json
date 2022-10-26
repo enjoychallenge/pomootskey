@@ -7,6 +7,7 @@
     "deploy-do": "next build && next export && ./copy-to-digitalocean.sh"
   },
   "dependencies": {
+    "@mui/material": "^5.10.11",
     "@reduxjs/toolkit": "^1.8.6",
     "next": "latest",
     "next-pwa": "^5.6.0",
