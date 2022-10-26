@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
-export default createTheme({
+export default responsiveFontSizes(createTheme({
   palette: {
     mode: 'dark',
     primary: {
@@ -17,4 +17,4 @@ export default createTheme({
   shape: {
     borderRadius: 8,
   },
-});
+}));
