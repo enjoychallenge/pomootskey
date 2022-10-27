@@ -18,5 +18,10 @@ export default responsiveFontSizes(
     shape: {
       borderRadius: 8,
     },
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+    },
   })
 )
