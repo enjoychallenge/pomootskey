@@ -1,4 +1,3 @@
-
 const countHandler = async (request, response) => {
   const { amount = 1 } = request.body
 
