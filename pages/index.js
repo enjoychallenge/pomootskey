@@ -23,10 +23,12 @@ export default function ButtonAppBar() {
               <Typography variant="h5">Morseovka</Typography>
             </Button>
           </NextLink>
-          <div>
-            <HelpIcon />
-            <Typography variant="h5">Braille</Typography>
-          </div>
+          <NextLink href="/braille" passHref>
+            <Button>
+              <HelpIcon />
+              <Typography variant="h5">Braille</Typography>
+            </Button>
+          </NextLink>
           <div>
             <HelpIcon />
             <Typography variant="h5">Semafor</Typography>
