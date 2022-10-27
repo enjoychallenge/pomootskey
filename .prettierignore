@@ -1,0 +1,12 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+/.next
+/out
+**/public/workbox-*.js
+**/public/sw.js
+**/public/worker-*.js
+
+*.md
