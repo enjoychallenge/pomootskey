@@ -4,5 +4,7 @@ const withPWA = require('next-pwa')({
 })
 
 module.exports = withPWA({
-  // config
+  eslint: {
+    dirs: ['app', 'component', 'features', 'pages'],
+  },
 })

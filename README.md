@@ -15,6 +15,11 @@ npm run dev
 npm test
 ```
 
+## Lint
+```
+npm run lint
+```
+
 ## Deploy to pomootskey.enjoychallenge.tech
 ```shell
 npm run deploy-do
