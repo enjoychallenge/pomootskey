@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import HelpIcon from '@mui/icons-material/Help'
 import styles from '../styles/index.module.css'
 import Button from '@mui/material/Button'
+import NextLink from 'next/link'
 
 export default function ButtonAppBar() {
   return (
@@ -16,10 +17,12 @@ export default function ButtonAppBar() {
           className={styles.buttons}
           sx={{ color: 'primary.main' }}
         >
-          <Button href="/morse">
-            <HelpIcon />
-            <Typography variant="h5">Morseovka</Typography>
-          </Button>
+          <NextLink href="/morse" passHref>
+            <Button>
+              <HelpIcon />
+              <Typography variant="h5">Morseovka</Typography>
+            </Button>
+          </NextLink>
           <div>
             <HelpIcon />
             <Typography variant="h5">Braille</Typography>
