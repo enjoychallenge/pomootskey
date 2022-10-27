@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from '../component/theme';
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import theme from '../component/theme'
 import { Provider } from 'react-redux'
 import '../styles/globals.css'
 
