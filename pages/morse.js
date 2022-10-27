@@ -6,6 +6,7 @@ import styles from '../styles/index.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 
 export default function ButtonAppBar() {
   return (
@@ -17,18 +18,18 @@ export default function ButtonAppBar() {
           className={styles.buttons}
           sx={{ color: 'primary.main' }}
         >
-          <div>
+          <Button variant="outlined">
             <HorizontalRuleIcon />
             <Typography variant="h5">čárka</Typography>
-          </div>
-          <div>
+          </Button>
+          <Button variant="outlined">
             <FiberManualRecordIcon />
             <Typography variant="h5">tečka</Typography>
-          </div>
-          <div>
+          </Button>
+          <Button variant="outlined">
             <SendIcon />
             <Typography variant="h5">oddělovač</Typography>
-          </div>
+          </Button>
         </Box>
       </div>
     </>
