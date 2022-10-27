@@ -7,6 +7,8 @@
     "start": "next start",
     "test": "jest",
     "lint": "next lint",
+    "format": "prettier --check .",
+    "format-fix": "prettier --write .",
     "deploy-do": "next build && next export && ./copy-to-digitalocean.sh"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
     "eslint-config-next": "13.0.0",
     "jest": "^29.2.2",
     "jest-environment-jsdom": "^29.2.2",
+    "prettier": "^2.7.1",
     "typescript": "4.5.4"
   }
 }

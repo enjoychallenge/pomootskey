@@ -20,6 +20,12 @@ npm test
 npm run lint
 ```
 
+## Format
+```
+npm run format
+npm run format-fix
+```
+
 ## Deploy to pomootskey.enjoychallenge.tech
 ```shell
 npm run deploy-do
