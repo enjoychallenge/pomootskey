@@ -35,6 +35,32 @@ jobs:
         run: |
           npm run export
 
+  TestLintAndFormat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: View versions
+        run: |
+          node -v
+          npm -v
+          yarn -v
+
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Lint
+        run: |
+          npm run lint
+
+      - name: Format
+        run: |
+          npm run format
+
   UnitTest:
     runs-on: ubuntu-latest
     steps:
