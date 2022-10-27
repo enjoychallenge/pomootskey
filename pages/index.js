@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import HelpIcon from '@mui/icons-material/Help'
 import styles from '../styles/index.module.css'
+import Button from '@mui/material/Button'
 
 export default function ButtonAppBar() {
   return (
@@ -15,10 +16,10 @@ export default function ButtonAppBar() {
           className={styles.buttons}
           sx={{ color: 'primary.main' }}
         >
-          <div>
+          <Button href="/morse">
             <HelpIcon />
             <Typography variant="h5">Morseovka</Typography>
-          </div>
+          </Button>
           <div>
             <HelpIcon />
             <Typography variant="h5">Braille</Typography>
