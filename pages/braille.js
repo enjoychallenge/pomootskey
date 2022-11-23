@@ -81,19 +81,17 @@ export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box className={styles.page}>
         <AppBar />
-        <Box
-          component="main"
-          className={styles.buttons}
-          sx={{ color: 'primary.main' }}
-        >
-          <div>
-            <BrailleInput selected={selected} setSelected={setSelected} />
-          </div>
-          <div>
-            <BrailleOutput selected={selected} />
-          </div>
+        <Box component="main" className={styles.main}>
+          <Box className={styles.buttons} sx={{ color: 'primary.main' }}>
+            <div>
+              <BrailleInput selected={selected} setSelected={setSelected} />
+            </div>
+            <div>
+              <BrailleOutput selected={selected} />
+            </div>
+          </Box>
         </Box>
       </Box>
     </>
