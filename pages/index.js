@@ -10,29 +10,27 @@ import NextLink from 'next/link'
 export default function ButtonAppBar() {
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box className={styles.page}>
         <AppBar />
-        <Box
-          component="main"
-          className={styles.buttons}
-          sx={{ color: 'primary.main' }}
-        >
-          <NextLink href="/morse" passHref>
-            <Button>
+        <Box component="main" className={styles.main}>
+          <Box className={styles.buttons} sx={{ color: 'primary.main' }}>
+            <NextLink href="/morse" passHref>
+              <Button>
+                <HelpIcon />
+                <Typography variant="h5">Morseovka</Typography>
+              </Button>
+            </NextLink>
+            <NextLink href="/braille" passHref>
+              <Button>
+                <HelpIcon />
+                <Typography variant="h5">Braille</Typography>
+              </Button>
+            </NextLink>
+            <div>
               <HelpIcon />
-              <Typography variant="h5">Morseovka</Typography>
-            </Button>
-          </NextLink>
-          <NextLink href="/braille" passHref>
-            <Button>
-              <HelpIcon />
-              <Typography variant="h5">Braille</Typography>
-            </Button>
-          </NextLink>
-          <div>
-            <HelpIcon />
-            <Typography variant="h5">Semafor</Typography>
-          </div>
+              <Typography variant="h5">Semafor</Typography>
+            </div>
+          </Box>
         </Box>
       </Box>
     </>
