@@ -39,7 +39,7 @@ const dots_dashes_pattern = new RegExp('^[.-]+$')
 const separator_pattern = new RegExp('^/+$')
 const message_parts_pattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
 
-const PartTypes = {
+export const PartTypes = {
   char: 'char',
   separator: 'sep',
   unknown: 'unknown',
