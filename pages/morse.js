@@ -9,11 +9,21 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import { MorseChars } from '../app/decode/morse'
 
 export default function ButtonAppBar() {
   const [message, set_message] = React.useState('')
   const handle_text_input_change = (event) => {
     set_message(event.target.value)
+  }
+  const handle_dot_click = () => {
+    set_message(message + MorseChars.dot)
+  }
+  const handle_dash_click = () => {
+    set_message(message + MorseChars.dash)
+  }
+  const handle_separator_click = () => {
+    set_message(message + MorseChars.separator)
   }
   return (
     <>
@@ -26,15 +36,15 @@ export default function ButtonAppBar() {
         >
           <Box className={morse_styles.inputs}>
             <Box className={styles.buttons}>
-              <Button variant="outlined">
+              <Button variant="outlined" onClick={handle_dash_click}>
                 <HorizontalRuleIcon />
                 <Typography variant="h5">čárka</Typography>
               </Button>
-              <Button variant="outlined">
+              <Button variant="outlined" onClick={handle_dot_click}>
                 <FiberManualRecordIcon />
                 <Typography variant="h5">tečka</Typography>
               </Button>
-              <Button variant="outlined">
+              <Button variant="outlined" onClick={handle_separator_click}>
                 <SendIcon />
                 <Typography variant="h5">oddělovač</Typography>
               </Button>

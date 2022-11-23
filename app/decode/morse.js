@@ -29,6 +29,12 @@ const code_table = {
   z: '--..',
 }
 
+export const MorseChars = {
+  dot: '.',
+  dash: '-',
+  separator: '/',
+}
+
 const dots_dashes_pattern = new RegExp('^[.-]+$')
 const separator_pattern = new RegExp('^/+$')
 const message_parts_pattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
