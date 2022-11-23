@@ -9,7 +9,33 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import { MorseChars } from '../app/decode/morse'
+import { decode, MorseChars, PartTypes } from '../app/decode/morse'
+
+const message_to_react = (message) => {
+  return decode(message)
+    .map((part, part_idx) => {
+      let string = ''
+      let color = ''
+      if (part.type === PartTypes.separator) {
+        if (part.string.length === 2) {
+          string = ' '
+        } else if (part.string.length > 2) {
+          string = '. ' + '␣'.repeat(part.string.length - 3)
+        }
+      } else if (part.type === PartTypes.char) {
+        string = part.char
+      } else {
+        string = part.string
+        color = 'warning.main'
+      }
+      return string ? (
+        <Typography key={part_idx} sx={{ color }} display="inline">
+          {string}
+        </Typography>
+      ) : null
+    })
+    .filter((part) => !!part)
+}
 
 export default function ButtonAppBar() {
   const [message, set_message] = React.useState('')
@@ -62,7 +88,7 @@ export default function ButtonAppBar() {
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              PP
+              {message_to_react(message)}
             </Typography>
           </Box>
         </Box>

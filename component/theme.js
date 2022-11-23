@@ -13,6 +13,9 @@ export default responsiveFontSizes(
       result: {
         main: '#eeeeee',
       },
+      warning: {
+        main: '#ff3333',
+      },
       background: {
         default: '#000000',
         paper: '#303030',
