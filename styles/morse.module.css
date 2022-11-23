@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5vmin;
+}
+.main > * {
+  flex-grow: 1;
+  flex-basis: 20vh;
+}
+
+.results > * {
+  margin-bottom: 0.2em;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2vmin;
+}
+
+.text_input {
+  padding: 0;
+}
+.text_input > * {
+  padding: 0;
+}
+.text_input textarea {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}

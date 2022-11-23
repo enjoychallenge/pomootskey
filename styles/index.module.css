@@ -1,9 +1,20 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  padding: 2vmin;
+  flex-grow: 1;
+}
+
 .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   max-width: 800px;
-  margin: 5vmin auto;
+  margin: 0 auto;
   gap: 5vmin;
 }
 
