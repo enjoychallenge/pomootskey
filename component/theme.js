@@ -10,6 +10,9 @@ export default responsiveFontSizes(
       secondary: {
         main: '#f50057',
       },
+      result: {
+        main: '#eeeeee',
+      },
       background: {
         default: '#000000',
         paper: '#303030',
