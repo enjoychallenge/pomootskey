@@ -27,11 +27,34 @@ const codeTable = {
   z: new Set([1, 3, 5, 6]),
 }
 
+const by_column2by_row = {
+  1: 1,
+  2: 3,
+  3: 5,
+  4: 2,
+  5: 4,
+  6: 6,
+}
+
 export function decode(selected) {
   const areSetsEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value))
   const decoded_pair = Object.entries(codeTable).find(([_, value]) =>
     areSetsEqual(selected, value)
   )
-  return decoded_pair ? decoded_pair[0] : ''
+  return decoded_pair ? decoded_pair[0] : String.fromCharCode(10734)
+}
+
+export function toUTF(selected) {
+  const utf_code = [...selected].reduce(
+    (total, item) => total + Math.pow(2, item - 1),
+    10240
+  )
+  return String.fromCharCode(utf_code)
+}
+
+export function columns_to_rows(by_columns) {
+  return new Set(
+    [...by_columns].map((item_by_column) => by_column2by_row[item_by_column])
+  )
 }
