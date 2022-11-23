@@ -11,6 +11,10 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 
 export default function ButtonAppBar() {
+  const [message, set_message] = React.useState('')
+  const handle_text_input_change = (event) => {
+    set_message(event.target.value)
+  }
   return (
     <>
       <Box className={styles.page}>
@@ -39,7 +43,8 @@ export default function ButtonAppBar() {
               hiddenLabel
               multiline
               fullWidth
-              defaultValue=".--./.--.//"
+              value={message}
+              onChange={handle_text_input_change}
               variant="filled"
               size="small"
               className={morse_styles.text_input}
