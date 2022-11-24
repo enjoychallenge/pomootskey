@@ -17,22 +17,22 @@ function BrailleCircle({ selected }) {
   )
 }
 
-function BraillePoint({ allSelected, setSelected, number }) {
-  const handleBrailleButtonClick = () => {
-    let allSelectedCopy = new Set(allSelected)
-    if (allSelectedCopy.has(number)) {
-      allSelectedCopy.delete(number)
-      setSelected(allSelectedCopy)
+function BraillePoint({ all_selected, set_selected, number }) {
+  const handle_braille_button_click = () => {
+    let all_selected_copy = new Set(all_selected)
+    if (all_selected_copy.has(number)) {
+      all_selected_copy.delete(number)
+      set_selected(all_selected_copy)
     } else {
-      allSelectedCopy.add(number)
-      setSelected(allSelectedCopy)
+      all_selected_copy.add(number)
+      set_selected(all_selected_copy)
     }
   }
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <Button variant="outlined" onClick={handleBrailleButtonClick}>
-        <BrailleCircle selected={allSelected.has(number)} />
+      <Button variant="outlined" onClick={handle_braille_button_click}>
+        <BrailleCircle selected={all_selected.has(number)} />
         <Typography position="absolute" color={'white'}>
           {number}
         </Typography>
@@ -42,24 +42,24 @@ function BraillePoint({ allSelected, setSelected, number }) {
 }
 
 export default function BraillePage() {
-  const brailleNumbers = [1, 4, 2, 5, 3, 6]
-  const [selected, setSelected] = useState(new Set())
-  const [entryPoints, setEntryPoints] = useState([])
-  const solutionText = entryPoints.map((entry) => decode(entry), '')
-  const solutionBraille = entryPoints.map((entry) => to_utf(entry), '')
-  const solutionByRowsText = entryPoints.map(
+  const braille_numbers = [1, 4, 2, 5, 3, 6]
+  const [selected, set_selected] = useState(new Set())
+  const [entry_points, set_entry_points] = useState([])
+  const solution_text = entry_points.map((entry) => decode(entry), '')
+  const solution_braille = entry_points.map((entry) => to_utf(entry), '')
+  const solution_by_rows_text = entry_points.map(
     (entry) => decode(columns_to_rows(entry)),
     ''
   )
   const current = decode(selected)
 
-  const handleSendButtonClick = () => {
-    setEntryPoints(entryPoints.concat([selected]))
-    setSelected(new Set())
+  const handle_send_button_click = () => {
+    set_entry_points(entry_points.concat([selected]))
+    set_selected(new Set())
   }
 
-  const handleBackspaceButtonClick = () => {
-    setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+  const handle_backspace_button_click = () => {
+    set_entry_points(entry_points.slice(0, entry_points.length - 1))
   }
 
   return (
@@ -72,12 +72,12 @@ export default function BraillePage() {
               <Grid container columns={3}>
                 <Grid xs={2} item={true}>
                   <Grid container>
-                    {brailleNumbers.map((number) => {
+                    {braille_numbers.map((number) => {
                       return (
                         <Grid xs={6} item={true} key={number}>
                           <BraillePoint
-                            allSelected={selected}
-                            setSelected={setSelected}
+                            all_selected={selected}
+                            set_selected={set_selected}
                             number={number}
                           />
                         </Grid>
@@ -86,8 +86,8 @@ export default function BraillePage() {
                   </Grid>
                 </Grid>
                 <Grid xs={1} item={true}>
-                  <Send onClick={handleSendButtonClick} />
-                  <Backspace onClick={handleBackspaceButtonClick} />
+                  <Send onClick={handle_send_button_click} />
+                  <Backspace onClick={handle_backspace_button_click} />
                 </Grid>
               </Grid>
             </div>
@@ -98,19 +98,19 @@ export default function BraillePage() {
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography>Zadání:</Typography>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionBraille}
+              {solution_braille}
             </Typography>
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography>Řešení:</Typography>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionText}
+              {solution_text}
             </Typography>
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography>Alternativní řešení (tečky po řádkách):</Typography>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionByRowsText}
+              {solution_by_rows_text}
             </Typography>
           </Box>
         </Box>
