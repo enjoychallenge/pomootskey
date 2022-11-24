@@ -1,7 +1,6 @@
 import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import styles from '../styles/index.module.css'
 import morse_styles from '../styles/morse.module.css'
@@ -9,6 +8,8 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Button from '@mui/material/Button'
 import { decode, MorseChars, PartTypes } from '../app/decode/morse'
+import { Backspace } from '@mui/icons-material'
+import { InputBase, Paper } from '@mui/material'
 
 const messageToReact = (message) => {
   return decode(message)
@@ -50,6 +51,11 @@ export default function ButtonAppBar() {
   const handleSeparatorClick = () => {
     setMessage(message + MorseChars.separator)
   }
+  const handleBackspaceClick = () => {
+    if (message.length) {
+      setMessage(message.slice(0, message.length - 1))
+    }
+  }
   return (
     <>
       <Box className={styles.page}>
@@ -78,16 +84,21 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
             </Box>
-            <TextField
-              hiddenLabel
-              multiline
-              fullWidth
-              value={message}
-              onChange={handleTextInputChange}
-              variant="filled"
-              size="small"
-              className={morse_styles.text_input}
-            />
+            <Paper className={styles.input_paper}>
+              <InputBase
+                hiddenLabel
+                multiline
+                fullWidth
+                value={message}
+                onChange={handleTextInputChange}
+                variant="filled"
+                size="small"
+                className={morse_styles.text_input}
+              />
+              <Button onClick={handleBackspaceClick}>
+                <Backspace />
+              </Button>
+            </Paper>
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
