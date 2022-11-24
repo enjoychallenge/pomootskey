@@ -14,9 +14,9 @@ import styles from './Counter.module.css'
 function Counter() {
   const dispatch = useAppDispatch()
   const count = useAppSelector(selectCount)
-  const [incrementAmount, setIncrementAmount] = useState('2')
+  const [increment_amount, set_increment_amount] = useState('2')
 
-  const incrementValue = Number(incrementAmount) || 0
+  const increment_value = Number(increment_amount) || 0
 
   return (
     <div>
@@ -41,24 +41,24 @@ function Counter() {
         <input
           className={styles.textbox}
           aria-label="Set increment amount"
-          value={incrementAmount}
-          onChange={(e) => setIncrementAmount(e.target.value)}
+          value={increment_amount}
+          onChange={(e) => set_increment_amount(e.target.value)}
         />
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
+          onClick={() => dispatch(incrementByAmount(increment_value))}
         >
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(incrementValue))}
+          onClick={() => dispatch(incrementAsync(increment_value))}
         >
           Add Async
         </button>
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(incrementValue))}
+          onClick={() => dispatch(incrementIfOdd(increment_value))}
         >
           Add If Odd
         </button>
