@@ -15,7 +15,15 @@ export default function AboutDialog({ open, handleClose }) {
           <Link target="_blank" rel="noreferrer" href="https://sifrovacky.cz/">
             šifrovacích her
           </Link>
-          .
+          . Velkou inspirací nám byly Androidí{' '}
+          <Link
+            target="_blank"
+            rel="noreferrer"
+            href="https://play.google.com/store/apps/details?id=cz.absolutno.sifry"
+          >
+            Šifrovací pomůcky Absolutno
+          </Link>{' '}
+          od Vaška Potočka, na které chceme navázat.
         </Typography>
         <Typography variant="h6" gutterBottom>
           Autoři
