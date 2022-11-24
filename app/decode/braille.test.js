@@ -1,13 +1,13 @@
 import { columns_to_rows, decode, to_utf } from './braille'
 
 test('basic braille decode', () => {
-  const testSelected = new Set([1])
-  expect(decode(testSelected)).toEqual('a')
+  const test_selected = new Set([1])
+  expect(decode(test_selected)).toEqual('a')
 })
 
 test('basic braille to utf char', () => {
-  const testSelected = new Set([1, 5, 3])
-  expect(to_utf(testSelected)).toEqual('⠕')
+  const test_selected = new Set([1, 5, 3])
+  expect(to_utf(test_selected)).toEqual('⠕')
 })
 
 describe('columns to rows', () => {
