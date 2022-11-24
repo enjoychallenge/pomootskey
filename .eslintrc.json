@@ -15,11 +15,43 @@
       }
     ],
     "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            "selector": "default",
-            "format": ["StrictPascalCase", "snake_case"]
-          }
-        ]
+      "error",
+      {
+        "selector": [
+          "parameter",
+          "classProperty",
+          "objectLiteralProperty",
+          "typeProperty",
+          "parameterProperty",
+          "classMethod",
+          "objectLiteralMethod",
+          "typeMethod",
+          "accessor",
+          "enumMember",
+          "class",
+          "interface",
+          "typeAlias",
+          "enum",
+          "typeParameter"
+        ],
+        "format": ["StrictPascalCase", "snake_case"]
+      },
+      {
+        "selector": ["variable", "function"],
+        "format": ["StrictPascalCase", "snake_case"],
+        "filter": {
+          "regex": "^use",
+          "match": false
+        }
+      },
+      {
+        "selector": ["variable", "function"],
+        "format": ["strictCamelCase"],
+        "filter": {
+          "regex": "^use",
+          "match": true
+        }
+      }
+    ]
   }
 }

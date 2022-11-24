@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-export const useForm = (defaultValues) => (handler) => async (event) => {
+export const useForm = (default_values) => (handler) => async (event) => {
   event.preventDefault()
   event.persist()
 
@@ -14,7 +14,7 @@ export const useForm = (defaultValues) => (handler) => async (event) => {
         ...object,
         [`${element.getAttribute('name')}`]: element.value,
       }),
-      defaultValues
+      default_values
     )
   await handler(data)
   form.reset()
@@ -22,12 +22,12 @@ export const useForm = (defaultValues) => (handler) => async (event) => {
 
 // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 export const useInterval = (callback, delay) => {
-  const savedCallback = useRef()
+  const saved_callback = useRef()
   useEffect(() => {
-    savedCallback.current = callback
+    saved_callback.current = callback
   }, [callback])
   useEffect(() => {
-    const handler = (...args) => savedCallback.current?.(...args)
+    const handler = (...args) => saved_callback.current?.(...args)
 
     if (delay !== null) {
       const id = setInterval(handler, delay)
