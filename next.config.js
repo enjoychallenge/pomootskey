@@ -13,4 +13,5 @@ module.exports = withPWA({
   images: {
     unoptimized: true,
   },
+  trailingSlash: true,
 })
