@@ -7,7 +7,6 @@ import styles from '../styles/index.module.css'
 import morse_styles from '../styles/morse.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
-import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { decode, MorseChars, PartTypes } from '../app/decode/morse'
 
@@ -70,8 +69,12 @@ export default function ButtonAppBar() {
                 <FiberManualRecordIcon />
                 <Typography variant="h5">tečka</Typography>
               </Button>
-              <Button variant="outlined" onClick={handleSeparatorClick}>
-                <SendIcon />
+              <Button
+                className={styles.character_button}
+                variant="outlined"
+                onClick={handleSeparatorClick}
+              >
+                <Typography>/</Typography>
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
             </Box>
