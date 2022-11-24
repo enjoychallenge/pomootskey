@@ -8,14 +8,14 @@ import AboutDialog from './AboutDialog'
 import NextLink from 'next/link'
 
 export default function EnjoyAppBar() {
-  const [aboutOpen, setAboutOpen] = React.useState(false)
+  const [about_open, set_about_open] = React.useState(false)
 
-  const handleAboutClick = () => {
-    setAboutOpen(true)
+  const handle_about_click = () => {
+    set_about_open(true)
   }
 
-  const handleAboutClose = () => {
-    setAboutOpen(false)
+  const handle_about_close = () => {
+    set_about_open(false)
   }
 
   return (
@@ -31,13 +31,13 @@ export default function EnjoyAppBar() {
             size="large"
             color="inherit"
             aria-label="menu"
-            onClick={handleAboutClick}
+            onClick={handle_about_click}
           >
             <HelpIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <AboutDialog open={aboutOpen} handle_close={handleAboutClose} />
+      <AboutDialog open={about_open} handle_close={handle_about_close} />
     </>
   )
 }

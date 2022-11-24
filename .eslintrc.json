@@ -20,7 +20,6 @@
         "selector": [
           "parameter",
           "classProperty",
-          "objectLiteralProperty",
           "typeProperty",
           "parameterProperty",
           "classMethod",
@@ -51,6 +50,10 @@
           "regex": "^use",
           "match": true
         }
+      },
+      {
+        "selector": ["objectLiteralProperty"],
+        "format": ["StrictPascalCase", "snake_case", "strictCamelCase"]
       }
     ]
   }
