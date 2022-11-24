@@ -12,14 +12,22 @@ export const NextLinkComposed = React.forwardRef(function NextLinkComposed(
   props,
   ref
 ) {
-  const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } =
-    props
+  const {
+    to,
+    linkAs: link_as,
+    replace,
+    scroll,
+    shallow,
+    prefetch,
+    locale,
+    ...other
+  } = props
 
   return (
     <NextLink
       href={to}
       prefetch={prefetch}
-      as={linkAs}
+      as={link_as}
       replace={replace}
       scroll={scroll}
       shallow={shallow}
@@ -35,13 +43,13 @@ export const NextLinkComposed = React.forwardRef(function NextLinkComposed(
 // https://nextjs.org/docs/api-reference/next/link
 const Link = React.forwardRef(function Link(props, ref) {
   const {
-    activeClassName = 'active',
+    activeClassName: active_class_name = 'active',
     as,
-    className: classNameProps,
+    className: class_name_props,
     href,
-    linkAs: linkAsProp,
+    linkAs: link_as_prop,
     locale,
-    noLinkStyle,
+    noLinkStyle: no_link_style,
     prefetch,
     replace,
     // role, // Link don't have roles.
@@ -52,26 +60,26 @@ const Link = React.forwardRef(function Link(props, ref) {
 
   const router = useRouter()
   const pathname = typeof href === 'string' ? href : href.pathname
-  const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === pathname && activeClassName,
+  const class_name = clsx(class_name_props, {
+    [active_class_name]: router.pathname === pathname && active_class_name,
   })
 
-  const isExternal =
+  const is_external =
     typeof href === 'string' &&
     (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0)
 
-  if (isExternal) {
-    if (noLinkStyle) {
-      return <Anchor className={className} href={href} ref={ref} {...other} />
+  if (is_external) {
+    if (no_link_style) {
+      return <Anchor className={class_name} href={href} ref={ref} {...other} />
     }
 
-    return <MuiLink className={className} href={href} ref={ref} {...other} />
+    return <MuiLink className={class_name} href={href} ref={ref} {...other} />
   }
 
-  const linkAs = linkAsProp || as
-  const nextjsProps = {
+  const link_as = link_as_prop || as
+  const nextjs_props = {
     to: href,
-    linkAs,
+    linkAs: link_as,
     replace,
     scroll,
     shallow,
@@ -79,12 +87,12 @@ const Link = React.forwardRef(function Link(props, ref) {
     locale,
   }
 
-  if (noLinkStyle) {
+  if (no_link_style) {
     return (
       <NextLinkComposed
-        className={className}
+        className={class_name}
         ref={ref}
-        {...nextjsProps}
+        {...nextjs_props}
         {...other}
       />
     )
@@ -93,9 +101,9 @@ const Link = React.forwardRef(function Link(props, ref) {
   return (
     <MuiLink
       component={NextLinkComposed}
-      className={className}
+      className={class_name}
       ref={ref}
-      {...nextjsProps}
+      {...nextjs_props}
       {...other}
     />
   )
