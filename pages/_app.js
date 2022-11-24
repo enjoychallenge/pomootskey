@@ -7,7 +7,7 @@ import '../styles/globals.css'
 
 import store from '../app/store'
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps: page_props }) {
   return (
     <Provider store={store}>
       <Head>
@@ -40,7 +40,7 @@ export default function MyApp({ Component, pageProps }) {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <Component {...page_props} />
         </ThemeProvider>
       </StyledEngineProvider>
     </Provider>
