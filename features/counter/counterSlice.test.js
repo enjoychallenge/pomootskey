@@ -1,4 +1,4 @@
-import reducer, { increment, incrementByAmount } from './counterSlice'
+import reducer, { increment, increment_by_amount } from './counterSlice'
 
 test('should return the initial state', () => {
   expect(reducer(undefined, { type: undefined })).toEqual({
@@ -18,5 +18,5 @@ test('should handle an increment by ammount', () => {
     value: 4,
   }
 
-  expect(reducer(previousState, incrementByAmount(38))).toEqual({ value: 42 })
+  expect(reducer(previousState, increment_by_amount(38))).toEqual({ value: 42 })
 })

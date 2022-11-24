@@ -23,7 +23,6 @@
           "typeProperty",
           "parameterProperty",
           "classMethod",
-          "objectLiteralMethod",
           "typeMethod",
           "accessor",
           "enumMember",
@@ -52,7 +51,7 @@
         }
       },
       {
-        "selector": ["objectLiteralProperty"],
+        "selector": ["objectLiteralProperty", "objectLiteralMethod"],
         "format": ["StrictPascalCase", "snake_case", "strictCamelCase"]
       },
       {

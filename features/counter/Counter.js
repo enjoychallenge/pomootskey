@@ -4,16 +4,16 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import {
   decrement,
   increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
+  increment_by_amount,
+  increment_async,
+  increment_if_odd,
+  select_count,
 } from './counterSlice'
 import styles from './Counter.module.css'
 
 function Counter() {
   const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
+  const count = useAppSelector(select_count)
   const [increment_amount, set_increment_amount] = useState('2')
 
   const increment_value = Number(increment_amount) || 0
@@ -46,19 +46,19 @@ function Counter() {
         />
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementByAmount(increment_value))}
+          onClick={() => dispatch(increment_by_amount(increment_value))}
         >
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(increment_value))}
+          onClick={() => dispatch(increment_async(increment_value))}
         >
           Add Async
         </button>
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(increment_value))}
+          onClick={() => dispatch(increment_if_odd(increment_value))}
         >
           Add If Odd
         </button>
