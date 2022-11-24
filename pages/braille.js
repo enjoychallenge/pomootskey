@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import styles from '../styles/index.module.css'
 import { Button, Grid } from '@mui/material'
-import { columns_to_rows, decode, toUTF } from '../app/decode/braille'
+import { columns_to_rows, decode, to_utf } from '../app/decode/braille'
 import morse_styles from '../styles/morse.module.css'
 
 function BrailleCircle({ selected }) {
@@ -46,7 +46,7 @@ export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
   const [entryPoints, setEntryPoints] = useState([])
   const solutionText = entryPoints.map((entry) => decode(entry), '')
-  const solutionBraille = entryPoints.map((entry) => toUTF(entry), '')
+  const solutionBraille = entryPoints.map((entry) => to_utf(entry), '')
   const solutionByRowsText = entryPoints.map(
     (entry) => decode(columns_to_rows(entry)),
     ''

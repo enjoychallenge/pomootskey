@@ -1,4 +1,4 @@
-const codeTable = {
+const code_table = {
   a: new Set([1]),
   b: new Set([1, 2]),
   c: new Set([1, 4]),
@@ -37,15 +37,15 @@ const by_column2by_row = {
 }
 
 export function decode(selected) {
-  const areSetsEqual = (a, b) =>
+  const are_sets_equal = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value))
-  const decoded_pair = Object.entries(codeTable).find(([_, value]) =>
-    areSetsEqual(selected, value)
+  const decoded_pair = Object.entries(code_table).find(([_, value]) =>
+    are_sets_equal(selected, value)
   )
   return decoded_pair ? decoded_pair[0] : String.fromCharCode(10734)
 }
 
-export function toUTF(selected) {
+export function to_utf(selected) {
   const utf_code = [...selected].reduce(
     (total, item) => total + Math.pow(2, item - 1),
     10240

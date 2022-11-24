@@ -32,7 +32,11 @@
           "enum",
           "typeParameter"
         ],
-        "format": ["StrictPascalCase", "snake_case"]
+        "format": ["StrictPascalCase", "snake_case"],
+        "filter": {
+          "regex": "^_$",
+          "match": false
+        }
       },
       {
         "selector": ["variable", "function"],

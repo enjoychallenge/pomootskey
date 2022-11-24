@@ -1,4 +1,4 @@
-import { columns_to_rows, decode, toUTF } from './braille'
+import { columns_to_rows, decode, to_utf } from './braille'
 
 test('basic braille decode', () => {
   const testSelected = new Set([1])
@@ -7,7 +7,7 @@ test('basic braille decode', () => {
 
 test('basic braille to utf char', () => {
   const testSelected = new Set([1, 5, 3])
-  expect(toUTF(testSelected)).toEqual('⠕')
+  expect(to_utf(testSelected)).toEqual('⠕')
 })
 
 describe('columns to rows', () => {
