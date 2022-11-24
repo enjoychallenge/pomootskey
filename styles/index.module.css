@@ -35,3 +35,9 @@
   min-width: 80px;
   min-height: 80px;
 }
+
+.character_button > p {
+  font-size: max(80px, 20vmin);
+  line-height: 1;
+  font-weight: bold;
+}
