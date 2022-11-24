@@ -8,15 +8,17 @@ test('should return the initial state', () => {
 })
 
 test('should handle an increment', () => {
-  const previousState = { value: 0 }
+  const previous_state = { value: 0 }
 
-  expect(reducer(previousState, increment())).toEqual({ value: 1 })
+  expect(reducer(previous_state, increment())).toEqual({ value: 1 })
 })
 
 test('should handle an increment by ammount', () => {
-  const previousState = {
+  const previous_state = {
     value: 4,
   }
 
-  expect(reducer(previousState, increment_by_amount(38))).toEqual({ value: 42 })
+  expect(reducer(previous_state, increment_by_amount(38))).toEqual({
+    value: 42,
+  })
 })
