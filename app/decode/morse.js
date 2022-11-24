@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-const code_table = {
+const codeTable = {
   a: '.-',
   b: '-...',
   c: '-.-.',
@@ -35,9 +35,9 @@ export const MorseChars = {
   separator: '/',
 }
 
-const dots_dashes_pattern = new RegExp('^[.-]+$')
-const separator_pattern = new RegExp('^/+$')
-const message_parts_pattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
+const dotsDashesPattern = new RegExp('^[.-]+$')
+const separatorPattern = new RegExp('^/+$')
+const messagePartsPattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
 
 export const PartTypes = {
   char: 'char',
@@ -46,7 +46,7 @@ export const PartTypes = {
 }
 
 export function decode(message) {
-  const matches = [...message.matchAll(message_parts_pattern)]
+  const matches = [...message.matchAll(messagePartsPattern)]
   const parts = []
   matches.forEach((match) => {
     match
@@ -57,15 +57,15 @@ export function decode(message) {
           string: group,
         }
         let type = PartTypes.unknown
-        if (group.match(dots_dashes_pattern)) {
-          const char = Object.keys(code_table).find(
-            (k) => code_table[k] === group
+        if (group.match(dotsDashesPattern)) {
+          const char = Object.keys(codeTable).find(
+            (k) => codeTable[k] === group
           )
           if (char) {
             type = PartTypes.char
             part.char = char
           }
-        } else if (group.match(separator_pattern)) {
+        } else if (group.match(separatorPattern)) {
           type = PartTypes.separator
         }
         parts.push(part)
@@ -73,11 +73,11 @@ export function decode(message) {
       })
   })
 
-  const part_strings_length = parts.reduce(
+  const partStringsLength = parts.reduce(
     (prev, part) => prev + part.string.length,
     0
   )
-  assert(part_strings_length === message.length)
+  assert(partStringsLength === message.length)
 
   return parts
 }

@@ -11,9 +11,9 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { decode, MorseChars, PartTypes } from '../app/decode/morse'
 
-const message_to_react = (message) => {
+const messageToReact = (message) => {
   return decode(message)
-    .map((part, part_idx) => {
+    .map((part, partIdx) => {
       let string = ''
       let color = ''
       if (part.type === PartTypes.separator) {
@@ -29,7 +29,7 @@ const message_to_react = (message) => {
         color = 'warning.main'
       }
       return string ? (
-        <Typography key={part_idx} sx={{ color }} display="inline">
+        <Typography key={partIdx} sx={{ color }} display="inline">
           {string}
         </Typography>
       ) : null
@@ -38,18 +38,18 @@ const message_to_react = (message) => {
 }
 
 export default function ButtonAppBar() {
-  const [message, set_message] = React.useState('')
-  const handle_text_input_change = (event) => {
-    set_message(event.target.value)
+  const [message, setMessage] = React.useState('')
+  const handleTextInputChange = (event) => {
+    setMessage(event.target.value)
   }
-  const handle_dot_click = () => {
-    set_message(message + MorseChars.dot)
+  const handleDotClick = () => {
+    setMessage(message + MorseChars.dot)
   }
-  const handle_dash_click = () => {
-    set_message(message + MorseChars.dash)
+  const handleDashClick = () => {
+    setMessage(message + MorseChars.dash)
   }
-  const handle_separator_click = () => {
-    set_message(message + MorseChars.separator)
+  const handleSeparatorClick = () => {
+    setMessage(message + MorseChars.separator)
   }
   return (
     <>
@@ -62,15 +62,15 @@ export default function ButtonAppBar() {
         >
           <Box className={morse_styles.inputs}>
             <Box className={styles.buttons}>
-              <Button variant="outlined" onClick={handle_dash_click}>
+              <Button variant="outlined" onClick={handleDashClick}>
                 <HorizontalRuleIcon />
                 <Typography variant="h5">čárka</Typography>
               </Button>
-              <Button variant="outlined" onClick={handle_dot_click}>
+              <Button variant="outlined" onClick={handleDotClick}>
                 <FiberManualRecordIcon />
                 <Typography variant="h5">tečka</Typography>
               </Button>
-              <Button variant="outlined" onClick={handle_separator_click}>
+              <Button variant="outlined" onClick={handleSeparatorClick}>
                 <SendIcon />
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
@@ -80,7 +80,7 @@ export default function ButtonAppBar() {
               multiline
               fullWidth
               value={message}
-              onChange={handle_text_input_change}
+              onChange={handleTextInputChange}
               variant="filled"
               size="small"
               className={morse_styles.text_input}
@@ -88,7 +88,7 @@ export default function ButtonAppBar() {
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {message_to_react(message)}
+              {messageToReact(message)}
             </Typography>
           </Box>
         </Box>

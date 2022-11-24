@@ -27,7 +27,7 @@ const codeTable = {
   z: new Set([1, 3, 5, 6]),
 }
 
-const by_column2by_row = {
+const byColumn2byRow = {
   1: 1,
   2: 3,
   3: 5,
@@ -39,22 +39,22 @@ const by_column2by_row = {
 export function decode(selected) {
   const areSetsEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value))
-  const decoded_pair = Object.entries(codeTable).find(([_, value]) =>
+  const decodedPair = Object.entries(codeTable).find(([_, value]) =>
     areSetsEqual(selected, value)
   )
-  return decoded_pair ? decoded_pair[0] : String.fromCharCode(10734)
+  return decodedPair ? decodedPair[0] : String.fromCharCode(10734)
 }
 
-export function toUTF(selected) {
-  const utf_code = [...selected].reduce(
+export function toUtf(selected) {
+  const utfCode = [...selected].reduce(
     (total, item) => total + Math.pow(2, item - 1),
     10240
   )
-  return String.fromCharCode(utf_code)
+  return String.fromCharCode(utfCode)
 }
 
-export function columns_to_rows(by_columns) {
+export function columnsToRows(byColumns) {
   return new Set(
-    [...by_columns].map((item_by_column) => by_column2by_row[item_by_column])
+    [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
   )
 }
