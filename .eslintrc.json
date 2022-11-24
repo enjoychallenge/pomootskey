@@ -1,6 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["unused-imports"],
+  "plugins": ["unused-imports", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
@@ -11,6 +12,39 @@
         "varsIgnorePattern": "^_",
         "args": "after-used",
         "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "default",
+        "filter": {
+          "regex": "^_$",
+          "match": false
+        },
+        "format": ["StrictPascalCase", "strictCamelCase"]
+      },
+      {
+        "selector": [
+          "classProperty",
+          "objectLiteralProperty",
+          "typeProperty",
+          "classMethod",
+          "objectLiteralMethod",
+          "typeMethod",
+          "accessor",
+          "enumMember"
+        ],
+        "modifiers": ["requiresQuotes"],
+        "format": null
+      },
+      {
+        "selector": ["objectLiteralProperty"],
+        "filter": {
+          "regex": "^[0-9]+$",
+          "match": true
+        },
+        "format": null
       }
     ]
   }
