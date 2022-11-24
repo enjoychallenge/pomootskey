@@ -1,4 +1,4 @@
-const countHandler = async (request, response) => {
+const count_handler = async (request, response) => {
   const { amount = 1 } = request.body
 
   // simulate IO latency
@@ -7,4 +7,4 @@ const countHandler = async (request, response) => {
   response.json({ data: amount })
 }
 
-export default countHandler
+export default count_handler
