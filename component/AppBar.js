@@ -37,7 +37,7 @@ export default function EnjoyAppBar() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <AboutDialog open={aboutOpen} handleClose={handleAboutClose} />
+      <AboutDialog open={aboutOpen} handle_close={handleAboutClose} />
     </>
   )
 }

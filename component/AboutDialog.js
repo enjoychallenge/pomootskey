@@ -5,9 +5,9 @@ import Dialog from '@mui/material/Dialog'
 import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link'
 
-export default function AboutDialog({ open, handleClose }) {
+export default function AboutDialog({ open, handle_close }) {
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog onClose={handle_close} open={open}>
       <DialogTitle variant="h5">Enjoy Pomootskey</DialogTitle>
       <DialogContent>
         <Typography paragraph={true}>
