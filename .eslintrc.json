@@ -54,6 +54,20 @@
       {
         "selector": ["objectLiteralProperty"],
         "format": ["StrictPascalCase", "snake_case", "strictCamelCase"]
+      },
+      {
+        "selector": [
+          "classProperty",
+          "objectLiteralProperty",
+          "typeProperty",
+          "classMethod",
+          "objectLiteralMethod",
+          "typeMethod",
+          "accessor",
+          "enumMember"
+        ],
+        "format": null,
+        "modifiers": ["requiresQuotes"]
       }
     ]
   }
