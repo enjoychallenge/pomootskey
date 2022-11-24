@@ -41,3 +41,13 @@
   line-height: 1;
   font-weight: bold;
 }
+
+.input_paper {
+  p: 0px 2px;
+  display: flex;
+  align-items: stretch;
+}
+
+.input_paper > button {
+  align-items: end;
+}
