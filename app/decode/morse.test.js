@@ -3,8 +3,8 @@ import { decode } from './morse'
 describe('decode morse message', () => {
   it.each([
     {
-      morse_message: '.-../..-/-./.-',
-      exp_parts: [
+      morseMessage: '.-../..-/-./.-',
+      expParts: [
         { string: '.-..', char: 'l', type: 'char' },
         { string: '/', type: 'sep' },
         { string: '..-', char: 'u', type: 'char' },
@@ -15,8 +15,8 @@ describe('decode morse message', () => {
       ],
     },
     {
-      morse_message: '.-//..///',
-      exp_parts: [
+      morseMessage: '.-//..///',
+      expParts: [
         { string: '.-', char: 'a', type: 'char' },
         { string: '//', type: 'sep' },
         { string: '..', char: 'i', type: 'char' },
@@ -24,20 +24,20 @@ describe('decode morse message', () => {
       ],
     },
     {
-      morse_message: '.',
-      exp_parts: [{ string: '.', char: 'e', type: 'char' }],
+      morseMessage: '.',
+      expParts: [{ string: '.', char: 'e', type: 'char' }],
     },
     {
-      morse_message: '/',
-      exp_parts: [{ string: '/', type: 'sep' }],
+      morseMessage: '/',
+      expParts: [{ string: '/', type: 'sep' }],
     },
     {
-      morse_message: '',
-      exp_parts: [],
+      morseMessage: '',
+      expParts: [],
     },
     {
-      morse_message: '-..-j--?/-',
-      exp_parts: [
+      morseMessage: '-..-j--?/-',
+      expParts: [
         { string: '-..-', char: 'x', type: 'char' },
         { string: 'j', type: 'unknown' },
         { string: '--', char: 'm', type: 'char' },
@@ -45,8 +45,8 @@ describe('decode morse message', () => {
         { string: '-', char: 't', type: 'char' },
       ],
     },
-  ])('decodes morse_message', ({ morse_message, exp_parts }) => {
-    const result = decode(morse_message)
-    expect(result).toEqual(exp_parts)
+  ])('decodes morseMessage', ({ morseMessage, expParts }) => {
+    const result = decode(morseMessage)
+    expect(result).toEqual(expParts)
   })
 })
