@@ -1,0 +1,6 @@
+.braille_button > p {
+  position: absolute;
+  line-height: 1;
+  font-weight: bold;
+  font-size: max(40px, 10vmin);
+}
