@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import styles from '../styles/index.module.css'
-import { Button } from '@mui/material'
+import { Button, InputBase, Paper } from '@mui/material'
 import { columnsToRows, decode, toUtf } from '../app/decode/braille'
 import morse_styles from '../styles/morse.module.css'
 import braille_styles from '../styles/braille.module.css'
@@ -68,9 +68,6 @@ export default function BraillePage() {
               <Typography color={'white'}>{current}</Typography>
             </div>
             <Box className={styles.buttons}>
-              <Button variant="outlined" onClick={handleBackspaceButtonClick}>
-                <Backspace />
-              </Button>
               <Button variant="outlined" onClick={handleSendButtonClick}>
                 <Send />
               </Button>
@@ -90,9 +87,21 @@ export default function BraillePage() {
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography>Zadání:</Typography>
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionBraille}
-            </Typography>
+            <Paper className={styles.input_paper}>
+              <InputBase
+                hiddenLabel
+                multiline
+                fullWidth
+                value={solutionBraille}
+                readOnly="true"
+                variant="filled"
+                size="small"
+                className={morse_styles.text_input}
+              />
+              <Button onClick={handleBackspaceButtonClick}>
+                <Backspace />
+              </Button>
+            </Paper>
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
             <Typography>Řešení:</Typography>
