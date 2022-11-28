@@ -10,6 +10,8 @@
 
 .results > * {
   margin-bottom: 0.2em;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .inputs {
