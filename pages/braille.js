@@ -27,7 +27,9 @@ export default function BraillePage() {
   }
 
   const handleBackspaceButtonClick = () => {
-    setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+    if (entryPoints.length) {
+      setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+    }
   }
 
   const handleBrailleButtonClick = (value) => {
