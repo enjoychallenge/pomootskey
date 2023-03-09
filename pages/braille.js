@@ -48,7 +48,7 @@ export default function BraillePage() {
       <Button
         className={braille_styles.braille_button}
         variant="outlined"
-        onClick={(e) => handleBrailleButtonClick(value)}
+        onClick={() => handleBrailleButtonClick(value)}
       >
         {selected.has(value) ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
