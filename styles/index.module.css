@@ -29,7 +29,8 @@
   justify-content: center;
 }
 
-.buttons > * > svg {
+.buttons > * > svg,
+.buttons > * > img {
   width: 20vmin;
   height: 20vmin;
   min-width: 80px;
