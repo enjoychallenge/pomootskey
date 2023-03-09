@@ -131,21 +131,21 @@
      id="layer1"
      transform="translate(-17.02302,-13.427908)">
     <ellipse
-       style="fill:none;stroke:#33b5ff;stroke-width:3.12579;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#33b5e1;stroke-width:3.12579;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path1012"
        cx="42.15564"
        cy="38.645359"
        rx="23.569725"
        ry="23.654556" />
     <rect
-       style="fill:#33b5ff;fill-opacity:1;stroke:#33b5ff;stroke-width:1.07937;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#33b5ff;fill-opacity:1;stroke:#33b5e1;stroke-width:1.07937;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1850"
        width="5.1020279"
        height="5.1020279"
        x="56.980553"
        y="32.28783" />
     <rect
-       style="fill:#33b5ff;fill-opacity:1;stroke:#33b5ff;stroke-width:1.07937;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#33b5ff;fill-opacity:1;stroke:#33b5e1;stroke-width:1.07937;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1850-6"
        width="5.1020279"
        height="5.1020279"
@@ -153,7 +153,7 @@
        y="51.263493"
        transform="rotate(-45)" />
     <path
-       style="fill:none;stroke:#33b5ff;stroke-width:1.565;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#33b5e1;stroke-width:1.565;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 62.082582,37.389857 H 41.557415 L 27.505612,52.207273"
        id="path2775"
        sodipodi:nodetypes="ccc" />

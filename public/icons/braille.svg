@@ -25,11 +25,11 @@
      showgrid="false"
      inkscape:zoom="0.64052329"
      inkscape:cx="333.32121"
-     inkscape:cy="512.0813"
-     inkscape:window-width="1920"
-     inkscape:window-height="1043"
-     inkscape:window-x="2160"
-     inkscape:window-y="0"
+     inkscape:cy="511.30069"
+     inkscape:window-width="2160"
+     inkscape:window-height="3690"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -65,23 +65,18 @@
        cx="47.416325"
        cy="27.332872"
        r="2.5281668" />
-    <g
-       id="g15255-5"
-       transform="translate(1.1644058,21.179234)"
-       style="fill:none;fill-opacity:1">
-      <circle
-         style="fill:none;fill-opacity:1;stroke:#33b5e1;stroke-width:0.964999"
-         id="path15107-35"
-         cx="35.730545"
-         cy="28.778612"
-         r="2.5281668" />
-      <circle
-         style="fill:none;fill-opacity:1;stroke:#33b5e1;stroke-width:0.964999"
-         id="path15107-3-6"
-         cx="46.251919"
-         cy="28.778612"
-         r="2.5281668" />
-    </g>
+    <circle
+       style="fill:none;fill-opacity:1;stroke:#33b5e1;stroke-width:0.964999"
+       id="path15107-35"
+       cx="36.894951"
+       cy="49.957848"
+       r="2.5281668" />
+    <circle
+       style="fill:none;fill-opacity:1;stroke:#33b5e1;stroke-width:0.964999"
+       id="path15107-3-6"
+       cx="47.416325"
+       cy="49.957848"
+       r="2.5281668" />
     <circle
        style="fill:#33b5e1;fill-opacity:1;stroke:#33b5e1;stroke-width:0.964999"
        id="path15107-6"
