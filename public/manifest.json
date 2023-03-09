@@ -17,6 +17,11 @@
       "src": "icons/icon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
+    },
+    {
+      "src": "icons/icon-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
     }
   ],
   "splash_pages": null
