@@ -51,3 +51,9 @@
 .input_paper > button {
   align-items: end;
 }
+
+.current_char {
+  font-size: max(40px, 10vmin);
+  line-height: 1;
+  font-weight: bold;
+}
