@@ -67,7 +67,7 @@ export default function ButtonAppBar() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={morse_styles.inputs}>
-            <Box className={styles.buttons}>
+            <Box className={layout_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
                 <HorizontalRuleIcon />
                 <Typography variant="h5">čárka</Typography>
