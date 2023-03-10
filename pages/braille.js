@@ -4,7 +4,6 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
-import styles from '../styles/index.module.scss'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
@@ -71,7 +70,7 @@ export default function BraillePage() {
             <Box className={braille_styles.buttons}>
               <Box>
                 <div>
-                  <Typography color={'white'} className={styles.current_char}>
+                  <Typography color={'white'} className={braille_styles.current_char}>
                     {current}
                   </Typography>
                 </div>
