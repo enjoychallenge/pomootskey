@@ -1,3 +1,5 @@
+@use './button' as common_buttons;
+
 .page {
   height: 100vh;
   display: flex;
@@ -18,5 +20,18 @@
   & > * {
     flex-grow: 1;
     flex-basis: 20vh;
+  }
+}
+
+.buttons_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 5vmin;
+
+  & > * {
+    @include common_buttons.button;
   }
 }
