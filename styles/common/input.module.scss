@@ -7,3 +7,15 @@
     align-items: end;
   }
 }
+
+.text_input {
+  padding: 0;
+
+  & > * {
+    padding: 0;
+  }
+  & textarea {
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+}
