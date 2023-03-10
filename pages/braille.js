@@ -69,7 +69,10 @@ export default function BraillePage() {
             <Box className={braille_styles.buttons}>
               <Box>
                 <div>
-                  <Typography color={'white'} className={braille_styles.current_char}>
+                  <Typography
+                    color={'white'}
+                    className={braille_styles.current_char}
+                  >
                     {current}
                   </Typography>
                 </div>
@@ -109,7 +112,10 @@ export default function BraillePage() {
               </Button>
             </Paper>
           </Box>
-          <Box sx={{ color: 'result.main' }} className={layout_styles.results_box}>
+          <Box
+            sx={{ color: 'result.main' }}
+            className={layout_styles.results_box}
+          >
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {solutionText}
             </Typography>
