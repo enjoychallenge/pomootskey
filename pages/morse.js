@@ -3,7 +3,7 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
-import input_styles from "../styles/common/input.module.scss";
+import input_styles from '../styles/common/input.module.scss'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Button from '@mui/material/Button'
@@ -96,7 +96,10 @@ export default function ButtonAppBar() {
               </Button>
             </Paper>
           </Box>
-          <Box sx={{ color: 'result.main' }} className={layout_styles.results_box}>
+          <Box
+            sx={{ color: 'result.main' }}
+            className={layout_styles.results_box}
+          >
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {messageToReact(message)}
             </Typography>
