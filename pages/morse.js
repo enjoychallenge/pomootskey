@@ -2,8 +2,8 @@ import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import styles from '../styles/index.module.scss'
 import layout_styles from '../styles/common/layout.module.scss'
+import input_styles from "../styles/common/input.module.scss";
 import morse_styles from '../styles/morse.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -81,7 +81,7 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
             </Box>
-            <Paper className={styles.input_paper}>
+            <Paper className={input_styles.input_paper}>
               <InputBase
                 hiddenLabel
                 multiline

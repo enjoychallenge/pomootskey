@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import styles from '../styles/index.module.scss'
 import layout_styles from '../styles/common/layout.module.scss'
+import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { columnsToRows, decode, toUtf } from '../app/decode/braille'
 import morse_styles from '../styles/morse.module.css'
@@ -94,7 +95,7 @@ export default function BraillePage() {
                 <BrailleButton value={6} />
               </Box>
             </Box>
-            <Paper className={styles.input_paper}>
+            <Paper className={input_styles.input_paper}>
               <InputBase
                 hiddenLabel
                 multiline
