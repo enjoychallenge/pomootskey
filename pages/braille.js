@@ -8,7 +8,6 @@ import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { columnsToRows, decode, toUtf } from '../app/decode/braille'
-import morse_styles from '../styles/morse.module.css'
 import braille_styles from '../styles/braille.module.css'
 
 export default function BraillePage() {
@@ -103,7 +102,7 @@ export default function BraillePage() {
                 readOnly="true"
                 variant="filled"
                 size="small"
-                className={morse_styles.text_input}
+                className={input_styles.text_input}
               />
               <Button onClick={handleBackspaceButtonClick}>
                 <Backspace />
