@@ -67,34 +67,30 @@ export default function BraillePage() {
         >
           <Box className={layout_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
-              <Box>
-                <div>
-                  <Typography
-                    color={'white'}
-                    className={braille_styles.current_char}
-                  >
-                    {current}
-                  </Typography>
-                </div>
-                <BrailleButton value={1} />
-                <BrailleButton value={4} />
-              </Box>
-              <Box>
-                <Button></Button>
-                <BrailleButton value={2} />
-                <BrailleButton value={5} />
-              </Box>
-              <Box>
-                <Button
-                  variant="outlined"
-                  onClick={handleSendButtonClick}
-                  className={braille_styles.braille_button}
+              <div>
+                <Typography
+                  color={'white'}
+                  className={braille_styles.current_char}
                 >
-                  <Send />
-                </Button>
-                <BrailleButton value={3} />
-                <BrailleButton value={6} />
-              </Box>
+                  {current}
+                </Typography>
+              </div>
+              <BrailleButton value={1} />
+              <BrailleButton value={4} />
+
+              <Button></Button>
+              <BrailleButton value={2} />
+              <BrailleButton value={5} />
+
+              <Button
+                variant="outlined"
+                onClick={handleSendButtonClick}
+                className={braille_styles.braille_button}
+              >
+                <Send />
+              </Button>
+              <BrailleButton value={3} />
+              <BrailleButton value={6} />
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
