@@ -8,7 +8,7 @@ import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { columnsToRows, decode, toUtf } from '../app/decode/braille'
-import braille_styles from '../styles/braille.module.css'
+import braille_styles from '../styles/braille.module.scss'
 
 export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
