@@ -1,39 +1,32 @@
 .braille_button {
-  width: auto;
-  height: auto;
-  min-width: 100px;
-  min-height: 100px;
-
   & > p {
     position: absolute;
     line-height: 1;
     font-weight: bold;
-    font-size: max(40px, 10vmin);
+    font-size: max(40px, 5vmin);
   }
 
   & > svg {
-    width: 20vmin;
-    height: 20vmin;
+    width: 90%;
+    height: 90%;
     min-width: 80px;
     min-height: 80px;
   }
 }
 
 .buttons {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 0 auto;
-  gap: 2vmin;
-  align-items: flex-end;
-  flex-direction: column;
+  grid-gap: 2vmin;
 
   & > * {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    gap: 2vmin;
+    width: auto;
+    height: auto;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: max(min(30vmin, 20vw), 160px);
+    max-height: max(min(30vmin, 20vh), 160px);
   }
 }
 
