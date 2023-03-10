@@ -66,29 +66,31 @@ export default function BraillePage() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={morse_styles.inputs}>
-            <div>
-              <Typography color={'white'}>{current}</Typography>
-            </div>
-            <Box className={styles.buttons}>
-              <Button variant="outlined" onClick={handleSendButtonClick}>
-                <Send />
-              </Button>
+            <Box className={braille_styles.buttons}>
+              <Box>
+                <div>
+                  <Typography color={'white'}>{current}</Typography>
+                </div>
+                <BrailleButton value={1} />
+                <BrailleButton value={4} />
+              </Box>
+              <Box>
+                <Button></Button>
+                <BrailleButton value={2} />
+                <BrailleButton value={5} />
+              </Box>
+              <Box>
+                <Button
+                  variant="outlined"
+                  onClick={handleSendButtonClick}
+                  className={braille_styles.braille_button}
+                >
+                  <Send />
+                </Button>
+                <BrailleButton value={3} />
+                <BrailleButton value={6} />
+              </Box>
             </Box>
-            <Box className={styles.buttons}>
-              <BrailleButton value={3} />
-              <BrailleButton value={6} />
-            </Box>
-            <Box className={styles.buttons}>
-              <BrailleButton value={2} />
-              <BrailleButton value={5} />
-            </Box>
-            <Box className={styles.buttons}>
-              <BrailleButton value={1} />
-              <BrailleButton value={4} />
-            </Box>
-          </Box>
-          <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
-            <Typography>Zadání:</Typography>
             <Paper className={styles.input_paper}>
               <InputBase
                 hiddenLabel
@@ -106,13 +108,10 @@ export default function BraillePage() {
             </Paper>
           </Box>
           <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
-            <Typography>Řešení:</Typography>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {solutionText}
             </Typography>
-          </Box>
-          <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
-            <Typography>Alternativní řešení (tečky po řádkách):</Typography>
+            <Typography>Alternativní řešení:</Typography>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {solutionByRowsText}
             </Typography>
