@@ -1,0 +1,9 @@
+.input_paper {
+  padding: 0px 2px;
+  display: flex;
+  align-items: stretch;
+
+  & > button {
+    align-items: end;
+  }
+}
