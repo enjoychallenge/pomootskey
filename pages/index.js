@@ -3,15 +3,16 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import styles from '../styles/index.module.scss'
+import layout_styles from '../styles/common/layout.module.scss'
 import Button from '@mui/material/Button'
 import NextLink from 'next/link'
 
 export default function ButtonAppBar() {
   return (
     <>
-      <Box className={styles.page}>
+      <Box className={layout_styles.page}>
         <AppBar />
-        <Box component="main" className={styles.main}>
+        <Box component="main" className={layout_styles.main}>
           <Box className={styles.buttons} sx={{ color: 'primary.main' }}>
             <NextLink href="/morse" passHref>
               <Button>

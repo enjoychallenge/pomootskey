@@ -1,0 +1,22 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  padding: 2vmin;
+  flex-grow: 1;
+}
+
+.main_decoder {
+  @extend .main;
+  display: flex;
+  gap: 5vmin;
+  flex-direction: column-reverse;
+
+  & > * {
+    flex-grow: 1;
+    flex-basis: 20vh;
+  }
+}
