@@ -23,6 +23,13 @@
   }
 }
 
+.main_decoder_square {
+  @extend .main_decoder;
+  @media (orientation: landscape) and (max-height: 699px) {
+    flex-direction: row-reverse;
+  }
+}
+
 .buttons_box {
   display: flex;
   flex-wrap: wrap;
@@ -35,10 +42,13 @@
     @include common_buttons.button;
   }
 }
-.inputs_box {
+@mixin inputs_box_mixin {
   display: flex;
   flex-direction: column-reverse;
   gap: 2vmin;
+}
+.inputs_box {
+  @include inputs_box_mixin;
 }
 .results_box {
   & > * {
