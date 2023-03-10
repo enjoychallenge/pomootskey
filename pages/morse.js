@@ -3,6 +3,7 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import styles from '../styles/index.module.scss'
+import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -58,11 +59,11 @@ export default function ButtonAppBar() {
   }
   return (
     <>
-      <Box className={styles.page}>
+      <Box className={layout_styles.page}>
         <AppBar />
         <Box
           component="main"
-          className={[styles.main, morse_styles.main]}
+          className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
           <Box className={morse_styles.inputs}>
