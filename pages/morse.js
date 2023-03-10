@@ -2,7 +2,7 @@ import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import styles from '../styles/index.module.css'
+import styles from '../styles/index.module.scss'
 import morse_styles from '../styles/morse.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -75,11 +75,7 @@ export default function ButtonAppBar() {
                 <FiberManualRecordIcon />
                 <Typography variant="h5">tečka</Typography>
               </Button>
-              <Button
-                className={styles.character_button}
-                variant="outlined"
-                onClick={handleSeparatorClick}
-              >
+              <Button variant="outlined" onClick={handleSeparatorClick}>
                 <Typography>/</Typography>
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
