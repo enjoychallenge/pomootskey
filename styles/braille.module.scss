@@ -1,3 +1,5 @@
+@use 'common/layout.module' as common_layout;
+
 .braille_button {
   & > p {
     position: absolute;
@@ -11,6 +13,10 @@
     height: 90%;
     min-width: 80px;
     min-height: 80px;
+    @media (orientation: landscape) and (max-height: 699px) {
+      min-width: 70px;
+      min-height: 70px;
+    }
   }
 }
 
@@ -34,4 +40,17 @@
   font-size: max(40px, 10vmin);
   line-height: 1;
   font-weight: bold;
+}
+
+.inputs_box {
+  @include common_layout.inputs_box_mixin;
+  position: relative;
+
+  & > *:last-child {
+    @media (orientation: landscape) and (max-height: 699px) {
+      position: absolute;
+      left: calc(-100% - 5vmin);
+      width: 100%;
+    }
+  }
 }
