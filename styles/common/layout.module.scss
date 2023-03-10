@@ -35,3 +35,15 @@
     @include common_buttons.button;
   }
 }
+.inputs_box {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2vmin;
+}
+.results_box {
+  & > * {
+    margin-bottom: 0.2em;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+}
