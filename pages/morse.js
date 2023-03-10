@@ -4,7 +4,6 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from "../styles/common/input.module.scss";
-import morse_styles from '../styles/morse.module.css'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Button from '@mui/material/Button'
@@ -90,7 +89,7 @@ export default function ButtonAppBar() {
                 onChange={handleTextInputChange}
                 variant="filled"
                 size="small"
-                className={morse_styles.text_input}
+                className={input_styles.text_input}
               />
               <Button onClick={handleBackspaceClick}>
                 <Backspace />
