@@ -1,16 +1,5 @@
 @use 'common/button' as common_buttons;
 
-.page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main {
-  padding: 2vmin;
-  flex-grow: 1;
-}
-
 .buttons {
   display: flex;
   flex-wrap: wrap;

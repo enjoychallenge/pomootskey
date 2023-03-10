@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import styles from '../styles/index.module.scss'
+import layout_styles from '../styles/common/layout.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { columnsToRows, decode, toUtf } from '../app/decode/braille'
 import morse_styles from '../styles/morse.module.css'
@@ -58,11 +59,11 @@ export default function BraillePage() {
 
   return (
     <>
-      <Box className={styles.page}>
+      <Box className={layout_styles.page}>
         <AppBar />
         <Box
           component="main"
-          className={[styles.main, morse_styles.main]}
+          className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
           <Box className={morse_styles.inputs}>
