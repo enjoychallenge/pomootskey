@@ -1,0 +1,23 @@
+@mixin button {
+  height: 25vmin;
+  width: 25vmin;
+  min-width: 130px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > svg,
+  & > img {
+    width: 80%;
+    height: 80%;
+    min-width: 80px;
+    min-height: 80px;
+  }
+  & > p {
+    font-size: max(80px, 80%);
+    line-height: 1;
+    font-weight: bold;
+  }
+}
