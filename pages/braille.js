@@ -19,7 +19,7 @@ export default function BraillePage() {
     (entry) => decode(columnsToRows(entry)),
     ''
   )
-  const current = decode(selected)
+  const current = selected.size == 0 ? '' : decode(selected)
 
   const handleSendButtonClick = () => {
     setEntryPoints(entryPoints.concat([selected]))
@@ -69,7 +69,9 @@ export default function BraillePage() {
             <Box className={braille_styles.buttons}>
               <Box>
                 <div>
-                  <Typography color={'white'}>{current}</Typography>
+                  <Typography color={'white'} className={styles.current_char}>
+                    {current}
+                  </Typography>
                 </div>
                 <BrailleButton value={1} />
                 <BrailleButton value={4} />
