@@ -62,10 +62,10 @@ export default function BraillePage() {
         <AppBar />
         <Box
           component="main"
-          className={layout_styles.main_decoder}
+          className={layout_styles.main_decoder_square}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={layout_styles.inputs_box}>
+          <Box className={braille_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
               <div>
                 <Typography
