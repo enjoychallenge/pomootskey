@@ -31,14 +31,14 @@
 
 .buttons > * > svg,
 .buttons > * > img {
-  width: 20vmin;
-  height: 20vmin;
+  width: 80%;
+  height: 80%;
   min-width: 80px;
   min-height: 80px;
 }
 
 .character_button > p {
-  font-size: max(80px, 20vmin);
+  font-size: max(80px, 80%);
   line-height: 1;
   font-weight: bold;
 }
