@@ -2,7 +2,6 @@ import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import styles from '../styles/index.module.scss'
 import layout_styles from '../styles/common/layout.module.scss'
 import Button from '@mui/material/Button'
 import NextLink from 'next/link'
@@ -13,7 +12,7 @@ export default function ButtonAppBar() {
       <Box className={layout_styles.page}>
         <AppBar />
         <Box component="main" className={layout_styles.main}>
-          <Box className={styles.buttons} sx={{ color: 'primary.main' }}>
+          <Box className={layout_styles.buttons_box} sx={{ color: 'primary.main' }}>
             <NextLink href="/morse" passHref>
               <Button>
                 <img src="icons/morse.svg" alt="Morse" />

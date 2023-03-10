@@ -1,18 +1,3 @@
-@use 'common/button' as common_buttons;
-
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 800px;
-  margin: 0 auto;
-  gap: 5vmin;
-}
-
-.buttons > * {
-  @include common_buttons.button;
-}
-
 .input_paper {
   padding: 0px 2px;
   display: flex;
