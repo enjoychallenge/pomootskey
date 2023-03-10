@@ -1,15 +1,3 @@
-.results > * {
-  margin-bottom: 0.2em;
-  overflow-wrap: anywhere;
-  word-break: break-all;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 2vmin;
-}
-
 .text_input {
   padding: 0;
 }

@@ -66,7 +66,7 @@ export default function ButtonAppBar() {
           className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={morse_styles.inputs}>
+          <Box className={layout_styles.inputs_box}>
             <Box className={layout_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
                 <HorizontalRuleIcon />
@@ -97,7 +97,7 @@ export default function ButtonAppBar() {
               </Button>
             </Paper>
           </Box>
-          <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
+          <Box sx={{ color: 'result.main' }} className={layout_styles.results_box}>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {messageToReact(message)}
             </Typography>
