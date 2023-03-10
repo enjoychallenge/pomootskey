@@ -66,7 +66,7 @@ export default function BraillePage() {
           className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={morse_styles.inputs}>
+          <Box className={layout_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
               <Box>
                 <div>
@@ -110,7 +110,7 @@ export default function BraillePage() {
               </Button>
             </Paper>
           </Box>
-          <Box sx={{ color: 'result.main' }} className={morse_styles.results}>
+          <Box sx={{ color: 'result.main' }} className={layout_styles.results_box}>
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {solutionText}
             </Typography>
