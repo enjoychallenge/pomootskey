@@ -34,7 +34,7 @@
      inkscape:window-x="2160"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="text5647" />
   <defs
      id="defs926">
     <rect
@@ -152,13 +152,14 @@
        cy="76.544411"
        rx="93.01075"
        ry="93.345512" />
-    <text
-       xml:space="preserve"
+    <g
+       aria-label="P"
        transform="matrix(0.26458333,0,0,0.26458333,-7.7837033,-38.442708)"
        id="text5647"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:533.333px;line-height:1.25;font-family:Norasi;-inkscape-font-specification:Norasi;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5649);stroke:#33b5e1;stroke-opacity:1;fill:#33b5e1;fill-opacity:1"><tspan
-         x="166.06055"
-         y="611.13021"
-         id="tspan30862">P</tspan></text>
+       style="font-size:533.333px;line-height:1.25;font-family:Norasi;-inkscape-font-specification:Norasi;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect5649);fill:#33b5e1;stroke:#33b5e1">
+      <path
+         d="m 273.79381,455.93031 v 97.59994 q 0,28.26665 9.06667,37.33331 9.59999,9.06666 41.06664,10.13333 v 10.13332 H 174.59387 v -10.13332 q 30.39999,-2.66667 37.33332,-11.2 7.46666,-9.06666 7.46666,-42.66664 V 315.66373 q 0,-28.26665 -8,-36.26665 -7.46666,-8.53333 -36.79998,-11.19999 v -10.13333 h 140.79992 q 37.86664,0 69.86662,10.66666 31.99998,10.13333 47.99997,27.73332 21.86666,22.39999 21.86666,58.66663 0,26.13332 -13.86666,49.06664 -13.33333,22.39998 -36.79998,35.19997 -30.93331,17.59999 -93.86661,17.59999 -22.39998,0 -36.79998,-1.06666 z m 0,-160.53324 v 139.19992 q 4.8,0 14.4,1.06666 10.13332,0.53334 15.99999,0.53334 93.33327,0 93.33327,-78.39996 0,-41.59997 -25.59998,-60.79996 -25.59999,-19.19999 -79.99995,-19.19999 -10.66666,0 -14.39999,3.73333 -3.73334,3.2 -3.73334,13.86666 z"
+         id="path6541" />
+    </g>
   </g>
 </svg>
