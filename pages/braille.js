@@ -93,7 +93,7 @@ export default function BraillePage() {
                 hiddenLabel
                 multiline
                 fullWidth
-                value={solutionBraille}
+                value={solutionBraille.join('')}
                 readOnly="true"
                 variant="filled"
                 size="small"
