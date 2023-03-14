@@ -9,17 +9,20 @@ import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { decode, toUtf } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
+import Placeholder from '../component/Placeholder'
 
 const messageToReact = (allSelected) => {
-  return allSelected.length
-    ? [...allSelected].map((selected, charIdx) => {
-        return (
-          <Typography key={charIdx} display="inline">
-            {decode(selected)}
-          </Typography>
-        )
-      })
-    : null
+  return allSelected.length ? (
+    [...allSelected].map((selected, charIdx) => {
+      return (
+        <Typography key={charIdx} display="inline">
+          {decode(selected)}
+        </Typography>
+      )
+    })
+  ) : (
+    <Placeholder />
+  )
 }
 
 export default function BraillePage() {
