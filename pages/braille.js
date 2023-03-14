@@ -10,10 +10,21 @@ import { Button, InputBase, Paper } from '@mui/material'
 import { decode, toUtf } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 
+const messageToReact = (allSelected) => {
+  return allSelected.length
+    ? [...allSelected].map((selected, charIdx) => {
+        return (
+          <Typography key={charIdx} display="inline">
+            {decode(selected)}
+          </Typography>
+        )
+      })
+    : null
+}
+
 export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
   const [entryPoints, setEntryPoints] = useState([])
-  const solutionText = entryPoints.map((entry) => decode(entry), '')
   const solutionBraille = entryPoints.map((entry) => toUtf(entry), '')
   const current = selected.size == 0 ? '' : decode(selected)
 
@@ -109,7 +120,7 @@ export default function BraillePage() {
             className={layout_styles.results_box}
           >
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionText}
+              {messageToReact(entryPoints)}
             </Typography>
           </Box>
         </Box>
