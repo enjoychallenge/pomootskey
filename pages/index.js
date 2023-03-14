@@ -28,10 +28,6 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">Braille</Typography>
               </Button>
             </NextLink>
-            <div>
-              <img src="icons/semafor.svg" alt="Semaphore" />
-              <Typography variant="h5">Semafor</Typography>
-            </div>
           </Box>
         </Box>
       </Box>
