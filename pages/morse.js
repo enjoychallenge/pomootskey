@@ -4,8 +4,6 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Button from '@mui/material/Button'
 import { decode, MorseChars, PartTypes } from '../app/decode/morse'
 import { Backspace } from '@mui/icons-material'
@@ -68,11 +66,11 @@ export default function ButtonAppBar() {
           <Box className={layout_styles.inputs_box}>
             <Box className={layout_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
-                <HorizontalRuleIcon />
+                <Typography>&#8210;</Typography>
                 <Typography variant="h5">čárka</Typography>
               </Button>
               <Button variant="outlined" onClick={handleDotClick}>
-                <FiberManualRecordIcon />
+                <Typography>&#9679;</Typography>
                 <Typography variant="h5">tečka</Typography>
               </Button>
               <Button variant="outlined" onClick={handleSeparatorClick}>
