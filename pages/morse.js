@@ -1,5 +1,6 @@
 import * as React from 'react'
 import AppBar from '../component/AppBar'
+import Placeholder from '../component/Placeholder'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
@@ -10,29 +11,33 @@ import { Backspace } from '@mui/icons-material'
 import { InputBase, Paper } from '@mui/material'
 
 const messageToReact = (message) => {
-  return decode(message)
-    .map((part, partIdx) => {
-      let string = ''
-      let color = ''
-      if (part.type === PartTypes.separator) {
-        if (part.string.length === 2) {
-          string = ' '
-        } else if (part.string.length > 2) {
-          string = '. ' + '␣'.repeat(part.string.length - 3)
+  return message.length ? (
+    decode(message)
+      .map((part, partIdx) => {
+        let string = ''
+        let color = ''
+        if (part.type === PartTypes.separator) {
+          if (part.string.length === 2) {
+            string = ' '
+          } else if (part.string.length > 2) {
+            string = '. ' + '␣'.repeat(part.string.length - 3)
+          }
+        } else if (part.type === PartTypes.char) {
+          string = part.char
+        } else {
+          string = part.string
+          color = 'warning.main'
         }
-      } else if (part.type === PartTypes.char) {
-        string = part.char
-      } else {
-        string = part.string
-        color = 'warning.main'
-      }
-      return string ? (
-        <Typography key={partIdx} sx={{ color }} display="inline">
-          {string}
-        </Typography>
-      ) : null
-    })
-    .filter((part) => !!part)
+        return string ? (
+          <Typography key={partIdx} sx={{ color }} display="inline">
+            {string}
+          </Typography>
+        ) : null
+      })
+      .filter((part) => !!part)
+  ) : (
+    <Placeholder />
+  )
 }
 
 export default function ButtonAppBar() {
