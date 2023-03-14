@@ -7,7 +7,7 @@ import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
-import { columnsToRows, decode, toUtf } from '../app/decode/braille'
+import { decode, toUtf } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 
 export default function BraillePage() {
@@ -15,10 +15,6 @@ export default function BraillePage() {
   const [entryPoints, setEntryPoints] = useState([])
   const solutionText = entryPoints.map((entry) => decode(entry), '')
   const solutionBraille = entryPoints.map((entry) => toUtf(entry), '')
-  const solutionByRowsText = entryPoints.map(
-    (entry) => decode(columnsToRows(entry)),
-    ''
-  )
   const current = selected.size == 0 ? '' : decode(selected)
 
   const handleSendButtonClick = () => {
@@ -114,10 +110,6 @@ export default function BraillePage() {
           >
             <Typography sx={{ backgroundColor: 'background.paper' }}>
               {solutionText}
-            </Typography>
-            <Typography>Alternativní řešení:</Typography>
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {solutionByRowsText}
             </Typography>
           </Box>
         </Box>
