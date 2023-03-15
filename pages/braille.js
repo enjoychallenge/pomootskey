@@ -28,8 +28,9 @@ const messageToReact = (allSelected) => {
 export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
   const [entryPoints, setEntryPoints] = useState([])
-  const solutionBraille = entryPoints.map((entry) => toUtf(entry), '')
-  const current = selected.size == 0 ? '' : decode(selected)
+  const input =
+    selected.size == 0 ? entryPoints : entryPoints.concat([selected])
+  const solutionBraille = input.map((entry) => toUtf(entry), '')
 
   const handleSendButtonClick = () => {
     setEntryPoints(entryPoints.concat([selected]))
@@ -77,14 +78,7 @@ export default function BraillePage() {
         >
           <Box className={braille_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
-              <div>
-                <Typography
-                  color={'white'}
-                  className={braille_styles.current_char}
-                >
-                  {current}
-                </Typography>
-              </div>
+              <Button disabled={true}></Button>
               <BrailleButton value={1} />
               <BrailleButton value={4} />
 
@@ -123,7 +117,7 @@ export default function BraillePage() {
             className={layout_styles.results_box}
           >
             <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {messageToReact(entryPoints)}
+              {messageToReact(input)}
             </Typography>
           </Box>
         </Box>
