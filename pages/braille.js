@@ -88,7 +88,7 @@ export default function BraillePage() {
               <BrailleButton value={1} />
               <BrailleButton value={4} />
 
-              <Button></Button>
+              <Button disabled={true}></Button>
               <BrailleButton value={2} />
               <BrailleButton value={5} />
 
