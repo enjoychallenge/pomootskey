@@ -30,7 +30,7 @@ export default function AboutDialog({ open, handleClose }) {
         </Typography>
         <Typography paragraph={true}>
           Index a Jiřík,{' '}
-          <Link target="_blank" href="https://enjoychallenge.tech/">
+          <Link target="_blank" href="https://enjoychallenge.tech/cs/">
             enjoychallenge.tech
           </Link>
         </Typography>
