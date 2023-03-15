@@ -15,7 +15,7 @@ export default function AboutDialog({ open, handleClose }) {
           <Link target="_blank" rel="noreferrer" href="https://sifrovacky.cz/">
             šifrovacích her
           </Link>
-          . Velkou inspirací nám byly Androidí{' '}
+          . Velkou inspirací nám jsou Androidí{' '}
           <Link
             target="_blank"
             rel="noreferrer"
@@ -23,7 +23,7 @@ export default function AboutDialog({ open, handleClose }) {
           >
             Šifrovací pomůcky Absolutno
           </Link>{' '}
-          od Vaška Potočka, na které chceme navázat.
+          od Vaška Potočka, na které navazujeme.
         </Typography>
         <Typography variant="h6" gutterBottom>
           Autoři
