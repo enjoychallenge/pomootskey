@@ -43,7 +43,14 @@ const messageToReact = (message) => {
 export default function ButtonAppBar() {
   const [message, setMessage] = React.useState('')
   const handleTextInputChange = (event) => {
-    setMessage(event.target.value)
+    let message = event.target.value
+    if (message.includes('—')) {
+      message = message.replaceAll('—', '--')
+    }
+    if (message.includes('…')) {
+      message = message.replaceAll('…', '...')
+    }
+    setMessage(message)
   }
   const handleDotClick = () => {
     setMessage(message + MorseChars.dot)
