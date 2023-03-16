@@ -7,7 +7,7 @@ Autoři
 [Index](https://sifrovacky.cz/statistiky/hraci/michal-kral) a [Jiřík](https://sifrovacky.cz/statistiky/hraci/jiri-kozel), [enjoychallenge.tech](https://enjoychallenge.tech/cs/)
 
 ## Instalace
-Aplikace je dostupná jako PWA na adrese [https://pomootskey.enjoychallenge.tech/](https://pomootskey.enjoychallenge.tech/). Jako takovou si ji lze stáhnout do vlastního zařízení pro použití offline, viz [anglický návod](https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/).
+Aplikace je dostupná jako PWA na adrese [https://pomootskey.enjoychallenge.tech/](https://pomootskey.enjoychallenge.tech/). Jako takovou si ji lze stáhnout do vlastního zařízení pro použití offline. Pro instalaci na iPhone je potřeba otevřít stránku [https://pomootskey.enjoychallenge.tech/](https://pomootskey.enjoychallenge.tech/) v prohlížeči Safari, následně zvolit tlačítko Share a vybrat "Add to Home Screen". Pro jiné operační systémy doporučujeme [anglický návod](https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/).
 
 ## Zpětná vazba
 Náměty na rozvoj a hlášení chyb prosím zadávejte na [GitHub](https://github.com/enjoychallenge/pomootskey/issues).
