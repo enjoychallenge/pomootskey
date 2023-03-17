@@ -40,11 +40,4 @@
   @include common_layout.inputs_box_mixin;
   position: relative;
 
-  & > *:last-child {
-    @media (orientation: landscape) and (max-height: 699px) {
-      position: absolute;
-      left: calc(-100% - 5vmin);
-      width: 100%;
-    }
-  }
 }
