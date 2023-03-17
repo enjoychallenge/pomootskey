@@ -48,6 +48,12 @@
   @include inputs_box_mixin;
 }
 .results_box {
+  justify-content: space-between;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  flex-grow: 4;
+
   & > * {
     margin-bottom: 0.2em;
     overflow-wrap: anywhere;
