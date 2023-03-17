@@ -17,16 +17,13 @@
   gap: 5vmin;
   flex-direction: column-reverse;
 
+  @media (orientation: landscape) and (max-height: 699px) {
+    flex-direction: row-reverse;
+  }
+
   & > * {
     flex-grow: 1;
     flex-basis: 20vh;
-  }
-}
-
-.main_decoder_square {
-  @extend .main_decoder;
-  @media (orientation: landscape) and (max-height: 699px) {
-    flex-direction: row-reverse;
   }
 }
 
