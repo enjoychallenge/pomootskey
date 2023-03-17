@@ -1,0 +1,24 @@
+@use './common/button' as common_buttons;
+
+.buttons_box {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  gap: 2vmin;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @media (orientation: landscape) and (max-height: 699px) {
+    flex-direction: column;
+  }
+
+  & > * {
+    @include common_buttons.button;
+    min-width: unset;
+    min-height: unset;
+
+    & > p {
+      font-size: max(65px, 400%);
+    }
+  }
+}

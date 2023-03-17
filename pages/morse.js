@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
+import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
 import { decode, MorseChars, PartTypes } from '../app/decode/morse'
 import { Backspace } from '@mui/icons-material'
@@ -76,7 +77,7 @@ export default function ButtonAppBar() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box className={layout_styles.buttons_box}>
+            <Box className={morse_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
                 <Typography>&#8210;</Typography>
               </Button>
