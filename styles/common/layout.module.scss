@@ -39,14 +39,10 @@
     @include common_buttons.button;
   }
 }
-@mixin inputs_box_mixin {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 2vmin;
-}
+
 .inputs_box {
-  @include inputs_box_mixin;
 }
+
 .results_box {
   justify-content: space-between;
   display: flex;
