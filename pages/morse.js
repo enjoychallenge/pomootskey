@@ -90,6 +90,14 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">oddělovač</Typography>
               </Button>
             </Box>
+          </Box>
+          <Box
+            sx={{ color: 'result.main' }}
+            className={layout_styles.results_box}
+          >
+            <Typography sx={{ backgroundColor: 'background.paper' }}>
+              {messageToReact(message)}
+            </Typography>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 hiddenLabel
@@ -105,14 +113,6 @@ export default function ButtonAppBar() {
                 <Backspace />
               </Button>
             </Paper>
-          </Box>
-          <Box
-            sx={{ color: 'result.main' }}
-            className={layout_styles.results_box}
-          >
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {messageToReact(message)}
-            </Typography>
           </Box>
         </Box>
       </Box>
