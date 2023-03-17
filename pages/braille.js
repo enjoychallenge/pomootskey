@@ -80,7 +80,7 @@ export default function BraillePage() {
           className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={braille_styles.inputs_box}>
+          <Box className={layout_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
               <Button disabled={true}></Button>
               <BrailleButton value={1} />

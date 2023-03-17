@@ -35,9 +35,3 @@
     max-height: max(min(30vmin, 20vh), 160px);
   }
 }
-
-.inputs_box {
-  @include common_layout.inputs_box_mixin;
-  position: relative;
-
-}
