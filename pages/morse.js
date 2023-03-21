@@ -79,15 +79,12 @@ export default function ButtonAppBar() {
             <Box className={layout_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
                 <Typography>&#8210;</Typography>
-                <Typography variant="h5">čárka</Typography>
               </Button>
               <Button variant="outlined" onClick={handleDotClick}>
                 <Typography>&#9679;</Typography>
-                <Typography variant="h5">tečka</Typography>
               </Button>
               <Button variant="outlined" onClick={handleSeparatorClick}>
                 <Typography>/</Typography>
-                <Typography variant="h5">oddělovač</Typography>
               </Button>
             </Box>
           </Box>
