@@ -38,8 +38,12 @@ export default function BraillePage() {
   }
 
   const handleBackspaceButtonClick = () => {
-    if (entryPoints.length) {
-      setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+    if (selected.size === 0) {
+      if (entryPoints.length) {
+        setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+      }
+    } else {
+      setSelected(new Set())
     }
   }
 
