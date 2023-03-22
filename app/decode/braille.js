@@ -1,3 +1,5 @@
+import { decodeBySet } from './common'
+
 const codeTable = {
   a: new Set([1]),
   b: new Set([1, 2]),
@@ -37,12 +39,7 @@ const byColumn2byRow = {
 }
 
 export function decode(selected) {
-  const areSetsEqual = (a, b) =>
-    a.size === b.size && [...a].every((value) => b.has(value))
-  const decodedPair = Object.entries(codeTable).find(([_, value]) =>
-    areSetsEqual(selected, value)
-  )
-  return decodedPair ? decodedPair[0] : String.fromCharCode(10734)
+  return decodeBySet(selected, codeTable)
 }
 
 export function toUtf(selected) {
