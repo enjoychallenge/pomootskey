@@ -7,15 +7,19 @@ import { Backspace, Circle, CircleOutlined } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
+import { decode } from '../app/decode/semaphore'
 import braille_styles from '../styles/braille.module.scss'
 import Placeholder from '../component/Placeholder'
 
 const messageToReact = (message) => {
   return message.length ? (
     [...message].map((chosenPoints, charIdx) => {
+      const character = decode(chosenPoints)
+      const color =
+        character === String.fromCharCode(10734) ? 'warning.main' : ''
       return (
-        <Typography key={charIdx} display="inline">
-          ({[...chosenPoints].join(',')})
+        <Typography key={charIdx} sx={{ color }} display="inline">
+          {character}
         </Typography>
       )
     })
