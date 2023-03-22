@@ -14,8 +14,12 @@
 
   & > * {
     @include common_buttons.button;
-    min-width: unset;
-    min-height: unset;
+    height: 25vmin;
+    width: 25vmin;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 120px;
+    max-height: 120px;
 
     & > p {
       font-size: max(65px, 400%);
