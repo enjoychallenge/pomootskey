@@ -22,16 +22,17 @@
 
 .buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: auto auto auto;
   margin: 0 auto;
-  grid-gap: 2vmin;
+  gap: 2vmin;
+  justify-content: center;
 
   & > * {
-    width: auto;
-    height: auto;
+    height: 25vmin;
+    width: 25vmin;
     min-width: 80px;
     min-height: 80px;
-    max-width: max(min(30vmin, 20vw), 160px);
-    max-height: max(min(30vmin, 20vh), 160px);
+    max-width: 120px;
+    max-height: 120px;
   }
 }
