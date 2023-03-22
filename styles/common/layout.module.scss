@@ -14,16 +14,11 @@
 .main_decoder {
   @extend .main;
   display: flex;
-  gap: 5vmin;
+  gap: 2vmin;
   flex-direction: column-reverse;
 
   @media (orientation: landscape) and (max-height: 699px) {
     flex-direction: row-reverse;
-  }
-
-  & > * {
-    flex-grow: 1;
-    flex-basis: 20vh;
   }
 }
 
@@ -41,14 +36,16 @@
 }
 
 .inputs_box {
+  flex-grow: 0;
 }
 
 .results_box {
-  justify-content: space-between;
   display: flex;
+  flex-grow: 1;
+  flex-basis: calc(50vh - 56px); // 56px is min height of header
+  justify-content: space-between;
   align-items: stretch;
   flex-direction: column;
-  flex-grow: 4;
 
   & > * {
     margin-bottom: 0.2em;
