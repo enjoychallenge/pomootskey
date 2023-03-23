@@ -8,7 +8,7 @@
   }
 }
 
-.text_input {
+@mixin text_input_mixin {
   padding: 0;
 
   & > * {
@@ -17,6 +17,12 @@
   & textarea {
     overflow-wrap: anywhere;
     word-break: break-all;
+  }
+}
+
+.text_input {
+  @include text_input_mixin;
+  & textarea {
     font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace', 'monospace';
   }
 }
