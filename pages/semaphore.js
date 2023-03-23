@@ -8,7 +8,7 @@ import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { decode } from '../app/decode/semaphore'
-import braille_styles from '../styles/braille.module.scss'
+import semaphore_styles from '../styles/semaphore.module.scss'
 import Placeholder from '../component/Placeholder'
 
 const messageToReact = (message) => {
@@ -54,10 +54,19 @@ export default function SemaphorePage() {
   }
 
   const SemaphoreButton = ({ value }) => {
+    const buttonClass = {
+      1: semaphore_styles.semaphore_button_1,
+      2: semaphore_styles.semaphore_button_2,
+      3: semaphore_styles.semaphore_button_3,
+      4: semaphore_styles.semaphore_button_4,
+      5: semaphore_styles.semaphore_button_5,
+      6: semaphore_styles.semaphore_button_6,
+      7: semaphore_styles.semaphore_button_7,
+      8: semaphore_styles.semaphore_button_8,
+    }[value]
     return (
       <Button
-        className={braille_styles.braille_button}
-        variant="outlined"
+        className={buttonClass}
         onClick={() => handleSemaphoreButtonClick(value)}
       >
         {selected === value ? <Circle /> : <CircleOutlined />}
@@ -76,7 +85,7 @@ export default function SemaphorePage() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box className={braille_styles.buttons}>
+            <Box className={semaphore_styles.buttons_box}>
               <SemaphoreButton value={1} />
               <SemaphoreButton value={2} />
               <SemaphoreButton value={3} />

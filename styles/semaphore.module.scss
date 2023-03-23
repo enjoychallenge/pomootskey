@@ -1,0 +1,84 @@
+@mixin semaphore_button_mixin {
+  position: absolute;
+  display: block;
+  height: 25%;
+  width: 25%;
+  padding: 0;
+
+  & > p {
+    display: none;
+  }
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.semaphore_button_1 {
+  top: calc(100% - 12.5%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_2 {
+  top: calc(75% * 0.85 + 12.5%);
+  left: calc(75% * 0.15 + 12.5%);
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_3 {
+  top: 50%;
+  left: 12.5%;
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_4 {
+  top: calc(75% * 0.15 + 12.5%);
+  left: calc(75% * 0.15 + 12.5%);
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_5 {
+  top: 12.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_6 {
+  top: calc(75% * 0.15 + 12.5%);
+  left: calc(75% * 0.85 + 12.5%);
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_7 {
+  top: 50%;
+  left: calc(100% - 12.5%);
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.semaphore_button_8 {
+  top: calc(75% * 0.85 + 12.5%);
+  left: calc(75% * 0.85 + 12.5%);
+  transform: translate(-50%, -50%);
+  @include semaphore_button_mixin;
+}
+
+.buttons_box {
+  display: compact;
+  margin: 0 auto;
+  gap: 2vmin;
+  position: relative;
+
+  width: 81vmin;
+  height: 81vmin;
+  justify-content: space-evenly;
+  align-items: center;
+}
