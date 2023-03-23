@@ -28,6 +28,16 @@ const messageToReact = (message) => {
   )
 }
 
+const inputToReact = (message) => {
+  return message.length
+    ? [...message]
+        .map((chosenPoints) => {
+          return decode(chosenPoints)
+        })
+        .join('')
+    : ''
+}
+
 export default function SemaphorePage() {
   const [selected, setSelected] = useState(null)
   const [message, setMessage] = useState([])
@@ -108,11 +118,9 @@ export default function SemaphorePage() {
                 hiddenLabel
                 multiline
                 fullWidth
-                value={'Input'}
+                value={inputToReact(message)}
                 readOnly="true"
-                variant="filled"
-                size="small"
-                className={input_styles.text_input}
+                className={semaphore_styles.text_input}
               />
               <Button onClick={handleBackspaceButtonClick}>
                 <Backspace />

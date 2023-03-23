@@ -1,3 +1,5 @@
+@use 'common/input.module' as input_layout;
+
 @mixin semaphore_button_mixin {
   position: absolute;
   display: block;
@@ -81,4 +83,17 @@
   height: 81vmin;
   justify-content: space-evenly;
   align-items: center;
+}
+
+@font-face {
+  font-family: 'EnigmailedSemaphore';
+  src: url('fonts/EnigmailedSemaphore-Regular.ttf') format('truetype');
+}
+
+.text_input {
+  @include input_layout.text_input_mixin;
+  & textarea {
+    font-family: 'EnigmailedSemaphore';
+    font-size: x-large;
+  }
 }
