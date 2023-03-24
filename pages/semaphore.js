@@ -95,7 +95,7 @@ export default function SemaphorePage() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box className={semaphore_styles.buttons_box}>
+            <Box className={semaphore_styles.semaphore_buttons_box}>
               <SemaphoreButton value={1} />
               <SemaphoreButton value={2} />
               <SemaphoreButton value={3} />
