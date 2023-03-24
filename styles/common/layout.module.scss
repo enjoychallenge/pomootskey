@@ -1,5 +1,27 @@
 @use './button' as common_buttons;
 
+@function translate-media-condition($c) {
+  $condMap: (
+    'landscape_mode': '(orientation: landscape) and (max-height: 699px)',
+  );
+  @return map-get($condMap, $c);
+}
+
+// See https://css-tricks.com/approaches-media-queries-sass/
+@mixin media($args...) {
+  $query: '';
+  @each $arg in $args {
+    $op: '';
+    @if ($query != '') {
+      $op: ' and ';
+    }
+    $query: $query + $op + translate-media-condition($arg);
+  }
+  @media #{$query} {
+    @content;
+  }
+}
+
 .page {
   height: 100vh;
   display: flex;
@@ -17,7 +39,7 @@
   gap: 2vmin;
   flex-direction: column-reverse;
 
-  @media (orientation: landscape) and (max-height: 699px) {
+  @include media('landscape_mode') {
     flex-direction: row-reverse;
   }
 }
