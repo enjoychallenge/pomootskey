@@ -1,4 +1,5 @@
 @use 'common/input.module' as input_layout;
+@use 'common/layout.module' as common_layout;
 
 @mixin semaphore_button_mixin {
   position: absolute;
@@ -73,16 +74,20 @@
   @include semaphore_button_mixin;
 }
 
-.buttons_box {
+.semaphore_buttons_box {
   display: compact;
   margin: 0 auto;
   gap: 2vmin;
   position: relative;
 
-  width: 81vmin;
-  height: 81vmin;
   justify-content: space-evenly;
   align-items: center;
+  width: 42vh;
+  height: 42vh;
+  @include common_layout.media('landscape_mode') {
+    width: min(calc(90vh - 56px), 40vw);
+    height: min(calc(90vh - 56px), 40vw);
+  }
 }
 
 @font-face {
