@@ -39,27 +39,32 @@ const inputToReact = (message) => {
 }
 
 export default function SemaphorePage() {
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(new Set())
   const [message, setMessage] = useState([])
+  const [lastCharButtonsTimeout, setLastCharButtonsTimeout] = useState(null)
 
   const handleBackspaceButtonClick = () => {
-    if (selected === null) {
-      if (message) {
-        setMessage(message.slice(0, message.length - 1))
-      }
-    } else {
-      setSelected(null)
+    if ([0, 2].includes(selected.size) && message.length > 0) {
+      setMessage(message.slice(0, message.length - 1))
     }
+    setSelected(new Set())
+    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonClick = (value) => {
-    if (selected === value) {
-      setSelected(null)
-    } else if (selected === null) {
-      setSelected(value)
+    if ([0, 2].includes(selected.size)) {
+      clearTimeout(lastCharButtonsTimeout)
+      setSelected(new Set([value]))
+    } else if (selected.size === 1 && selected.has(value)) {
+      setSelected(new Set())
     } else {
-      setMessage(message.concat([new Set([selected, value])]))
-      setSelected(null)
+      const selectedNew = new Set(selected.add(value))
+      setMessage(message.concat(selectedNew))
+      setSelected(selectedNew)
+      const lastCharButtonsTimeoutLocal = setTimeout(() => {
+        setSelected(new Set())
+      }, 500)
+      setLastCharButtonsTimeout(lastCharButtonsTimeoutLocal)
     }
   }
 
@@ -79,7 +84,7 @@ export default function SemaphorePage() {
         className={buttonClass}
         onClick={() => handleSemaphoreButtonClick(value)}
       >
-        {selected === value ? <Circle /> : <CircleOutlined />}
+        {selected.has(value) ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
       </Button>
     )
