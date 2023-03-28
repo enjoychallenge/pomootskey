@@ -5,7 +5,6 @@ import input_styles from '../styles/common/input.module.scss'
 export default function Placeholder() {
   return (
     <InputBase
-      hiddenLabel
       multiline
       fullWidth
       value=""

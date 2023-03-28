@@ -110,7 +110,6 @@ export default function BraillePage() {
             </Typography>
             <Paper className={input_styles.input_paper}>
               <InputBase
-                hiddenLabel
                 multiline
                 fullWidth
                 value={solutionBraille.join('')}
