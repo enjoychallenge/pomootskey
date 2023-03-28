@@ -124,7 +124,7 @@ export default function SemaphorePage() {
                 multiline
                 fullWidth
                 value={inputToReact(message)}
-                readOnly="true"
+                readOnly={true}
                 className={semaphore_styles.text_input}
               />
               <Button onClick={handleBackspaceButtonClick}>

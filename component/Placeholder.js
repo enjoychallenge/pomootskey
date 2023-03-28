@@ -9,7 +9,7 @@ export default function Placeholder() {
       multiline
       fullWidth
       value=""
-      readOnly="true"
+      readOnly={true}
       variant="filled"
       size="small"
       className={input_styles.text_input}
