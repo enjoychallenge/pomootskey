@@ -120,7 +120,6 @@ export default function SemaphorePage() {
             </Typography>
             <Paper className={input_styles.input_paper}>
               <InputBase
-                hiddenLabel
                 multiline
                 fullWidth
                 value={inputToReact(message)}

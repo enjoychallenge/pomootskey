@@ -98,7 +98,6 @@ export default function ButtonAppBar() {
             </Typography>
             <Paper className={input_styles.input_paper}>
               <InputBase
-                hiddenLabel
                 multiline
                 fullWidth
                 value={message}
