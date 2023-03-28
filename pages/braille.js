@@ -114,7 +114,7 @@ export default function BraillePage() {
                 multiline
                 fullWidth
                 value={solutionBraille.join('')}
-                readOnly="true"
+                readOnly={true}
                 variant="filled"
                 size="small"
                 className={input_styles.text_input}
