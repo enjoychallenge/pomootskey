@@ -8,6 +8,7 @@ export function decodeBySet(setSelected, decodeTable) {
 }
 
 // https://stackoverflow.com/a/37580979
+// The initial permutation must come first in the result
 export function permute(permutation) {
   const length = permutation.length,
     result = [permutation.slice()],
@@ -31,4 +32,8 @@ export function permute(permutation) {
     }
   }
   return result
+}
+
+export function alternativePermutations(listToPermutate) {
+  return permute(listToPermutate).slice(1)
 }
