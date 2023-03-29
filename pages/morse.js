@@ -7,8 +7,15 @@ import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import morse_styles from '../styles/morse.module.scss'
+import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
-import { decode, MorseChars, PartTypes } from '../app/decode/morse'
+import {
+  decode,
+  rearrange,
+  MorseChars,
+  PartTypes,
+  MorseCharsToShow,
+} from '../app/decode/morse'
 import { Backspace } from '@mui/icons-material'
 import { InputBase, Paper } from '@mui/material'
 
@@ -42,13 +49,26 @@ const messageToReact = (message) => {
   )
 }
 
+const alternativeResults = (message) => {
+  const baseCharOrder = '-./'
+  const alternativeCharOrders = alternativePermutations(baseCharOrder.split(''))
+  const resultBoxArray = alternativeCharOrders.map((item, idx) => {
+    const label =
+      'Alternativní řešení ‒●/  ⇒  ' +
+      item.reduce((accum, current) => accum + MorseCharsToShow[current], '')
+    return (
+      <ResultBox
+        key={idx}
+        label={label}
+        message={messageToReact(rearrange(message, item.join('')))}
+      />
+    )
+  })
+  return resultBoxArray
+}
+
 export default function ButtonAppBar() {
   const [message, setMessage] = React.useState('')
-  let altMessage = message
-  altMessage = altMessage.replaceAll('-', 'x')
-  altMessage = altMessage.replaceAll('.', '-')
-  altMessage = altMessage.replaceAll('/', '.')
-  altMessage = altMessage.replaceAll('x', '/')
   const handleTextInputChange = (event) => {
     let message = event.target.value
     if (message.includes('—')) {
@@ -104,10 +124,7 @@ export default function ButtonAppBar() {
                 label={'Základní řešení'}
                 message={messageToReact(message)}
               />
-              <ResultBox
-                label="Alternativní řešení &#8210;&#9679;/&nbsp;&nbsp;⇒&nbsp;&nbsp;/&#8210;&#9679;"
-                message={messageToReact(altMessage)}
-              />
+              {alternativeResults(message)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase

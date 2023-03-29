@@ -35,6 +35,12 @@ export const MorseChars = {
   separator: '/',
 }
 
+export const MorseCharsToShow = {
+  '.': '●',
+  '-': '‒',
+  '/': '/',
+}
+
 const dotsDashesPattern = new RegExp('^[.-]+$')
 const separatorPattern = new RegExp('^/+$')
 const messagePartsPattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
@@ -80,4 +86,19 @@ export function decode(message) {
   assert(partStringsLength === message.length)
 
   return parts
+}
+
+export function rearrange(message, newChars) {
+  let rearrangedMessage = new String(message)
+  rearrangedMessage = rearrangedMessage.replaceAll(/[-./]/g, (char) => {
+    switch (char) {
+      case '-':
+        return newChars[0]
+      case '.':
+        return newChars[1]
+      case '/':
+        return newChars[2]
+    }
+  })
+  return rearrangedMessage
 }
