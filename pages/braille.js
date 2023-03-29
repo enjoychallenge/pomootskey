@@ -10,6 +10,7 @@ import { Button, InputBase, Paper } from '@mui/material'
 import { decode, toUtf } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 import Placeholder from '../component/Placeholder'
+import ResultBox from '../component/ResultBox'
 
 const messageToReact = (allSelected) => {
   return allSelected.length ? (
@@ -105,9 +106,12 @@ export default function BraillePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {messageToReact(input)}
-            </Typography>
+            <Box className={layout_styles.result_cases}>
+              <ResultBox
+                label={'Základní řešení'}
+                message={messageToReact(input)}
+              />
+            </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline

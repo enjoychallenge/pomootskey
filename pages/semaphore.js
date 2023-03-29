@@ -10,6 +10,7 @@ import { Button, InputBase, Paper } from '@mui/material'
 import { decode } from '../app/decode/semaphore'
 import semaphore_styles from '../styles/semaphore.module.scss'
 import Placeholder from '../component/Placeholder'
+import ResultBox from '../component/ResultBox'
 
 const messageToReact = (message) => {
   return message.length ? (
@@ -115,9 +116,12 @@ export default function SemaphorePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {messageToReact(message)}
-            </Typography>
+            <Box className={layout_styles.result_cases}>
+              <ResultBox
+                label={'Základní řešení'}
+                message={messageToReact(message)}
+              />
+            </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
