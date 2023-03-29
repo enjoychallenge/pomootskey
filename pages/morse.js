@@ -1,6 +1,7 @@
 import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Placeholder from '../component/Placeholder'
+import ResultBox from '../component/ResultBox'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
@@ -43,6 +44,11 @@ const messageToReact = (message) => {
 
 export default function ButtonAppBar() {
   const [message, setMessage] = React.useState('')
+  let altMessage = message
+  altMessage = altMessage.replaceAll('-', 'x')
+  altMessage = altMessage.replaceAll('.', '-')
+  altMessage = altMessage.replaceAll('/', '.')
+  altMessage = altMessage.replaceAll('x', '/')
   const handleTextInputChange = (event) => {
     let message = event.target.value
     if (message.includes('—')) {
@@ -93,9 +99,16 @@ export default function ButtonAppBar() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Typography sx={{ backgroundColor: 'background.paper' }}>
-              {messageToReact(message)}
-            </Typography>
+            <Box className={layout_styles.result_cases}>
+              <ResultBox
+                label={'Základní řešení'}
+                message={messageToReact(message)}
+              />
+              <ResultBox
+                label="Alternativní řešení &#8210;&#9679;/&nbsp;&nbsp;⇒&nbsp;&nbsp;/&#8210;&#9679;"
+                message={messageToReact(altMessage)}
+              />
+            </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
