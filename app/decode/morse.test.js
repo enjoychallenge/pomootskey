@@ -1,4 +1,4 @@
-import { decode } from './morse'
+import { decode, rearrange } from './morse'
 
 describe('decode morse message', () => {
   it.each([
@@ -48,5 +48,18 @@ describe('decode morse message', () => {
   ])('decodes morseMessage', ({ morseMessage, expParts }) => {
     const result = decode(morseMessage)
     expect(result).toEqual(expParts)
+  })
+})
+
+describe('rearrange morse', () => {
+  it.each([
+    {
+      message: '..//--./-abc',
+      newChars: '/-.',
+      expOutput: '--..//-./abc',
+    },
+  ])('test morse rearrange', ({ message, newChars, expOutput }) => {
+    const output = rearrange(message, newChars)
+    expect(output).toEqual(expOutput)
   })
 })
