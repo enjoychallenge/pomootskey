@@ -75,10 +75,27 @@
     margin-bottom: 0.2em;
     overflow-wrap: anywhere;
     word-break: break-all;
+  }
+}
 
-    & > p {
-      text-transform: uppercase;
-      font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace', 'monospace';
+.result_cases {
+  & > div {
+    margin-bottom: 2px;
+
+    & > p:first-child {
+      font-size: x-small;
+    }
+
+    & > p:nth-child(2) {
+      margin-bottom: 0;
+      line-height: 1;
+
+      & > p {
+        text-transform: uppercase;
+        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
+          'monospace';
+        line-height: 1;
+      }
     }
   }
 }
