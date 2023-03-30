@@ -7,6 +7,10 @@ body {
   overflow: hidden;
 }
 
+html {
+  touch-action: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;
