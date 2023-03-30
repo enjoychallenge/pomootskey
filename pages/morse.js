@@ -20,30 +20,33 @@ import { Backspace } from '@mui/icons-material'
 import { InputBase, Paper } from '@mui/material'
 
 const messageToReact = (message) => {
-  return message.length ? (
-    decode(message)
-      .map((part, partIdx) => {
-        let string = ''
-        let color = ''
-        if (part.type === PartTypes.separator) {
-          if (part.string.length === 2) {
-            string = ' '
-          } else if (part.string.length > 2) {
-            string = '. ' + '␣'.repeat(part.string.length - 3)
+  const messageInReact = message.length
+    ? decode(message)
+        .map((part, partIdx) => {
+          let string = ''
+          let color = ''
+          if (part.type === PartTypes.separator) {
+            if (part.string.length === 2) {
+              string = ' '
+            } else if (part.string.length > 2) {
+              string = '. ' + '␣'.repeat(part.string.length - 3)
+            }
+          } else if (part.type === PartTypes.char) {
+            string = part.char
+          } else {
+            string = part.string
+            color = 'warning.main'
           }
-        } else if (part.type === PartTypes.char) {
-          string = part.char
-        } else {
-          string = part.string
-          color = 'warning.main'
-        }
-        return string ? (
-          <Typography key={partIdx} sx={{ color }} display="inline">
-            {string}
-          </Typography>
-        ) : null
-      })
-      .filter((part) => !!part)
+          return string ? (
+            <Typography key={partIdx} sx={{ color }} display="inline">
+              {string}
+            </Typography>
+          ) : null
+        })
+        .filter((part) => !!part)
+    : null
+  return messageInReact && messageInReact.length ? (
+    messageInReact
   ) : (
     <Placeholder />
   )
