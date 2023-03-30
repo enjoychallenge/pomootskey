@@ -7,7 +7,12 @@ import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
-import { decode, toUtf } from '../app/decode/braille'
+import {
+  columnsToRows,
+  decode,
+  rowsToColumns,
+  toUtf,
+} from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 import Placeholder from '../component/Placeholder'
 import ResultBox from '../component/ResultBox'
@@ -27,6 +32,26 @@ const messageToReact = (allSelected) => {
   ) : (
     <Placeholder />
   )
+}
+
+const alternativeResults = (message) => {
+  const altMessage = message.map((item) => {
+    return columnsToRows(item)
+  })
+  const label = 'Alternativní řešení číslování po řádcích 135246'
+  const altResultBox1 = (
+    <ResultBox label={label} message={messageToReact(altMessage)} />
+  )
+
+  const altMessage2 = message.map((item) => {
+    return rowsToColumns(item)
+  })
+  const label2 = 'Alternativní řešení číslování po řádcích inverzně 142536'
+  const altResultBox2 = (
+    <ResultBox label={label2} message={messageToReact(altMessage2)} />
+  )
+
+  return [altResultBox1, altResultBox2]
 }
 
 export default function BraillePage() {
@@ -114,6 +139,7 @@ export default function BraillePage() {
                 label={'Základní řešení 123456'}
                 message={messageToReact(input)}
               />
+              {alternativeResults(input)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase

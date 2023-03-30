@@ -55,3 +55,15 @@ export function columnsToRows(byColumns) {
     [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
   )
 }
+
+export function rowsToColumns(byRows) {
+  return new Set(
+    [...byRows].map((itemByRow) =>
+      Number(
+        Object.entries(byColumn2byRow).find(
+          ([key, value]) => value === itemByRow
+        )[0]
+      )
+    )
+  )
+}
