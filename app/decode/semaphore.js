@@ -9,7 +9,7 @@ const codeTable = {
   f: new Set([1, 7]),
   g: new Set([1, 8]),
   h: new Set([2, 3]),
-  i: new Set([2, 3]),
+  i: new Set([2, 4]),
   j: new Set([5, 7]),
   k: new Set([2, 5]),
   l: new Set([2, 6]),
@@ -24,7 +24,7 @@ const codeTable = {
   u: new Set([4, 6]),
   v: new Set([5, 8]),
   w: new Set([6, 7]),
-  x: new Set([6, 7]),
+  x: new Set([6, 8]),
   y: new Set([4, 7]),
   z: new Set([7, 8]),
 }
