@@ -1,8 +1,31 @@
 import { columnsToRows, decode, rowsToColumns, toUtf } from './braille'
 
-test('basic braille decode', () => {
-  const testSelected = new Set([1])
-  expect(decode(testSelected)).toEqual('a')
+describe('decode', () => {
+  it.each([
+    {
+      setToDecode: new Set([1]),
+      expResult: { char: 'a', type: 'char' },
+    },
+    {
+      setToDecode: new Set([2]),
+      expResult: { char: String.fromCharCode(10240 + 2), type: 'unknown' },
+    },
+    {
+      setToDecode: new Set([1, 2, 3]),
+      expResult: { char: 'l', type: 'char' },
+    },
+    {
+      setToDecode: new Set([1, 2, 4, 5]),
+      expResult: { char: 'g', type: 'char' },
+    },
+    {
+      setToDecode: new Set([2, 5]),
+      expResult: { char: String.fromCharCode(10240 + 2 + 16), type: 'unknown' },
+    },
+  ])('decode test', ({ setToDecode, expResult }) => {
+    const result = decode(setToDecode)
+    expect(result).toEqual(expResult)
+  })
 })
 
 test('basic braille to utf char', () => {
