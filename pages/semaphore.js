@@ -39,6 +39,38 @@ const inputToReact = (message) => {
     : ''
 }
 
+const getVariants = (message) => {
+  return [...Array(7).keys()].map((iter) => {
+    const shift = iter + 1
+    const altMessage = message.map((item) => {
+      return new Set(
+        Array.from(item).map((num) => {
+          return ((num - 1 + shift) % 8) + 1
+        })
+      )
+    })
+    return {
+      label: 'Alternativní řešení, otočení o ' + String(shift * 45) + '°',
+      message: altMessage,
+    }
+  })
+}
+
+const alternativeResults = (message) => {
+  const variants = getVariants(message)
+  const altResultsArray = variants.map((variant, idx) => {
+    const altResultBox = (
+      <ResultBox
+        key={idx}
+        label={variant.label}
+        message={messageToReact(variant.message)}
+      />
+    )
+    return altResultBox
+  })
+  return altResultsArray
+}
+
 export default function SemaphorePage() {
   const [selected, setSelected] = useState(new Set())
   const [message, setMessage] = useState([])
@@ -121,6 +153,7 @@ export default function SemaphorePage() {
                 label={'Základní řešení'}
                 message={messageToReact(message)}
               />
+              {alternativeResults(message)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
