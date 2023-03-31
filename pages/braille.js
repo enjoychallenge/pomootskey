@@ -20,12 +20,11 @@ import ResultBox from '../component/ResultBox'
 const messageToReact = (allSelected) => {
   return allSelected.length ? (
     [...allSelected].map((selected, charIdx) => {
-      const character = decode(selected)
-      const color =
-        character === String.fromCharCode(10734) ? 'warning.main' : ''
+      const decodedChar = decode(selected)
+      const color = decodedChar.type === 'unknown' ? 'warning.main' : ''
       return (
         <Typography key={charIdx} sx={{ color }} display="inline">
-          {character}
+          {decodedChar.char}
         </Typography>
       )
     })
