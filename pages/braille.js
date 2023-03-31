@@ -111,7 +111,7 @@ export default function BraillePage() {
           >
             <Box className={layout_styles.result_cases}>
               <ResultBox
-                label={'Základní řešení'}
+                label={'Základní řešení 123456'}
                 message={messageToReact(input)}
               />
             </Box>
