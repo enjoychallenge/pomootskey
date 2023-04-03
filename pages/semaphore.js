@@ -9,24 +9,7 @@ import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import { decode } from '../app/decode/semaphore'
 import semaphore_styles from '../styles/semaphore.module.scss'
-import Placeholder from '../component/Placeholder'
-import ResultBox from '../component/ResultBox'
-
-const messageToReact = (message) => {
-  return message.length ? (
-    [...message].map((chosenPoints, charIdx) => {
-      const decodedChar = decode(chosenPoints)
-      const color = decodedChar.type === 'unknown' ? 'warning.main' : ''
-      return (
-        <Typography key={charIdx} sx={{ color }} display="inline">
-          {decodedChar.char}
-        </Typography>
-      )
-    })
-  ) : (
-    <Placeholder />
-  )
-}
+import { getResultBoxes } from '../app/results'
 
 const inputToReact = (message) => {
   return message.length
@@ -56,7 +39,7 @@ const getVariants = (message, labelPrefix = '', removeBaseVariant = true) => {
   })
 }
 
-const alternativeResults = (message) => {
+const allResults = (message) => {
   const inverted = message.map((item) => {
     return new Set(
       [...item].map((button) => {
@@ -73,18 +56,21 @@ const alternativeResults = (message) => {
       })
     )
   })
-  const allVariants = getVariants(message).concat(getVariants(inverted, 'zrcadlově, ', false))
-  const altResultsArray = allVariants.map((variant, idx) => {
-    const altResultBox = (
-      <ResultBox
-        key={idx}
-        label={variant.label}
-        message={messageToReact(variant.message)}
-      />
-    )
-    return altResultBox
+  const allVariants = [
+    {
+      label: 'Základní řešení',
+      message: message,
+    },
+  ]
+    .concat(getVariants(message))
+    .concat(getVariants(inverted, 'zrcadlově, ', false))
+  const decodedVariants = allVariants.map((variant) => {
+    return {
+      ...variant,
+      decoded: variant.message.map((selected) => decode(selected)),
+    }
   })
-  return altResultsArray
+  return getResultBoxes(decodedVariants)
 }
 
 export default function SemaphorePage() {
@@ -165,11 +151,7 @@ export default function SemaphorePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              <ResultBox
-                label={'Základní řešení'}
-                message={messageToReact(message)}
-              />
-              {alternativeResults(message)}
+              {allResults(message)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase

@@ -1,7 +1,5 @@
 import * as React from 'react'
 import AppBar from '../component/AppBar'
-import Placeholder from '../component/Placeholder'
-import ResultBox from '../component/ResultBox'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
@@ -13,61 +11,42 @@ import {
   decode,
   rearrange,
   MorseChars,
-  PartTypes,
   MorseCharsToShow,
 } from '../app/decode/morse'
 import { Backspace } from '@mui/icons-material'
 import { InputBase, Paper } from '@mui/material'
+import { getResultBoxes } from '../app/results'
 
-const messageToReact = (message) => {
-  const messageInReact = message.length
-    ? decode(message)
-        .map((part, partIdx) => {
-          let string = ''
-          let color = ''
-          if (part.type === PartTypes.separator) {
-            if (part.string.length === 2) {
-              string = ' '
-            } else if (part.string.length > 2) {
-              string = '. ' + '␣'.repeat(part.string.length - 3)
-            }
-          } else if (part.type === PartTypes.char) {
-            string = part.char
-          } else {
-            string = part.string
-            color = 'warning.main'
-          }
-          return string ? (
-            <Typography key={partIdx} sx={{ color }} display="inline">
-              {string}
-            </Typography>
-          ) : null
-        })
-        .filter((part) => !!part)
-    : null
-  return messageInReact && messageInReact.length ? (
-    messageInReact
-  ) : (
-    <Placeholder />
-  )
-}
-
-const alternativeResults = (message) => {
+const allResults = (message) => {
   const baseCharOrder = '-./'
   const alternativeCharOrders = alternativePermutations(baseCharOrder.split(''))
-  const resultBoxArray = alternativeCharOrders.map((item, idx) => {
-    const label =
-      'Alternativní řešení ‒●/  ⇒  ' +
-      item.reduce((accum, current) => accum + MorseCharsToShow[current], '')
-    return (
-      <ResultBox
-        key={idx}
-        label={label}
-        message={messageToReact(rearrange(message, item.join('')))}
-      />
+  const decodedVariants = [
+    {
+      label: 'Základní řešení',
+      message: message,
+    },
+  ]
+    .concat(
+      alternativeCharOrders.map((altCharOrder) => {
+        return {
+          label:
+            'Alternativní řešení ‒●/  ⇒  ' +
+            altCharOrder.reduce(
+              (accum, current) => accum + MorseCharsToShow[current],
+              ''
+            ),
+          message: rearrange(message, altCharOrder.join('')),
+        }
+      })
     )
-  })
-  return resultBoxArray
+    .map((variant) => {
+      return {
+        label: variant.label,
+        decoded: variant.message.length ? decode(variant.message) : [],
+      }
+    })
+
+  return getResultBoxes(decodedVariants)
 }
 
 export default function ButtonAppBar() {
@@ -123,11 +102,7 @@ export default function ButtonAppBar() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              <ResultBox
-                label={'Základní řešení'}
-                message={messageToReact(message)}
-              />
-              {alternativeResults(message)}
+              {allResults(message)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
