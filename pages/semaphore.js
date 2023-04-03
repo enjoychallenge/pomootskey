@@ -15,12 +15,11 @@ import ResultBox from '../component/ResultBox'
 const messageToReact = (message) => {
   return message.length ? (
     [...message].map((chosenPoints, charIdx) => {
-      const character = decode(chosenPoints)
-      const color =
-        character === String.fromCharCode(10734) ? 'warning.main' : ''
+      const decodedChar = decode(chosenPoints)
+      const color = decodedChar.type === 'unknown' ? 'warning.main' : ''
       return (
         <Typography key={charIdx} sx={{ color }} display="inline">
-          {character}
+          {decodedChar.char}
         </Typography>
       )
     })
@@ -33,7 +32,7 @@ const inputToReact = (message) => {
   return message.length
     ? [...message]
         .map((chosenPoints) => {
-          return decode(chosenPoints)
+          return decode(chosenPoints).char
         })
         .join('')
     : ''
