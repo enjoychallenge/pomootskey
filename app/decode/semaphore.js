@@ -30,5 +30,13 @@ const codeTable = {
 }
 
 export function decode(selected) {
-  return decodeBySet(selected, codeTable)
+  const decodedChar = decodeBySet(selected, codeTable)
+  const result =
+    decodedChar === String.fromCharCode(10734)
+      ? {
+          char: decodedChar,
+          type: 'unknown',
+        }
+      : { char: decodedChar, type: 'char' }
+  return result
 }
