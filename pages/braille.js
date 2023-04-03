@@ -14,43 +14,34 @@ import {
   toUtf,
 } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
-import Placeholder from '../component/Placeholder'
-import ResultBox from '../component/ResultBox'
+import { getResultBoxes } from '../app/results'
 
-const messageToReact = (allSelected) => {
-  return allSelected.length ? (
-    [...allSelected].map((selected, charIdx) => {
-      const decodedChar = decode(selected)
-      const color = decodedChar.type === 'unknown' ? 'warning.main' : ''
-      return (
-        <Typography key={charIdx} sx={{ color }} display="inline">
-          {decodedChar.char}
-        </Typography>
-      )
-    })
-  ) : (
-    <Placeholder />
-  )
-}
-
-const alternativeResults = (message) => {
-  const altMessage = message.map((item) => {
-    return columnsToRows(item)
+const allResults = (message) => {
+  const allVariants = [
+    {
+      label: 'Základní řešení 123456',
+      message: message,
+    },
+    {
+      label: 'Alternativní řešení číslování po řádcích 135246',
+      message: message.map((item) => {
+        return columnsToRows(item)
+      }),
+    },
+    {
+      label: 'Alternativní řešení číslování po řádcích inverzně 142536',
+      message: message.map((item) => {
+        return rowsToColumns(item)
+      }),
+    },
+  ]
+  const decodedVariants = allVariants.map((variant) => {
+    return {
+      ...variant,
+      decoded: variant.message.map((selected) => decode(selected)),
+    }
   })
-  const label = 'Alternativní řešení číslování po řádcích 135246'
-  const altResultBox1 = (
-    <ResultBox label={label} message={messageToReact(altMessage)} />
-  )
-
-  const altMessage2 = message.map((item) => {
-    return rowsToColumns(item)
-  })
-  const label2 = 'Alternativní řešení číslování po řádcích inverzně 142536'
-  const altResultBox2 = (
-    <ResultBox label={label2} message={messageToReact(altMessage2)} />
-  )
-
-  return [altResultBox1, altResultBox2]
+  return getResultBoxes(decodedVariants)
 }
 
 export default function BraillePage() {
@@ -134,11 +125,7 @@ export default function BraillePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              <ResultBox
-                label={'Základní řešení 123456'}
-                message={messageToReact(input)}
-              />
-              {alternativeResults(input)}
+              {allResults(input)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
