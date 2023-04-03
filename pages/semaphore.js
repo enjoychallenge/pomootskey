@@ -39,9 +39,10 @@ const inputToReact = (message) => {
     : ''
 }
 
-const getVariants = (message) => {
-  return [...Array(7).keys()].map((iter) => {
-    const shift = iter + 1
+const getVariants = (message, labelPrefix = '', removeBaseVariant = true) => {
+  const allShifts = [...Array(8).keys()]
+  const shifts = removeBaseVariant ? allShifts.slice(1) : allShifts
+  return shifts.map((shift) => {
     const altMessage = message.map((item) => {
       return new Set(
         Array.from(item).map((num) => {
@@ -50,15 +51,31 @@ const getVariants = (message) => {
       )
     })
     return {
-      label: 'Alternativní řešení, otočení o ' + String(shift * 45) + '°',
+      label: `Alternativní řešení,${labelPrefix} otočení o ${shift * 45}°`,
       message: altMessage,
     }
   })
 }
 
 const alternativeResults = (message) => {
-  const variants = getVariants(message)
-  const altResultsArray = variants.map((variant, idx) => {
+  const inverted = message.map((item) => {
+    return new Set(
+      [...item].map((button) => {
+        return {
+          1: 1,
+          2: 8,
+          3: 7,
+          4: 6,
+          5: 5,
+          6: 4,
+          7: 3,
+          8: 2,
+        }[button]
+      })
+    )
+  })
+  const allVariants = getVariants(message).concat(getVariants(inverted, 'zrcadlově, ', false))
+  const altResultsArray = allVariants.map((variant, idx) => {
     const altResultBox = (
       <ResultBox
         key={idx}
