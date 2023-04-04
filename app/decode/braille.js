@@ -69,7 +69,7 @@ export function rowsToColumns(byRows) {
     [...byRows].map((itemByRow) =>
       Number(
         Object.entries(byColumn2byRow).find(
-          ([key, value]) => value === itemByRow
+          ([_, value]) => value === itemByRow
         )[0]
       )
     )
