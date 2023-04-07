@@ -1,3 +1,9 @@
+export const PartTypes = {
+  char: 'char',
+  separator: 'sep',
+  unknown: 'unknown',
+}
+
 export function decodeBySet(setSelected, decodeTable) {
   const areSetsEqual = (a, b) =>
     a.size === b.size && [...a].every((value) => b.has(value))

@@ -1,8 +1,8 @@
-import { PartTypes } from './decode/morse'
 import Typography from '@mui/material/Typography'
 import Placeholder from '../component/Placeholder'
 import * as React from 'react'
 import ResultBox from '../component/ResultBox'
+import { PartTypes } from './decode/common'
 
 export function decodedToResultBox(decodedVariant, key) {
   let forReact = decodedVariant.decoded

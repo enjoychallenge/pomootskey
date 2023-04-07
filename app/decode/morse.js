@@ -1,4 +1,5 @@
 import assert from 'assert'
+import { PartTypes } from './common'
 
 const codeTable = {
   a: '.-',
@@ -44,12 +45,6 @@ export const MorseCharsToShow = {
 const dotsDashesPattern = new RegExp('^[.-]+$')
 const separatorPattern = new RegExp('^/+$')
 const messagePartsPattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
-
-export const PartTypes = {
-  char: 'char',
-  separator: 'sep',
-  unknown: 'unknown',
-}
 
 export function decode(message) {
   const matches = [...message.matchAll(messagePartsPattern)]
