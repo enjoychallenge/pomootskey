@@ -43,3 +43,9 @@ export function permute(permutation) {
 export function alternativePermutations(listToPermutate) {
   return permute(listToPermutate).slice(1)
 }
+
+export function scoreResult(result) {
+  return result.reduce((accum, iter) => {
+    return accum + (iter.type === PartTypes.unknown ? 1 : 0)
+  }, 0)
+}
