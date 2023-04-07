@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography'
 import Placeholder from '../component/Placeholder'
 import * as React from 'react'
 import ResultBox from '../component/ResultBox'
-import { PartTypes } from './decode/common'
+import { PartTypes, scoreResult } from './decode/common'
 
 export function decodedToResultBox(decodedVariant, key) {
   let forReact = decodedVariant.decoded
@@ -36,7 +36,14 @@ export function decodedToResultBox(decodedVariant, key) {
 }
 
 export function getResultBoxes(variantArray) {
-  return variantArray.map((variant, idx) => {
-    return decodedToResultBox(variant, `Var${idx}`)
-  })
+  return variantArray
+    .slice(0, 1)
+    .concat(
+      variantArray
+        .slice(1)
+        .sort((a, b) => scoreResult(a.decoded) - scoreResult(b.decoded))
+    )
+    .map((variant, idx) => {
+      return decodedToResultBox(variant, `Var${idx}`)
+    })
 }
