@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent'
 import Dialog from '@mui/material/Dialog'
 import Typography from '@mui/material/Typography'
 import Link from '@mui/material/Link'
+import layout_styles from '../styles/common/layout.module.scss'
 
 export default function AboutDialog({ open, handleClose }) {
   return (
@@ -28,12 +29,18 @@ export default function AboutDialog({ open, handleClose }) {
         <Typography variant="h6" gutterBottom>
           Autoři
         </Typography>
-        <Typography paragraph={true}>
-          Index a Jiřík,{' '}
-          <Link target="_blank" href="https://enjoychallenge.tech/cs/">
-            enjoychallenge.tech
-          </Link>
-        </Typography>
+        <Typography paragraph={true}>Index a Jiřík</Typography>
+        <div className={layout_styles.logo}>
+          <img
+            src="icons/enjoychallengetech.png"
+            alt="https://enjoychallenge.tech/cs/"
+          />
+          <Typography>
+            <Link target="_blank" href="https://enjoychallenge.tech/cs/">
+              EnjoyChallenge.tech
+            </Link>
+          </Typography>
+        </div>
       </DialogContent>
     </Dialog>
   )
