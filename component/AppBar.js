@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import HelpIcon from '@mui/icons-material/Help'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AboutDialog from './AboutDialog'
 import NextLink from 'next/link'
 
@@ -27,6 +28,9 @@ export default function EnjoyAppBar() {
               Enjoy Pomootskey
             </Typography>
           </NextLink>
+          <IconButton size="large" color="inherit" aria-label="menu" href="/">
+            <ArrowBackIcon />
+          </IconButton>
           <IconButton
             size="large"
             color="inherit"
