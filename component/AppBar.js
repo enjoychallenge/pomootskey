@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import HelpIcon from '@mui/icons-material/Help'
 import AboutDialog from './AboutDialog'
 import NextLink from 'next/link'
+import { Home } from '@mui/icons-material'
 
 export default function EnjoyAppBar() {
   const [aboutOpen, setAboutOpen] = React.useState(false)
@@ -26,6 +27,11 @@ export default function EnjoyAppBar() {
             <Typography variant="h6" sx={{ flexGrow: 1 }} component="a">
               Enjoy Pomootskey
             </Typography>
+          </NextLink>
+          <NextLink href="/" passHref>
+            <IconButton size="large" color="inherit" aria-label="menu">
+              <Home />
+            </IconButton>
           </NextLink>
           <IconButton
             size="large"
