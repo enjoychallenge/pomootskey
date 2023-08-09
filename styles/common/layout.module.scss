@@ -43,6 +43,7 @@
   gap: 2vmin;
   flex-direction: column-reverse;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   @include media('landscape_mode') {
     flex-direction: row-reverse;
@@ -76,6 +77,7 @@
   align-items: stretch;
   flex-direction: column;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   & > * {
     margin-bottom: 0.2em;
@@ -86,6 +88,7 @@
 
 .result_cases {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   & > div {
     margin-bottom: 2px;
 

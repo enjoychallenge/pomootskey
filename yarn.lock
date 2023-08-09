@@ -3652,6 +3652,11 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
+inobounce@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/inobounce/-/inobounce-0.2.1.tgz#7b07bf44b6584850ee20849dc513b9bb93230b45"
+  integrity sha512-dmKhRDbUS3zGD8HDGchsZBuxaXnfFM+2jXrZpnEnBToEWCgcs3lBfCQe0wzkbpIoJwU/lufaMquSyWoX8OXTRw==
+
 internal-slot@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/internal-slot/-/internal-slot-1.0.3.tgz#7347e307deeea2faac2ac6205d4bc7d34967f59c"
