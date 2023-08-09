@@ -75,6 +75,9 @@ const allResults = (message) => {
 
 export default function SemaphorePage() {
   const [selected, setSelected] = useState(new Set())
+  const [selectedBeforePointerDown, setSelectedBeforePointerDown] = useState(
+    new Set()
+  )
   const [message, setMessage] = useState([])
   const [lastCharButtonsTimeout, setLastCharButtonsTimeout] = useState(null)
 
@@ -86,13 +89,17 @@ export default function SemaphorePage() {
     clearTimeout(lastCharButtonsTimeout)
   }
 
-  const handleSemaphoreButtonClick = (value) => {
+  const handleSemaphoreButtonPointerDown = (value) => {
+    setSelectedBeforePointerDown(new Set(selected))
     if ([0, 2].includes(selected.size)) {
       clearTimeout(lastCharButtonsTimeout)
       setSelected(new Set([value]))
-    } else if (selected.size === 1 && selected.has(value)) {
+    }
+  }
+  const handleSemaphoreButtonPointerUp = (value) => {
+    if (selectedBeforePointerDown.size === 1 && selected.has(value)) {
       setSelected(new Set())
-    } else {
+    } else if (!selected.has(value)) {
       const selectedNew = new Set(selected.add(value))
       setMessage(message.concat(selectedNew))
       setSelected(selectedNew)
@@ -117,7 +124,8 @@ export default function SemaphorePage() {
     return (
       <Button
         className={buttonClass}
-        onClick={() => handleSemaphoreButtonClick(value)}
+        onPointerDown={() => handleSemaphoreButtonPointerDown(value)}
+        onPointerUp={() => handleSemaphoreButtonPointerUp(value)}
       >
         {selected.has(value) ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
