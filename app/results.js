@@ -22,7 +22,12 @@ export function decodedToResultBox(decodedVariant, key) {
         color = 'warning.main'
       }
       return string ? (
-        <Typography key={partIdx} sx={{ color }} display="inline">
+        <Typography
+          component={'span'}
+          key={partIdx}
+          sx={{ color }}
+          display="inline"
+        >
           {string}
         </Typography>
       ) : null
