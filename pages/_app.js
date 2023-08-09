@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import theme from '../component/theme'
 import { Provider } from 'react-redux'
 import '../styles/globals.css'
+import Script from 'next/script'
 
 import store from '../app/store'
 
@@ -43,6 +44,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#317EFB" />
       </Head>
+      <Script src="/inobounce.js"></Script>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline />
