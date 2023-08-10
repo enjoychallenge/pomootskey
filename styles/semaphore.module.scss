@@ -80,6 +80,16 @@
   opacity: 0.5;
 }
 
+.semaphore_hand_selected {
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.semaphore_hand_focused {
+  @extend .semaphore_hand_selected;
+  opacity: 0.5;
+}
+
 .semaphore_buttons_box {
   display: compact;
   margin: 0 auto;
