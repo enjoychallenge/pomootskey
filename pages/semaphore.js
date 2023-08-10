@@ -136,6 +136,13 @@ export default function SemaphorePage() {
     const handlePointerLeave = detectPointer
       ? () => {
           setFocused(null)
+          if (
+            selected.size === 0 &&
+            selectedBeforePointerDown.size === 1 &&
+            selectedBeforePointerDown.has(value)
+          ) {
+            setSelectedBeforePointerDown(new Set())
+          }
         }
       : null
 
