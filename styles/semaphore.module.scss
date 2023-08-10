@@ -75,6 +75,11 @@
   @include semaphore_button_mixin;
 }
 
+.semaphore_button_circle_focused {
+  position: absolute;
+  opacity: 0.5;
+}
+
 .semaphore_buttons_box {
   display: compact;
   margin: 0 auto;
