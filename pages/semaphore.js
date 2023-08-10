@@ -75,6 +75,8 @@ const allResults = (message) => {
 
 export default function SemaphorePage() {
   const [selected, setSelected] = useState(new Set())
+  const [isFocusing, setIsFocusing] = useState(false)
+  const [focused, setFocused] = useState(null)
   const [selectedBeforePointerDown, setSelectedBeforePointerDown] = useState(
     new Set()
   )
@@ -85,20 +87,34 @@ export default function SemaphorePage() {
     if ([0, 2].includes(selected.size) && message.length > 0) {
       setMessage(message.slice(0, message.length - 1))
     }
+    setIsFocusing(false)
+    setFocused(null)
+    setSelectedBeforePointerDown(new Set())
     setSelected(new Set())
     clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonPointerDown = (value) => {
+    setIsFocusing(true)
     setSelectedBeforePointerDown(new Set(selected))
     if ([0, 2].includes(selected.size)) {
       clearTimeout(lastCharButtonsTimeout)
       setSelected(new Set([value]))
-    }
-  }
-  const handleSemaphoreButtonPointerUp = (value) => {
-    if (selectedBeforePointerDown.size === 1 && selected.has(value)) {
+    } else if (selected.has(value)) {
       setSelected(new Set())
+    }
+    setFocused(value)
+  }
+
+  const handleSemaphoreButtonPointerUp = (value) => {
+    setIsFocusing(false)
+    if (
+      selectedBeforePointerDown.size === 1 &&
+      selectedBeforePointerDown.has(value)
+    ) {
+      setSelected(new Set())
+    } else if (selected.size === 0 && !selectedBeforePointerDown.has(value)) {
+      setSelected(new Set([value]))
     } else if (!selected.has(value)) {
       const selectedNew = new Set(selected.add(value))
       setMessage(message.concat(selectedNew))
@@ -108,9 +124,21 @@ export default function SemaphorePage() {
       }, 500)
       setLastCharButtonsTimeout(lastCharButtonsTimeoutLocal)
     }
+    setFocused(null)
   }
 
-  const SemaphoreButton = ({ value }) => {
+  const SemaphoreButton = ({ value, detectPointer }) => {
+    const handlePointerEnter = detectPointer
+      ? () => {
+          setFocused(value)
+        }
+      : null
+    const handlePointerLeave = detectPointer
+      ? () => {
+          setFocused(null)
+        }
+      : null
+
     const buttonClass = {
       1: semaphore_styles.semaphore_button_1,
       2: semaphore_styles.semaphore_button_2,
@@ -126,13 +154,19 @@ export default function SemaphorePage() {
         className={buttonClass}
         onPointerDown={() => handleSemaphoreButtonPointerDown(value)}
         onPointerUp={() => handleSemaphoreButtonPointerUp(value)}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
       >
+        {focused === value ? (
+          <Circle
+            className={semaphore_styles.semaphore_button_circle_focused}
+          />
+        ) : null}
         {selected.has(value) ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
       </Button>
     )
   }
-
   return (
     <>
       <Box className={layout_styles.page}>
@@ -144,14 +178,14 @@ export default function SemaphorePage() {
         >
           <Box className={layout_styles.inputs_box}>
             <Box className={semaphore_styles.semaphore_buttons_box}>
-              <SemaphoreButton value={1} />
-              <SemaphoreButton value={2} />
-              <SemaphoreButton value={3} />
-              <SemaphoreButton value={4} />
-              <SemaphoreButton value={5} />
-              <SemaphoreButton value={6} />
-              <SemaphoreButton value={7} />
-              <SemaphoreButton value={8} />
+              <SemaphoreButton value={1} detectPointer={isFocusing} />
+              <SemaphoreButton value={2} detectPointer={isFocusing} />
+              <SemaphoreButton value={3} detectPointer={isFocusing} />
+              <SemaphoreButton value={4} detectPointer={isFocusing} />
+              <SemaphoreButton value={5} detectPointer={isFocusing} />
+              <SemaphoreButton value={6} detectPointer={isFocusing} />
+              <SemaphoreButton value={7} detectPointer={isFocusing} />
+              <SemaphoreButton value={8} detectPointer={isFocusing} />
             </Box>
           </Box>
           <Box
