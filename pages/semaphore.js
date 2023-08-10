@@ -10,6 +10,7 @@ import { Button, InputBase, Paper } from '@mui/material'
 import { decode } from '../app/decode/semaphore'
 import semaphore_styles from '../styles/semaphore.module.scss'
 import { getResultBoxes } from '../app/results'
+import { useTheme } from '@mui/material/styles'
 
 const inputToReact = (message) => {
   return message.length
@@ -174,6 +175,26 @@ export default function SemaphorePage() {
       </Button>
     )
   }
+  const theme = useTheme()
+  const valueToHand = (value, focused) => {
+    return (
+      <path
+        key={value}
+        d="M0,0 L0 20"
+        className={
+          focused
+            ? semaphore_styles.semaphore_hand_focused
+            : semaphore_styles.semaphore_hand_selected
+        }
+        stroke={theme.palette.primary.main}
+        transform={`translate(50 50) rotate(${(value - 1) * 45})`}
+      />
+    )
+  }
+  const selectedHands = Array.from(selected).map((value) => {
+    return valueToHand(value, false)
+  })
+  const focusedHand = focused === null ? null : valueToHand(focused, true)
   return (
     <>
       <Box className={layout_styles.page}>
@@ -185,6 +206,10 @@ export default function SemaphorePage() {
         >
           <Box className={layout_styles.inputs_box}>
             <Box className={semaphore_styles.semaphore_buttons_box}>
+              <svg width="100%" height="100%" viewBox="0 0 100 100">
+                {selectedHands}
+                {focusedHand}
+              </svg>
               <SemaphoreButton value={1} detectPointer={isFocusing} />
               <SemaphoreButton value={2} detectPointer={isFocusing} />
               <SemaphoreButton value={3} detectPointer={isFocusing} />
