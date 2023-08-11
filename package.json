@@ -9,8 +9,8 @@
     "lint": "next lint",
     "format": "prettier --check .",
     "format-fix": "prettier --write .",
-    "deploy-do": "next build && next export && ./deploy.sh SSH_PREPROD",
-    "deploy-do-production": "next build && next export && ./deploy.sh SSH_PRODUCTION"
+    "deploy-do": "next build && next export && mv out/manifest-preprod.json out/manifest.json && ./deploy.sh SSH_PREPROD",
+    "deploy-do-production": "NEXT_PUBLIC_DOMAIN=production next build && rm out/manifest-preprod.json && next export && ./deploy.sh SSH_PRODUCTION"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

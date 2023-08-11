@@ -8,6 +8,11 @@ import Script from 'next/script'
 
 import store from '../app/store'
 
+const pageTitle =
+  process.env.NEXT_PUBLIC_DOMAIN === 'production'
+    ? 'Pomootskey by EnjoyChallenge'
+    : 'PreProd Pomootskey'
+
 export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
@@ -20,7 +25,7 @@ export default function MyApp({ Component, pageProps }) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>Pomootskey by EnjoyChallenge</title>
+        <title>{pageTitle}</title>
 
         <link rel="manifest" href="/manifest.json" />
         <link
