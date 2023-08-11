@@ -28,5 +28,5 @@ npm run format-fix
 
 ## Deploy to pomootskey.enjoychallenge.tech
 ```shell
-npm run deploy-do
+npm run deploy-do-production
 ```

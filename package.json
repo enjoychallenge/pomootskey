@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --check .",
     "format-fix": "prettier --write .",
-    "deploy-do": "next build && next export && ./copy-to-digitalocean.sh"
+    "deploy-do": "next build && next export && ./deploy.sh SSH_PREPROD",
+    "deploy-do-production": "next build && next export && ./deploy.sh SSH_PRODUCTION"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
