@@ -32,7 +32,7 @@ export default function AboutDialog({ open, handleClose }) {
         <Typography paragraph={true}>Index a Jiřík</Typography>
         <div className={layout_styles.logo}>
           <img
-            src="icons/enjoychallengetech.png"
+            src="/icons/enjoychallengetech.png"
             alt="https://enjoychallenge.tech/cs/"
           />
           <Typography>
