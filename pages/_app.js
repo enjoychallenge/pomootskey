@@ -12,6 +12,10 @@ const pageTitle =
   process.env.NEXT_PUBLIC_DOMAIN === 'production'
     ? 'Pomootskey by EnjoyChallenge'
     : 'PreProd Pomootskey'
+const appleTouchIcon =
+  process.env.NEXT_PUBLIC_DOMAIN === 'production'
+    ? '/apple-touch-icon.png'
+    : '/apple-touch-icon-preprod.png'
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -28,11 +32,7 @@ export default function MyApp({ Component, pageProps }) {
         <title>{pageTitle}</title>
 
         <link rel="manifest" href="/manifest.json" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
+        <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
         <link
           rel="icon"
           type="image/png"
