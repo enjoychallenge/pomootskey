@@ -38,6 +38,8 @@ const byColumn2byRow = {
   6: 6,
 }
 
+const allItem = new Set(Object.values(byColumn2byRow))
+
 export function decode(selected) {
   const decodedChar = decodeBySet(selected, codeTable)
   const result =
@@ -74,4 +76,9 @@ export function rowsToColumns(byRows) {
       )
     )
   )
+}
+
+export function invertSelected(selected) {
+  const result = new Set([...allItem].filter((x) => !selected.has(x)))
+  return result
 }

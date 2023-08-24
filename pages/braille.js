@@ -12,6 +12,7 @@ import {
   decode,
   rowsToColumns,
   toUtf,
+  invertSelected,
 } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 import { getResultBoxes } from '../app/results'
@@ -23,15 +24,34 @@ const allResults = (message) => {
       message: message,
     },
     {
+      label: 'Alternativní řešení 123456 invertovaně',
+      message: message.map((item) => {
+        return invertSelected(item)
+      }),
+    },
+    {
       label: 'Alternativní řešení číslování po řádcích 135246',
       message: message.map((item) => {
         return columnsToRows(item)
       }),
     },
     {
+      label: 'Alternativní řešení číslování po řádcích 135246 invertovaně',
+      message: message.map((item) => {
+        return columnsToRows(invertSelected(item))
+      }),
+    },
+    {
       label: 'Alternativní řešení číslování po řádcích inverzně 142536',
       message: message.map((item) => {
         return rowsToColumns(item)
+      }),
+    },
+    {
+      label:
+        'Alternativní řešení číslování po řádcích inverzně 142536 invertovaně',
+      message: message.map((item) => {
+        return rowsToColumns(invertSelected(item))
       }),
     },
   ]
