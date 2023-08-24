@@ -1,4 +1,10 @@
-import { columnsToRows, decode, rowsToColumns, toUtf } from './braille'
+import {
+  columnsToRows,
+  decode,
+  invertSelected,
+  rowsToColumns,
+  toUtf,
+} from './braille'
 
 describe('decode', () => {
   it.each([
@@ -118,5 +124,29 @@ describe('rows to columns', () => {
   ])('rows to columns test', ({ byRows, expByColumns }) => {
     const result = rowsToColumns(byRows)
     expect(result).toEqual(expByColumns)
+  })
+})
+
+describe('invertSelected', () => {
+  it.each([
+    {
+      input: new Set([1, 3, 5]),
+      expInverted: new Set([2, 4, 6]),
+    },
+    {
+      input: new Set([1, 2, 3, 4, 5, 6]),
+      expInverted: new Set([]),
+    },
+    {
+      input: new Set([]),
+      expInverted: new Set([1, 2, 3, 4, 5, 6]),
+    },
+    {
+      input: new Set([2, 4]),
+      expInverted: new Set([1, 3, 5, 6]),
+    },
+  ])('invertSelected test', ({ input, expInverted }) => {
+    const result = invertSelected(input)
+    expect(result).toEqual(expInverted)
   })
 })
