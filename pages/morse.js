@@ -13,9 +13,9 @@ import {
   MorseChars,
   MorseCharsToShow,
 } from '../app/decode/morse'
-import { Backspace } from '@mui/icons-material'
 import { InputBase, Paper } from '@mui/material'
 import { getResultBoxes } from '../app/results'
+import BackspaceButton from '../component/BackspaceButton'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -70,11 +70,17 @@ export default function ButtonAppBar() {
   const handleSeparatorClick = () => {
     setMessage(message + MorseChars.separator)
   }
-  const handleBackspaceClick = () => {
+
+  const oneBackspaceClick = () => {
     if (message.length) {
-      setMessage(message.slice(0, message.length - 1))
+      setMessage((message) => message.slice(0, message.length - 1))
     }
   }
+
+  const longBackspaceClick = () => {
+    setMessage('')
+  }
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -114,9 +120,10 @@ export default function ButtonAppBar() {
                 size="small"
                 className={input_styles.text_input}
               />
-              <Button onClick={handleBackspaceClick}>
-                <Backspace />
-              </Button>
+              <BackspaceButton
+                onClick={oneBackspaceClick}
+                onLongPress={longBackspaceClick}
+              />
             </Paper>
           </Box>
         </Box>

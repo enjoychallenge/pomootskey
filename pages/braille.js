@@ -3,7 +3,7 @@ import { useState } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
+import { Circle, CircleOutlined, Send } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
@@ -16,6 +16,7 @@ import {
 } from '../app/decode/braille'
 import braille_styles from '../styles/braille.module.scss'
 import { getResultBoxes } from '../app/results'
+import BackspaceButton from '../component/BackspaceButton'
 
 const allResults = (message) => {
   const allVariants = [
@@ -70,14 +71,19 @@ export default function BraillePage() {
     setSelected(new Set())
   }
 
-  const handleBackspaceButtonClick = () => {
+  const oneBackspaceClick = () => {
     if (selected.size === 0) {
       if (entryPoints.length) {
-        setEntryPoints(entryPoints.slice(0, entryPoints.length - 1))
+        setEntryPoints((e) => e.slice(0, e.length - 1))
       }
     } else {
       setSelected(new Set())
     }
+  }
+
+  const longBackspaceClick = () => {
+    setSelected(new Set())
+    setEntryPoints([])
   }
 
   const handleBrailleButtonClick = (value) => {
@@ -151,9 +157,10 @@ export default function BraillePage() {
                 size="small"
                 className={input_styles.text_input}
               />
-              <Button onClick={handleBackspaceButtonClick}>
-                <Backspace />
-              </Button>
+              <BackspaceButton
+                onClick={oneBackspaceClick}
+                onLongPress={longBackspaceClick}
+              />
             </Paper>
           </Box>
         </Box>
