@@ -3,7 +3,7 @@ import { useState } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Backspace, Circle, CircleOutlined } from '@mui/icons-material'
+import { Circle, CircleOutlined } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
@@ -11,6 +11,7 @@ import { decode } from '../app/decode/semaphore'
 import semaphore_styles from '../styles/semaphore.module.scss'
 import { getResultBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
+import BackspaceButton from '../component/BackspaceButton'
 
 const inputToReact = (message) => {
   return message.length
@@ -84,15 +85,24 @@ export default function SemaphorePage() {
   const [message, setMessage] = useState([])
   const [lastCharButtonsTimeout, setLastCharButtonsTimeout] = useState(null)
 
-  const handleBackspaceButtonClick = () => {
+  const oneBackspaceClick = () => {
     if ([0, 2].includes(selected.size) && message.length > 0) {
-      setMessage(message.slice(0, message.length - 1))
+      setMessage((m) => m.slice(0, m.length - 1))
     }
     setIsFocusing(false)
     setFocused(null)
     setSelectedBeforePointerDown(new Set())
     setSelected(new Set())
     clearTimeout(lastCharButtonsTimeout)
+  }
+
+  const longBackspaceClick = () => {
+    setSelected(new Set())
+    setIsFocusing(false)
+    setFocused(null)
+    setSelectedBeforePointerDown(new Set())
+    setMessage([])
+    setLastCharButtonsTimeout(null)
   }
 
   const handleSemaphoreButtonPointerDown = (value) => {
@@ -235,9 +245,10 @@ export default function SemaphorePage() {
                 readOnly={true}
                 className={semaphore_styles.text_input}
               />
-              <Button onClick={handleBackspaceButtonClick}>
-                <Backspace />
-              </Button>
+              <BackspaceButton
+                onClick={oneBackspaceClick}
+                onLongPress={longBackspaceClick}
+              />
             </Paper>
           </Box>
         </Box>
