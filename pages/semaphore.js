@@ -68,7 +68,7 @@ const allResults = (message) => {
   const decodedVariants = allVariants.map((variant) => {
     return {
       ...variant,
-      decoded: variant.message.map((selected) => decode(selected)),
+      decoded: variant.message.map(decode),
     }
   })
   return getResultBoxes(decodedVariants)
