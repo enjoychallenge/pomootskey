@@ -25,15 +25,11 @@ const allResults = (message) => {
     },
     {
       label: 'Alternativní řešení 123456 invertovaně',
-      message: message.map((item) => {
-        return invertSelected(item)
-      }),
+      message: message.map(invertSelected),
     },
     {
       label: 'Alternativní řešení číslování po řádcích 135246',
-      message: message.map((item) => {
-        return columnsToRows(item)
-      }),
+      message: message.map(columnsToRows),
     },
     {
       label: 'Alternativní řešení číslování po řádcích 135246 invertovaně',
@@ -43,9 +39,7 @@ const allResults = (message) => {
     },
     {
       label: 'Alternativní řešení číslování po řádcích inverzně 142536',
-      message: message.map((item) => {
-        return rowsToColumns(item)
-      }),
+      message: message.map(rowsToColumns),
     },
     {
       label:
