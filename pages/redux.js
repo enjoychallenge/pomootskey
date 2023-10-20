@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Head from 'next/head'
 
 import Counter from '../features/counter/Counter'
@@ -12,7 +11,6 @@ const IndexPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={styles.header}>
-        <Image src="/logo.svg" className={styles.logo} alt="logo" />
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
