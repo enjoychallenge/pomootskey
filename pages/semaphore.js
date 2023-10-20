@@ -20,6 +20,7 @@ import semaphore_styles from '../styles/semaphore.module.scss'
 import { getResultBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
 import BackspaceButton from '../component/BackspaceButton'
+import {useCallback} from "react";
 
 export default function SemaphorePage() {
   const dispatch = useAppDispatch()
@@ -27,29 +28,29 @@ export default function SemaphorePage() {
   const isFocusing = useAppSelector(slctr.getIsFocusing)
   const focused = useAppSelector(slctr.getFocused)
 
-  const handleOneBackspaceClick = () => {
+  const handleOneBackspaceClick = useCallback(() => {
     dispatch(oneBackspaceClick())
-  }
+  }, [dispatch])
 
-  const handleLongBackspaceClick = () => {
+  const handleLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
-  }
+  }, [dispatch])
 
-  const handleSemaphoreButtonPointerDown = (value) => {
+  const handleSemaphoreButtonPointerDown = useCallback((value) => {
     dispatch(buttonPointerDown({ value }))
-  }
+  }, [dispatch])
 
-  const handleSemaphoreButtonPointerUp = (value) => {
+  const handleSemaphoreButtonPointerUp = useCallback((value) => {
     dispatch(buttonPointerUp({ value }))
-  }
+  }, [dispatch])
 
-  const handleSemaphoreButtonPointerEnter = (value) => {
+  const handleSemaphoreButtonPointerEnter = useCallback((value) => {
     dispatch(buttonPointerEnter({ value }))
-  }
+  }, [dispatch])
 
-  const handleSemaphoreButtonPointerLeave = (value) => {
+  const handleSemaphoreButtonPointerLeave = useCallback((value) => {
     dispatch(buttonPointerLeave({ value }))
-  }
+  }, [dispatch])
 
   const SemaphoreButton = ({ value, detectPointer }) => {
     const handlePointerEnter = detectPointer
