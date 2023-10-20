@@ -61,6 +61,7 @@ const SemaphoreButton = ({
       onPointerUp={memoOnPointerUp}
       onPointerEnter={memoOnPointerEnter}
       onPointerLeave={memoOnPointerLeave}
+      disableRipple={true}
     >
       {isFocused ? (
         <Circle className={semaphore_styles.semaphore_button_circle_focused} />
