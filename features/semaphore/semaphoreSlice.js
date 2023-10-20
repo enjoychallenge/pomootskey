@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
+import listenerMiddleware from './../../app/listenerMiddleware'
 
 const initialState = {
   message: [],
@@ -94,3 +95,18 @@ export const {
 } = semaphoreSlice.actions
 
 export default semaphoreSlice.reducer
+
+listenerMiddleware.startListening({
+  matcher: isAnyOf(buttonPointerUp, buttonPointerDown, oneBackspaceClick),
+  effect: async (action, listenerApi) => {
+    listenerApi.cancelActiveListeners()
+    const currentState = listenerApi.getState()
+    if (
+      buttonPointerUp.match(action) &&
+      currentState.semaphore.selected.length === 2
+    ) {
+      await listenerApi.delay(500)
+      listenerApi.dispatch(inactivityTimeoutSinceLastChar())
+    }
+  },
+})
