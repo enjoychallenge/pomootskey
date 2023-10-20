@@ -28,36 +28,36 @@ export default function SemaphorePage() {
   const isFocusing = useAppSelector(slctr.getIsFocusing)
   const focused = useAppSelector(slctr.getFocused)
 
-  const handleOneBackspaceClick = useCallback(() => {
+  const onOneBackspaceClick = useCallback(() => {
     dispatch(oneBackspaceClick())
   }, [dispatch])
 
-  const handleLongBackspaceClick = useCallback(() => {
+  const onLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
   }, [dispatch])
 
-  const handleSemaphoreButtonPointerDown = useCallback((value) => {
+  const onSemaphoreButtonPointerDown = useCallback((value) => {
     dispatch(buttonPointerDown({ value }))
   }, [dispatch])
 
-  const handleSemaphoreButtonPointerUp = useCallback((value) => {
+  const onSemaphoreButtonPointerUp = useCallback((value) => {
     dispatch(buttonPointerUp({ value }))
   }, [dispatch])
 
-  const handleSemaphoreButtonPointerEnter = useCallback((value) => {
+  const onSemaphoreButtonPointerEnter = useCallback((value) => {
     dispatch(buttonPointerEnter({ value }))
   }, [dispatch])
 
-  const handleSemaphoreButtonPointerLeave = useCallback((value) => {
+  const onSemaphoreButtonPointerLeave = useCallback((value) => {
     dispatch(buttonPointerLeave({ value }))
   }, [dispatch])
 
   const SemaphoreButton = ({ value, detectPointer }) => {
-    const handlePointerEnter = detectPointer
-      ? () => handleSemaphoreButtonPointerEnter(value)
+    const onPointerEnter = detectPointer
+      ? () => onSemaphoreButtonPointerEnter(value)
       : null
-    const handlePointerLeave = detectPointer
-      ? () => handleSemaphoreButtonPointerLeave(value)
+    const onPointerLeave = detectPointer
+      ? () => onSemaphoreButtonPointerLeave(value)
       : null
 
     const buttonClass = {
@@ -73,10 +73,10 @@ export default function SemaphorePage() {
     return (
       <Button
         className={buttonClass}
-        onPointerDown={() => handleSemaphoreButtonPointerDown(value)}
-        onPointerUp={() => handleSemaphoreButtonPointerUp(value)}
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
+        onPointerDown={() => onSemaphoreButtonPointerDown(value)}
+        onPointerUp={() => onSemaphoreButtonPointerUp(value)}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
       >
         {focused === value ? (
           <Circle
@@ -149,8 +149,8 @@ export default function SemaphorePage() {
                 className={semaphore_styles.text_input}
               />
               <BackspaceButton
-                onClick={handleOneBackspaceClick}
-                onLongPress={handleLongBackspaceClick}
+                onClick={onOneBackspaceClick}
+                onLongPress={onLongBackspaceClick}
               />
             </Paper>
           </Box>
