@@ -64,13 +64,27 @@ export default function SemaphorePage() {
     [dispatch]
   )
 
-  const SemaphoreButton = ({ value, detectPointer }) => {
-    const onPointerEnter = detectPointer
-      ? () => onSemaphoreButtonPointerEnter(value)
-      : null
-    const onPointerLeave = detectPointer
-      ? () => onSemaphoreButtonPointerLeave(value)
-      : null
+  const SemaphoreButton = ({
+    value,
+    isFocused,
+    isSelected,
+    onPointerDown,
+    onPointerUp,
+    onPointerEnter,
+    onPointerLeave,
+  }) => {
+    const memoOnPointerDown = useCallback(() => {
+      onPointerDown(value)
+    }, [onPointerDown, value])
+    const memoOnPointerUp = useCallback(() => {
+      onPointerUp(value)
+    }, [onPointerUp, value])
+    const memoOnPointerEnter = useCallback(() => {
+      onPointerEnter && onPointerEnter(value)
+    }, [onPointerEnter, value])
+    const memoOnPointerLeave = useCallback(() => {
+      onPointerLeave && onPointerLeave(value)
+    }, [onPointerLeave, value])
 
     const buttonClass = {
       1: semaphore_styles.semaphore_button_1,
@@ -85,17 +99,15 @@ export default function SemaphorePage() {
     return (
       <Button
         className={buttonClass}
-        onPointerDown={() => onSemaphoreButtonPointerDown(value)}
-        onPointerUp={() => onSemaphoreButtonPointerUp(value)}
-        onPointerEnter={onPointerEnter}
-        onPointerLeave={onPointerLeave}
+        onPointerDown={memoOnPointerDown}
+        onPointerUp={memoOnPointerUp}
+        onPointerEnter={memoOnPointerEnter}
+        onPointerLeave={memoOnPointerLeave}
       >
-        {focused === value ? (
-          <Circle
-            className={semaphore_styles.semaphore_button_circle_focused}
-          />
+        {isFocused ? (
+          <Circle className={semaphore_styles.semaphore_button_circle_focused} />
         ) : null}
-        {selected.includes(value) ? <Circle /> : <CircleOutlined />}
+        {isSelected ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
       </Button>
     )
@@ -120,6 +132,23 @@ export default function SemaphorePage() {
     return valueToHand(value, false)
   })
   const focusedHand = focused === null ? null : valueToHand(focused, true)
+
+  const buttons = [...Array(8).keys()].map((idx) => {
+    const value = idx + 1
+    return (
+      <SemaphoreButton
+        key={value}
+        value={value}
+        isSelected={selected.includes(value)}
+        isFocused={focused === value}
+        onPointerDown={onSemaphoreButtonPointerDown}
+        onPointerUp={onSemaphoreButtonPointerUp}
+        onPointerEnter={isFocusing ? onSemaphoreButtonPointerEnter : null}
+        onPointerLeave={isFocusing ? onSemaphoreButtonPointerLeave : null}
+      />
+    )
+  })
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -135,14 +164,7 @@ export default function SemaphorePage() {
                 {selectedHands}
                 {focusedHand}
               </svg>
-              <SemaphoreButton value={1} detectPointer={isFocusing} />
-              <SemaphoreButton value={2} detectPointer={isFocusing} />
-              <SemaphoreButton value={3} detectPointer={isFocusing} />
-              <SemaphoreButton value={4} detectPointer={isFocusing} />
-              <SemaphoreButton value={5} detectPointer={isFocusing} />
-              <SemaphoreButton value={6} detectPointer={isFocusing} />
-              <SemaphoreButton value={7} detectPointer={isFocusing} />
-              <SemaphoreButton value={8} detectPointer={isFocusing} />
+              {buttons}
             </Box>
           </Box>
           <Box
