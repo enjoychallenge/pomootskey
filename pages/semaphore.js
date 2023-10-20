@@ -5,12 +5,10 @@ import {
   buttonPointerUp,
   buttonPointerEnter,
   buttonPointerLeave,
-  inactivityTimeoutSinceLastChar,
   oneBackspaceClick,
   longBackspaceClick,
 } from '../features/semaphore/semaphoreSlice'
 import * as React from 'react'
-import { useState } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -91,43 +89,22 @@ export default function SemaphorePage() {
   const selected = useAppSelector(slctr.getSelected)
   const isFocusing = useAppSelector(slctr.getIsFocusing)
   const focused = useAppSelector(slctr.getFocused)
-  const selectedBeforePointerDown = useAppSelector(
-    slctr.getSelectedBeforePointerDown
-  )
   const message = useAppSelector(slctr.getMessageWithSets)
-  const [lastCharButtonsTimeout, setLastCharButtonsTimeout] = useState(null)
 
   const handleOneBackspaceClick = () => {
     dispatch(oneBackspaceClick())
-    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleLongBackspaceClick = () => {
     dispatch(longBackspaceClick())
-    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonPointerDown = (value) => {
     dispatch(buttonPointerDown({ value }))
-    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonPointerUp = (value) => {
     dispatch(buttonPointerUp({ value }))
-    if (
-      selectedBeforePointerDown.length === 1 &&
-      selectedBeforePointerDown.includes(value)
-    ) {
-    } else if (
-      selected.length === 0 &&
-      !selectedBeforePointerDown.includes(value)
-    ) {
-    } else if (!selected.includes(value)) {
-      const lastCharButtonsTimeoutLocal = setTimeout(() => {
-        dispatch(inactivityTimeoutSinceLastChar())
-      }, 500)
-      setLastCharButtonsTimeout(lastCharButtonsTimeoutLocal)
-    }
   }
 
   const handleSemaphoreButtonPointerEnter = (value) => {
