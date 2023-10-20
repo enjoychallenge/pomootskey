@@ -34,6 +34,12 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">Semafor</Typography>
               </Button>
             </NextLink>
+            <NextLink href="/ternary" passHref>
+              <Button>
+                <img src="icons/semaphore.svg" alt="Ternary" />
+                <Typography variant="h5">Ternary</Typography>
+              </Button>
+            </NextLink>
           </Box>
         </Box>
       </Box>

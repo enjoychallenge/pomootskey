@@ -1,0 +1,122 @@
+@use './common/button' as common_buttons;
+@use 'common/layout.module' as common_layout;
+
+.buttons_box {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  gap: 2vmin;
+  justify-content: space-evenly;
+  align-items: center;
+
+  @include common_layout.media('landscape_mode') {
+    flex-direction: column;
+  }
+
+  & > * {
+    @include common_buttons.button;
+    height: 25vmin;
+    width: 25vmin;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 120px;
+    max-height: 120px;
+
+    & > p {
+      font-size: max(65px, 400%);
+    }
+  }
+}
+
+.ternary_button {
+  & > p {
+    position: absolute;
+    line-height: 1;
+    font-weight: bold;
+    font-size: max(40px, 5vmin);
+  }
+
+  & > svg {
+    width: 90%;
+    height: 90%;
+    min-width: 80px;
+    min-height: 80px;
+    @include common_layout.media('landscape_mode') {
+      min-width: 70px;
+      min-height: 70px;
+    }
+  }
+}
+
+.backspace_button {
+  & > p {
+    position: absolute;
+    line-height: 1;
+    font-weight: bold;
+    font-size: max(40px, 5vmin);
+  }
+
+  & > svg {
+    width: 50%;
+    height: 50%;
+    min-width: 40px;
+    min-height: 40px;
+    @include common_layout.media('landscape_mode') {
+      min-width: 35px;
+      min-height: 35px;
+    }
+  }
+}
+
+.result_cases {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  & > div {
+    margin-bottom: 2px;
+
+    & > p:first-child {
+      font-size: x-small;
+    }
+
+    & > p:nth-child(2) {
+      margin-bottom: 0;
+      line-height: 1;
+      font-size: x-large;
+
+      & > span {
+        text-transform: uppercase;
+        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
+          'monospace';
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.inputs_box {
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+
+  @include common_layout.media('landscape_mode') {
+    flex-direction: row-reverse;
+  }
+}
+
+.result_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 20px;
+}
+
+.small_values {
+  display: flex;
+  flex-direction: column;
+
+  & > button {
+    width: 10px;
+    min-width: 10px;
+  }
+}
