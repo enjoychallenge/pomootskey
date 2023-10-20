@@ -22,6 +22,55 @@ import { useTheme } from '@mui/material/styles'
 import BackspaceButton from '../component/BackspaceButton'
 import { useCallback } from 'react'
 
+const SemaphoreButton = ({
+  value,
+  isFocused,
+  isSelected,
+  onPointerDown,
+  onPointerUp,
+  onPointerEnter,
+  onPointerLeave,
+}) => {
+  const memoOnPointerDown = useCallback(() => {
+    onPointerDown(value)
+  }, [onPointerDown, value])
+  const memoOnPointerUp = useCallback(() => {
+    onPointerUp(value)
+  }, [onPointerUp, value])
+  const memoOnPointerEnter = useCallback(() => {
+    onPointerEnter && onPointerEnter(value)
+  }, [onPointerEnter, value])
+  const memoOnPointerLeave = useCallback(() => {
+    onPointerLeave && onPointerLeave(value)
+  }, [onPointerLeave, value])
+
+  const buttonClass = {
+    1: semaphore_styles.semaphore_button_1,
+    2: semaphore_styles.semaphore_button_2,
+    3: semaphore_styles.semaphore_button_3,
+    4: semaphore_styles.semaphore_button_4,
+    5: semaphore_styles.semaphore_button_5,
+    6: semaphore_styles.semaphore_button_6,
+    7: semaphore_styles.semaphore_button_7,
+    8: semaphore_styles.semaphore_button_8,
+  }[value]
+  return (
+    <Button
+      className={buttonClass}
+      onPointerDown={memoOnPointerDown}
+      onPointerUp={memoOnPointerUp}
+      onPointerEnter={memoOnPointerEnter}
+      onPointerLeave={memoOnPointerLeave}
+    >
+      {isFocused ? (
+        <Circle className={semaphore_styles.semaphore_button_circle_focused} />
+      ) : null}
+      {isSelected ? <Circle /> : <CircleOutlined />}
+      <Typography color={'result.main'}>{value}</Typography>
+    </Button>
+  )
+}
+
 export default function SemaphorePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
@@ -64,54 +113,6 @@ export default function SemaphorePage() {
     [dispatch]
   )
 
-  const SemaphoreButton = ({
-    value,
-    isFocused,
-    isSelected,
-    onPointerDown,
-    onPointerUp,
-    onPointerEnter,
-    onPointerLeave,
-  }) => {
-    const memoOnPointerDown = useCallback(() => {
-      onPointerDown(value)
-    }, [onPointerDown, value])
-    const memoOnPointerUp = useCallback(() => {
-      onPointerUp(value)
-    }, [onPointerUp, value])
-    const memoOnPointerEnter = useCallback(() => {
-      onPointerEnter && onPointerEnter(value)
-    }, [onPointerEnter, value])
-    const memoOnPointerLeave = useCallback(() => {
-      onPointerLeave && onPointerLeave(value)
-    }, [onPointerLeave, value])
-
-    const buttonClass = {
-      1: semaphore_styles.semaphore_button_1,
-      2: semaphore_styles.semaphore_button_2,
-      3: semaphore_styles.semaphore_button_3,
-      4: semaphore_styles.semaphore_button_4,
-      5: semaphore_styles.semaphore_button_5,
-      6: semaphore_styles.semaphore_button_6,
-      7: semaphore_styles.semaphore_button_7,
-      8: semaphore_styles.semaphore_button_8,
-    }[value]
-    return (
-      <Button
-        className={buttonClass}
-        onPointerDown={memoOnPointerDown}
-        onPointerUp={memoOnPointerUp}
-        onPointerEnter={memoOnPointerEnter}
-        onPointerLeave={memoOnPointerLeave}
-      >
-        {isFocused ? (
-          <Circle className={semaphore_styles.semaphore_button_circle_focused} />
-        ) : null}
-        {isSelected ? <Circle /> : <CircleOutlined />}
-        <Typography color={'result.main'}>{value}</Typography>
-      </Button>
-    )
-  }
   const theme = useTheme()
   const valueToHand = (value, focused) => {
     return (
