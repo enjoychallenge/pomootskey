@@ -16,80 +16,16 @@ import { Circle, CircleOutlined } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
-import { decode } from '../app/decode/semaphore'
 import semaphore_styles from '../styles/semaphore.module.scss'
 import { getResultBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
 import BackspaceButton from '../component/BackspaceButton'
-
-const inputToReact = (message) => {
-  return message.length
-    ? [...message]
-        .map((chosenPoints) => {
-          return decode(chosenPoints).char
-        })
-        .join('')
-    : ''
-}
-
-const getVariants = (message, labelPrefix = '', removeBaseVariant = true) => {
-  const allShifts = [...Array(8).keys()]
-  const shifts = removeBaseVariant ? allShifts.slice(1) : allShifts
-  return shifts.map((shift) => {
-    const altMessage = message.map((item) => {
-      return new Set(
-        Array.from(item).map((num) => {
-          return ((num - 1 + shift) % 8) + 1
-        })
-      )
-    })
-    return {
-      label: `Alternativní řešení,${labelPrefix} otočení o ${shift * 45}°`,
-      message: altMessage,
-    }
-  })
-}
-
-const allResults = (message) => {
-  const inverted = message.map((item) => {
-    return new Set(
-      [...item].map((button) => {
-        return {
-          1: 1,
-          2: 8,
-          3: 7,
-          4: 6,
-          5: 5,
-          6: 4,
-          7: 3,
-          8: 2,
-        }[button]
-      })
-    )
-  })
-  const allVariants = [
-    {
-      label: 'Základní řešení',
-      message: message,
-    },
-  ]
-    .concat(getVariants(message))
-    .concat(getVariants(inverted, 'zrcadlově, ', false))
-  const decodedVariants = allVariants.map((variant) => {
-    return {
-      ...variant,
-      decoded: variant.message.map(decode),
-    }
-  })
-  return getResultBoxes(decodedVariants)
-}
 
 export default function SemaphorePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
   const isFocusing = useAppSelector(slctr.getIsFocusing)
   const focused = useAppSelector(slctr.getFocused)
-  const message = useAppSelector(slctr.getMessageWithSets)
 
   const handleOneBackspaceClick = () => {
     dispatch(oneBackspaceClick())
@@ -201,13 +137,13 @@ export default function SemaphorePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              {allResults(message)}
+              {getResultBoxes(useAppSelector(slctr.getAllResults))}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
                 fullWidth
-                value={inputToReact(message)}
+                value={useAppSelector(slctr.getMessageString)}
                 readOnly={true}
                 className={semaphore_styles.text_input}
               />
