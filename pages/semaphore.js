@@ -1,3 +1,14 @@
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import * as slctr from '../features/semaphore/semaphoreSelector'
+import {
+  buttonPointerDown,
+  buttonPointerUp,
+  buttonPointerEnter,
+  buttonPointerLeave,
+  inactivityTimeoutSinceLastChar,
+  oneBackspaceClick,
+  longBackspaceClick,
+} from '../features/semaphore/semaphoreSlice'
 import * as React from 'react'
 import { useState } from 'react'
 import AppBar from '../component/AppBar'
@@ -76,85 +87,63 @@ const allResults = (message) => {
 }
 
 export default function SemaphorePage() {
-  const [selected, setSelected] = useState(new Set())
-  const [isFocusing, setIsFocusing] = useState(false)
-  const [focused, setFocused] = useState(null)
-  const [selectedBeforePointerDown, setSelectedBeforePointerDown] = useState(
-    new Set()
+  const dispatch = useAppDispatch()
+  const selected = useAppSelector(slctr.getSelected)
+  const isFocusing = useAppSelector(slctr.getIsFocusing)
+  const focused = useAppSelector(slctr.getFocused)
+  const selectedBeforePointerDown = useAppSelector(
+    slctr.getSelectedBeforePointerDown
   )
-  const [message, setMessage] = useState([])
+  const message = useAppSelector(slctr.getMessageWithSets)
   const [lastCharButtonsTimeout, setLastCharButtonsTimeout] = useState(null)
 
-  const oneBackspaceClick = () => {
-    if ([0, 2].includes(selected.size) && message.length > 0) {
-      setMessage((m) => m.slice(0, m.length - 1))
-    }
-    setIsFocusing(false)
-    setFocused(null)
-    setSelectedBeforePointerDown(new Set())
-    setSelected(new Set())
+  const handleOneBackspaceClick = () => {
+    dispatch(oneBackspaceClick())
     clearTimeout(lastCharButtonsTimeout)
   }
 
-  const longBackspaceClick = () => {
-    setSelected(new Set())
-    setIsFocusing(false)
-    setFocused(null)
-    setSelectedBeforePointerDown(new Set())
-    setMessage([])
-    setLastCharButtonsTimeout(null)
+  const handleLongBackspaceClick = () => {
+    dispatch(longBackspaceClick())
+    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonPointerDown = (value) => {
-    setIsFocusing(true)
-    setSelectedBeforePointerDown(new Set(selected))
-    if ([0, 2].includes(selected.size)) {
-      clearTimeout(lastCharButtonsTimeout)
-      setSelected(new Set([value]))
-    } else if (selected.has(value)) {
-      setSelected(new Set())
-    }
-    setFocused(value)
+    dispatch(buttonPointerDown({ value }))
+    clearTimeout(lastCharButtonsTimeout)
   }
 
   const handleSemaphoreButtonPointerUp = (value) => {
-    setIsFocusing(false)
+    dispatch(buttonPointerUp({ value }))
     if (
-      selectedBeforePointerDown.size === 1 &&
-      selectedBeforePointerDown.has(value)
+      selectedBeforePointerDown.length === 1 &&
+      selectedBeforePointerDown.includes(value)
     ) {
-      setSelected(new Set())
-    } else if (selected.size === 0 && !selectedBeforePointerDown.has(value)) {
-      setSelected(new Set([value]))
-    } else if (!selected.has(value)) {
-      const selectedNew = new Set(selected.add(value))
-      setMessage(message.concat(selectedNew))
-      setSelected(selectedNew)
+    } else if (
+      selected.length === 0 &&
+      !selectedBeforePointerDown.includes(value)
+    ) {
+    } else if (!selected.includes(value)) {
       const lastCharButtonsTimeoutLocal = setTimeout(() => {
-        setSelected(new Set())
+        dispatch(inactivityTimeoutSinceLastChar())
       }, 500)
       setLastCharButtonsTimeout(lastCharButtonsTimeoutLocal)
     }
-    setFocused(null)
+  }
+
+  const handleSemaphoreButtonPointerEnter = (value) => {
+    dispatch(buttonPointerEnter({ value }))
+  }
+
+  const handleSemaphoreButtonPointerLeave = (value) => {
+    dispatch(buttonPointerLeave({ value }))
   }
 
   const SemaphoreButton = ({ value, detectPointer }) => {
     const handlePointerEnter = detectPointer
-      ? () => {
-          setFocused(value)
-        }
+      ? () => handleSemaphoreButtonPointerEnter(value)
       : null
     const handlePointerLeave = detectPointer
-      ? () => {
-          setFocused(null)
-          if (
-            selected.size === 0 &&
-            selectedBeforePointerDown.size === 1 &&
-            selectedBeforePointerDown.has(value)
-          ) {
-            setSelectedBeforePointerDown(new Set())
-          }
-        }
+      ? () => handleSemaphoreButtonPointerLeave(value)
       : null
 
     const buttonClass = {
@@ -180,7 +169,7 @@ export default function SemaphorePage() {
             className={semaphore_styles.semaphore_button_circle_focused}
           />
         ) : null}
-        {selected.has(value) ? <Circle /> : <CircleOutlined />}
+        {selected.includes(value) ? <Circle /> : <CircleOutlined />}
         <Typography color={'result.main'}>{value}</Typography>
       </Button>
     )
@@ -246,8 +235,8 @@ export default function SemaphorePage() {
                 className={semaphore_styles.text_input}
               />
               <BackspaceButton
-                onClick={oneBackspaceClick}
-                onLongPress={longBackspaceClick}
+                onClick={handleOneBackspaceClick}
+                onLongPress={handleLongBackspaceClick}
               />
             </Paper>
           </Box>
