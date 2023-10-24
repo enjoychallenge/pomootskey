@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -59,6 +59,23 @@ const allResults = (message) => {
   return getResultBoxes(decodedVariants)
 }
 
+const BrailleButton = ({ value, selected, onButtonClick }) => {
+  const memoOnButtonClick = useCallback(() => {
+    onButtonClick(value)
+  }, [onButtonClick, value])
+
+  return (
+    <Button
+      className={braille_styles.braille_button}
+      variant="outlined"
+      onClick={memoOnButtonClick}
+    >
+      {selected.has(value) ? <Circle /> : <CircleOutlined />}
+      <Typography color={'result.main'}>{value}</Typography>
+    </Button>
+  )
+}
+
 export default function BraillePage() {
   const [selected, setSelected] = useState(new Set())
   const [entryPoints, setEntryPoints] = useState([])
@@ -97,19 +114,6 @@ export default function BraillePage() {
     }
   }
 
-  const BrailleButton = ({ value }) => {
-    return (
-      <Button
-        className={braille_styles.braille_button}
-        variant="outlined"
-        onClick={() => handleBrailleButtonClick(value)}
-      >
-        {selected.has(value) ? <Circle /> : <CircleOutlined />}
-        <Typography color={'result.main'}>{value}</Typography>
-      </Button>
-    )
-  }
-
   return (
     <>
       <Box className={layout_styles.page}>
@@ -122,12 +126,28 @@ export default function BraillePage() {
           <Box className={layout_styles.inputs_box}>
             <Box className={braille_styles.buttons}>
               <Button disabled={true}></Button>
-              <BrailleButton value={1} />
-              <BrailleButton value={4} />
+              <BrailleButton
+                value={1}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
+              <BrailleButton
+                value={4}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
 
               <Button disabled={true}></Button>
-              <BrailleButton value={2} />
-              <BrailleButton value={5} />
+              <BrailleButton
+                value={2}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
+              <BrailleButton
+                value={5}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
 
               <Button
                 variant="outlined"
@@ -136,8 +156,16 @@ export default function BraillePage() {
               >
                 <Send />
               </Button>
-              <BrailleButton value={3} />
-              <BrailleButton value={6} />
+              <BrailleButton
+                value={3}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
+              <BrailleButton
+                value={6}
+                selected={selected}
+                onButtonClick={handleBrailleButtonClick}
+              />
             </Box>
           </Box>
           <Box
