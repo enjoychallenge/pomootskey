@@ -79,6 +79,6 @@ export function rowsToColumns(byRows) {
 }
 
 export function invertSelected(selected) {
-  const result = new Set([...allItem].filter((x) => !selected.has(x)))
+  const result = new Set([...allItem].filter((x) => !selected.includes(x)))
   return result
 }
