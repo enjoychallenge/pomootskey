@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -14,9 +14,17 @@ import {
   toUtf,
   invertSelected,
 } from '../app/decode/braille'
+import {
+  sendButtonClick,
+  oneBackspaceClick,
+  longBackspaceClick,
+  brailleButtonClick,
+} from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import * as slctr from '../features/braille/brailleSelector'
 
 const allResults = (message) => {
   const allVariants = [
@@ -70,49 +78,38 @@ const BrailleButton = ({ value, selected, onButtonClick }) => {
       variant="outlined"
       onClick={memoOnButtonClick}
     >
-      {selected.has(value) ? <Circle /> : <CircleOutlined />}
+      {selected.includes(value) ? <Circle /> : <CircleOutlined />}
       <Typography color={'result.main'}>{value}</Typography>
     </Button>
   )
 }
 
 export default function BraillePage() {
-  const [selected, setSelected] = useState(new Set())
-  const [entryPoints, setEntryPoints] = useState([])
+  const dispatch = useAppDispatch()
+  const selected = useAppSelector(slctr.getSelected)
+  const entryPoints = useAppSelector(slctr.getEntryPoints)
   const input =
-    selected.size == 0 ? entryPoints : entryPoints.concat([selected])
+    selected.length == 0 ? entryPoints : entryPoints.concat([selected])
   const solutionBraille = input.map((entry) => toUtf(entry), '')
 
-  const handleSendButtonClick = () => {
-    setEntryPoints(entryPoints.concat([selected]))
-    setSelected(new Set())
-  }
+  const onSendButtonClick = useCallback(() => {
+    dispatch(sendButtonClick())
+  }, [dispatch])
 
-  const oneBackspaceClick = () => {
-    if (selected.size === 0) {
-      if (entryPoints.length) {
-        setEntryPoints((e) => e.slice(0, e.length - 1))
-      }
-    } else {
-      setSelected(new Set())
-    }
-  }
+  const onOneBackspaceClick = useCallback(() => {
+    dispatch(oneBackspaceClick())
+  }, [dispatch])
 
-  const longBackspaceClick = () => {
-    setSelected(new Set())
-    setEntryPoints([])
-  }
+  const onLongBackspaceClick = useCallback(() => {
+    dispatch(longBackspaceClick())
+  }, [dispatch])
 
-  const handleBrailleButtonClick = (value) => {
-    let allSelectedCopy = new Set(selected)
-    if (allSelectedCopy.has(value)) {
-      allSelectedCopy.delete(value)
-      setSelected(allSelectedCopy)
-    } else {
-      allSelectedCopy.add(value)
-      setSelected(allSelectedCopy)
-    }
-  }
+  const onBrailleButtonClick = useCallback(
+    (value) => {
+      dispatch(brailleButtonClick({ value }))
+    },
+    [dispatch]
+  )
 
   return (
     <>
@@ -129,29 +126,29 @@ export default function BraillePage() {
               <BrailleButton
                 value={1}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
               <BrailleButton
                 value={4}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
 
               <Button disabled={true}></Button>
               <BrailleButton
                 value={2}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
               <BrailleButton
                 value={5}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
 
               <Button
                 variant="outlined"
-                onClick={handleSendButtonClick}
+                onClick={onSendButtonClick}
                 className={braille_styles.braille_button}
               >
                 <Send />
@@ -159,12 +156,12 @@ export default function BraillePage() {
               <BrailleButton
                 value={3}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
               <BrailleButton
                 value={6}
                 selected={selected}
-                onButtonClick={handleBrailleButtonClick}
+                onButtonClick={onBrailleButtonClick}
               />
             </Box>
           </Box>
@@ -186,8 +183,8 @@ export default function BraillePage() {
                 className={input_styles.text_input}
               />
               <BackspaceButton
-                onClick={oneBackspaceClick}
-                onLongPress={longBackspaceClick}
+                onClick={onOneBackspaceClick}
+                onLongPress={onLongBackspaceClick}
               />
             </Paper>
           </Box>
