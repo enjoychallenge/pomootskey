@@ -27,3 +27,27 @@
     }
   }
 }
+
+.result_cases {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  & > div {
+    margin-bottom: 2px;
+
+    & > p:first-child {
+      font-size: x-small;
+    }
+
+    & > p:nth-child(2) {
+      margin-bottom: 0;
+      line-height: 1;
+
+      & > span {
+        text-transform: uppercase;
+        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
+          'monospace';
+        line-height: 1;
+      }
+    }
+  }
+}
