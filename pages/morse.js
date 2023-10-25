@@ -16,6 +16,7 @@ import {
 import { InputBase, Paper } from '@mui/material'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
+import MorseResultBox from '../component/MorseResultBox'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -47,6 +48,10 @@ const allResults = (message) => {
     })
 
   return getResultBoxes(decodedVariants)
+}
+
+const messageToBox = (message) => {
+  return <MorseResultBox label='Základní řešení' message={message} />
 }
 
 export default function ButtonAppBar() {
@@ -107,8 +112,8 @@ export default function ButtonAppBar() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Box className={layout_styles.result_cases}>
-              {allResults(message)}
+            <Box className={morse_styles.result_cases}>
+              {messageToBox(message)}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
