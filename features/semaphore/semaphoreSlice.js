@@ -2,7 +2,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import listenerMiddleware from './../../app/listenerMiddleware'
 
 const initialState = {
-  message: [],
+  input: [],
   isFocusing: false,
   focused: null,
   selected: [],
@@ -40,7 +40,7 @@ export const semaphoreSlice = createSlice({
         state.selected = [value]
       } else if (!state.selected.includes(value)) {
         state.selected.push(value)
-        state.message.push([...state.selected])
+        state.input.push([...state.selected])
       }
     },
     buttonPointerEnter: (state, action) => {
@@ -66,8 +66,8 @@ export const semaphoreSlice = createSlice({
       state.selected = []
     },
     oneBackspaceClick: (state) => {
-      if ([0, 2].includes(state.selected.length) && state.message.length > 0) {
-        state.message = state.message.slice(0, state.message.length - 1)
+      if ([0, 2].includes(state.selected.length) && state.input.length > 0) {
+        state.input = state.input.slice(0, state.input.length - 1)
       }
       state.isFocusing = false
       state.focused = null
@@ -79,7 +79,7 @@ export const semaphoreSlice = createSlice({
       state.isFocusing = false
       state.focused = null
       state.selectedBeforePointerDown = []
-      state.message = []
+      state.input = []
     },
   },
 })

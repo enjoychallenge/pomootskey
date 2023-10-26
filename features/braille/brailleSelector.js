@@ -8,12 +8,12 @@ import {
 } from '../../app/decode/braille'
 
 export const getSelected = (state) => state.braille.selected
-export const getEntryPoints = (state) => state.braille.entryPoints
+export const getConfirmedInput = (state) => state.braille.confirmedInput
 
 export const getInput = createSelector(
-  [getSelected, getEntryPoints],
-  (selected, entryPoints) => {
-    return !selected.length ? entryPoints : entryPoints.concat([selected])
+  [getSelected, getConfirmedInput],
+  (selected, confirmedInput) => {
+    return !selected.length ? confirmedInput : confirmedInput.concat([selected])
   }
 )
 
