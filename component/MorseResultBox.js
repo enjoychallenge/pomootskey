@@ -3,6 +3,11 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
 
+export const OutputCharTypes = {
+  known: 'known',
+  unknown: 'unknown',
+}
+
 const getJoinerClass = (showJoiner, isStartItem, isEndItem) => {
   if (!showJoiner) {
     return morse_styles.result_input_char_joiner_hidden
@@ -18,6 +23,11 @@ const getJoinerClass = (showJoiner, isStartItem, isEndItem) => {
   }
 }
 
+const TypeToColor = {
+  [OutputCharTypes.unknown]: 'warning.main',
+  [OutputCharTypes.known]: 'result.main',
+}
+
 export default function MorseResultBox({ label, inputItems }) {
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
@@ -30,8 +40,9 @@ export default function MorseResultBox({ label, inputItems }) {
       isStartItem,
       isEndItem
     )
+    const color = TypeToColor[currentOutput.type]
     return (
-      <Box key={idx} className={morse_styles.result_item}>
+      <Box key={idx} className={morse_styles.result_item} sx={{ color }}>
         <Box className={morse_styles.result_output_char}>
           {item.output?.char || ''}
         </Box>
