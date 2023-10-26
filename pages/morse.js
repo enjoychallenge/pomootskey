@@ -51,7 +51,25 @@ const allResults = (message) => {
 }
 
 const messageToBox = (message) => {
-  return <MorseResultBox label='Základní řešení' message={message} />
+  const inputItems = []
+
+  decode(message).forEach((msgPart) => {
+    inputItems.push({
+      input: msgPart.string[0],
+      output: {
+        char: (msgPart.char || '').toUpperCase() || null,
+      },
+    })
+    inputItems.push(
+      ...msgPart.string
+        .split('')
+        .slice(1)
+        .map((msgChar) => ({
+          input: msgChar,
+        }))
+    )
+  })
+  return <MorseResultBox label="Základní řešení" inputItems={inputItems} />
 }
 
 export default function ButtonAppBar() {

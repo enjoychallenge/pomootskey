@@ -19,3 +19,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* CSS variables */
+:root {
+  --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
+  --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
+  --morseInputCharFontSize: calc(0.9 * var(--morseInputCharHeight));
+  --morseOutputCharHeight: calc(2 * var(--morseInputCharHeight));
+  --morseOutputCharFontSize: calc(2 * var(--morseInputCharFontSize));
+  --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
+  --morseLineGap: clamp(5px, 2vmin, 10px);
+}
