@@ -36,14 +36,19 @@ describe('decode morse message', () => {
       expParts: [],
     },
     {
-      morseMessage: '-..-j--?/-',
+      morseMessage: '-..-ja--?/----',
       expParts: [
         { string: '-..-', char: 'x', type: 'char' },
-        { string: 'j', type: 'unknown' },
+        { string: 'ja', type: 'undecodable' },
         { string: '--', char: 'm', type: 'char' },
-        { string: '?/', type: 'unknown' },
-        { string: '-', char: 't', type: 'char' },
+        { string: '?', type: 'undecodable' },
+        { string: '/', type: 'sep' },
+        { string: '----', type: 'unknown' },
       ],
+    },
+    {
+      morseMessage: '----.',
+      expParts: [{ string: '----.', type: 'unknown' }],
     },
   ])('decodes morseMessage', ({ morseMessage, expParts }) => {
     const result = decode(morseMessage)
