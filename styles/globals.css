@@ -25,6 +25,7 @@ a {
   --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
   --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
   --morseInputCharFontSize: calc(0.9 * var(--morseInputCharHeight));
+  --morseInputCharJoinerHeight: clamp(3px, 0.5vmin, 5px);
   --morseOutputCharHeight: calc(2 * var(--morseInputCharHeight));
   --morseOutputCharFontSize: calc(2 * var(--morseInputCharFontSize));
   --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */

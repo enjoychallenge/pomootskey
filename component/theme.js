@@ -20,6 +20,7 @@ export default responsiveFontSizes(
       background: {
         default: '#000000',
         paper: '#303030',
+        lightPaper: '#666666',
       },
     },
     shape: {
