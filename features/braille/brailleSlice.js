@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   selected: [],
-  entryPoints: [],
+  confirmedInput: [],
 }
 
 export const brailleSlice = createSlice({
@@ -11,13 +11,13 @@ export const brailleSlice = createSlice({
   reducers: {
     sendButtonClick: (state) => {
       if (state.selected.length) {
-        state.entryPoints = state.entryPoints.concat([state.selected])
+        state.confirmedInput = state.confirmedInput.concat([state.selected])
       }
       state.selected = initialState.selected
     },
     oneBackspaceClick: (state) => {
       if (state.selected.length === 0) {
-        state.entryPoints.pop()
+        state.confirmedInput.pop()
       }
       state.selected = initialState.selected
     },

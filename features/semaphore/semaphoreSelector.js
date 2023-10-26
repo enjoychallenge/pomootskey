@@ -5,9 +5,9 @@ import { getVariants } from './util'
 export const getSelected = (state) => state.semaphore.selected
 export const getIsFocusing = (state) => state.semaphore.isFocusing
 export const getFocused = (state) => state.semaphore.focused
-export const getMessage = (state) => state.semaphore.message
+export const getInput = (state) => state.semaphore.input
 
-export const getMessageWithSets = createSelector([getMessage], (message) => {
+export const getMessageWithSets = createSelector([getInput], (message) => {
   return message.map((points) => new Set(points))
 })
 
