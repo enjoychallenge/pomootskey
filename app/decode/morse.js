@@ -42,9 +42,9 @@ export const MorseCharsToShow = {
   '/': '/',
 }
 
-const dotsDashesPattern = new RegExp('^[.-]+$')
+const dotsDashesPattern = new RegExp('^[-.]+$')
 const separatorPattern = new RegExp('^/+$')
-const messagePartsPattern = new RegExp(`([^.-]*)?([.-]*)?`, 'g')
+const messagePartsPattern = new RegExp(`([^-.\/]*)?(\/*)?([-.]*)?`, 'g')
 
 export function decode(message) {
   const matches = [...message.matchAll(messagePartsPattern)]
@@ -57,7 +57,7 @@ export function decode(message) {
         const part = {
           string: group,
         }
-        let type = PartTypes.unknown
+        let type = PartTypes.undecodable
         if (group.match(dotsDashesPattern)) {
           const char = Object.keys(codeTable).find(
             (k) => codeTable[k] === group
@@ -65,6 +65,8 @@ export function decode(message) {
           if (char) {
             type = PartTypes.char
             part.char = char
+          } else {
+            type = PartTypes.unknown
           }
         } else if (group.match(separatorPattern)) {
           type = PartTypes.separator
