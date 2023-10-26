@@ -2,6 +2,7 @@ export const PartTypes = {
   char: 'char',
   separator: 'sep',
   unknown: 'unknown',
+  undecodable: 'undecodable',
 }
 
 export function decodeBySet(setSelected, decodeTable) {
