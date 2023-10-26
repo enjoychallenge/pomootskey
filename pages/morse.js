@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import morse_styles from '../styles/morse.module.scss'
-import { alternativePermutations } from '../app/decode/common'
+import { alternativePermutations, PartTypes } from '../app/decode/common'
 import Button from '@mui/material/Button'
 import {
   decode,
@@ -57,6 +57,7 @@ const messageToBox = (message) => {
     inputItems.push({
       input: msgPart.string[0],
       output: {
+        showJoiner: [PartTypes.char, PartTypes.unknown].includes(msgPart.type),
         char: (msgPart.char || '').toUpperCase() || null,
       },
     })

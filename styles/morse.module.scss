@@ -42,6 +42,7 @@
     display: flex;
     flex-wrap: wrap;
     padding-right: var(--morseInputCharWidth);
+    padding-left: var(--morseInputCharGap);
     column-gap: var(--morseInputCharGap);
     row-gap: var(--morseLineGap);
 
@@ -56,6 +57,33 @@
 .result_input_char {
   height: var(--morseInputCharHeight);
   font-size: var(--morseInputCharFontSize);
+}
+
+.result_input_char_joiner {
+  height: var(--morseInputCharJoinerHeight);
+  position: relative;
+}
+
+.result_input_char_joiner_start {
+  @extend .result_input_char_joiner;
+  width: calc(100% + var(--morseInputCharGap));
+}
+
+.result_input_char_joiner_end {
+  @extend .result_input_char_joiner;
+  left: calc(-1 * var(--morseInputCharGap));
+  width: calc(100% + var(--morseInputCharGap));
+}
+
+.result_input_char_joiner_middle {
+  @extend .result_input_char_joiner;
+  left: calc(-1 * var(--morseInputCharGap));
+  width: calc(100% + 2 * var(--morseInputCharGap));
+}
+
+.result_input_char_joiner_hidden {
+  @extend .result_input_char_joiner;
+  visibility: hidden;
 }
 
 .result_output_char {
