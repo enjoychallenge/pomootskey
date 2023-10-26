@@ -31,23 +31,34 @@
 .result_cases {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  & > div {
-    margin-bottom: 2px;
-
-    & > p:first-child {
-      font-size: x-small;
-    }
-
-    & > p:nth-child(2) {
-      margin-bottom: 0;
-      line-height: 1;
-
-      & > span {
-        text-transform: uppercase;
-        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
-          'monospace';
-        line-height: 1;
-      }
-    }
+  position: relative;
+  & > p {
+    font-size: x-small;
   }
+
+  & > div {
+    margin-bottom: 0;
+    line-height: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: var(--morseInputCharWidth);
+    column-gap: var(--morseInputCharGap);
+    row-gap: var(--morseLineGap);
+
+    font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace', 'monospace';
+  }
+}
+
+.result_item {
+  width: var(--morseInputCharWidth);
+}
+
+.result_input_char {
+  height: var(--morseInputCharHeight);
+  font-size: var(--morseInputCharFontSize);
+}
+
+.result_output_char {
+  height: var(--morseOutputCharHeight);
+  font-size: var(--morseOutputCharFontSize);
 }
