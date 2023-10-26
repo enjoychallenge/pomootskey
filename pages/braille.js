@@ -8,13 +8,6 @@ import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import {
-  columnsToRows,
-  decode,
-  rowsToColumns,
-  toUtf,
-  invertSelected,
-} from '../app/decode/braille'
-import {
   sendButtonClick,
   oneBackspaceClick,
   longBackspaceClick,
@@ -25,47 +18,6 @@ import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
-
-const allResults = (message) => {
-  const allVariants = [
-    {
-      label: 'Základní řešení 123456',
-      message: message,
-    },
-    {
-      label: 'Alternativní řešení 123456 invertovaně',
-      message: message.map(invertSelected),
-    },
-    {
-      label: 'Alternativní řešení číslování po řádcích 135246',
-      message: message.map(columnsToRows),
-    },
-    {
-      label: 'Alternativní řešení číslování po řádcích 135246 invertovaně',
-      message: message.map((item) => {
-        return columnsToRows(invertSelected(item))
-      }),
-    },
-    {
-      label: 'Alternativní řešení číslování po řádcích inverzně 142536',
-      message: message.map(rowsToColumns),
-    },
-    {
-      label:
-        'Alternativní řešení číslování po řádcích inverzně 142536 invertovaně',
-      message: message.map((item) => {
-        return rowsToColumns(invertSelected(item))
-      }),
-    },
-  ]
-  const decodedVariants = allVariants.map((variant) => {
-    return {
-      ...variant,
-      decoded: variant.message.map((selected) => decode(selected)),
-    }
-  })
-  return getResultBoxes(decodedVariants)
-}
 
 const BrailleButton = ({ value, selected, onButtonClick }) => {
   const memoOnButtonClick = useCallback(() => {
@@ -87,10 +39,6 @@ const BrailleButton = ({ value, selected, onButtonClick }) => {
 export default function BraillePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
-  const entryPoints = useAppSelector(slctr.getEntryPoints)
-  const input =
-    selected.length == 0 ? entryPoints : entryPoints.concat([selected])
-  const solutionBraille = input.map((entry) => toUtf(entry), '')
 
   const onSendButtonClick = useCallback(() => {
     dispatch(sendButtonClick())
@@ -170,13 +118,13 @@ export default function BraillePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              {allResults(input)}
+              {getResultBoxes(useAppSelector(slctr.getAllResults))}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
                 fullWidth
-                value={solutionBraille.join('')}
+                value={useAppSelector(slctr.getInputSolution)}
                 readOnly={true}
                 variant="filled"
                 size="small"
