@@ -30,3 +30,19 @@ a {
   --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
   --morseLineGap: clamp(5px, 2vmin, 10px);
 }
+
+@media (min-width: 500px) and (min-height: 500px) {
+  :root {
+    --morseInputCharGap: 3px;
+  }
+}
+@media (min-width: 700px) {
+  :root {
+    --morseInputCharGap: 4px;
+  }
+}
+@media (min-width: 1000px) {
+  :root {
+    --morseInputCharGap: 5px;
+  }
+}
