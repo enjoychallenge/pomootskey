@@ -3,6 +3,7 @@ import { Button } from '@mui/material'
 import { Backspace } from '@mui/icons-material'
 
 export default function BackspaceButton({ onClick, onLongPress }) {
+  const [pressed, setPressed] = useState(false)
   const [middlePressed, setMiddlePressed] = useState(false)
   const [longPressed, setLongPressed] = useState(false)
   const middleTimeout = useRef()
@@ -17,6 +18,7 @@ export default function BackspaceButton({ onClick, onLongPress }) {
 
   const start = useCallback(
     (event) => {
+      setPressed(true)
       middleTimeout.current = setTimeout(() => {
         onClick()
         middleTimeout.current = null
@@ -40,8 +42,9 @@ export default function BackspaceButton({ onClick, onLongPress }) {
       clearTimeout(longTimeout.current)
       longTimeout.current = null
     }
-    if (!middlePressed && !longPressed) {
+    if (pressed && !middlePressed && !longPressed) {
       onClick()
+      setPressed(false)
     }
     setMiddlePressed(false)
     setLongPressed(false)
