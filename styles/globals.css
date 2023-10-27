@@ -22,6 +22,8 @@ a {
 
 /* CSS variables */
 :root {
+  --muiPaletteResultMain: #eeeeee;
+  --muiPaletteWarningMain: #ff3333;
   --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
   --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
   --morseInputCharFontSize: calc(0.9 * var(--morseInputCharHeight));

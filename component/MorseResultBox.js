@@ -9,9 +9,33 @@ export const OutputCharTypes = {
   unknown: 'unknown',
 }
 
-const TypeToColor = {
-  [OutputCharTypes.unknown]: 'warning.main',
-  [OutputCharTypes.known]: 'result.main',
+const TypeToClass = {
+  [OutputCharTypes.unknown]: morse_styles.result_item_wrong,
+  [OutputCharTypes.known]: morse_styles.result_item,
+}
+
+const getInputCharJsx = (inputChar) => {
+  if (inputChar === '.') {
+    return (
+      <svg width="100%" viewBox="0 0 30 50">
+        <circle cx="15" cy="35" r="6" />
+      </svg>
+    )
+  } else if (inputChar === '-') {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 30 50">
+        <path d="M 7 25 h 16" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+    )
+  } else if (inputChar === '/') {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 30 50">
+        <path d="M 7 43 L 23 7" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+    )
+  } else {
+    return inputChar
+  }
 }
 
 export default function MorseResultBox({ label, inputItems }) {
@@ -26,9 +50,11 @@ export default function MorseResultBox({ label, inputItems }) {
       isStartItem,
       isEndItem
     )
-    const color = TypeToColor[currentOutput.type]
+    const className = TypeToClass[currentOutput.type]
+    const inputCharToShow = getInputCharJsx(item.input)
+
     return (
-      <Box key={idx} className={morse_styles.result_item} sx={{ color }}>
+      <Box key={idx} className={className}>
         <Box className={morse_styles.result_output_char}>
           {item.output?.char || ''}
         </Box>
@@ -40,7 +66,7 @@ export default function MorseResultBox({ label, inputItems }) {
           className={morse_styles.result_input_char}
           sx={{ backgroundColor: 'background.paper' }}
         >
-          {item.input}
+          {inputCharToShow}
         </Box>
       </Box>
     )
