@@ -41,7 +41,7 @@ const byColumn2byRow = {
 const allItem = new Set(Object.values(byColumn2byRow))
 
 export function decode(selected) {
-  const decodedChar = decodeBySet(selected, codeTable)
+  const decodedChar = decodeBySet(new Set(selected), codeTable)
   const result =
     decodedChar === String.fromCharCode(10734)
       ? {
@@ -61,24 +61,20 @@ export function toUtf(selected) {
 }
 
 export function columnsToRows(byColumns) {
-  return new Set(
-    [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
-  )
+  return [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
 }
 
 export function rowsToColumns(byRows) {
-  return new Set(
-    [...byRows].map((itemByRow) =>
-      Number(
-        Object.entries(byColumn2byRow).find(
-          ([_, value]) => value === itemByRow
-        )[0]
-      )
+  return [...byRows].map((itemByRow) =>
+    Number(
+      Object.entries(byColumn2byRow).find(
+        ([_, value]) => value === itemByRow
+      )[0]
     )
   )
 }
 
 export function invertSelected(selected) {
-  const result = new Set([...allItem].filter((x) => !selected.includes(x)))
+  const result = [...allItem].filter((x) => !selected.includes(x))
   return result
 }
