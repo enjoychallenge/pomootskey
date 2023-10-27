@@ -52,11 +52,26 @@
 
 .result_item {
   width: var(--morseInputCharWidth);
+  color: var(--muiPaletteResultMain);
+  fill: var(--muiPaletteResultMain);
+  stroke: var(--muiPaletteResultMain);
+}
+
+.result_item_wrong {
+  @extend .result_item;
+  color: var(--muiPaletteWarningMain);
+  fill: var(--muiPaletteWarningMain);
+  stroke: var(--muiPaletteWarningMain);
 }
 
 .result_input_char {
   height: var(--morseInputCharHeight);
   font-size: var(--morseInputCharFontSize);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  text-align: center;
 }
 
 .result_input_char_joiner {
