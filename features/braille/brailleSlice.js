@@ -11,7 +11,7 @@ export const brailleSlice = createSlice({
   reducers: {
     sendButtonClick: (state) => {
       if (state.selected.length) {
-        state.confirmedInput = state.confirmedInput.concat([state.selected])
+        state.confirmedInput.push(state.selected)
       }
       state.selected = initialState.selected
     },
