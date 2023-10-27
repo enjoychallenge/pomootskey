@@ -48,7 +48,7 @@ export default function BackspaceButton({ onClick, onLongPress }) {
     }
     setMiddlePressed(false)
     setLongPressed(false)
-  }, [onClick, middlePressed, longPressed])
+  }, [onClick, pressed, middlePressed, longPressed])
 
   return (
     <Button
