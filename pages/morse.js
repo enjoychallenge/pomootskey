@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import morse_styles from '../styles/morse.module.scss'
-import { alternativePermutations, PartTypes } from '../app/decode/common'
+import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
 import {
   decode,
@@ -16,7 +16,8 @@ import {
 import { InputBase, Paper } from '@mui/material'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
-import MorseResultBox, { OutputCharTypes } from '../component/MorseResultBox'
+import MorseResultBox from '../component/MorseResultBox'
+import { messageToInputItems } from '../features/morse/util'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -51,40 +52,7 @@ const allResults = (message) => {
 }
 
 const messageToBox = (message) => {
-  const inputItems = []
-
-  decode(message).forEach((msgPart) => {
-    let outputChar = null
-    let outputCharType = OutputCharTypes.unknown
-    if (msgPart.char) {
-      outputChar = msgPart.char.toUpperCase()
-      outputCharType = OutputCharTypes.known
-    } else if (msgPart.type === PartTypes.unknown) {
-      outputChar = `?`
-      outputCharType = OutputCharTypes.unknown
-    } else if (
-      msgPart.type === PartTypes.separator &&
-      msgPart.string.length < 4
-    ) {
-      outputCharType = OutputCharTypes.known
-    }
-    inputItems.push({
-      input: msgPart.string[0],
-      output: {
-        type: outputCharType,
-        showJoiner: [PartTypes.char, PartTypes.unknown].includes(msgPart.type),
-        char: outputChar,
-      },
-    })
-    inputItems.push(
-      ...msgPart.string
-        .split('')
-        .slice(1)
-        .map((msgChar) => ({
-          input: msgChar,
-        }))
-    )
-  })
+  const inputItems = messageToInputItems(message)
   return <MorseResultBox label="Základní řešení" inputItems={inputItems} />
 }
 
