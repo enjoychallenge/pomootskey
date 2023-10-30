@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep'
 import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import listenerMiddleware from './../../app/listenerMiddleware'
 
@@ -20,7 +21,7 @@ export const semaphoreSlice = createSlice({
       if ([0, 2].includes(state.selected.length)) {
         state.selected = [value]
       } else if (state.selected.includes(value)) {
-        state.selected = []
+        state.selected = initialState.selected
       }
       state.focused = value
     },
@@ -32,7 +33,7 @@ export const semaphoreSlice = createSlice({
         state.selectedBeforePointerDown.length === 1 &&
         state.selectedBeforePointerDown.includes(value)
       ) {
-        state.selected = []
+        state.selected = initialState.selected
       } else if (
         state.selected.length === 0 &&
         !state.selectedBeforePointerDown.includes(value)
@@ -52,35 +53,30 @@ export const semaphoreSlice = createSlice({
     buttonPointerLeave: (state, action) => {
       const { value } = action.payload
       if (state.isFocusing) {
-        state.focused = null
+        state.focused = initialState.focused
         if (
           state.selected.length === 0 &&
           state.selectedBeforePointerDown.length === 1 &&
           state.selectedBeforePointerDown.includes(value)
         ) {
-          state.selectedBeforePointerDown = []
+          state.selectedBeforePointerDown =
+            initialState.selectedBeforePointerDown
         }
       }
     },
     inactivityTimeoutSinceLastChar: (state) => {
-      state.selected = []
+      state.selected = initialState.selected
     },
     oneBackspaceClick: (state) => {
+      let newInput = state.input
       if ([0, 2].includes(state.selected.length) && state.input.length > 0) {
-        state.input = state.input.slice(0, state.input.length - 1)
+        newInput = state.input.slice(0, state.input.length - 1)
       }
-      state.isFocusing = false
-      state.focused = null
-      state.selectedBeforePointerDown = []
-      state.selected = []
+      let newState = cloneDeep(initialState)
+      newState.input = newInput
+      return newState
     },
-    longBackspaceClick: (state) => {
-      state.selected = []
-      state.isFocusing = false
-      state.focused = null
-      state.selectedBeforePointerDown = []
-      state.input = []
-    },
+    longBackspaceClick: () => initialState,
   },
 })
 
