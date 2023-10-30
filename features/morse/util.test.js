@@ -1,99 +1,110 @@
 import { messageToInputItems } from './util'
 
-test('should return correct inputItems for two known letters', () => {
-  const inputItems = messageToInputItems('../-.')
-  expect(inputItems).toEqual([
+describe('messageToInputItems', () => {
+  test.each([
     {
-      input: '.',
-      output: { type: 'known', showJoiner: true, char: 'I' },
+      testCaseId: 'two known letters',
+      inputMessage: '../-.',
+      expResult: [
+        {
+          input: '.',
+          output: { type: 'known', showJoiner: true, char: 'I' },
+        },
+        {
+          input: '.',
+        },
+        {
+          input: '/',
+          output: { type: 'known', showJoiner: false, char: null },
+        },
+        {
+          input: '-',
+          output: { type: 'known', showJoiner: true, char: 'N' },
+        },
+        {
+          input: '.',
+        },
+      ],
     },
     {
-      input: '.',
+      testCaseId: 'unknown letter',
+      inputMessage: '.-.-',
+      expResult: [
+        {
+          input: '.',
+          output: { type: 'unknown', showJoiner: true, char: '?' },
+        },
+        {
+          input: '-',
+        },
+        {
+          input: '.',
+        },
+        {
+          input: '-',
+        },
+      ],
     },
     {
-      input: '/',
-      output: { type: 'known', showJoiner: false, char: null },
+      testCaseId: '3 separators',
+      inputMessage: '///',
+      expResult: [
+        {
+          input: '/',
+          output: { type: 'known', showJoiner: false, char: null },
+        },
+        {
+          input: '/',
+        },
+        {
+          input: '/',
+        },
+      ],
     },
     {
-      input: '-',
-      output: { type: 'known', showJoiner: true, char: 'N' },
+      testCaseId: '4 separators',
+      inputMessage: '////',
+      expResult: [
+        {
+          input: '/',
+          output: { type: 'unknown', showJoiner: false, char: null },
+        },
+        {
+          input: '/',
+        },
+        {
+          input: '/',
+        },
+        {
+          input: '/',
+        },
+      ],
     },
     {
-      input: '.',
+      testCaseId: 'undecodable characters and dot',
+      inputMessage: 'abc.',
+      expResult: [
+        {
+          input: 'a',
+          output: { type: 'unknown', showJoiner: false, char: null },
+        },
+        {
+          input: 'b',
+        },
+        {
+          input: 'c',
+        },
+        {
+          input: '.',
+          output: { type: 'known', showJoiner: true, char: 'E' },
+        },
+      ],
     },
-  ])
-})
-
-test('should return correct inputItems for unknown letter', () => {
-  const inputItems = messageToInputItems('.-.-')
-  expect(inputItems).toEqual([
-    {
-      input: '.',
-      output: { type: 'unknown', showJoiner: true, char: '?' },
-    },
-    {
-      input: '-',
-    },
-    {
-      input: '.',
-    },
-    {
-      input: '-',
-    },
-  ])
-})
-
-test('should return correct inputItems for 3 separators', () => {
-  const inputItems = messageToInputItems('///')
-  expect(inputItems).toEqual([
-    {
-      input: '/',
-      output: { type: 'known', showJoiner: false, char: null },
-    },
-    {
-      input: '/',
-    },
-    {
-      input: '/',
-    },
-  ])
-})
-
-test('should return correct inputItems for 4 separators', () => {
-  const inputItems = messageToInputItems('////')
-  expect(inputItems).toEqual([
-    {
-      input: '/',
-      output: { type: 'unknown', showJoiner: false, char: null },
-    },
-    {
-      input: '/',
-    },
-    {
-      input: '/',
-    },
-    {
-      input: '/',
-    },
-  ])
-})
-
-test('should return correct inputItems for undecodable characters and dot', () => {
-  const inputItems = messageToInputItems('abc.')
-  expect(inputItems).toEqual([
-    {
-      input: 'a',
-      output: { type: 'unknown', showJoiner: false, char: null },
-    },
-    {
-      input: 'b',
-    },
-    {
-      input: 'c',
-    },
-    {
-      input: '.',
-      output: { type: 'known', showJoiner: true, char: 'E' },
-    },
-  ])
+  ])(
+    'should return correct inputItems for $testCaseId',
+    ({ testCaseId, inputMessage, expResult }) => {
+      const inputItems = messageToInputItems(inputMessage)
+      expect(inputItems).toEqual(expResult)
+    }
+  )
 })
