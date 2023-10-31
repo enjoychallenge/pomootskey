@@ -54,7 +54,7 @@ const messageToBox = (message) => {
   return <MorseResultBox label="Základní řešení" inputItems={inputItems} />
 }
 
-export default function ButtonAppBar() {
+export default function MorsePage() {
   const [message, setMessage] = React.useState('')
   const handleDotClick = () => {
     setMessage(message + MorseChars.dot)
