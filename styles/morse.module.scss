@@ -67,11 +67,32 @@
 .result_input_char {
   height: var(--morseInputCharHeight);
   font-size: var(--morseInputCharFontSize);
-  overflow: hidden;
+  position: relative;
   display: flex;
   justify-content: center;
   font-weight: bold;
   text-align: center;
+}
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.result_input_char_cursor_left::before {
+  content: '';
+  position: absolute;
+  left: calc(-0.5 * var(--morseInputCharGap) - 1px);
+  width: 2px;
+  height: 100%;
+  background: var(--muiPalettePrimaryMain);
+  display: block;
+  animation-name: cursor-blink;
+  animation-duration: 1s;
+  animation-timing-function: steps(1);
+  animation-iteration-count: infinite;
 }
 
 .result_input_char_joiner {
