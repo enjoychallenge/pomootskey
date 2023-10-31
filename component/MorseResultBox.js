@@ -2,25 +2,11 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
+import { getJoinerClass } from '../features/morse/util'
 
 export const OutputCharTypes = {
   known: 'known',
   unknown: 'unknown',
-}
-
-const getJoinerClass = (showJoiner, isStartItem, isEndItem) => {
-  if (!showJoiner) {
-    return morse_styles.result_input_char_joiner_hidden
-  }
-  if (isStartItem && isEndItem) {
-    return morse_styles.result_input_char_joiner
-  } else if (isStartItem && !isEndItem) {
-    return morse_styles.result_input_char_joiner_start
-  } else if (!isStartItem && isEndItem) {
-    return morse_styles.result_input_char_joiner_end
-  } else {
-    return morse_styles.result_input_char_joiner_middle
-  }
 }
 
 const TypeToColor = {
