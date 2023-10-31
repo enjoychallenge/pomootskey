@@ -10,7 +10,6 @@ import { decode, rearrange, MorseCharsToShow } from '../app/decode/morse'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import MorseResultBox from '../component/MorseResultBox'
-import { messageToInputItems } from '../features/morse/util'
 import {
   dotClick,
   dashClick,
@@ -54,14 +53,8 @@ const allResults = (message) => {
   return getResultBoxes(decodedVariants)
 }
 
-const messageToBox = (message) => {
-  const inputItems = messageToInputItems(message)
-  return <MorseResultBox label="Základní řešení" inputItems={inputItems} />
-}
-
 export default function MorsePage() {
   const dispatch = useAppDispatch()
-  const message = useAppSelector(slctr.getInput)
 
   const onDotClick = useCallback(() => {
     dispatch(dotClick())
@@ -79,6 +72,8 @@ export default function MorsePage() {
   const onLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
   }, [dispatch])
+
+  const inputItems = useAppSelector(slctr.getInputItems)
 
   return (
     <>
@@ -112,7 +107,7 @@ export default function MorsePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            {messageToBox(message)}
+            <MorseResultBox label="Základní řešení" inputItems={inputItems} />
           </Box>
         </Box>
       </Box>
