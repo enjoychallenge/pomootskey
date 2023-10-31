@@ -37,6 +37,41 @@ const getInputCharJsx = (inputChar) => {
   }
 }
 
+const ResultItem = ({
+  inputChar = '',
+  outputChar = '',
+  joinerClass = morse_styles.result_input_char_joiner_hidden,
+  transparent = false,
+  extraClass = null,
+  leftCursor = false,
+}) => {
+  const classNames = [morse_styles.result_item]
+  if (extraClass) {
+    classNames.push(extraClass)
+  }
+
+  const inputCharClasses = [morse_styles.result_input_char]
+  if (leftCursor) {
+    inputCharClasses.push(morse_styles.result_input_char_cursor_left)
+  }
+
+  return (
+    <Box className={classNames.join(' ')}>
+      <Box className={morse_styles.result_output_char}>{outputChar}</Box>
+      <Box
+        className={joinerClass}
+        sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
+      />
+      <Box
+        className={inputCharClasses.join(' ')}
+        sx={transparent ? null : { backgroundColor: 'background.paper' }}
+      >
+        {inputChar}
+      </Box>
+    </Box>
+  )
+}
+
 export default function MorseResultBox({ label, inputItems }) {
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
@@ -49,29 +84,15 @@ export default function MorseResultBox({ label, inputItems }) {
       isStartItem,
       isEndItem
     )
-    const classNames = [morse_styles.result_item]
-    const extraClassName = TypeToExtraClass[currentOutput.type]
-    if (extraClassName) {
-      classNames.push(extraClassName)
-    }
-    const inputCharToShow = getInputCharJsx(item.input)
 
     return (
-      <Box key={idx} className={classNames.join(' ')}>
-        <Box className={morse_styles.result_output_char}>
-          {item.output?.char || ''}
-        </Box>
-        <Box
-          className={joinerClass}
-          sx={{ backgroundColor: 'background.lightPaper' }}
-        />
-        <Box
-          className={morse_styles.result_input_char}
-          sx={{ backgroundColor: 'background.paper' }}
-        >
-          {inputCharToShow}
-        </Box>
-      </Box>
+      <ResultItem
+        key={idx}
+        inputChar={getInputCharJsx(item.input)}
+        outputChar={item.output?.char || ''}
+        extraClass={TypeToExtraClass[currentOutput.type]}
+        joinerClass={joinerClass}
+      />
     )
   })
   return (
@@ -79,13 +100,7 @@ export default function MorseResultBox({ label, inputItems }) {
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       <Box>
         {partsJsx}
-        <Box className={morse_styles.result_item}>
-          <Box className={morse_styles.result_output_char} />
-          <Box className={morse_styles.result_input_char_joiner_hidden} />
-          <Box
-            className={`${morse_styles.result_input_char} ${morse_styles.result_input_char_cursor_left}`}
-          />
-        </Box>
+        <ResultItem transparent={true} leftCursor={true} />
       </Box>
     </Box>
   )
