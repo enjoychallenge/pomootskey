@@ -35,9 +35,7 @@ export default function MorseResultBox({ label, inputItems }) {
         <Box
           className={joinerClass}
           sx={{ backgroundColor: 'background.lightPaper' }}
-        >
-          {' '}
-        </Box>
+        />
         <Box
           className={morse_styles.result_input_char}
           sx={{ backgroundColor: 'background.paper' }}
