@@ -57,8 +57,7 @@
   stroke: var(--muiPaletteResultMain);
 }
 
-.result_item_wrong {
-  @extend .result_item;
+.result_item.wrong {
   color: var(--muiPaletteWarningMain);
   fill: var(--muiPaletteWarningMain);
   stroke: var(--muiPaletteWarningMain);
