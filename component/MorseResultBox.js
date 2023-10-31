@@ -9,9 +9,8 @@ export const OutputCharTypes = {
   unknown: 'unknown',
 }
 
-const TypeToClass = {
-  [OutputCharTypes.unknown]: morse_styles.result_item_wrong,
-  [OutputCharTypes.known]: morse_styles.result_item,
+const TypeToExtraClass = {
+  [OutputCharTypes.unknown]: morse_styles.wrong,
 }
 
 const getInputCharJsx = (inputChar) => {
@@ -50,11 +49,15 @@ export default function MorseResultBox({ label, inputItems }) {
       isStartItem,
       isEndItem
     )
-    const className = TypeToClass[currentOutput.type]
+    const classNames = [morse_styles.result_item]
+    const extraClassName = TypeToExtraClass[currentOutput.type]
+    if (extraClassName) {
+      classNames.push(extraClassName)
+    }
     const inputCharToShow = getInputCharJsx(item.input)
 
     return (
-      <Box key={idx} className={className}>
+      <Box key={idx} className={classNames.join(' ')}>
         <Box className={morse_styles.result_output_char}>
           {item.output?.char || ''}
         </Box>
