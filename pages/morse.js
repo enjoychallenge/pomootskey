@@ -3,7 +3,6 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
-import input_styles from '../styles/common/input.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
@@ -13,7 +12,6 @@ import {
   MorseChars,
   MorseCharsToShow,
 } from '../app/decode/morse'
-import { InputBase, Paper } from '@mui/material'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import MorseResultBox from '../component/MorseResultBox'
@@ -58,16 +56,6 @@ const messageToBox = (message) => {
 
 export default function ButtonAppBar() {
   const [message, setMessage] = React.useState('')
-  const handleTextInputChange = (event) => {
-    let message = event.target.value
-    if (message.includes('—')) {
-      message = message.replaceAll('—', '--')
-    }
-    if (message.includes('…')) {
-      message = message.replaceAll('…', '...')
-    }
-    setMessage(message)
-  }
   const handleDotClick = () => {
     setMessage(message + MorseChars.dot)
   }
@@ -99,6 +87,12 @@ export default function ButtonAppBar() {
         >
           <Box className={layout_styles.inputs_box}>
             <Box className={morse_styles.buttons_box}>
+              <BackspaceButton
+                onClick={oneBackspaceClick}
+                onLongPress={longBackspaceClick}
+              />
+            </Box>
+            <Box className={morse_styles.buttons_box}>
               <Button variant="outlined" onClick={handleDashClick}>
                 <Typography>&#8210;</Typography>
               </Button>
@@ -115,21 +109,6 @@ export default function ButtonAppBar() {
             className={layout_styles.results_box}
           >
             {messageToBox(message)}
-            <Paper className={input_styles.input_paper}>
-              <InputBase
-                multiline
-                fullWidth
-                value={message}
-                onChange={handleTextInputChange}
-                variant="filled"
-                size="small"
-                className={input_styles.text_input}
-              />
-              <BackspaceButton
-                onClick={oneBackspaceClick}
-                onLongPress={longBackspaceClick}
-              />
-            </Paper>
           </Box>
         </Box>
       </Box>
