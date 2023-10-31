@@ -74,7 +74,16 @@ export default function MorseResultBox({ label, inputItems }) {
   return (
     <>
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
-      <Box>{partsJsx}</Box>
+      <Box>
+        {partsJsx}
+        <Box className={morse_styles.result_item}>
+          <Box className={morse_styles.result_output_char} />
+          <Box className={morse_styles.result_input_char_joiner_hidden} />
+          <Box
+            className={`${morse_styles.result_input_char} ${morse_styles.result_input_char_cursor_left}`}
+          />
+        </Box>
+      </Box>
     </>
   )
 }

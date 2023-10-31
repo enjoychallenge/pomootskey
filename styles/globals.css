@@ -22,6 +22,7 @@ a {
 
 /* CSS variables */
 :root {
+  --muiPalettePrimaryMain: #33b5e1;
   --muiPaletteResultMain: #eeeeee;
   --muiPaletteWarningMain: #ff3333;
   --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
