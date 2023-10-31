@@ -6,16 +6,21 @@ import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
-import {
-  decode,
-  rearrange,
-  MorseChars,
-  MorseCharsToShow,
-} from '../app/decode/morse'
+import { decode, rearrange, MorseCharsToShow } from '../app/decode/morse'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import MorseResultBox from '../component/MorseResultBox'
 import { messageToInputItems } from '../features/morse/util'
+import {
+  dotClick,
+  dashClick,
+  separatorClick,
+  oneBackspaceClick,
+  longBackspaceClick,
+} from '../features/morse/morseSlice'
+import { useCallback } from 'react'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import * as slctr from '../features/morse/morseSelector'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -55,26 +60,25 @@ const messageToBox = (message) => {
 }
 
 export default function MorsePage() {
-  const [message, setMessage] = React.useState('')
-  const handleDotClick = () => {
-    setMessage(message + MorseChars.dot)
-  }
-  const handleDashClick = () => {
-    setMessage(message + MorseChars.dash)
-  }
-  const handleSeparatorClick = () => {
-    setMessage(message + MorseChars.separator)
-  }
+  const dispatch = useAppDispatch()
+  const message = useAppSelector(slctr.getInput)
 
-  const oneBackspaceClick = () => {
-    if (message.length) {
-      setMessage((message) => message.slice(0, message.length - 1))
-    }
-  }
+  const onDotClick = useCallback(() => {
+    dispatch(dotClick())
+  }, [dispatch])
+  const onDashClick = useCallback(() => {
+    dispatch(dashClick())
+  }, [dispatch])
+  const onSeparatorClick = useCallback(() => {
+    dispatch(separatorClick())
+  }, [dispatch])
 
-  const longBackspaceClick = () => {
-    setMessage('')
-  }
+  const onOneBackspaceClick = useCallback(() => {
+    dispatch(oneBackspaceClick())
+  }, [dispatch])
+  const onLongBackspaceClick = useCallback(() => {
+    dispatch(longBackspaceClick())
+  }, [dispatch])
 
   return (
     <>
@@ -88,18 +92,18 @@ export default function MorsePage() {
           <Box className={layout_styles.inputs_box}>
             <Box className={morse_styles.buttons_box}>
               <BackspaceButton
-                onClick={oneBackspaceClick}
-                onLongPress={longBackspaceClick}
+                onClick={onOneBackspaceClick}
+                onLongPress={onLongBackspaceClick}
               />
             </Box>
             <Box className={morse_styles.buttons_box}>
-              <Button variant="outlined" onClick={handleDashClick}>
+              <Button variant="outlined" onClick={onDashClick}>
                 <Typography>&#8210;</Typography>
               </Button>
-              <Button variant="outlined" onClick={handleDotClick}>
+              <Button variant="outlined" onClick={onDotClick}>
                 <Typography>&#9679;</Typography>
               </Button>
-              <Button variant="outlined" onClick={handleSeparatorClick}>
+              <Button variant="outlined" onClick={onSeparatorClick}>
                 <Typography>/</Typography>
               </Button>
             </Box>
