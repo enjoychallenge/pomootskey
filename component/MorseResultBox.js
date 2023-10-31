@@ -72,7 +72,7 @@ export default function MorseResultBox({ label, inputItems }) {
     )
   })
   return (
-    <>
+    <Box className={morse_styles.result_cases}>
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       <Box>
         {partsJsx}
@@ -84,6 +84,6 @@ export default function MorseResultBox({ label, inputItems }) {
           />
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }

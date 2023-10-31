@@ -114,9 +114,7 @@ export default function ButtonAppBar() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Box className={morse_styles.result_cases}>
-              {messageToBox(message)}
-            </Box>
+            {messageToBox(message)}
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
