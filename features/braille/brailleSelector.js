@@ -9,6 +9,7 @@ import {
 
 export const getSelected = (state) => state.braille.selected
 export const getConfirmedInput = (state) => state.braille.confirmedInput
+export const getIsFocusing = (state) => state.braille.isFocusing
 
 export const getInput = createSelector(
   [getSelected, getConfirmedInput],

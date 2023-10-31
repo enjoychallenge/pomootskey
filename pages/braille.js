@@ -11,7 +11,11 @@ import {
   sendButtonClick,
   oneBackspaceClick,
   longBackspaceClick,
-  brailleButtonClick,
+  brailleButtonPointerDown,
+  brailleButtonPointerEnter,
+  brailleButtonPointerLeave,
+  inputBoxPointerLeave,
+  inputBoxPointerUp,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { getResultBoxes } from '../app/results'
@@ -19,16 +23,31 @@ import BackspaceButton from '../component/BackspaceButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 
-const BrailleButton = ({ value, selected, onButtonClick }) => {
-  const memoOnButtonClick = useCallback(() => {
-    onButtonClick(value)
-  }, [onButtonClick, value])
+const BrailleButton = ({
+  value,
+  selected,
+  onPointerDown,
+  onPointerEnter,
+  onPointerLeave,
+  isFocusing,
+}) => {
+  const memoOnPointerDown = useCallback(() => {
+    onPointerDown(value)
+  }, [onPointerDown, value])
+  const memoOnPointerEnter = useCallback(() => {
+    onPointerEnter(value)
+  }, [onPointerEnter, value])
+  const memoOnPointerLeave = useCallback(() => {
+    onPointerLeave()
+  }, [onPointerLeave])
 
   return (
     <Button
       className={braille_styles.braille_button}
       variant="outlined"
-      onClick={memoOnButtonClick}
+      onPointerDown={memoOnPointerDown}
+      onPointerEnter={isFocusing ? memoOnPointerEnter : null}
+      onPointerLeave={isFocusing ? memoOnPointerLeave : null}
     >
       {selected.includes(value) ? <Circle /> : <CircleOutlined />}
       <Typography color={'result.main'}>{value}</Typography>
@@ -39,6 +58,7 @@ const BrailleButton = ({ value, selected, onButtonClick }) => {
 export default function BraillePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
+  const isFocusing = useAppSelector(slctr.getIsFocusing)
 
   const onSendButtonClick = useCallback(() => {
     dispatch(sendButtonClick())
@@ -51,13 +71,34 @@ export default function BraillePage() {
   const onLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
   }, [dispatch])
+  const onInputBoxPointerLeave = useCallback(() => {
+    dispatch(inputBoxPointerLeave())
+  }, [dispatch])
+  const onInputBoxPointerUp = useCallback(() => {
+    dispatch(inputBoxPointerUp())
+  }, [dispatch])
 
-  const onBrailleButtonClick = useCallback(
-    (value) => {
-      dispatch(brailleButtonClick({ value }))
-    },
-    [dispatch]
-  )
+  const buttonProps = {
+    onPointerDown: useCallback(
+      (value) => {
+        dispatch(brailleButtonPointerDown({ value }))
+      },
+      [dispatch]
+    ),
+    onPointerEnter: useCallback(
+      (value) => {
+        dispatch(brailleButtonPointerEnter({ value }))
+      },
+      [dispatch]
+    ),
+    onPointerLeave: useCallback(
+      (value) => {
+        dispatch(brailleButtonPointerLeave({ value }))
+      },
+      [dispatch]
+    ),
+    isFocusing: isFocusing,
+  }
 
   return (
     <>
@@ -68,31 +109,19 @@ export default function BraillePage() {
           className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={layout_styles.inputs_box}>
+          <Box
+            className={layout_styles.inputs_box}
+            onPointerLeave={isFocusing ? onInputBoxPointerLeave : null}
+            onPointerUp={isFocusing ? onInputBoxPointerUp : null}
+          >
             <Box className={braille_styles.buttons}>
               <Button disabled={true}></Button>
-              <BrailleButton
-                value={1}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
-              <BrailleButton
-                value={4}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
+              <BrailleButton value={1} selected={selected} {...buttonProps} />
+              <BrailleButton value={4} selected={selected} {...buttonProps} />
 
               <Button disabled={true}></Button>
-              <BrailleButton
-                value={2}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
-              <BrailleButton
-                value={5}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
+              <BrailleButton value={2} selected={selected} {...buttonProps} />
+              <BrailleButton value={5} selected={selected} {...buttonProps} />
 
               <Button
                 variant="outlined"
@@ -102,16 +131,8 @@ export default function BraillePage() {
               >
                 <Send />
               </Button>
-              <BrailleButton
-                value={3}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
-              <BrailleButton
-                value={6}
-                selected={selected}
-                onButtonClick={onBrailleButtonClick}
-              />
+              <BrailleButton value={3} selected={selected} {...buttonProps} />
+              <BrailleButton value={6} selected={selected} {...buttonProps} />
             </Box>
           </Box>
           <Box
