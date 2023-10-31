@@ -98,6 +98,7 @@ export default function BraillePage() {
                 variant="outlined"
                 onClick={onSendButtonClick}
                 className={braille_styles.braille_button}
+                disabled={!selected.length}
               >
                 <Send />
               </Button>
