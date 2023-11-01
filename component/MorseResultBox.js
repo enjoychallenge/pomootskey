@@ -2,11 +2,18 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
-import { getJoinerClass } from '../features/morse/util'
-import { OutputCharTypes } from '../features/morse/morseSelector'
+import { OutputCharTypes, JoinerTypes } from '../features/morse/morseSelector'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
+}
+
+const JoinerTypeToClass = {
+  [JoinerTypes.hidden]: morse_styles.result_input_char_joiner_hidden,
+  [JoinerTypes.start]: morse_styles.result_input_char_joiner_start,
+  [JoinerTypes.end]: morse_styles.result_input_char_joiner_end,
+  [JoinerTypes.middle]: morse_styles.result_input_char_joiner_middle,
+  [JoinerTypes.single]: morse_styles.result_input_char_joiner,
 }
 
 const getInputCharJsx = (inputChar) => {
@@ -72,22 +79,13 @@ export default function MorseResultBox({ label, inputItems }) {
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
     currentOutput = item.output || currentOutput
-    const isStartItem = !!item.output
-    const nextItem = inputItems[idx + 1]
-    const isEndItem = !nextItem || !!nextItem.output
-    const joinerClass = getJoinerClass(
-      currentOutput.showJoiner,
-      isStartItem,
-      isEndItem
-    )
-
     return (
       <ResultItem
         key={idx}
         inputChar={getInputCharJsx(item.input)}
         outputChar={item.output?.char || ''}
         extraClass={CharTypeToExtraClass[currentOutput.type]}
-        joinerClass={joinerClass}
+        joinerClass={JoinerTypeToClass[item.joiner]}
       />
     )
   })
