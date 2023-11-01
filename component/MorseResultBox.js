@@ -3,13 +3,9 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
 import { getJoinerClass } from '../features/morse/util'
+import { OutputCharTypes } from '../features/morse/morseSelector'
 
-export const OutputCharTypes = {
-  known: 'known',
-  unknown: 'unknown',
-}
-
-const TypeToExtraClass = {
+const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
 }
 
@@ -90,7 +86,7 @@ export default function MorseResultBox({ label, inputItems }) {
         key={idx}
         inputChar={getInputCharJsx(item.input)}
         outputChar={item.output?.char || ''}
-        extraClass={TypeToExtraClass[currentOutput.type]}
+        extraClass={CharTypeToExtraClass[currentOutput.type]}
         joinerClass={joinerClass}
       />
     )
