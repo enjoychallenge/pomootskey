@@ -8,21 +8,26 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '.',
-          output: { type: 'known', showJoiner: true, char: 'I' },
+          output: { type: 'known', char: 'I' },
+          joiner: 'start',
         },
         {
           input: '.',
+          joiner: 'end',
         },
         {
           input: '/',
-          output: { type: 'known', showJoiner: false, char: null },
+          output: { type: 'known', char: null },
+          joiner: 'hidden',
         },
         {
           input: '-',
-          output: { type: 'known', showJoiner: true, char: 'N' },
+          output: { type: 'known', char: 'N' },
+          joiner: 'start',
         },
         {
           input: '.',
+          joiner: 'end',
         },
       ],
     },
@@ -32,16 +37,20 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '.',
-          output: { type: 'unknown', showJoiner: true, char: '?' },
+          output: { type: 'unknown', char: '?' },
+          joiner: 'start',
         },
         {
           input: '-',
+          joiner: 'middle',
         },
         {
           input: '.',
+          joiner: 'middle',
         },
         {
           input: '-',
+          joiner: 'end',
         },
       ],
     },
@@ -51,13 +60,16 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '/',
-          output: { type: 'known', showJoiner: false, char: null },
+          output: { type: 'known', char: null },
+          joiner: 'hidden',
         },
         {
           input: '/',
+          joiner: 'hidden',
         },
         {
           input: '/',
+          joiner: 'hidden',
         },
       ],
     },
@@ -67,16 +79,20 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '/',
-          output: { type: 'unknown', showJoiner: false, char: null },
+          output: { type: 'unknown', char: null },
+          joiner: 'hidden',
         },
         {
           input: '/',
+          joiner: 'hidden',
         },
         {
           input: '/',
+          joiner: 'hidden',
         },
         {
           input: '/',
+          joiner: 'hidden',
         },
       ],
     },
@@ -86,17 +102,21 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: 'a',
-          output: { type: 'unknown', showJoiner: false, char: null },
+          output: { type: 'unknown', char: null },
+          joiner: 'hidden',
         },
         {
           input: 'b',
+          joiner: 'hidden',
         },
         {
           input: 'c',
+          joiner: 'hidden',
         },
         {
           input: '.',
-          output: { type: 'known', showJoiner: true, char: 'E' },
+          output: { type: 'known', char: 'E' },
+          joiner: 'single',
         },
       ],
     },
