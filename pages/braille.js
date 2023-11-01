@@ -43,7 +43,7 @@ const BrailleButton = ({
   }, [onPointerEnter, value])
   const memoOnPointerLeave = useCallback(() => {
     onPointerLeave()
-  }, [onPointerEnter])
+  }, [onPointerLeave])
 
   return (
     <Button
