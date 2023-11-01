@@ -1,9 +1,13 @@
 import { decode } from '../../app/decode/morse'
-import { OutputCharTypes } from '../../component/MorseResultBox'
 import { PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 
 const getInput = (state) => state.morse.input
+
+export const OutputCharTypes = {
+  known: 'known',
+  unknown: 'unknown',
+}
 
 export const getInputItems = createSelector([getInput], (input) => {
   const inputItems = []
