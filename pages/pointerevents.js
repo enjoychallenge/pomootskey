@@ -41,7 +41,7 @@ export default function PointerEventsPage() {
                 log('onPointerDown (parent)')
               }}
               onPointerMove={(e) => {
-                log('onPointerMove (parent)')
+                // log('onPointerMove (parent)')
               }}
               onPointerUp={(e) => {
                 log('onPointerUp (parent)')
@@ -62,7 +62,7 @@ export default function PointerEventsPage() {
                   log('onPointerLeave (first child)')
                 }}
                 onPointerMove={(e) => {
-                  log('onPointerMove (first child)')
+                  // log('onPointerMove (first child)')
                 }}
                 onPointerUp={(e) => {
                   log('onPointerUp (first child)')
@@ -87,7 +87,7 @@ export default function PointerEventsPage() {
                   log('onPointerLeave (second child)')
                 }}
                 onPointerMove={(e) => {
-                  log('onPointerMove (second child)')
+                  // log('onPointerMove (second child)')
                 }}
                 onPointerUp={(e) => {
                   log('onPointerUp (second child)')
