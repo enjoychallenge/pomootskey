@@ -113,7 +113,11 @@ export default function PointerEventsPage() {
               >
                 <div
                   id="firstChildInnerEl"
-                  style={{ padding: 20, backgroundColor: 'yellow' }}
+                  style={{
+                    padding: 20,
+                    backgroundColor: 'yellow',
+                    pointerEvents: 'none',
+                  }}
                 >
                   First child
                 </div>
@@ -151,7 +155,11 @@ export default function PointerEventsPage() {
               >
                 <div
                   id="secondChildInnerEl"
-                  style={{ padding: 20, backgroundColor: 'blue' }}
+                  style={{
+                    padding: 20,
+                    backgroundColor: 'blue',
+                    pointerEvents: 'none',
+                  }}
                 >
                   Second child
                 </div>
