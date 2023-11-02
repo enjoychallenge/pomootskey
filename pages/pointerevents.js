@@ -1,0 +1,127 @@
+import * as React from 'react'
+import AppBar from '../component/AppBar'
+import Box from '@mui/material/Box'
+import layout_styles from '../styles/common/layout.module.scss'
+import input_styles from '../styles/common/input.module.scss'
+import { InputBase, Paper } from '@mui/material'
+import BackspaceButton from '../component/BackspaceButton'
+import { useState } from 'react'
+
+export default function PointerEventsPage() {
+  const [messages, setMessages] = useState([])
+  const msgDivs = messages
+    .concat()
+    .reverse()
+    .map((msg, idx) => {
+      return <div key={idx}>{msg}</div>
+    })
+  const log = (msg) => {
+    console.log(msg)
+    setMessages((messages) => messages.concat([msg]))
+  }
+  return (
+    <>
+      <Box className={layout_styles.page}>
+        <AppBar />
+        <Box
+          component="main"
+          className={layout_styles.main_decoder}
+          sx={{ color: 'primary.main' }}
+        >
+          <Box className={layout_styles.inputs_box}>
+            <div
+              style={{ padding: '20px 40px', backgroundColor: '#ddd' }}
+              onPointerEnter={(e) => {
+                log('onPointerEnter (parent)')
+              }}
+              onPointerLeave={(e) => {
+                log('onPointerLeave (parent)')
+              }}
+              onPointerDown={(e) => {
+                log('onPointerDown (parent)')
+              }}
+              onPointerMove={(e) => {
+                log('onPointerMove (parent)')
+              }}
+              onPointerUp={(e) => {
+                log('onPointerUp (parent)')
+              }}
+              onPointerCancel={(e) => {
+                log('onPointerCancel (parent)')
+              }}
+            >
+              <div
+                style={{ padding: '20px 40px', backgroundColor: 'lightyellow' }}
+                onPointerDown={(e) => {
+                  log('onPointerDown (first child)')
+                }}
+                onPointerEnter={(e) => {
+                  log('onPointerEnter (first child)')
+                }}
+                onPointerLeave={(e) => {
+                  log('onPointerLeave (first child)')
+                }}
+                onPointerMove={(e) => {
+                  log('onPointerMove (first child)')
+                }}
+                onPointerUp={(e) => {
+                  log('onPointerUp (first child)')
+                }}
+                onPointerCancel={(e) => {
+                  log('onPointerCancel (first child)')
+                }}
+              >
+                <div style={{ padding: 20, backgroundColor: 'yellow' }}>
+                  First child
+                </div>
+              </div>
+              <div
+                style={{ padding: '20px 40px', backgroundColor: 'lightblue' }}
+                onPointerDown={(e) => {
+                  log('onPointerDown (second child)')
+                }}
+                onPointerEnter={(e) => {
+                  log('onPointerEnter (second child)')
+                }}
+                onPointerLeave={(e) => {
+                  log('onPointerLeave (second child)')
+                }}
+                onPointerMove={(e) => {
+                  log('onPointerMove (second child)')
+                }}
+                onPointerUp={(e) => {
+                  log('onPointerUp (second child)')
+                }}
+                onPointerCancel={(e) => {
+                  log('onPointerCancel (second child)')
+                }}
+              >
+                <div style={{ padding: 20, backgroundColor: 'blue' }}>
+                  Second child
+                </div>
+              </div>
+            </div>
+          </Box>
+          <Box
+            sx={{ color: 'result.main' }}
+            className={layout_styles.results_box}
+          >
+            <Box className={layout_styles.result_cases}>{msgDivs}</Box>
+            <Paper className={input_styles.input_paper}>
+              <InputBase
+                multiline
+                fullWidth
+                value={''}
+                readOnly={true}
+                variant="filled"
+                size="small"
+                className={input_styles.text_input}
+              />
+              <BackspaceButton onClick={null} onLongPress={null} />
+            </Paper>
+          </Box>
+        </Box>
+      </Box>
+    </>
+  )
+}
