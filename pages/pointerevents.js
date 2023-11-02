@@ -59,10 +59,25 @@ export default function PointerEventsPage() {
               id="parentEl"
               style={{ padding: '20px 40px', backgroundColor: '#ddd' }}
               onPointerEnter={(e) => {
-                log('onPointerEnter (parent)', e)
+                const elFromPointId = document.elementFromPoint(
+                  e.clientX,
+                  e.clientY
+                ).id
+                if (elFromPointId === 'parentEl') {
+                  log('onPointerEnter (parent)', e)
+                }
               }}
               onPointerLeave={(e) => {
-                log('onPointerLeave (parent)', e)
+                const elFromPointId = document.elementFromPoint(
+                  e.clientX,
+                  e.clientY
+                ).id
+                if (
+                  elFromPointId !== 'parentEl' &&
+                  !['firstChildEl', 'secondChildEl'].includes(e.target.id)
+                ) {
+                  log('onPointerLeave (parent)', e)
+                }
               }}
               onPointerOut={(e) => {
                 // log('onPointerOut (parent)', e)
@@ -93,10 +108,22 @@ export default function PointerEventsPage() {
                   }
                 }}
                 onPointerEnter={(e) => {
-                  log('onPointerEnter (first child)', e)
+                  const elFromPointId = document.elementFromPoint(
+                    e.clientX,
+                    e.clientY
+                  ).id
+                  if (elFromPointId === 'firstChildEl') {
+                    log('onPointerEnter (first child)', e)
+                  }
                 }}
                 onPointerLeave={(e) => {
-                  log('onPointerLeave (first child)', e)
+                  const elFromPointId = document.elementFromPoint(
+                    e.clientX,
+                    e.clientY
+                  ).id
+                  if (elFromPointId !== 'firstChildEl') {
+                    log('onPointerLeave (first child)', e)
+                  }
                 }}
                 onPointerOut={(e) => {
                   // log('onPointerOut (first child)', e)
@@ -135,10 +162,22 @@ export default function PointerEventsPage() {
                   }
                 }}
                 onPointerEnter={(e) => {
-                  log('onPointerEnter (second child)', e)
+                  const elFromPointId = document.elementFromPoint(
+                    e.clientX,
+                    e.clientY
+                  ).id
+                  if (elFromPointId === 'secondChildEl') {
+                    log('onPointerEnter (second child)', e)
+                  }
                 }}
                 onPointerLeave={(e) => {
-                  log('onPointerLeave (second child)', e)
+                  const elFromPointId = document.elementFromPoint(
+                    e.clientX,
+                    e.clientY
+                  ).id
+                  if (elFromPointId !== 'secondChildEl') {
+                    log('onPointerLeave (second child)', e)
+                  }
                 }}
                 onPointerOut={(e) => {
                   // log('onPointerOut (second child)', e)
