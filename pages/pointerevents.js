@@ -111,7 +111,10 @@ export default function PointerEventsPage() {
                   log('onPointerCancel (first child)')
                 }}
               >
-                <div style={{ padding: 20, backgroundColor: 'yellow' }}>
+                <div
+                  id="firstChildInnerEl"
+                  style={{ padding: 20, backgroundColor: 'yellow' }}
+                >
                   First child
                 </div>
               </div>
@@ -146,7 +149,10 @@ export default function PointerEventsPage() {
                   log('onPointerCancel (second child)')
                 }}
               >
-                <div style={{ padding: 20, backgroundColor: 'blue' }}>
+                <div
+                  id="secondChildInnerEl"
+                  style={{ padding: 20, backgroundColor: 'blue' }}
+                >
                   Second child
                 </div>
               </div>
