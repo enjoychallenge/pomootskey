@@ -19,20 +19,25 @@ export default function PointerEventsPage() {
     if (e) {
       const targetEl = e.target
       const targetElId = targetEl && targetEl.id
-      const relatedTargetEl = e.relatedTarget
-      const relatedTargetElId = targetEl && relatedTargetEl.id
+      // const relatedTargetEl = e.relatedTarget
+      // const relatedTargetElId = targetEl && relatedTargetEl.id
+      const elFromPoint = document.elementFromPoint(e.clientX, e.clientY)
+      const elFromPointId = elFromPoint && elFromPoint.id
       console.log(
         msg,
         'target',
         targetEl,
-        'relatedTarget',
-        relatedTargetEl,
+        // 'relatedTarget',
+        // relatedTargetEl,
+        'elFromPoint',
+        elFromPoint,
         'event',
         e
       )
       setMessages((messages) =>
         messages.concat([
-          `${msg} targetElId=${targetElId} relatedTargetElId=${relatedTargetElId}`,
+          // `${msg} targetElId=${targetElId} relatedTargetElId=${relatedTargetElId} elFromPoint=${elFromPointId}`,
+          `${msg} targetElId=${targetElId} elFromPoint=${elFromPointId}`,
         ])
       )
     } else {
