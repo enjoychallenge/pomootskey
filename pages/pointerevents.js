@@ -15,9 +15,30 @@ export default function PointerEventsPage() {
     .map((msg, idx) => {
       return <div key={idx}>{msg}</div>
     })
-  const log = (msg) => {
-    console.log(msg)
-    setMessages((messages) => messages.concat([msg]))
+  const log = (msg, e) => {
+    if (e) {
+      const targetEl = e.target
+      const targetElId = targetEl && targetEl.id
+      const relatedTargetEl = e.relatedTarget
+      const relatedTargetElId = targetEl && relatedTargetEl.id
+      console.log(
+        msg,
+        'target',
+        targetEl,
+        'relatedTarget',
+        relatedTargetEl,
+        'event',
+        e
+      )
+      setMessages((messages) =>
+        messages.concat([
+          `${msg} targetElId=${targetElId} relatedTargetElId=${relatedTargetElId}`,
+        ])
+      )
+    } else {
+      console.log(msg)
+      setMessages((messages) => messages.concat([msg]))
+    }
   }
   return (
     <>
@@ -30,12 +51,13 @@ export default function PointerEventsPage() {
         >
           <Box className={layout_styles.inputs_box}>
             <div
+              id="parentEl"
               style={{ padding: '20px 40px', backgroundColor: '#ddd' }}
               onPointerEnter={(e) => {
-                log('onPointerEnter (parent)')
+                log('onPointerEnter (parent)', e)
               }}
               onPointerLeave={(e) => {
-                log('onPointerLeave (parent)')
+                log('onPointerLeave (parent)', e)
               }}
               onPointerDown={(e) => {
                 log('onPointerDown (parent)')
@@ -51,6 +73,7 @@ export default function PointerEventsPage() {
               }}
             >
               <div
+                id="firstChildEl"
                 style={{ padding: '20px 40px', backgroundColor: 'lightyellow' }}
                 onPointerDown={(e) => {
                   log('onPointerDown (first child)')
@@ -62,10 +85,10 @@ export default function PointerEventsPage() {
                   }
                 }}
                 onPointerEnter={(e) => {
-                  log('onPointerEnter (first child)')
+                  log('onPointerEnter (first child)', e)
                 }}
                 onPointerLeave={(e) => {
-                  log('onPointerLeave (first child)')
+                  log('onPointerLeave (first child)', e)
                 }}
                 onPointerMove={(e) => {
                   // log('onPointerMove (first child)')
@@ -82,6 +105,7 @@ export default function PointerEventsPage() {
                 </div>
               </div>
               <div
+                id="secondChildEl"
                 style={{ padding: '20px 40px', backgroundColor: 'lightblue' }}
                 onPointerDown={(e) => {
                   log('onPointerDown (second child)')
@@ -93,10 +117,10 @@ export default function PointerEventsPage() {
                   }
                 }}
                 onPointerEnter={(e) => {
-                  log('onPointerEnter (second child)')
+                  log('onPointerEnter (second child)', e)
                 }}
                 onPointerLeave={(e) => {
-                  log('onPointerLeave (second child)')
+                  log('onPointerLeave (second child)', e)
                 }}
                 onPointerMove={(e) => {
                   // log('onPointerMove (second child)')
