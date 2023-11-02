@@ -162,7 +162,12 @@ export default function PointerEventsPage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Box className={layout_styles.result_cases}>{msgDivs}</Box>
+            <Box
+              className={layout_styles.result_cases}
+              style={{ fontSize: '50%' }}
+            >
+              {msgDivs}
+            </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
                 multiline
