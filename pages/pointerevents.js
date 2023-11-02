@@ -54,6 +54,12 @@ export default function PointerEventsPage() {
                 style={{ padding: '20px 40px', backgroundColor: 'lightyellow' }}
                 onPointerDown={(e) => {
                   log('onPointerDown (first child)')
+                  // trigger pointer enter/leave if user is touching and moving out of this element
+                  // https://stackoverflow.com/a/70737325/5259610
+                  if (e.target.hasPointerCapture(e.pointerId)) {
+                    log('onPointerDown (first child) releasePointerCapture')
+                    e.target.releasePointerCapture(e.pointerId)
+                  }
                 }}
                 onPointerEnter={(e) => {
                   log('onPointerEnter (first child)')
@@ -79,6 +85,12 @@ export default function PointerEventsPage() {
                 style={{ padding: '20px 40px', backgroundColor: 'lightblue' }}
                 onPointerDown={(e) => {
                   log('onPointerDown (second child)')
+                  // trigger pointer enter/leave if user is touching and moving out of this element
+                  // https://stackoverflow.com/a/70737325/5259610
+                  if (e.target.hasPointerCapture(e.pointerId)) {
+                    log('onPointerDown (second child) releasePointerCapture')
+                    e.target.releasePointerCapture(e.pointerId)
+                  }
                 }}
                 onPointerEnter={(e) => {
                   log('onPointerEnter (second child)')
