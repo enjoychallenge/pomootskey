@@ -74,10 +74,10 @@
 }
 @keyframes cursor-blink {
   0% {
-    opacity: 0;
+    opacity: 1;
   }
   50% {
-    opacity: 1;
+    opacity: 0;
   }
 }
 .result_input_char_cursor_left::before {
@@ -88,6 +88,7 @@
   height: 100%;
   background: var(--muiPalettePrimaryMain);
   display: block;
+  opacity: 0;
   animation-name: cursor-blink;
   animation-duration: 1s;
   animation-timing-function: steps(1);
