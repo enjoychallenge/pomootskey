@@ -3,6 +3,8 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
 import { OutputCharTypes, JoinerTypes } from '../features/morse/morseSelector'
+import { useCallback } from 'react'
+import { CursorTypes } from '../features/morse/morseSlice'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
@@ -41,13 +43,20 @@ const getInputCharJsx = (inputChar) => {
 }
 
 const ResultItem = ({
+  inputCharIdx,
+  onInputItemClick,
   inputChar = '',
   outputChar = '',
   joinerClass = morse_styles.result_input_char_joiner_hidden,
   transparent = false,
   extraClass = null,
   leftCursor = false,
+  rectCursor = false,
 }) => {
+  const memoOnInputItemClick = useCallback(() => {
+    onInputItemClick(inputCharIdx)
+  }, [onInputItemClick, inputCharIdx])
+
   const classNames = [morse_styles.result_item]
   if (extraClass) {
     classNames.push(extraClass)
@@ -57,9 +66,12 @@ const ResultItem = ({
   if (leftCursor) {
     inputCharClasses.push(morse_styles.result_input_char_cursor_left)
   }
+  if (rectCursor) {
+    inputCharClasses.push(morse_styles.result_input_char_cursor_rect)
+  }
 
   return (
-    <Box className={classNames.join(' ')}>
+    <Box className={classNames.join(' ')} onClick={memoOnInputItemClick}>
       <Box className={morse_styles.result_output_char}>{outputChar}</Box>
       <Box
         className={joinerClass}
@@ -75,17 +87,27 @@ const ResultItem = ({
   )
 }
 
-export default function MorseResultBox({ label, inputItems }) {
+export default function MorseResultBox({
+  label,
+  inputItems,
+  cursorIdx,
+  cursorType,
+  onInputItemClick,
+}) {
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
     currentOutput = item.output || currentOutput
     return (
       <ResultItem
         key={idx}
+        inputCharIdx={idx}
+        onInputItemClick={onInputItemClick}
         inputChar={getInputCharJsx(item.input)}
         outputChar={item.output?.char || ''}
         extraClass={CharTypeToExtraClass[currentOutput.type]}
         joinerClass={JoinerTypeToClass[item.joiner]}
+        leftCursor={idx === cursorIdx && cursorType === CursorTypes.insert}
+        rectCursor={idx === cursorIdx && cursorType === CursorTypes.edit}
       />
     )
   })
@@ -94,7 +116,17 @@ export default function MorseResultBox({ label, inputItems }) {
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       <Box>
         {partsJsx}
-        <ResultItem transparent={true} leftCursor={true} />
+        <ResultItem
+          inputCharIdx={inputItems.length}
+          onInputItemClick={onInputItemClick}
+          transparent={true}
+          leftCursor={
+            cursorIdx === inputItems.length && cursorType === CursorTypes.insert
+          }
+          rectCursor={
+            cursorIdx === inputItems.length && cursorType === CursorTypes.edit
+          }
+        />
       </Box>
     </Box>
   )

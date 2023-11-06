@@ -3,6 +3,8 @@ import { PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 
 const getInput = (state) => state.morse.input
+export const getCursorIdx = (state) => state.morse.cursorIdx
+export const getCursorType = (state) => state.morse.cursorType
 
 export const OutputCharTypes = {
   known: 'known',

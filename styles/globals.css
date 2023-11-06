@@ -25,6 +25,7 @@ a {
   --muiPalettePrimaryMain: #33b5e1;
   --muiPaletteResultMain: #eeeeee;
   --muiPaletteWarningMain: #ff3333;
+  --muiPaletteBackgroundPaper: #303030;
   --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
   --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
   --morseInputCharFontSize: calc(0.9 * var(--morseInputCharHeight));
