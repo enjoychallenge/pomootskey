@@ -16,6 +16,7 @@ import {
   separatorClick,
   oneBackspaceClick,
   longBackspaceClick,
+  inputItemClick,
 } from '../features/morse/morseSlice'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -66,6 +67,13 @@ export default function MorsePage() {
     dispatch(separatorClick())
   }, [dispatch])
 
+  const onInputItemClick = useCallback(
+    (itemIdx) => {
+      dispatch(inputItemClick({ itemIdx }))
+    },
+    [dispatch]
+  )
+
   const onOneBackspaceClick = useCallback(() => {
     dispatch(oneBackspaceClick())
   }, [dispatch])
@@ -74,6 +82,8 @@ export default function MorsePage() {
   }, [dispatch])
 
   const inputItems = useAppSelector(slctr.getInputItems)
+  const cursorIdx = useAppSelector(slctr.getCursorIdx)
+  const cursorType = useAppSelector(slctr.getCursorType)
 
   return (
     <>
@@ -107,7 +117,13 @@ export default function MorsePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <MorseResultBox label="Základní řešení" inputItems={inputItems} />
+            <MorseResultBox
+              label="Základní řešení"
+              inputItems={inputItems}
+              cursorIdx={cursorIdx}
+              cursorType={cursorType}
+              onInputItemClick={onInputItemClick}
+            />
           </Box>
         </Box>
       </Box>
