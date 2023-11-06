@@ -55,6 +55,11 @@
   color: var(--muiPaletteResultMain);
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
+  cursor: pointer;
+}
+
+.result_item * {
+  user-select: none;
 }
 
 .result_item.wrong {
@@ -72,7 +77,7 @@
   font-weight: bold;
   text-align: center;
 }
-@keyframes cursor-blink {
+@keyframes left-cursor-blink {
   0% {
     opacity: 1;
   }
@@ -89,7 +94,23 @@
   background: var(--muiPalettePrimaryMain);
   display: block;
   opacity: 0;
-  animation-name: cursor-blink;
+  animation-name: left-cursor-blink;
+  animation-duration: 1s;
+  animation-timing-function: steps(1);
+  animation-iteration-count: infinite;
+}
+
+@keyframes rect-cursor-blink {
+  0% {
+    background-color: var(--muiPalettePrimaryMain);
+  }
+  50% {
+    background-color: var(--muiPaletteBackgroundPaper);
+  }
+}
+.result_input_char_cursor_rect {
+  background-color: var(--muiPaletteBackgroundPaper);
+  animation-name: rect-cursor-blink;
   animation-duration: 1s;
   animation-timing-function: steps(1);
   animation-iteration-count: infinite;
