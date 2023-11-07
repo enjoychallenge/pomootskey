@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { MorseChars } from '../../app/decode/morse'
-
-export const CursorTypes = {
-  insert: 'insert',
-  edit: 'edit',
-}
+import { CursorTypes } from './morseSelector'
 
 const initialState = {
   input: '',
