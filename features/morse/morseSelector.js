@@ -6,6 +6,11 @@ const getInput = (state) => state.morse.input
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
 
+export const CursorTypes = {
+  insert: 'insert',
+  edit: 'edit',
+}
+
 export const OutputCharTypes = {
   known: 'known',
   unknown: 'unknown',
