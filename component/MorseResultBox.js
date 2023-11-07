@@ -18,6 +18,11 @@ const JoinerTypeToClass = {
   [JoinerTypes.single]: morse_styles.result_input_char_joiner,
 }
 
+const CursorTypeToClass = {
+  [CursorTypes.insert]: morse_styles.result_input_char_cursor_left,
+  [CursorTypes.edit]: morse_styles.result_input_char_cursor_rect,
+}
+
 const getInputCharJsx = (inputChar) => {
   if (inputChar === '.') {
     return (
@@ -50,8 +55,7 @@ const ResultItem = ({
   joinerClass = morse_styles.result_input_char_joiner_hidden,
   transparent = false,
   extraClass = null,
-  leftCursor = false,
-  rectCursor = false,
+  cursor = null,
 }) => {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
@@ -63,11 +67,9 @@ const ResultItem = ({
   }
 
   const inputCharClasses = [morse_styles.result_input_char]
-  if (leftCursor) {
-    inputCharClasses.push(morse_styles.result_input_char_cursor_left)
-  }
-  if (rectCursor) {
-    inputCharClasses.push(morse_styles.result_input_char_cursor_rect)
+  const cursorClass = CursorTypeToClass[cursor]
+  if (cursorClass) {
+    inputCharClasses.push(cursorClass)
   }
 
   return (
@@ -106,8 +108,7 @@ export default function MorseResultBox({
         outputChar={item.output?.char || ''}
         extraClass={CharTypeToExtraClass[currentOutput.type]}
         joinerClass={JoinerTypeToClass[item.joiner]}
-        leftCursor={idx === cursorIdx && cursorType === CursorTypes.insert}
-        rectCursor={idx === cursorIdx && cursorType === CursorTypes.edit}
+        cursor={idx === cursorIdx && cursorType}
       />
     )
   })
@@ -120,12 +121,7 @@ export default function MorseResultBox({
           inputCharIdx={inputItems.length}
           onInputItemClick={onInputItemClick}
           transparent={true}
-          leftCursor={
-            cursorIdx === inputItems.length && cursorType === CursorTypes.insert
-          }
-          rectCursor={
-            cursorIdx === inputItems.length && cursorType === CursorTypes.edit
-          }
+          cursor={cursorIdx === inputItems.length && cursorType}
         />
       </Box>
     </Box>
