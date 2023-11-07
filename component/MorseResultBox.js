@@ -2,9 +2,12 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
-import { OutputCharTypes, JoinerTypes } from '../features/morse/morseSelector'
+import {
+  OutputCharTypes,
+  JoinerTypes,
+  CursorTypes,
+} from '../features/morse/morseSelector'
 import { useCallback } from 'react'
-import { CursorTypes } from '../features/morse/morseSlice'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
