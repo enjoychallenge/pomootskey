@@ -23,6 +23,16 @@ import BackspaceButton from '../component/BackspaceButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 
+const elementOrParentIsOfClass = (baseElement, className) => {
+  let element = baseElement
+  let isOfClass = false
+  while (element && !isOfClass) {
+    isOfClass = element.classList.contains(className)
+    element = element.parentElement
+  }
+  return isOfClass
+}
+
 const BrailleButton = ({
   value,
   selected,
@@ -31,15 +41,21 @@ const BrailleButton = ({
   onPointerLeave,
   isFocusing,
 }) => {
-  const memoOnPointerDown = useCallback(() => {
-    onPointerDown(value)
-  }, [onPointerDown, value])
   const memoOnPointerEnter = useCallback(() => {
     onPointerEnter(value)
   }, [onPointerEnter, value])
   const memoOnPointerLeave = useCallback(() => {
     onPointerLeave()
   }, [onPointerLeave])
+  const memoOnPointerDown = useCallback(
+    (e) => {
+      if (e.target.hasPointerCapture(e.pointerId)) {
+        e.target.releasePointerCapture(e.pointerId)
+      }
+      onPointerDown(value)
+    },
+    [onPointerDown]
+  )
 
   return (
     <Button
@@ -71,9 +87,16 @@ export default function BraillePage() {
   const onLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
   }, [dispatch])
-  const onInputBoxPointerLeave = useCallback(() => {
-    dispatch(inputBoxPointerLeave())
-  }, [dispatch])
+  const onInputBoxPointerLeave = useCallback(
+    (e) => {
+      const elFromPoint = document.elementFromPoint(e.clientX, e.clientY)
+      if (!elementOrParentIsOfClass(elFromPoint, layout_styles.inputs_box)) {
+        dispatch(inputBoxPointerLeave())
+      }
+    },
+    [dispatch]
+  )
+
   const onInputBoxPointerUp = useCallback(() => {
     dispatch(inputBoxPointerUp())
   }, [dispatch])
