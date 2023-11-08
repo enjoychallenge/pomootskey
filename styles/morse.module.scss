@@ -104,20 +104,8 @@
   animation-iteration-count: infinite;
 }
 
-@keyframes edit-cursor-blink {
-  0% {
-    background-color: var(--muiPalettePrimaryMain);
-  }
-  50% {
-    background-color: var(--muiPaletteBackgroundPaper);
-  }
-}
 .result_input_char_cursor_edit {
-  background-color: var(--muiPaletteBackgroundPaper);
-  animation-name: edit-cursor-blink;
-  animation-duration: 1s;
-  animation-timing-function: steps(1);
-  animation-iteration-count: infinite;
+  background-color: var(--muiPalettePrimaryMain);
 }
 
 .result_input_char_joiner {
