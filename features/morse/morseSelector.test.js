@@ -128,3 +128,122 @@ describe('selector getInputItems', () => {
     }
   )
 })
+
+describe('selector getInputActionButtons', () => {
+  test.each([
+    {
+      testCaseId: 'empty input',
+      inputState: { input: '', cursorIdx: 0, cursorType: 'insert' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: true,
+        },
+        {
+          type: 'leftArrow',
+          disabled: true,
+        },
+        {
+          type: 'rightArrow',
+          disabled: true,
+        },
+      ],
+    },
+    {
+      testCaseId: 'last insert cursor',
+      inputState: { input: '..-', cursorIdx: 3, cursorType: 'insert' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: false,
+        },
+        {
+          type: 'leftArrow',
+          disabled: false,
+        },
+        {
+          type: 'rightArrow',
+          disabled: true,
+        },
+      ],
+    },
+    {
+      testCaseId: 'last edit cursor',
+      inputState: { input: '..-', cursorIdx: 2, cursorType: 'edit' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: false,
+        },
+        {
+          type: 'leftArrow',
+          disabled: false,
+        },
+        {
+          type: 'rightArrow',
+          disabled: false,
+        },
+      ],
+    },
+    {
+      testCaseId: 'first insert cursor',
+      inputState: { input: '..-', cursorIdx: 0, cursorType: 'insert' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: true,
+        },
+        {
+          type: 'leftArrow',
+          disabled: true,
+        },
+        {
+          type: 'rightArrow',
+          disabled: false,
+        },
+      ],
+    },
+    {
+      testCaseId: 'first edit cursor',
+      inputState: { input: '..-', cursorIdx: 0, cursorType: 'edit' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: false,
+        },
+        {
+          type: 'leftArrow',
+          disabled: false,
+        },
+        {
+          type: 'rightArrow',
+          disabled: false,
+        },
+      ],
+    },
+    {
+      testCaseId: 'middle insert cursor',
+      inputState: { input: '..-', cursorIdx: 1, cursorType: 'insert' },
+      expResult: [
+        {
+          type: 'backspace',
+          disabled: false,
+        },
+        {
+          type: 'leftArrow',
+          disabled: false,
+        },
+        {
+          type: 'rightArrow',
+          disabled: false,
+        },
+      ],
+    },
+  ])(
+    'should return correct inputActionButtons for $testCaseId',
+    ({ testCaseId, inputState, expResult }) => {
+      const inputItems = slctr.getInputActionButtons({ morse: inputState })
+      expect(inputItems).toEqual(expResult)
+    }
+  )
+})

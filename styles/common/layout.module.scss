@@ -66,6 +66,8 @@
 .inputs_box {
   flex-grow: 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: 2vmin;
   align-items: center;
 }
 

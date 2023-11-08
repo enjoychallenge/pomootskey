@@ -24,6 +24,12 @@ export const JoinerTypes = {
   single: 'single',
 }
 
+export const ActionButtons = {
+  backspace: 'backspace',
+  leftArrow: 'leftArrow',
+  rightArrow: 'rightArrow',
+}
+
 export const getInputItems = createSelector([getInput], (input) => {
   const inputItems = []
 
@@ -76,3 +82,24 @@ export const getInputItems = createSelector([getInput], (input) => {
 
   return inputItems
 })
+
+export const getInputActionButtons = createSelector(
+  [getInput, getCursorIdx, getCursorType],
+  (input, cursorIdx, cursorType) => {
+    return [
+      {
+        type: ActionButtons.backspace,
+        disabled: cursorType === CursorTypes.insert && cursorIdx === 0,
+      },
+      {
+        type: ActionButtons.leftArrow,
+        disabled: cursorType === CursorTypes.insert && cursorIdx === 0,
+      },
+      {
+        type: ActionButtons.rightArrow,
+        disabled:
+          cursorType === CursorTypes.insert && cursorIdx === input.length,
+      },
+    ]
+  }
+)
