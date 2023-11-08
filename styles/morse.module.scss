@@ -77,7 +77,7 @@
   font-weight: bold;
   text-align: center;
 }
-@keyframes left-cursor-blink {
+@keyframes insert-cursor-blink {
   0% {
     opacity: 1;
   }
@@ -85,7 +85,7 @@
     opacity: 0;
   }
 }
-.result_input_char_cursor_left::before {
+.result_input_char_cursor_insert::before {
   content: '';
   position: absolute;
   left: calc(-0.5 * var(--morseInputCharGap) - 1px);
@@ -94,13 +94,13 @@
   background: var(--muiPalettePrimaryMain);
   display: block;
   opacity: 0;
-  animation-name: left-cursor-blink;
+  animation-name: insert-cursor-blink;
   animation-duration: 1s;
   animation-timing-function: steps(1);
   animation-iteration-count: infinite;
 }
 
-@keyframes rect-cursor-blink {
+@keyframes edit-cursor-blink {
   0% {
     background-color: var(--muiPalettePrimaryMain);
   }
@@ -108,9 +108,9 @@
     background-color: var(--muiPaletteBackgroundPaper);
   }
 }
-.result_input_char_cursor_rect {
+.result_input_char_cursor_edit {
   background-color: var(--muiPaletteBackgroundPaper);
-  animation-name: rect-cursor-blink;
+  animation-name: edit-cursor-blink;
   animation-duration: 1s;
   animation-timing-function: steps(1);
   animation-iteration-count: infinite;

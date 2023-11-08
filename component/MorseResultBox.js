@@ -19,8 +19,8 @@ const JoinerTypeToClass = {
 }
 
 const CursorTypeToClass = {
-  [CursorTypes.insert]: morse_styles.result_input_char_cursor_left,
-  [CursorTypes.edit]: morse_styles.result_input_char_cursor_rect,
+  [CursorTypes.insert]: morse_styles.result_input_char_cursor_insert,
+  [CursorTypes.edit]: morse_styles.result_input_char_cursor_edit,
 }
 
 const getInputCharJsx = (inputChar) => {
