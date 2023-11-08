@@ -84,7 +84,15 @@ export const morseSlice = createSlice({
         state.cursorType = CursorTypes.insert
       }
     },
-    longBackspaceClick: () => initialState,
+    longBackspaceClick: (state) => {
+      if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {
+        state.input = state.input.slice(state.cursorIdx)
+      } else if (state.cursorType === CursorTypes.edit) {
+        state.input = state.input.slice(state.cursorIdx + 1)
+      }
+      state.cursorType = CursorTypes.insert
+      state.cursorIdx = 0
+    },
   },
 })
 
