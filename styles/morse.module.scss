@@ -15,15 +15,19 @@
 
   & > * {
     @include common_buttons.button;
-    height: 20vmin;
-    width: 20vmin;
-    min-width: 60px;
-    min-height: 60px;
+    height: 25vmin;
+    width: 25vmin;
+    min-width: 80px;
+    min-height: 80px;
     max-width: 120px;
     max-height: 120px;
 
     & > p {
       font-size: max(65px, 400%);
+    }
+    & > svg {
+      min-width: 60px;
+      min-height: 60px;
     }
   }
 }
