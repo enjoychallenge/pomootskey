@@ -1,13 +1,26 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@mui/material'
 import { Backspace } from '@mui/icons-material'
 
-export default function BackspaceButton({ onClick, onLongPress }) {
+export default function BackspaceButton({
+  onClick,
+  onLongPress,
+  variant = 'text',
+  disabled = false,
+}) {
   const [pressed, setPressed] = useState(false)
   const [middlePressed, setMiddlePressed] = useState(false)
   const [longPressed, setLongPressed] = useState(false)
   const middleTimeout = useRef()
   const longTimeout = useRef()
+
+  useEffect(() => {
+    if (disabled) {
+      setPressed(false)
+      setMiddlePressed(false)
+      setLongPressed(false)
+    }
+  }, [disabled])
 
   if (middlePressed && !middleTimeout.current) {
     middleTimeout.current = setTimeout(() => {
@@ -55,6 +68,8 @@ export default function BackspaceButton({ onClick, onLongPress }) {
       onPointerDown={start}
       onPointerUp={stopPress}
       onPointerLeave={stopPress}
+      variant={variant}
+      disabled={disabled}
     >
       <Backspace />
     </Button>

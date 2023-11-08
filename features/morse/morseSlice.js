@@ -8,6 +8,11 @@ const initialState = {
   cursorType: CursorTypes.insert,
 }
 
+export const ArrowTypes = {
+  left: 'left',
+  right: 'right',
+}
+
 const insertInputChar = (state, insertedChar) => {
   const postfixIdx =
     state.cursorType === CursorTypes.insert
@@ -42,6 +47,30 @@ export const morseSlice = createSlice({
           ? CursorTypes.insert
           : CursorTypes.edit
     },
+    arrowClick: (state, action) => {
+      const { direction } = action.payload
+      if (
+        direction === ArrowTypes.right &&
+        state.cursorIdx < state.input.length
+      ) {
+        if (state.cursorType === CursorTypes.insert) {
+          state.cursorType = CursorTypes.edit
+        } else {
+          state.cursorIdx += 1
+          state.cursorType = CursorTypes.insert
+        }
+      } else if (
+        direction === ArrowTypes.left &&
+        (state.cursorIdx > 0 || state.cursorType === CursorTypes.edit)
+      ) {
+        if (state.cursorType === CursorTypes.edit) {
+          state.cursorType = CursorTypes.insert
+        } else {
+          state.cursorIdx -= 1
+          state.cursorType = CursorTypes.edit
+        }
+      }
+    },
     oneBackspaceClick: (state) => {
       if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {
         state.input =
@@ -66,6 +95,7 @@ export const {
   inputItemClick,
   oneBackspaceClick,
   longBackspaceClick,
+  arrowClick,
 } = morseSlice.actions
 
 export default morseSlice.reducer

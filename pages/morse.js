@@ -17,10 +17,14 @@ import {
   oneBackspaceClick,
   longBackspaceClick,
   inputItemClick,
+  arrowClick,
+  ArrowTypes,
 } from '../features/morse/morseSlice'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
+import { ArrowForward, ArrowBack } from '@mui/icons-material'
+import { ActionButtons } from '../features/morse/morseSelector'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -66,6 +70,12 @@ export default function MorsePage() {
   const onSeparatorClick = useCallback(() => {
     dispatch(separatorClick())
   }, [dispatch])
+  const onLeftArrowClick = useCallback(() => {
+    dispatch(arrowClick({ direction: ArrowTypes.left }))
+  }, [dispatch])
+  const onRightArrowClick = useCallback(() => {
+    dispatch(arrowClick({ direction: ArrowTypes.right }))
+  }, [dispatch])
 
   const onInputItemClick = useCallback(
     (itemIdx) => {
@@ -84,6 +94,36 @@ export default function MorsePage() {
   const inputItems = useAppSelector(slctr.getInputItems)
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
   const cursorType = useAppSelector(slctr.getCursorType)
+  const actionsButtons = useAppSelector(slctr.getInputActionButtons)
+
+  const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
+    if (type === ActionButtons.backspace) {
+      return (
+        <BackspaceButton
+          onClick={onOneBackspaceClick}
+          onLongPress={onLongBackspaceClick}
+          variant="outlined"
+          disabled={disabled}
+          key={idx}
+        />
+      )
+    } else {
+      const directionJsx =
+        type === ActionButtons.leftArrow ? <ArrowBack /> : <ArrowForward />
+      const onClick =
+        type === ActionButtons.leftArrow ? onLeftArrowClick : onRightArrowClick
+      return (
+        <Button
+          variant="outlined"
+          onClick={disabled ? null : onClick}
+          key={idx}
+          disabled={disabled}
+        >
+          {directionJsx}
+        </Button>
+      )
+    }
+  })
 
   return (
     <>
@@ -95,12 +135,7 @@ export default function MorsePage() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box className={morse_styles.buttons_box}>
-              <BackspaceButton
-                onClick={onOneBackspaceClick}
-                onLongPress={onLongBackspaceClick}
-              />
-            </Box>
+            <Box className={morse_styles.buttons_box}>{actionButtonsJsx}</Box>
             <Box className={morse_styles.buttons_box}>
               <Button variant="outlined" onClick={onDashClick}>
                 <Typography>&#8210;</Typography>
