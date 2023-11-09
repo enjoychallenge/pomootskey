@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { MorseChars } from '../../app/decode/morse'
 import { CursorTypes } from './morseSelector'
 
 const initialState = {
@@ -13,31 +12,22 @@ export const ArrowTypes = {
   right: 'right',
 }
 
-const insertInputChar = (state, insertedChar) => {
-  const postfixIdx =
-    state.cursorType === CursorTypes.insert
-      ? state.cursorIdx
-      : state.cursorIdx + 1
-  state.input =
-    state.input.slice(0, state.cursorIdx) +
-    insertedChar +
-    state.input.slice(postfixIdx)
-  state.cursorIdx += 1
-  state.cursorType = CursorTypes.insert
-}
-
 export const morseSlice = createSlice({
   name: 'morse',
   initialState,
   reducers: {
-    dotClick: (state) => {
-      insertInputChar(state, MorseChars.dot)
-    },
-    dashClick: (state) => {
-      insertInputChar(state, MorseChars.dash)
-    },
-    separatorClick: (state) => {
-      insertInputChar(state, MorseChars.separator)
+    onMorseButtonClick: (state, action) => {
+      const { char } = action.payload
+      const postfixIdx =
+        state.cursorType === CursorTypes.insert
+          ? state.cursorIdx
+          : state.cursorIdx + 1
+      state.input =
+        state.input.slice(0, state.cursorIdx) +
+        char +
+        state.input.slice(postfixIdx)
+      state.cursorIdx += 1
+      state.cursorType = CursorTypes.insert
     },
     inputItemClick: (state, action) => {
       const { itemIdx } = action.payload
@@ -97,9 +87,7 @@ export const morseSlice = createSlice({
 })
 
 export const {
-  dotClick,
-  dashClick,
-  separatorClick,
+  onMorseButtonClick,
   inputItemClick,
   oneBackspaceClick,
   longBackspaceClick,
