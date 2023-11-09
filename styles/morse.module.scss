@@ -32,6 +32,12 @@
   }
 }
 
+.preselected_button,
+.preselected_button:hover {
+  border-width: 3px;
+  border-color: var(--muiPalettePrimaryMain);
+}
+
 .result_cases {
   overflow: auto;
   -webkit-overflow-scrolling: touch;

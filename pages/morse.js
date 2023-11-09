@@ -6,12 +6,7 @@ import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
-import {
-  decode,
-  rearrange,
-  MorseCharsToShow,
-  MorseChars,
-} from '../app/decode/morse'
+import { decode, rearrange, MorseCharsToShow } from '../app/decode/morse'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import MorseResultBox from '../component/MorseResultBox'
@@ -61,13 +56,15 @@ const allResults = (message) => {
   return getResultBoxes(decodedVariants)
 }
 
-const MorseButton = ({ char, onClick }) => {
+const MorseButton = ({ char, onClick, preselected }) => {
   const memoOnClick = useCallback(() => {
     onClick(char)
   }, [onClick, char])
 
+  const className = preselected ? morse_styles.preselected_button : ''
+
   return (
-    <Button variant="outlined" onClick={memoOnClick}>
+    <Button variant="outlined" onClick={memoOnClick} className={className}>
       <Typography>{MorseCharsToShow[char]}</Typography>
     </Button>
   )
@@ -107,6 +104,7 @@ export default function MorsePage() {
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
   const cursorType = useAppSelector(slctr.getCursorType)
   const actionsButtons = useAppSelector(slctr.getInputActionButtons)
+  const morseButtons = useAppSelector(slctr.getMorseButtons)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     if (type === ActionButtons.backspace) {
@@ -137,6 +135,17 @@ export default function MorsePage() {
     }
   })
 
+  const morseButtonsJsx = morseButtons.map(({ char, preselected }, idx) => {
+    return (
+      <MorseButton
+        key={idx}
+        char={char}
+        preselected={preselected}
+        onClick={memoOnMorseButtonClick}
+      />
+    )
+  })
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -148,20 +157,7 @@ export default function MorsePage() {
         >
           <Box className={layout_styles.inputs_box}>
             <Box className={morse_styles.buttons_box}>{actionButtonsJsx}</Box>
-            <Box className={morse_styles.buttons_box}>
-              <MorseButton
-                char={MorseChars.dash}
-                onClick={memoOnMorseButtonClick}
-              />
-              <MorseButton
-                char={MorseChars.dot}
-                onClick={memoOnMorseButtonClick}
-              />
-              <MorseButton
-                char={MorseChars.separator}
-                onClick={memoOnMorseButtonClick}
-              />
-            </Box>
+            <Box className={morse_styles.buttons_box}>{morseButtonsJsx}</Box>
           </Box>
           <Box
             sx={{ color: 'result.main' }}
