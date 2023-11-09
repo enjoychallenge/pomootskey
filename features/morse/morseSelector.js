@@ -1,4 +1,4 @@
-import { decode } from '../../app/decode/morse'
+import { decode, MorseChars } from '../../app/decode/morse'
 import { PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 
@@ -101,5 +101,20 @@ export const getInputActionButtons = createSelector(
           cursorType === CursorTypes.insert && cursorIdx === input.length,
       },
     ]
+  }
+)
+
+export const getMorseButtons = createSelector(
+  [getInput, getCursorIdx, getCursorType],
+  (input, cursorIdx, cursorType) => {
+    return [MorseChars.dash, MorseChars.dot, MorseChars.separator].map(
+      (char) => {
+        return {
+          char,
+          preselected:
+            cursorType === CursorTypes.edit && input[cursorIdx] === char,
+        }
+      }
+    )
   }
 )
