@@ -6,14 +6,17 @@ import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
-import { decode, rearrange, MorseCharsToShow } from '../app/decode/morse'
+import {
+  decode,
+  rearrange,
+  MorseCharsToShow,
+  MorseChars,
+} from '../app/decode/morse'
 import { getResultBoxes } from '../app/results'
 import BackspaceButton from '../component/BackspaceButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
-  dotClick,
-  dashClick,
-  separatorClick,
+  onMorseButtonClick,
   oneBackspaceClick,
   longBackspaceClick,
   inputItemClick,
@@ -58,18 +61,27 @@ const allResults = (message) => {
   return getResultBoxes(decodedVariants)
 }
 
+const MorseButton = ({ char, onClick }) => {
+  const memoOnClick = useCallback(() => {
+    onClick(char)
+  }, [onClick, char])
+
+  return (
+    <Button variant="outlined" onClick={memoOnClick}>
+      <Typography>{MorseCharsToShow[char]}</Typography>
+    </Button>
+  )
+}
+
 export default function MorsePage() {
   const dispatch = useAppDispatch()
 
-  const onDotClick = useCallback(() => {
-    dispatch(dotClick())
-  }, [dispatch])
-  const onDashClick = useCallback(() => {
-    dispatch(dashClick())
-  }, [dispatch])
-  const onSeparatorClick = useCallback(() => {
-    dispatch(separatorClick())
-  }, [dispatch])
+  const memoOnMorseButtonClick = useCallback(
+    (char) => {
+      dispatch(onMorseButtonClick({ char }))
+    },
+    [dispatch]
+  )
   const onLeftArrowClick = useCallback(() => {
     dispatch(arrowClick({ direction: ArrowTypes.left }))
   }, [dispatch])
@@ -137,15 +149,18 @@ export default function MorsePage() {
           <Box className={layout_styles.inputs_box}>
             <Box className={morse_styles.buttons_box}>{actionButtonsJsx}</Box>
             <Box className={morse_styles.buttons_box}>
-              <Button variant="outlined" onClick={onDashClick}>
-                <Typography>&#8210;</Typography>
-              </Button>
-              <Button variant="outlined" onClick={onDotClick}>
-                <Typography>&#9679;</Typography>
-              </Button>
-              <Button variant="outlined" onClick={onSeparatorClick}>
-                <Typography>/</Typography>
-              </Button>
+              <MorseButton
+                char={MorseChars.dash}
+                onClick={memoOnMorseButtonClick}
+              />
+              <MorseButton
+                char={MorseChars.dot}
+                onClick={memoOnMorseButtonClick}
+              />
+              <MorseButton
+                char={MorseChars.separator}
+                onClick={memoOnMorseButtonClick}
+              />
             </Box>
           </Box>
           <Box
