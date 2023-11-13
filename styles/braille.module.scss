@@ -24,12 +24,26 @@
   }
 }
 
+.braille_button_left {
+  @extend .braille_button;
+
+  @media (orientation: landscape) {
+    margin-left: 18vmin;
+  }
+  @media (orientation: portrait) {
+    margin-left: 22vmin;
+  }
+}
+
+.braille_button_right {
+  @extend .braille_button;
+}
+
 .buttons {
   display: grid;
   grid-template-columns: auto auto auto;
   margin: 0 auto;
   gap: 2vmin;
-  column-gap: 11vmin;
   justify-content: center;
   touch-action: none;
 
