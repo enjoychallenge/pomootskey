@@ -38,6 +38,10 @@ a {
   --morseLineGap: clamp(5px, 2vmin, 10px);
   --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
   --brailleButtonGap: calc(0.7 * var(--brailleButtonSize));
+  --morseVariantButtonSize: calc(
+    var(--morseInputCharHeight) + var(--morseInputCharJoinerHeight) +
+      var(--morseOutputCharHeight)
+  );
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
