@@ -7,7 +7,7 @@ import {
   JoinerTypes,
   CursorTypes,
 } from '../features/morse/morseSelector'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
@@ -60,6 +60,7 @@ const ResultItem = ({
   extraClass = null,
   cursor = null,
   hasRightClickArea = false,
+  resultItemRef = null,
 }) => {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
@@ -84,6 +85,7 @@ const ResultItem = ({
     <Box
       className={classNames.join(' ')}
       onClick={memoOnInputItemClick}
+      ref={resultItemRef}
     >
       <Box className={morse_styles.result_output_char}>{outputChar}</Box>
       <Box
@@ -108,6 +110,39 @@ export default function MorseResultBox({
   cursorType,
   onInputItemClick,
 }) {
+  const variantButtonRef = useRef(null)
+  const cursorRef = useRef(null)
+  const resultCasesRef = useRef(null)
+
+  useEffect(() => {
+    const buttonEl = variantButtonRef.current
+    const cursorEl = cursorRef.current
+    const resultCasesEl = resultCasesRef.current
+    if (!(buttonEl && cursorEl && resultCasesEl)) {
+      return
+    }
+    const cursorRect = cursorEl.getBoundingClientRect()
+    const buttonRect = buttonEl.getBoundingClientRect()
+    const buttonLeftWithMargin = buttonRect.left - buttonRect.width * 0.7
+    const minVerticalGapPx = 3
+    if (
+      // intersection along horizontal axis
+      cursorRect.left <= buttonRect.right &&
+      cursorRect.right >= buttonLeftWithMargin &&
+      // cursor intersects with button, or it is positioned lower than button, along vertical axis
+      cursorRect.bottom >= buttonRect.top - minVerticalGapPx
+    ) {
+      const scrollTopDeltaPx =
+        cursorRect.bottom - buttonRect.top + minVerticalGapPx
+      resultCasesEl.scroll({
+        top: resultCasesEl.scrollTop + scrollTopDeltaPx,
+        behavior: 'smooth',
+      })
+    } else {
+      cursorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  })
+
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
     currentOutput = item.output || currentOutput
@@ -121,11 +156,12 @@ export default function MorseResultBox({
         extraClass={CharTypeToExtraClass[currentOutput.type]}
         joinerClass={JoinerTypeToClass[item.joiner]}
         cursor={idx === cursorIdx && cursorType}
+        resultItemRef={idx === cursorIdx ? cursorRef : null}
       />
     )
   })
   return (
-    <Box className={morse_styles.result_cases}>
+    <Box className={morse_styles.result_cases} ref={resultCasesRef}>
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       <Box>
         {partsJsx}
@@ -134,10 +170,11 @@ export default function MorseResultBox({
           onInputItemClick={onInputItemClick}
           transparent={true}
           cursor={cursorIdx === inputItems.length && cursorType}
+          resultItemRef={cursorIdx === inputItems.length ? cursorRef : null}
           hasRightClickArea={true}
         />
         <Box className={morse_styles.variant_button_wrapper}>
-          <div />
+          <div ref={variantButtonRef} />
         </Box>
       </Box>
     </Box>
