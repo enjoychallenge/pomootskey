@@ -39,7 +39,8 @@
 }
 
 .result_cases {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   position: relative;
   & > p {
@@ -66,6 +67,8 @@
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
   cursor: pointer;
+  position: relative;
+  overflow: visible;
 }
 
 .result_item * {
@@ -76,6 +79,31 @@
   color: var(--muiPaletteWarningMain);
   fill: var(--muiPaletteWarningMain);
   stroke: var(--muiPaletteWarningMain);
+}
+
+.result_item > .click_area {
+  height: 100%;
+  width: 100vh;
+  position: absolute;
+  top: 0;
+  left: var(--morseInputCharWidth);
+}
+
+.variant_button_wrapper {
+  flex-basis: calc(var(--morseVariantButtonSize) * 1.7);
+  flex-grow: 1;
+  height: var(--morseVariantButtonSize);
+  position: sticky;
+  pointer-events: none;
+  bottom: 0;
+  & > div {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: var(--morseVariantButtonSize);
+    background-color: red;
+    pointer-events: auto;
+  }
 }
 
 .result_input_char {
