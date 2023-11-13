@@ -59,6 +59,7 @@ const ResultItem = ({
   transparent = false,
   extraClass = null,
   cursor = null,
+  hasRightClickArea = false,
 }) => {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
@@ -75,8 +76,15 @@ const ResultItem = ({
     inputCharClasses.push(cursorClass)
   }
 
+  const rightClickArea = hasRightClickArea ? (
+    <Box className={morse_styles.click_area} />
+  ) : null
+
   return (
-    <Box className={classNames.join(' ')} onClick={memoOnInputItemClick}>
+    <Box
+      className={classNames.join(' ')}
+      onClick={memoOnInputItemClick}
+    >
       <Box className={morse_styles.result_output_char}>{outputChar}</Box>
       <Box
         className={joinerClass}
@@ -88,6 +96,7 @@ const ResultItem = ({
       >
         {inputChar}
       </Box>
+      {rightClickArea}
     </Box>
   )
 }
@@ -125,7 +134,11 @@ export default function MorseResultBox({
           onInputItemClick={onInputItemClick}
           transparent={true}
           cursor={cursorIdx === inputItems.length && cursorType}
+          hasRightClickArea={true}
         />
+        <Box className={morse_styles.variant_button_wrapper}>
+          <div />
+        </Box>
       </Box>
     </Box>
   )
