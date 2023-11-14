@@ -3,7 +3,7 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import theme from '../component/theme'
 import { Provider } from 'react-redux'
-import '../styles/globals.css'
+import '../styles/globals.scss'
 import Script from 'next/script'
 
 import store from '../app/store'

@@ -34,18 +34,7 @@
   touch-action: none;
 
   & > * {
-    min-width: 80px;
-    min-height: 80px;
-    height: 25vmin;
-    width: 25vmin;
-    max-width: min(13vh, 120px);
-    max-height: min(13vh, 120px);
-
-    @include media_condition.media('landscape_mode') {
-      height: 13vmin;
-      width: 13vmin;
-      max-width: 120px;
-      max-height: 120px;
-    }
+    height: var(--brailleButtonSize);
+    width: var(--brailleButtonSize);
   }
 }
