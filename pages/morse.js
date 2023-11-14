@@ -17,6 +17,8 @@ import {
   inputItemClick,
   arrowClick,
   ArrowTypes,
+  longLeftArrowClick,
+  longRightArrowClick,
 } from '../features/morse/morseSlice'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -82,8 +84,14 @@ export default function MorsePage() {
   const onLeftArrowClick = useCallback(() => {
     dispatch(arrowClick({ direction: ArrowTypes.left }))
   }, [dispatch])
+  const onLongLeftArrowClick = useCallback(() => {
+    dispatch(longLeftArrowClick())
+  }, [dispatch])
   const onRightArrowClick = useCallback(() => {
     dispatch(arrowClick({ direction: ArrowTypes.right }))
+  }, [dispatch])
+  const onLongRightArrowClick = useCallback(() => {
+    dispatch(longRightArrowClick())
   }, [dispatch])
 
   const onInputItemClick = useCallback(
@@ -119,20 +127,29 @@ export default function MorsePage() {
           <Backspace />
         </LongPressButton>
       )
-    } else {
-      const directionJsx =
-        type === ActionButtons.leftArrow ? <ArrowBack /> : <ArrowForward />
-      const onClick =
-        type === ActionButtons.leftArrow ? onLeftArrowClick : onRightArrowClick
+    } else if (type === ActionButtons.leftArrow) {
       return (
-        <Button
+        <LongPressButton
+          onClick={onLeftArrowClick}
+          onLongPress={onLongLeftArrowClick}
           variant="outlined"
-          onClick={disabled ? null : onClick}
-          key={idx}
           disabled={disabled}
+          key={idx}
         >
-          {directionJsx}
-        </Button>
+          <ArrowBack />
+        </LongPressButton>
+      )
+    } else {
+      return (
+        <LongPressButton
+          onClick={onRightArrowClick}
+          onLongPress={onLongRightArrowClick}
+          variant="outlined"
+          disabled={disabled}
+          key={idx}
+        >
+          <ArrowForward />
+        </LongPressButton>
       )
     }
   })
