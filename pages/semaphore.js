@@ -12,14 +12,14 @@ import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Circle, CircleOutlined } from '@mui/icons-material'
+import { Backspace, Circle, CircleOutlined } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import semaphore_styles from '../styles/semaphore.module.scss'
 import { getResultBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
-import BackspaceButton from '../component/BackspaceButton'
+import LongPressButton from '../component/LongPressButton'
 import { useCallback } from 'react'
 
 const SemaphoreButton = ({
@@ -184,10 +184,12 @@ export default function SemaphorePage() {
                 readOnly={true}
                 className={semaphore_styles.text_input}
               />
-              <BackspaceButton
+              <LongPressButton
                 onClick={onOneBackspaceClick}
                 onLongPress={onLongBackspaceClick}
-              />
+              >
+                <Backspace />
+              </LongPressButton>
             </Paper>
           </Box>
         </Box>
