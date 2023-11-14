@@ -83,6 +83,14 @@ export const morseSlice = createSlice({
       state.cursorType = CursorTypes.insert
       state.cursorIdx = 0
     },
+    longLeftArrowClick: (state) => {
+      state.cursorType = CursorTypes.insert
+      state.cursorIdx = 0
+    },
+    longRightArrowClick: (state) => {
+      state.cursorType = CursorTypes.insert
+      state.cursorIdx = state.input.length
+    },
   },
 })
 
@@ -92,6 +100,8 @@ export const {
   oneBackspaceClick,
   longBackspaceClick,
   arrowClick,
+  longLeftArrowClick,
+  longRightArrowClick,
 } = morseSlice.actions
 
 export default morseSlice.reducer
