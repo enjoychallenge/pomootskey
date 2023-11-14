@@ -1,0 +1,21 @@
+@function translate-media-condition($c) {
+  $condMap: (
+    'landscape_mode': '(orientation: landscape) and (max-height: 699px)',
+  );
+  @return map-get($condMap, $c);
+}
+
+// See https://css-tricks.com/approaches-media-queries-sass/
+@mixin media($args...) {
+  $query: '';
+  @each $arg in $args {
+    $op: '';
+    @if ($query != '') {
+      $op: ' and ';
+    }
+    $query: $query + $op + translate-media-condition($arg);
+  }
+  @media #{$query} {
+    @content;
+  }
+}

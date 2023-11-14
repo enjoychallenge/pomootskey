@@ -1,4 +1,4 @@
-@use 'common/layout.module' as common_layout;
+@use 'common/media_condition.module' as media_condition;
 
 .braille_button {
   & > p {
@@ -13,7 +13,7 @@
     height: 90%;
     min-width: 80px;
     min-height: 80px;
-    @include common_layout.media('landscape_mode') {
+    @include media_condition.media('landscape_mode') {
       min-width: 70px;
       min-height: 70px;
     }
@@ -41,7 +41,7 @@
     max-width: min(13vh, 120px);
     max-height: min(13vh, 120px);
 
-    @include common_layout.media('landscape_mode') {
+    @include media_condition.media('landscape_mode') {
       height: 13vmin;
       width: 13vmin;
       max-width: 120px;
