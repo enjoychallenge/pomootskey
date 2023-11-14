@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@mui/material'
-import { Backspace } from '@mui/icons-material'
 
-export default function BackspaceButton({
+export default function LongPressButton({
   onClick,
   onLongPress,
   variant = 'text',
   disabled = false,
+  children,
 }) {
   const [pressed, setPressed] = useState(false)
   const [middlePressed, setMiddlePressed] = useState(false)
@@ -71,7 +71,7 @@ export default function BackspaceButton({
       variant={variant}
       disabled={disabled}
     >
-      <Backspace />
+      {children}
     </Button>
   )
 }

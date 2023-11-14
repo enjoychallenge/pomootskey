@@ -8,7 +8,7 @@ import { alternativePermutations } from '../app/decode/common'
 import Button from '@mui/material/Button'
 import { decode, rearrange, MorseCharsToShow } from '../app/decode/morse'
 import { getResultBoxes } from '../app/results'
-import BackspaceButton from '../component/BackspaceButton'
+import LongPressButton from '../component/LongPressButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
   onMorseButtonClick,
@@ -21,7 +21,7 @@ import {
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
-import { ArrowForward, ArrowBack } from '@mui/icons-material'
+import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
 import { ActionButtons } from '../features/morse/morseSelector'
 
 const allResults = (message) => {
@@ -109,13 +109,15 @@ export default function MorsePage() {
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     if (type === ActionButtons.backspace) {
       return (
-        <BackspaceButton
+        <LongPressButton
           onClick={onOneBackspaceClick}
           onLongPress={onLongBackspaceClick}
           variant="outlined"
           disabled={disabled}
           key={idx}
-        />
+        >
+          <Backspace />
+        </LongPressButton>
       )
     } else {
       const directionJsx =

@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Circle, CircleOutlined, Send } from '@mui/icons-material'
+import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
@@ -19,7 +19,7 @@ import {
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { getResultBoxes } from '../app/results'
-import BackspaceButton from '../component/BackspaceButton'
+import LongPressButton from '../component/LongPressButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 
@@ -179,10 +179,12 @@ export default function BraillePage() {
                 size="small"
                 className={input_styles.text_input}
               />
-              <BackspaceButton
+              <LongPressButton
                 onClick={onOneBackspaceClick}
                 onLongPress={onLongBackspaceClick}
-              />
+              >
+                <Backspace />
+              </LongPressButton>
             </Paper>
           </Box>
         </Box>
