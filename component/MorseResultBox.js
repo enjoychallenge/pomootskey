@@ -8,6 +8,8 @@ import {
   CursorTypes,
 } from '../features/morse/morseSelector'
 import { useCallback, useEffect, useRef } from 'react'
+import Button from '@mui/material/Button'
+import { AltRoute } from '@mui/icons-material'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
@@ -174,7 +176,9 @@ export default function MorseResultBox({
           hasRightClickArea={true}
         />
         <Box className={morse_styles.variant_button_wrapper}>
-          <div ref={variantButtonRef} />
+          <Button variant="outlined" ref={variantButtonRef}>
+            <AltRoute />
+          </Button>
         </Box>
       </Box>
     </Box>

@@ -96,13 +96,24 @@
   position: sticky;
   pointer-events: none;
   bottom: 0;
-  & > div {
+  & > button,
+  & > button:focus,
+  & > button:active,
+  & > button:hover {
+    background-color: black;
+  }
+  & > button {
     position: absolute;
     right: 0;
     height: 100%;
     width: var(--morseVariantButtonSize);
-    background-color: red;
+    min-width: var(--morseVariantButtonSize);
     pointer-events: auto;
+    overflow: hidden;
+    & > svg {
+      width: calc(0.9 * var(--morseVariantButtonSize));
+      height: calc(0.9 * var(--morseVariantButtonSize));
+    }
   }
 }
 
