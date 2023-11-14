@@ -36,18 +36,16 @@
   & > * {
     min-width: 80px;
     min-height: 80px;
+    height: 25vmin;
+    width: 25vmin;
+    max-width: min(13vh, 120px);
+    max-height: min(13vh, 120px);
 
-    @media (orientation: landscape) {
+    @include common_layout.media('landscape_mode') {
       height: 13vmin;
       width: 13vmin;
       max-width: 120px;
       max-height: 120px;
-    }
-    @media (orientation: portrait) {
-      height: 25vmin;
-      width: 25vmin;
-      max-width: min(13vh, 120px);
-      max-height: min(13vh, 120px);
     }
   }
 }
