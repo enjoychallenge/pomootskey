@@ -37,6 +37,7 @@ a {
   --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
   --morseLineGap: clamp(5px, 2vmin, 10px);
   --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
+  --brailleButtonGap: calc(0.7 * var(--brailleButtonSize));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
