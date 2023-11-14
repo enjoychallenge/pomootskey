@@ -56,10 +56,14 @@ const BrailleButton = ({
     },
     [onPointerDown]
   )
+  const className =
+    value < 4
+      ? braille_styles.braille_button
+      : braille_styles.braille_button_left
 
   return (
     <Button
-      className={braille_styles.braille_button}
+      className={className}
       variant="outlined"
       onPointerDown={memoOnPointerDown}
       onPointerEnter={isFocusing ? memoOnPointerEnter : null}
