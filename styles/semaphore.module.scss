@@ -1,5 +1,5 @@
 @use 'common/input.module' as input_layout;
-@use 'common/layout.module' as common_layout;
+@use 'common/media_condition.module' as media_condition;
 
 @mixin semaphore_button_mixin {
   position: absolute;
@@ -100,7 +100,7 @@
   align-items: center;
   width: 42vh;
   height: 42vh;
-  @include common_layout.media('landscape_mode') {
+  @include media_condition.media('landscape_mode') {
     width: min(calc(90vh - 56px), 40vw);
     height: min(calc(90vh - 56px), 40vw);
   }
