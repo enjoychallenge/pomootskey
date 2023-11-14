@@ -1,3 +1,5 @@
+@use 'common/media_condition.module' as media_condition;
+
 html,
 body {
   padding: 0;
@@ -34,6 +36,7 @@ a {
   --morseOutputCharFontSize: calc(2 * var(--morseInputCharFontSize));
   --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
   --morseLineGap: clamp(5px, 2vmin, 10px);
+  --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
@@ -49,5 +52,11 @@ a {
 @media (min-width: 1000px) {
   :root {
     --morseInputCharGap: 5px;
+  }
+}
+
+@include media_condition.media('landscape_mode') {
+  :root {
+    --brailleButtonSize: clamp(80px, 13vmin, 120px);
   }
 }
