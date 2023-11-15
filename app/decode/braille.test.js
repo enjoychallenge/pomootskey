@@ -14,7 +14,7 @@ describe('decode', () => {
     },
     {
       setToDecode: [2],
-      expResult: { char: String.fromCharCode(10240 + 2), type: 'unknown' },
+      expResult: { type: 'unknown' },
     },
     {
       setToDecode: [1, 2, 3],
@@ -26,9 +26,10 @@ describe('decode', () => {
     },
     {
       setToDecode: [2, 5],
-      expResult: { char: String.fromCharCode(10240 + 2 + 16), type: 'unknown' },
+      expResult: { type: 'unknown' },
     },
   ])('decode test', ({ setToDecode, expResult }) => {
+    expResult.input = setToDecode
     const result = decode(setToDecode)
     expect(result).toEqual(expResult)
   })
