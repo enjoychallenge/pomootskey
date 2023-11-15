@@ -138,6 +138,7 @@ export default function MorsePage() {
           <LongPressButton
             onClick={onLeftArrowClick}
             onLongPress={onLongLeftArrowClick}
+            middlePeriod={75}
             variant="outlined"
             disabled={disabled}
             key={idx}
@@ -151,6 +152,7 @@ export default function MorsePage() {
           <LongPressButton
             onClick={onRightArrowClick}
             onLongPress={onLongRightArrowClick}
+            middlePeriod={75}
             variant="outlined"
             disabled={disabled}
             key={idx}
