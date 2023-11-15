@@ -1,6 +1,7 @@
 import { decode, MorseChars } from '../../app/decode/morse'
 import { PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
+import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
 
 const getInput = (state) => state.morse.input
 export const getCursorIdx = (state) => state.morse.cursorIdx
@@ -9,11 +10,6 @@ export const getCursorType = (state) => state.morse.cursorType
 export const CursorTypes = {
   insert: 'insert',
   edit: 'edit',
-}
-
-export const OutputCharTypes = {
-  known: 'known',
-  unknown: 'unknown',
 }
 
 export const JoinerTypes = {
@@ -28,27 +24,6 @@ export const ActionButtons = {
   backspace: 'backspace',
   leftArrow: 'leftArrow',
   rightArrow: 'rightArrow',
-}
-
-const PartTypeToOutputCharType = {
-  [PartTypes.char]: OutputCharTypes.known,
-  [PartTypes.separator]: OutputCharTypes.known,
-  [PartTypes.unknown]: OutputCharTypes.unknown,
-  [PartTypes.undecodable]: OutputCharTypes.unknown,
-}
-
-const getOutputChar = (msgPart) => {
-  let result = null
-  if (msgPart.type === PartTypes.char) {
-    result = msgPart.char.toUpperCase()
-  } else if (
-    [PartTypes.unknown, PartTypes.undecodable].includes(msgPart.type)
-  ) {
-    result = '?'
-  } else {
-    result = '␣'.repeat(msgPart.input.length - 1)
-  }
-  return result
 }
 
 export const getInputItems = createSelector([getInput], (input) => {
