@@ -44,7 +44,7 @@ export const getInputItems = createSelector([getInput], (input) => {
     let outputChar = null
     let outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
-      msgPart.string.length === 1 ? JoinerTypes.single : JoinerTypes.start
+      msgPart.input.length === 1 ? JoinerTypes.single : JoinerTypes.start
     if (msgPart.type === PartTypes.char) {
       outputChar = msgPart.char.toUpperCase()
     } else if (msgPart.type === PartTypes.unknown) {
@@ -53,7 +53,7 @@ export const getInputItems = createSelector([getInput], (input) => {
       firstJoiner = JoinerTypes.hidden
     }
     inputItems.push({
-      input: msgPart.string[0],
+      input: msgPart.input[0],
       output: {
         type: outputCharType,
         char: outputChar,
@@ -61,14 +61,14 @@ export const getInputItems = createSelector([getInput], (input) => {
       joiner: firstJoiner,
     })
     inputItems.push(
-      ...msgPart.string
+      ...msgPart.input
         .split('')
         .slice(1)
         .map((msgChar, charIdx) => {
           let joiner = firstJoiner
           if (joiner !== JoinerTypes.hidden) {
             joiner =
-              charIdx < msgPart.string.length - 2
+              charIdx < msgPart.input.length - 2
                 ? JoinerTypes.middle
                 : JoinerTypes.end
           }

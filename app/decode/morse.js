@@ -55,7 +55,7 @@ export function decode(message) {
       .filter((group) => group != null)
       .forEach((group) => {
         const part = {
-          string: group,
+          input: group,
         }
         let type = PartTypes.undecodable
         if (group.match(dotsDashesPattern)) {
@@ -78,7 +78,7 @@ export function decode(message) {
   })
 
   const partStringsLength = parts.reduce(
-    (prev, part) => prev + part.string.length,
+    (prev, part) => prev + part.input.length,
     0
   )
   assert(partStringsLength === message.length)
