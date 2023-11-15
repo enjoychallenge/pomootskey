@@ -108,6 +108,7 @@ export default function MorseResultBox({
   cursorIdx,
   cursorType,
   onInputItemClick,
+  onVariantButtonClick,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)
@@ -173,7 +174,11 @@ export default function MorseResultBox({
           hasRightClickArea={true}
         />
         <Box className={morse_styles.variant_button_wrapper}>
-          <Button variant="outlined" ref={variantButtonRef}>
+          <Button
+            variant="outlined"
+            ref={variantButtonRef}
+            onClick={onVariantButtonClick}
+          >
             <AltRoute />
           </Button>
         </Box>
