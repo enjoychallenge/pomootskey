@@ -1,9 +1,14 @@
-import { decode, MorseChars } from '../../app/decode/morse'
-import { PartTypes } from '../../app/decode/common'
+import {
+  decode,
+  MorseChars,
+  MorseCharsToShow,
+  rearrange,
+} from '../../app/decode/morse'
+import { alternativePermutations, PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
 
-export const getInput = (state) => state.morse.input
+const getInput = (state) => state.morse.input
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
 
@@ -103,3 +108,34 @@ export const getMorseButtons = createSelector(
     )
   }
 )
+
+export const getAllResults = createSelector([getInput], (input) => {
+  const baseCharOrder = '-./'
+  const alternativeCharOrders = alternativePermutations(baseCharOrder.split(''))
+  const decodedVariants = [
+    {
+      label: 'Základní řešení',
+      message: input,
+    },
+  ]
+    .concat(
+      alternativeCharOrders.map((altCharOrder) => {
+        return {
+          label:
+            'Alternativní řešení ‒●/  ⇒  ' +
+            altCharOrder.reduce(
+              (accum, current) => accum + MorseCharsToShow[current],
+              ''
+            ),
+          message: rearrange(input, altCharOrder.join('')),
+        }
+      })
+    )
+    .map((variant) => {
+      return {
+        label: variant.label,
+        decoded: variant.message.length ? decode(variant.message) : [],
+      }
+    })
+  return decodedVariants
+})
