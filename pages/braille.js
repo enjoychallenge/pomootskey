@@ -54,7 +54,7 @@ const BrailleButton = ({
       }
       onPointerDown(value)
     },
-    [onPointerDown]
+    [onPointerDown, value]
   )
   const className =
     value < 4
