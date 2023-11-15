@@ -79,20 +79,20 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '/',
-          output: { type: 'unknown', char: null },
-          joiner: 'hidden',
+          output: { type: 'unknown', char: '?' },
+          joiner: 'start',
         },
         {
           input: '/',
-          joiner: 'hidden',
+          joiner: 'middle',
         },
         {
           input: '/',
-          joiner: 'hidden',
+          joiner: 'middle',
         },
         {
           input: '/',
-          joiner: 'hidden',
+          joiner: 'end',
         },
       ],
     },
