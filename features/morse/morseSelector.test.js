@@ -102,7 +102,7 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: 'a',
-          output: { type: 'unknown', char: null },
+          output: { type: 'unknown', char: '?' },
           joiner: 'hidden',
         },
         {
