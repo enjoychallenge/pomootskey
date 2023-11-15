@@ -25,6 +25,8 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
 import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
 import { ActionButtons } from '../features/morse/morseSelector'
+import { Dialog } from '@mui/material'
+import DialogTitle from '@mui/material/DialogTitle'
 
 const allResults = (message) => {
   const baseCharOrder = '-./'
@@ -79,6 +81,14 @@ const MorseButton = ({ char, onClick, preselected }) => {
 export default function MorsePage() {
   const dispatch = useAppDispatch()
 
+  const [isVariantDialogOpen, setIsVariantDialogOpen] = React.useState(false)
+  const onVariantButtonClick = () => {
+    setIsVariantDialogOpen(true)
+  }
+  const onVariantDialogClose = () => {
+    setIsVariantDialogOpen(false)
+  }
+
   const memoOnMorseButtonClick = useCallback(
     (char) => {
       dispatch(onMorseButtonClick({ char }))
@@ -117,6 +127,7 @@ export default function MorsePage() {
   const cursorType = useAppSelector(slctr.getCursorType)
   const actionsButtons = useAppSelector(slctr.getInputActionButtons)
   const morseButtons = useAppSelector(slctr.getMorseButtons)
+  const input = useAppSelector(slctr.getInput)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -198,7 +209,14 @@ export default function MorsePage() {
               cursorIdx={cursorIdx}
               cursorType={cursorType}
               onInputItemClick={onInputItemClick}
+              onVariantButtonClick={onVariantButtonClick}
             />
+            <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
+              <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
+              <Box className={layout_styles.result_cases_overview}>
+                {allResults(input)}
+              </Box>
+            </Dialog>
           </Box>
         </Box>
       </Box>
