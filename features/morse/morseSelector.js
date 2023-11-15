@@ -38,17 +38,14 @@ export const getInputItems = createSelector([getInput], (input) => {
     let outputCharType = OutputCharTypes.unknown
     let firstJoiner =
       msgPart.string.length === 1 ? JoinerTypes.single : JoinerTypes.start
-    if (msgPart.char) {
+    if (msgPart.type === PartTypes.char) {
       outputChar = msgPart.char.toUpperCase()
       outputCharType = OutputCharTypes.known
     } else if (msgPart.type === PartTypes.unknown) {
       outputChar = `?`
-      outputCharType = OutputCharTypes.unknown
     } else if (msgPart.type === PartTypes.separator) {
       firstJoiner = JoinerTypes.hidden
-      if (msgPart.string.length < 4) {
-        outputCharType = OutputCharTypes.known
-      }
+      outputCharType = OutputCharTypes.known
     } else {
       firstJoiner = JoinerTypes.hidden
     }
