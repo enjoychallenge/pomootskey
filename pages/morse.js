@@ -18,6 +18,7 @@ import {
   ArrowTypes,
   longLeftArrowClick,
   longRightArrowClick,
+  variantClick,
 } from '../features/morse/morseSlice'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -88,12 +89,20 @@ export default function MorsePage() {
   const onLongBackspaceClick = useCallback(() => {
     dispatch(longBackspaceClick())
   }, [dispatch])
+  const onVariantClick = useCallback(
+    (id, idx) => {
+      dispatch(variantClick({ id, idx }))
+      setIsVariantDialogOpen(false)
+    },
+    [dispatch]
+  )
 
   const inputItems = useAppSelector(slctr.getInputItems)
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
   const cursorType = useAppSelector(slctr.getCursorType)
   const actionsButtons = useAppSelector(slctr.getInputActionButtons)
   const morseButtons = useAppSelector(slctr.getMorseButtons)
+  const alternativeLabel = useAppSelector(slctr.getAlternativeLabel)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -171,6 +180,7 @@ export default function MorsePage() {
           >
             <MorseResultBox
               label="Základní řešení"
+              alternativeLabel={alternativeLabel}
               inputItems={inputItems}
               cursorIdx={cursorIdx}
               cursorType={cursorType}
@@ -180,7 +190,10 @@ export default function MorsePage() {
             <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
               <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
               <Box className={layout_styles.result_cases_overview}>
-                {getResultBoxes(useAppSelector(slctr.getAllResults))}
+                {getResultBoxes(
+                  useAppSelector(slctr.getAllResults),
+                  onVariantClick
+                )}
               </Box>
             </Dialog>
           </Box>

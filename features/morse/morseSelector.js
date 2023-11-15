@@ -9,6 +9,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
 
 const getInput = (state) => state.morse.input
+const getAlternativeId = (state) => state.morse.alternative
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
 
@@ -139,3 +140,19 @@ export const getAllResults = createSelector([getInput], (input) => {
     })
   return decodedVariants
 })
+
+const getAlternative = createSelector(
+  [getAlternativeId, getAllResults],
+  (alternativeId, allResults) => {
+    return alternativeId
+      ? allResults.find((res) => res.label === alternativeId)
+      : null
+  }
+)
+
+export const getAlternativeLabel = createSelector(
+  [getAlternative],
+  (alternative) => {
+    return alternative ? alternative.label : null
+  }
+)

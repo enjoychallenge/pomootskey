@@ -29,7 +29,7 @@ export const getOutputChar = (msgPart) => {
   return result
 }
 
-export function decodedToResultBox(decodedVariant, key) {
+export function decodedToResultBox(decodedVariant, idx, onVariantClick = null) {
   let forReact = decodedVariant.decoded
     .map((part, partIdx) => {
       const outputCharType = PartTypeToOutputCharType[part.type]
@@ -50,12 +50,18 @@ export function decodedToResultBox(decodedVariant, key) {
     .filter((part) => !!part)
   forReact = forReact && forReact.length ? forReact : <Placeholder />
   const resultBox = (
-    <ResultBox key={key} label={decodedVariant.label} message={forReact} />
+    <ResultBox
+      key={idx}
+      label={decodedVariant.label}
+      message={forReact}
+      idx={idx}
+      onVariantClick={onVariantClick}
+    />
   )
   return resultBox
 }
 
-export function getResultBoxes(variantArray) {
+export function getResultBoxes(variantArray, onVariantClick = null) {
   return variantArray
     .slice(0, 1)
     .concat(
@@ -64,6 +70,6 @@ export function getResultBoxes(variantArray) {
         .sort((a, b) => scoreResult(a.decoded) - scoreResult(b.decoded))
     )
     .map((variant, idx) => {
-      return decodedToResultBox(variant, `Var${idx}`)
+      return decodedToResultBox(variant, idx, onVariantClick)
     })
 }

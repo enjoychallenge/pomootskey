@@ -104,6 +104,7 @@ const ResultItem = ({
 
 export default function MorseResultBox({
   label,
+  alternativeLabel,
   inputItems,
   cursorIdx,
   cursorType,
@@ -162,7 +163,10 @@ export default function MorseResultBox({
   })
   return (
     <Box className={morse_styles.result_cases} ref={resultCasesRef}>
-      <Typography sx={{ color: 'result.label' }}>{label}</Typography>
+      <Typography sx={{ color: 'result.label' }}>
+        {label}
+        {alternativeLabel ? ' a ' + alternativeLabel : ''}
+      </Typography>
       <Box>
         {partsJsx}
         <ResultItem
