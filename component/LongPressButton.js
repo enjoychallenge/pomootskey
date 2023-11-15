@@ -6,6 +6,7 @@ export default function LongPressButton({
   onLongPress,
   variant = 'text',
   disabled = false,
+  middlePeriod = 150,
   children,
 }) {
   const [pressed, setPressed] = useState(false)
@@ -26,7 +27,7 @@ export default function LongPressButton({
     middleTimeout.current = setTimeout(() => {
       onClick()
       middleTimeout.current = null
-    }, 150)
+    }, middlePeriod)
   }
 
   const start = useCallback(
