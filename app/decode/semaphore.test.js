@@ -26,11 +26,11 @@ describe('semaphore decode', () => {
     {
       selected: new Set([4, 8]),
       expResult: {
-        char: String.fromCharCode(10734),
         type: 'unknown',
       },
     },
   ])('decode', ({ selected, expResult }) => {
+    expResult.input = selected
     expect(decode(selected)).toEqual(expResult)
   })
 })
