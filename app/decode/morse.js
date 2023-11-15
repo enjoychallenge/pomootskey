@@ -69,7 +69,8 @@ export function decode(message) {
             type = PartTypes.unknown
           }
         } else if (group.match(separatorPattern)) {
-          type = PartTypes.separator
+          type =
+            group.length < 4 ? PartTypes.separator : (type = PartTypes.unknown)
         }
         parts.push(part)
         part.type = type
