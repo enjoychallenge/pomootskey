@@ -119,42 +119,46 @@ export default function MorsePage() {
   const morseButtons = useAppSelector(slctr.getMorseButtons)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
-    if (type === ActionButtons.backspace) {
-      return (
-        <LongPressButton
-          onClick={onOneBackspaceClick}
-          onLongPress={onLongBackspaceClick}
-          variant="outlined"
-          disabled={disabled}
-          key={idx}
-        >
-          <Backspace />
-        </LongPressButton>
-      )
-    } else if (type === ActionButtons.leftArrow) {
-      return (
-        <LongPressButton
-          onClick={onLeftArrowClick}
-          onLongPress={onLongLeftArrowClick}
-          variant="outlined"
-          disabled={disabled}
-          key={idx}
-        >
-          <ArrowBack />
-        </LongPressButton>
-      )
-    } else {
-      return (
-        <LongPressButton
-          onClick={onRightArrowClick}
-          onLongPress={onLongRightArrowClick}
-          variant="outlined"
-          disabled={disabled}
-          key={idx}
-        >
-          <ArrowForward />
-        </LongPressButton>
-      )
+    switch (type) {
+      case ActionButtons.backspace:
+        return (
+          <LongPressButton
+            onClick={onOneBackspaceClick}
+            onLongPress={onLongBackspaceClick}
+            variant="outlined"
+            disabled={disabled}
+            key={idx}
+          >
+            <Backspace />
+          </LongPressButton>
+        )
+        break
+      case ActionButtons.leftArrow:
+        return (
+          <LongPressButton
+            onClick={onLeftArrowClick}
+            onLongPress={onLongLeftArrowClick}
+            variant="outlined"
+            disabled={disabled}
+            key={idx}
+          >
+            <ArrowBack />
+          </LongPressButton>
+        )
+        break
+      case ActionButtons.rightArrow:
+        return (
+          <LongPressButton
+            onClick={onRightArrowClick}
+            onLongPress={onLongRightArrowClick}
+            variant="outlined"
+            disabled={disabled}
+            key={idx}
+          >
+            <ArrowForward />
+          </LongPressButton>
+        )
+        break
     }
   })
 
