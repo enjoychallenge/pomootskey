@@ -45,6 +45,8 @@ const getOutputChar = (msgPart) => {
     [PartTypes.unknown, PartTypes.undecodable].includes(msgPart.type)
   ) {
     result = '?'
+  } else {
+    result = '␣'.repeat(msgPart.input.length - 1)
   }
   return result
 }
