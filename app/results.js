@@ -4,23 +4,38 @@ import * as React from 'react'
 import ResultBox from '../component/ResultBox'
 import { PartTypes, scoreResult } from './decode/common'
 
+export const OutputCharTypes = {
+  known: 'known',
+  unknown: 'unknown',
+}
+export const PartTypeToOutputCharType = {
+  [PartTypes.char]: OutputCharTypes.known,
+  [PartTypes.separator]: OutputCharTypes.known,
+  [PartTypes.unknown]: OutputCharTypes.unknown,
+  [PartTypes.undecodable]: OutputCharTypes.unknown,
+}
+
+export const getOutputChar = (msgPart) => {
+  let result = null
+  if (msgPart.type === PartTypes.char) {
+    result = msgPart.char.toUpperCase()
+  } else if (
+    [PartTypes.unknown, PartTypes.undecodable].includes(msgPart.type)
+  ) {
+    result = '?'
+  } else {
+    result = '␣'.repeat(msgPart.input.length - 1)
+  }
+  return result
+}
+
 export function decodedToResultBox(decodedVariant, key) {
   let forReact = decodedVariant.decoded
     .map((part, partIdx) => {
-      let string = ''
-      let color = ''
-      if (part.type === PartTypes.separator) {
-        if (part.input.length === 2) {
-          string = ' '
-        } else if (part.input.length > 2) {
-          string = '. ' + '␣'.repeat(part.input.length - 3)
-        }
-      } else if (part.type === PartTypes.char) {
-        string = part.char
-      } else {
-        string = part.input || part.char
-        color = 'warning.main'
-      }
+      const outputCharType = PartTypeToOutputCharType[part.type]
+      const string = getOutputChar(part)
+      const color =
+        outputCharType === OutputCharTypes.unknown ? 'warning.main' : ''
       return string ? (
         <Typography
           component={'span'}
