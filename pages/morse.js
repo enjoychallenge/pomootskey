@@ -66,7 +66,11 @@ const MorseButton = ({ char, onClick, preselected }) => {
   const className = preselected ? morse_styles.preselected_button : ''
 
   return (
-    <Button variant="outlined" onClick={memoOnClick} className={className}>
+    <Button
+      variant="outlined"
+      onPointerDown={memoOnClick}
+      className={className}
+    >
       <Typography>{MorseCharsToShow[char]}</Typography>
     </Button>
   )
