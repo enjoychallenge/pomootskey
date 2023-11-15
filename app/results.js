@@ -10,15 +10,15 @@ export function decodedToResultBox(decodedVariant, key) {
       let string = ''
       let color = ''
       if (part.type === PartTypes.separator) {
-        if (part.string.length === 2) {
+        if (part.input.length === 2) {
           string = ' '
-        } else if (part.string.length > 2) {
-          string = '. ' + '␣'.repeat(part.string.length - 3)
+        } else if (part.input.length > 2) {
+          string = '. ' + '␣'.repeat(part.input.length - 3)
         }
       } else if (part.type === PartTypes.char) {
         string = part.char
       } else {
-        string = part.string || part.char
+        string = part.input || part.char
         color = 'warning.main'
       }
       return string ? (

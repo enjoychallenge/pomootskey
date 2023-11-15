@@ -5,31 +5,31 @@ describe('decode morse message', () => {
     {
       morseMessage: '.-../..-/-./.-',
       expParts: [
-        { string: '.-..', char: 'l', type: 'char' },
-        { string: '/', type: 'sep' },
-        { string: '..-', char: 'u', type: 'char' },
-        { string: '/', type: 'sep' },
-        { string: '-.', char: 'n', type: 'char' },
-        { string: '/', type: 'sep' },
-        { string: '.-', char: 'a', type: 'char' },
+        { input: '.-..', char: 'l', type: 'char' },
+        { input: '/', type: 'sep' },
+        { input: '..-', char: 'u', type: 'char' },
+        { input: '/', type: 'sep' },
+        { input: '-.', char: 'n', type: 'char' },
+        { input: '/', type: 'sep' },
+        { input: '.-', char: 'a', type: 'char' },
       ],
     },
     {
       morseMessage: '.-//..///',
       expParts: [
-        { string: '.-', char: 'a', type: 'char' },
-        { string: '//', type: 'sep' },
-        { string: '..', char: 'i', type: 'char' },
-        { string: '///', type: 'sep' },
+        { input: '.-', char: 'a', type: 'char' },
+        { input: '//', type: 'sep' },
+        { input: '..', char: 'i', type: 'char' },
+        { input: '///', type: 'sep' },
       ],
     },
     {
       morseMessage: '.',
-      expParts: [{ string: '.', char: 'e', type: 'char' }],
+      expParts: [{ input: '.', char: 'e', type: 'char' }],
     },
     {
       morseMessage: '/',
-      expParts: [{ string: '/', type: 'sep' }],
+      expParts: [{ input: '/', type: 'sep' }],
     },
     {
       morseMessage: '',
@@ -38,21 +38,21 @@ describe('decode morse message', () => {
     {
       morseMessage: '-..-ja--?///----',
       expParts: [
-        { string: '-..-', char: 'x', type: 'char' },
-        { string: 'ja', type: 'undecodable' },
-        { string: '--', char: 'm', type: 'char' },
-        { string: '?', type: 'undecodable' },
-        { string: '///', type: 'sep' },
-        { string: '----', type: 'unknown' },
+        { input: '-..-', char: 'x', type: 'char' },
+        { input: 'ja', type: 'undecodable' },
+        { input: '--', char: 'm', type: 'char' },
+        { input: '?', type: 'undecodable' },
+        { input: '///', type: 'sep' },
+        { input: '----', type: 'unknown' },
       ],
     },
     {
       morseMessage: '----.',
-      expParts: [{ string: '----.', type: 'unknown' }],
+      expParts: [{ input: '----.', type: 'unknown' }],
     },
     {
       morseMessage: '////',
-      expParts: [{ string: '////', type: 'unknown' }],
+      expParts: [{ input: '////', type: 'unknown' }],
     },
   ])('decodes morseMessage', ({ morseMessage, expParts }) => {
     const result = decode(morseMessage)
