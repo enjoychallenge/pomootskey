@@ -5,6 +5,7 @@ const initialState = {
   input: '',
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
+  alternative: null,
 }
 
 export const ArrowTypes = {
@@ -61,6 +62,10 @@ export const morseSlice = createSlice({
         }
       }
     },
+    variantClick: (state, action) => {
+      const { id, idx } = action.payload
+      state.alternative = idx === 0 ? initialState.alternative : id
+    },
     oneBackspaceClick: (state) => {
       if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {
         state.input =
@@ -102,6 +107,7 @@ export const {
   arrowClick,
   longLeftArrowClick,
   longRightArrowClick,
+  variantClick,
 } = morseSlice.actions
 
 export default morseSlice.reducer
