@@ -30,22 +30,25 @@ export const ActionButtons = {
   rightArrow: 'rightArrow',
 }
 
+const PartTypeToOutputCharType = {
+  [PartTypes.char]: OutputCharTypes.known,
+  [PartTypes.separator]: OutputCharTypes.known,
+  [PartTypes.unknown]: OutputCharTypes.unknown,
+  [PartTypes.undecodable]: OutputCharTypes.unknown,
+}
+
 export const getInputItems = createSelector([getInput], (input) => {
   const inputItems = []
 
   decode(input).forEach((msgPart) => {
     let outputChar = null
-    let outputCharType = OutputCharTypes.unknown
+    let outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
       msgPart.string.length === 1 ? JoinerTypes.single : JoinerTypes.start
     if (msgPart.type === PartTypes.char) {
       outputChar = msgPart.char.toUpperCase()
-      outputCharType = OutputCharTypes.known
     } else if (msgPart.type === PartTypes.unknown) {
       outputChar = `?`
-    } else if (msgPart.type === PartTypes.separator) {
-      firstJoiner = JoinerTypes.hidden
-      outputCharType = OutputCharTypes.known
     } else {
       firstJoiner = JoinerTypes.hidden
     }
