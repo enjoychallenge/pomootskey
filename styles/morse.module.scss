@@ -183,4 +183,5 @@
 .result_output_char {
   height: var(--morseOutputCharHeight);
   font-size: var(--morseOutputCharFontSize);
+  white-space: nowrap;
 }

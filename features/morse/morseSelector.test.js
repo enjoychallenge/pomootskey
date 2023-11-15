@@ -17,7 +17,7 @@ describe('selector getInputItems', () => {
         },
         {
           input: '/',
-          output: { type: 'known', char: null },
+          output: { type: 'known', char: '' },
           joiner: 'hidden',
         },
         {
@@ -60,7 +60,7 @@ describe('selector getInputItems', () => {
       expResult: [
         {
           input: '/',
-          output: { type: 'known', char: null },
+          output: { type: 'known', char: '␣␣' },
           joiner: 'hidden',
         },
         {
