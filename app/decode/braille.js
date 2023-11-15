@@ -1,4 +1,4 @@
-import { decodeBySet } from './common'
+import { decodeBySet, PartTypes } from './common'
 
 const codeTable = {
   a: new Set([1]),
@@ -45,10 +45,14 @@ export function decode(selected) {
   const result =
     decodedChar === String.fromCharCode(10734)
       ? {
-          char: toUtf(selected),
-          type: 'unknown',
+          input: selected,
+          type: PartTypes.unknown,
         }
-      : { char: decodedChar, type: 'char' }
+      : {
+          input: selected,
+          type: PartTypes.char,
+          char: decodedChar,
+        }
   return result
 }
 
