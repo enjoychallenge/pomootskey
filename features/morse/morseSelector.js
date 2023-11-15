@@ -37,19 +37,27 @@ const PartTypeToOutputCharType = {
   [PartTypes.undecodable]: OutputCharTypes.unknown,
 }
 
+const getOutputChar = (msgPart) => {
+  let result = null
+  if (msgPart.type === PartTypes.char) {
+    result = msgPart.char.toUpperCase()
+  } else if (
+    [PartTypes.unknown, PartTypes.undecodable].includes(msgPart.type)
+  ) {
+    result = '?'
+  }
+  return result
+}
+
 export const getInputItems = createSelector([getInput], (input) => {
   const inputItems = []
 
   decode(input).forEach((msgPart) => {
-    let outputChar = null
-    let outputCharType = PartTypeToOutputCharType[msgPart.type]
+    const outputChar = getOutputChar(msgPart)
+    const outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
       msgPart.input.length === 1 ? JoinerTypes.single : JoinerTypes.start
-    if (msgPart.type === PartTypes.char) {
-      outputChar = msgPart.char.toUpperCase()
-    } else if (msgPart.type === PartTypes.unknown) {
-      outputChar = `?`
-    } else {
+    if ([PartTypes.undecodable, PartTypes.separator].includes(msgPart.type)) {
       firstJoiner = JoinerTypes.hidden
     }
     inputItems.push({
