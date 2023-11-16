@@ -26,7 +26,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
 import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
 import { ActionButtons } from '../features/morse/morseSelector'
-import { Dialog } from '@mui/material'
+import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 
 const MorseButton = ({ char, onClick, preselected }) => {
@@ -97,6 +97,10 @@ export default function MorsePage() {
     },
     [dispatch]
   )
+  const onCancelVariantClick = useCallback(() => {
+    dispatch(variantClick({ id: null, idx: 0 }))
+    setIsVariantDialogOpen(false)
+  }, [dispatch])
 
   const inputItems = useAppSelector(slctr.getInputItems)
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
@@ -104,6 +108,7 @@ export default function MorsePage() {
   const actionsButtons = useAppSelector(slctr.getInputActionButtons)
   const morseButtons = useAppSelector(slctr.getMorseButtons)
   const variantLabel = useAppSelector(slctr.getVariantLabel)
+  const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -188,14 +193,27 @@ export default function MorsePage() {
               onInputItemClick={onInputItemClick}
               onVariantButtonClick={onVariantButtonClick}
             />
-            <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
-              <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
+            <Dialog
+              onClose={onVariantDialogClose}
+              open={isVariantDialogOpen}
+              fullScreen={true}
+            >
+              <DialogTitle>Kliknutím vyber variantu</DialogTitle>
               <Box className={result_styles.variant_output_only_result_boxes}>
                 {getVariantOutputOnlyBoxes(
                   useAppSelector(slctr.getAllResults),
                   onVariantClick
                 )}
               </Box>
+              <DialogActions>
+                <Button onClick={onVariantDialogClose}>Zavřít</Button>
+                <Button
+                  onClick={onCancelVariantClick}
+                  disabled={!isVariantSelected}
+                >
+                  Zrušit vybranou variantu
+                </Button>
+              </DialogActions>
             </Dialog>
           </Box>
         </Box>
