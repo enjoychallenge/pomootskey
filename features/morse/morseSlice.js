@@ -14,7 +14,7 @@ export const ArrowTypes = {
   right: 'right',
 }
 
-const paste = (state, msg) => {
+const pasteToState = (state, msg) => {
   const postfixIdx =
     state.cursorType === CursorTypes.insert
       ? state.cursorIdx
@@ -66,7 +66,7 @@ export const morseSlice = createSlice({
   reducers: {
     onMorseButtonClick: (state, action) => {
       const { char } = action.payload
-      paste(state, char)
+      pasteToState(state, char)
     },
     inputItemClick: (state, action) => {
       const { itemIdx } = action.payload
@@ -121,7 +121,7 @@ export const morseSlice = createSlice({
           char = key
       }
       if (char in MorseCharsToShow) {
-        paste(state, char)
+        pasteToState(state, char)
       } else if (char == 'Backspace') {
         backspace(state)
       } else if (char == 'ArrowLeft') {
@@ -129,6 +129,10 @@ export const morseSlice = createSlice({
       } else if (char == 'ArrowRight') {
         arrowMove(state, ArrowTypes.right)
       }
+    },
+    paste: (state, action) => {
+      const { clipboard } = action.payload
+      pasteToState(state, clipboard)
     },
   },
 })
@@ -143,6 +147,7 @@ export const {
   longRightArrowClick,
   variantClick,
   keyDown,
+  paste,
 } = morseSlice.actions
 
 export default morseSlice.reducer
