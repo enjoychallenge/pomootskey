@@ -4,6 +4,10 @@
   white-space: nowrap;
   background-color: var(--muiPaletteBackgroundPaper);
 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
   & > div {
     margin-bottom: 0.4em;
 
