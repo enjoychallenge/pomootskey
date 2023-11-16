@@ -5,7 +5,7 @@ const initialState = {
   input: '',
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
-  alternative: null,
+  variant: null,
 }
 
 export const ArrowTypes = {
@@ -64,7 +64,7 @@ export const morseSlice = createSlice({
     },
     variantClick: (state, action) => {
       const { id, idx } = action.payload
-      state.alternative = idx === 0 ? initialState.alternative : id
+      state.variant = idx === 0 ? initialState.variant : id
     },
     oneBackspaceClick: (state) => {
       if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {

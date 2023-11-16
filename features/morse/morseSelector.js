@@ -4,12 +4,12 @@ import {
   MorseCharsToShow,
   rearrange,
 } from '../../app/decode/morse'
-import { alternativePermutations, PartTypes } from '../../app/decode/common'
+import { variantPermutations, PartTypes } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
 
 const getInput = (state) => state.morse.input
-const getAlternativeId = (state) => state.morse.alternative
+const getVariantId = (state) => state.morse.variant
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
 
@@ -112,7 +112,7 @@ export const getMorseButtons = createSelector(
 
 export const getAllResults = createSelector([getInput], (input) => {
   const baseCharOrder = '-./'
-  const alternativeCharOrders = alternativePermutations(baseCharOrder.split(''))
+  const variantCharOrders = variantPermutations(baseCharOrder.split(''))
   const decodedVariants = [
     {
       label: 'Základní řešení',
@@ -120,7 +120,7 @@ export const getAllResults = createSelector([getInput], (input) => {
     },
   ]
     .concat(
-      alternativeCharOrders.map((altCharOrder) => {
+      variantCharOrders.map((altCharOrder) => {
         return {
           label:
             'Alternativní řešení ‒●/  ⇒  ' +
@@ -141,18 +141,13 @@ export const getAllResults = createSelector([getInput], (input) => {
   return decodedVariants
 })
 
-const getAlternative = createSelector(
-  [getAlternativeId, getAllResults],
-  (alternativeId, allResults) => {
-    return alternativeId
-      ? allResults.find((res) => res.label === alternativeId)
-      : null
+const getVariant = createSelector(
+  [getVariantId, getAllResults],
+  (variantId, allResults) => {
+    return variantId ? allResults.find((res) => res.label === variantId) : null
   }
 )
 
-export const getAlternativeLabel = createSelector(
-  [getAlternative],
-  (alternative) => {
-    return alternative ? alternative.label : null
-  }
-)
+export const getVariantLabel = createSelector([getVariant], (variant) => {
+  return variant ? variant.label : null
+})
