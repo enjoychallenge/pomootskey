@@ -4,27 +4,29 @@
   white-space: nowrap;
   background-color: var(--muiPaletteBackgroundPaper);
 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-
   & > div {
-    margin-bottom: 0.4em;
-    padding: 0 1vmin;
+    min-width: 100%;
+    display: inline-block;
 
-    & > p:first-child {
-      font-size: small;
-    }
+    & > div {
+      display: block;
+      margin-bottom: 0.4em;
+      padding: 0 1vmin;
 
-    & > p:nth-child(2) {
-      margin-bottom: 0;
-      line-height: 1;
+      & > p:first-child {
+        font-size: small;
+      }
 
-      & > span {
-        text-transform: uppercase;
-        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
-          'monospace';
+      & > p:nth-child(2) {
+        margin-bottom: 0;
         line-height: 1;
+
+        & > span {
+          text-transform: uppercase;
+          font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
+            'monospace';
+          line-height: 1;
+        }
       }
     }
   }
