@@ -190,7 +190,7 @@ export default function MorsePage() {
             />
             <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
               <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
-              <Box className={result_styles.result_cases_overview}>
+              <Box className={result_styles.variant_output_only_result_boxes}>
                 {getVariantOutputOnlyBoxes(
                   useAppSelector(slctr.getAllResults),
                   onVariantClick
