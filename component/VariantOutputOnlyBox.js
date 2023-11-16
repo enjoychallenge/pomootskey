@@ -3,7 +3,7 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import { useCallback } from 'react'
 
-export default function ResultBox({
+export default function VariantOutputOnlyBox({
   label,
   message,
   idx,
