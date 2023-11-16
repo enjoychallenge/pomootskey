@@ -219,7 +219,7 @@ export default function MorseResultBox({
       >
         <DialogTitle>Kliknutím vyber variantu</DialogTitle>
         <Box className={result_styles.variant_output_only_result_boxes}>
-          {getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}
+          <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
         </Box>
         <DialogActions>
           <Button onClick={onVariantDialogClose}>Zavřít</Button>
