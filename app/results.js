@@ -29,7 +29,7 @@ export const getOutputChar = (decodedPart) => {
   return result
 }
 
-export function decodedToVariantOutputOnlyBox(
+function decodedToVariantOutputOnlyBox(
   decodedVariant,
   idx,
   onVariantClick = null
