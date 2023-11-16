@@ -65,7 +65,7 @@ function decodedToVariantOutputOnlyBox(
   return variantBox
 }
 
-export function getResultBoxes(variantArray, onVariantClick = null) {
+export function getVariantOutputOnlyBoxes(variantArray, onVariantClick = null) {
   return variantArray
     .slice(0, 1)
     .concat(

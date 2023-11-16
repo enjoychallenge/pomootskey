@@ -17,7 +17,7 @@ import layout_styles from '../styles/common/layout.module.scss'
 import input_styles from '../styles/common/input.module.scss'
 import { Button, InputBase, Paper } from '@mui/material'
 import semaphore_styles from '../styles/semaphore.module.scss'
-import { getResultBoxes } from '../app/results'
+import { getVariantOutputOnlyBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
 import LongPressButton from '../component/LongPressButton'
 import { useCallback } from 'react'
@@ -174,7 +174,7 @@ export default function SemaphorePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              {getResultBoxes(useAppSelector(slctr.getAllResults))}
+              {getVariantOutputOnlyBoxes(useAppSelector(slctr.getAllResults))}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase
