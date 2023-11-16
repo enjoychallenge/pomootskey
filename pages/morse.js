@@ -19,6 +19,7 @@ import {
   longRightArrowClick,
   variantClick,
   keyDown,
+  paste,
 } from '../features/morse/morseSlice'
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -159,8 +160,8 @@ export default function MorsePage() {
     }
 
     const handlePaste = (e) => {
-      const text = e.clipboardData.getData('text')
-      memoOnMorseButtonClick(text)
+      const clipboard = e.clipboardData.getData('text')
+      dispatch(paste({ clipboard }))
     }
     document.addEventListener('keydown', handleKeyDown, true)
     document.addEventListener('paste', handlePaste, true)
@@ -169,13 +170,7 @@ export default function MorsePage() {
       document.removeEventListener('keydown', handleKeyDown, true)
       document.removeEventListener('paste', handlePaste, true)
     }
-  }, [
-    dispatch,
-    memoOnMorseButtonClick,
-    onOneBackspaceClick,
-    onLeftArrowClick,
-    onRightArrowClick,
-  ])
+  }, [dispatch])
 
   return (
     <>
