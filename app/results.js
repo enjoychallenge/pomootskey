@@ -15,16 +15,16 @@ export const PartTypeToOutputCharType = {
   [PartTypes.undecodable]: OutputCharTypes.unknown,
 }
 
-export const getOutputChar = (msgPart) => {
+export const getOutputChar = (decodedPart) => {
   let result = null
-  if (msgPart.type === PartTypes.char) {
-    result = msgPart.char.toUpperCase()
+  if (decodedPart.type === PartTypes.char) {
+    result = decodedPart.char.toUpperCase()
   } else if (
-    [PartTypes.unknown, PartTypes.undecodable].includes(msgPart.type)
+    [PartTypes.unknown, PartTypes.undecodable].includes(decodedPart.type)
   ) {
     result = '?'
   } else {
-    result = '␣'.repeat(msgPart.input.length - 1)
+    result = '␣'.repeat(decodedPart.input.length - 1)
   }
   return result
 }
