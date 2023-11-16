@@ -102,7 +102,7 @@ export default function MorsePage() {
   const cursorType = useAppSelector(slctr.getCursorType)
   const actionsButtons = useAppSelector(slctr.getInputActionButtons)
   const morseButtons = useAppSelector(slctr.getMorseButtons)
-  const alternativeLabel = useAppSelector(slctr.getAlternativeLabel)
+  const variantLabel = useAppSelector(slctr.getVariantLabel)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -180,7 +180,7 @@ export default function MorsePage() {
           >
             <MorseResultBox
               label="Základní řešení"
-              alternativeLabel={alternativeLabel}
+              variantLabel={variantLabel}
               inputItems={inputItems}
               cursorIdx={cursorIdx}
               cursorType={cursorType}

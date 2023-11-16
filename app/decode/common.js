@@ -41,7 +41,7 @@ export function permute(permutation) {
   return result
 }
 
-export function alternativePermutations(listToPermutate) {
+export function variantPermutations(listToPermutate) {
   return permute(listToPermutate).slice(1)
 }
 

@@ -1,9 +1,4 @@
-import {
-  permute,
-  alternativePermutations,
-  scoreResult,
-  PartTypes,
-} from './common'
+import { permute, variantPermutations, scoreResult, PartTypes } from './common'
 
 describe('permute', () => {
   it.each([
@@ -23,7 +18,7 @@ describe('permute', () => {
   })
 })
 
-describe('alternativePermutations', () => {
+describe('variantPermutations', () => {
   it.each([
     {
       input: ['.'],
@@ -43,8 +38,8 @@ describe('alternativePermutations', () => {
         ['/', '-', '.'],
       ],
     },
-  ])('alternativePermutations', ({ input, expResult }) => {
-    expect(alternativePermutations(input)).toEqual(expResult)
+  ])('variantPermutations', ({ input, expResult }) => {
+    expect(variantPermutations(input)).toEqual(expResult)
   })
 })
 
