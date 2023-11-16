@@ -27,7 +27,7 @@ export const morseSlice = createSlice({
         state.input.slice(0, state.cursorIdx) +
         char +
         state.input.slice(postfixIdx)
-      state.cursorIdx += 1
+      state.cursorIdx += char.length
       state.cursorType = CursorTypes.insert
     },
     inputItemClick: (state, action) => {

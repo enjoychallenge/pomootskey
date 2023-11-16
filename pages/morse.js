@@ -178,12 +178,24 @@ export default function MorsePage() {
         onRightArrowClick()
       }
     }
+
+    const handlePaste = (e) => {
+      const text = e.clipboardData.getData('text')
+      memoOnMorseButtonClick(text)
+    }
     document.addEventListener('keydown', handleKeyDown, true)
+    document.addEventListener('paste', handlePaste, true)
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown, true)
+      document.removeEventListener('paste', handlePaste, true)
     }
-  }, [memoOnMorseButtonClick, onOneBackspaceClick, onLeftArrowClick, onRightArrowClick])
+  }, [
+    memoOnMorseButtonClick,
+    onOneBackspaceClick,
+    onLeftArrowClick,
+    onRightArrowClick,
+  ])
 
   return (
     <>
