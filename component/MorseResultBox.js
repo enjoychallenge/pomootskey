@@ -128,6 +128,9 @@ export default function MorseResultBox({
     setIsVariantDialogOpen(false)
   }
 
+  // hack to enable horizontal scrolling on iPhone
+  const memoOnTouchMove = useCallback((e) => e.stopPropagation(), [])
+
   const memoOnVariantClick = useCallback(
     (id, idx) => {
       onVariantClick(id, idx)
@@ -218,7 +221,10 @@ export default function MorseResultBox({
         fullScreen={true}
       >
         <DialogTitle>Kliknutím vyber variantu</DialogTitle>
-        <Box className={result_styles.variant_output_only_result_boxes}>
+        <Box
+          className={result_styles.variant_output_only_result_boxes}
+          onTouchMove={memoOnTouchMove}
+        >
           <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
         </Box>
         <DialogActions>
