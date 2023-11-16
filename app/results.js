@@ -60,6 +60,7 @@ function decodedToVariantOutputOnlyBox(
       message={forReact}
       idx={idx}
       onVariantClick={onVariantClick}
+      selected={decodedVariant.selected}
     />
   )
   return variantBox

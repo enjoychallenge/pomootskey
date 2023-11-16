@@ -9,15 +9,17 @@ export default function VariantOutputOnlyBox({
   message,
   idx,
   onVariantClick = null,
+  selected = false,
 }) {
   const memoOnVariantClick = useCallback(() => {
     onVariantClick && onVariantClick(label, idx)
   }, [onVariantClick, label, idx])
 
   const className = onVariantClick ? general_styles.clickable : null
+  const bgColor = selected ? 'primary.main' : 'background.paper'
   return (
     <Box
-      sx={{ backgroundColor: 'background.paper' }}
+      sx={{ backgroundColor: bgColor }}
       onClick={memoOnVariantClick}
       className={className}
     >
