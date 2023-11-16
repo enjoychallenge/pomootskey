@@ -3,6 +3,7 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
+import result_styles from '../styles/common/result.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
 import { MorseCharsToShow } from '../app/decode/morse'
@@ -189,7 +190,7 @@ export default function MorsePage() {
             />
             <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
               <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
-              <Box className={layout_styles.result_cases_overview}>
+              <Box className={result_styles.result_cases_overview}>
                 {getResultBoxes(
                   useAppSelector(slctr.getAllResults),
                   onVariantClick

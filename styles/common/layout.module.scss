@@ -92,33 +92,6 @@
   }
 }
 
-.result_cases_overview {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  white-space: nowrap;
-  background-color: var(--muiPaletteBackgroundPaper);
-
-  & > div {
-    margin-bottom: 0.4em;
-
-    & > p:first-child {
-      font-size: small;
-    }
-
-    & > p:nth-child(2) {
-      margin-bottom: 0;
-      line-height: 1;
-
-      & > span {
-        text-transform: uppercase;
-        font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace',
-          'monospace';
-        line-height: 1;
-      }
-    }
-  }
-}
-
 .logo {
   display: flex;
   & > img {
