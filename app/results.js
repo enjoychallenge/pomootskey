@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography'
 import Placeholder from '../component/Placeholder'
 import * as React from 'react'
-import ResultBox from '../component/ResultBox'
+import VariantOutputOnlyBox from '../component/VariantOutputOnlyBox'
 import { PartTypes, scoreResult } from './decode/common'
 
 export const OutputCharTypes = {
@@ -53,8 +53,8 @@ function decodedToVariantOutputOnlyBox(
     })
     .filter((part) => !!part)
   forReact = forReact && forReact.length ? forReact : <Placeholder />
-  const resultBox = (
-    <ResultBox
+  const variantBox = (
+    <VariantOutputOnlyBox
       key={idx}
       label={decodedVariant.label}
       message={forReact}
@@ -62,7 +62,7 @@ function decodedToVariantOutputOnlyBox(
       onVariantClick={onVariantClick}
     />
   )
-  return resultBox
+  return variantBox
 }
 
 export function getResultBoxes(variantArray, onVariantClick = null) {
