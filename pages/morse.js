@@ -172,6 +172,10 @@ export default function MorsePage() {
         memoOnMorseButtonClick(char)
       } else if (char == 'Backspace') {
         onOneBackspaceClick()
+      } else if (char == 'ArrowLeft') {
+        onLeftArrowClick()
+      } else if (char == 'ArrowRight') {
+        onRightArrowClick()
       }
     }
     document.addEventListener('keydown', handleKeyDown, true)
@@ -179,7 +183,7 @@ export default function MorsePage() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown, true)
     }
-  }, [memoOnMorseButtonClick, onOneBackspaceClick])
+  }, [memoOnMorseButtonClick, onOneBackspaceClick, onLeftArrowClick, onRightArrowClick])
 
   return (
     <>
