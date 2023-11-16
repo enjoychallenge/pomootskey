@@ -3,11 +3,9 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
-import result_styles from '../styles/common/result.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
 import { MorseCharsToShow } from '../app/decode/morse'
-import { getVariantOutputOnlyBoxes } from '../app/results'
 import LongPressButton from '../component/LongPressButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
@@ -26,8 +24,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
 import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
 import { ActionButtons } from '../features/morse/morseSelector'
-import { Dialog, DialogActions } from '@mui/material'
-import DialogTitle from '@mui/material/DialogTitle'
 
 const MorseButton = ({ char, onClick, preselected }) => {
   const memoOnClick = useCallback(() => {
@@ -49,14 +45,6 @@ const MorseButton = ({ char, onClick, preselected }) => {
 
 export default function MorsePage() {
   const dispatch = useAppDispatch()
-
-  const [isVariantDialogOpen, setIsVariantDialogOpen] = React.useState(false)
-  const onVariantButtonClick = () => {
-    setIsVariantDialogOpen(true)
-  }
-  const onVariantDialogClose = () => {
-    setIsVariantDialogOpen(false)
-  }
 
   const memoOnMorseButtonClick = useCallback(
     (char) => {
@@ -93,14 +81,9 @@ export default function MorsePage() {
   const onVariantClick = useCallback(
     (id, idx) => {
       dispatch(variantClick({ id, idx }))
-      setIsVariantDialogOpen(false)
     },
     [dispatch]
   )
-  const onCancelVariantClick = useCallback(() => {
-    dispatch(variantClick({ id: null, idx: 0 }))
-    setIsVariantDialogOpen(false)
-  }, [dispatch])
 
   const inputItems = useAppSelector(slctr.getInputItems)
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
@@ -109,6 +92,7 @@ export default function MorsePage() {
   const morseButtons = useAppSelector(slctr.getMorseButtons)
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
+  const allVariants = useAppSelector(slctr.getAllResults)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -191,30 +175,10 @@ export default function MorsePage() {
               cursorIdx={cursorIdx}
               cursorType={cursorType}
               onInputItemClick={onInputItemClick}
-              onVariantButtonClick={onVariantButtonClick}
+              onVariantClick={onVariantClick}
+              variants={allVariants}
+              deselectButtonDisabled={!isVariantSelected}
             />
-            <Dialog
-              onClose={onVariantDialogClose}
-              open={isVariantDialogOpen}
-              fullScreen={true}
-            >
-              <DialogTitle>Kliknutím vyber variantu</DialogTitle>
-              <Box className={result_styles.variant_output_only_result_boxes}>
-                {getVariantOutputOnlyBoxes(
-                  useAppSelector(slctr.getAllResults),
-                  onVariantClick
-                )}
-              </Box>
-              <DialogActions>
-                <Button onClick={onVariantDialogClose}>Zavřít</Button>
-                <Button
-                  onClick={onCancelVariantClick}
-                  disabled={!isVariantSelected}
-                >
-                  Zrušit vybranou variantu
-                </Button>
-              </DialogActions>
-            </Dialog>
           </Box>
         </Box>
       </Box>
