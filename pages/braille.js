@@ -18,7 +18,7 @@ import {
   inputBoxPointerUp,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
-import { getResultBoxes } from '../app/results'
+import { getVariantOutputOnlyBoxes } from '../app/results'
 import LongPressButton from '../component/LongPressButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
@@ -167,7 +167,7 @@ export default function BraillePage() {
             className={layout_styles.results_box}
           >
             <Box className={layout_styles.result_cases}>
-              {getResultBoxes(useAppSelector(slctr.getAllResults))}
+              {getVariantOutputOnlyBoxes(useAppSelector(slctr.getAllResults))}
             </Box>
             <Paper className={input_styles.input_paper}>
               <InputBase

@@ -7,7 +7,7 @@ import result_styles from '../styles/common/result.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
 import { MorseCharsToShow } from '../app/decode/morse'
-import { getResultBoxes } from '../app/results'
+import { getVariantOutputOnlyBoxes } from '../app/results'
 import LongPressButton from '../component/LongPressButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
@@ -191,7 +191,7 @@ export default function MorsePage() {
             <Dialog onClose={onVariantDialogClose} open={isVariantDialogOpen}>
               <DialogTitle>Kliknutím vyber alternativní variantu</DialogTitle>
               <Box className={result_styles.result_cases_overview}>
-                {getResultBoxes(
+                {getVariantOutputOnlyBoxes(
                   useAppSelector(slctr.getAllResults),
                   onVariantClick
                 )}
