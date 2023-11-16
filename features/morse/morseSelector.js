@@ -155,3 +155,7 @@ const getVariant = createSelector(
 export const getVariantLabel = createSelector([getVariant], (variant) => {
   return variant ? variant.label : null
 })
+
+export const getIsVariantSelected = createSelector([getVariant], (variant) => {
+  return !!variant
+})
