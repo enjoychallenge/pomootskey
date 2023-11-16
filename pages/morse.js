@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
-import { MorseCharsToShow, MorseChars } from '../app/decode/morse'
+import { MorseCharsToShow } from '../app/decode/morse'
 import LongPressButton from '../component/LongPressButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
@@ -18,6 +18,7 @@ import {
   longLeftArrowClick,
   longRightArrowClick,
   variantClick,
+  keyDown,
 } from '../features/morse/morseSlice'
 import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -154,29 +155,7 @@ export default function MorsePage() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       const key = e.key
-      let char = null
-      switch (key) {
-        case '*':
-          char = MorseChars.dot
-          break
-        case ',':
-          char = MorseChars.dash
-          break
-        case ' ':
-          char = MorseChars.separator
-          break
-        default:
-          char = key
-      }
-      if (char in MorseCharsToShow) {
-        memoOnMorseButtonClick(char)
-      } else if (char == 'Backspace') {
-        onOneBackspaceClick()
-      } else if (char == 'ArrowLeft') {
-        onLeftArrowClick()
-      } else if (char == 'ArrowRight') {
-        onRightArrowClick()
-      }
+      dispatch(keyDown({ key }))
     }
 
     const handlePaste = (e) => {
@@ -191,6 +170,7 @@ export default function MorsePage() {
       document.removeEventListener('paste', handlePaste, true)
     }
   }, [
+    dispatch,
     memoOnMorseButtonClick,
     onOneBackspaceClick,
     onLeftArrowClick,
