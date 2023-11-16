@@ -6,7 +6,10 @@ import { JoinerTypes, CursorTypes } from '../features/morse/morseSelector'
 import { useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
-import { OutputCharTypes } from '../app/results'
+import { getVariantOutputOnlyBoxes, OutputCharTypes } from '../app/results'
+import { Dialog, DialogActions } from '@mui/material'
+import DialogTitle from '@mui/material/DialogTitle'
+import result_styles from '../styles/common/result.module.scss'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
@@ -109,11 +112,33 @@ export default function MorseResultBox({
   cursorIdx,
   cursorType,
   onInputItemClick,
-  onVariantButtonClick,
+  onVariantClick,
+  variants,
+  deselectButtonDisabled,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)
   const resultCasesRef = useRef(null)
+
+  const [isVariantDialogOpen, setIsVariantDialogOpen] = React.useState(false)
+  const onVariantButtonClick = () => {
+    setIsVariantDialogOpen(true)
+  }
+  const onVariantDialogClose = () => {
+    setIsVariantDialogOpen(false)
+  }
+
+  const memoOnVariantClick = useCallback(
+    (id, idx) => {
+      onVariantClick(id, idx)
+      setIsVariantDialogOpen(false)
+    },
+    [onVariantClick]
+  )
+  const memoOnCancelVariantClick = useCallback(() => {
+    onVariantClick('', 0)
+    setIsVariantDialogOpen(false)
+  }, [onVariantClick])
 
   useEffect(() => {
     const buttonEl = variantButtonRef.current
@@ -187,6 +212,25 @@ export default function MorseResultBox({
           </Button>
         </Box>
       </Box>
+      <Dialog
+        onClose={onVariantDialogClose}
+        open={isVariantDialogOpen}
+        fullScreen={true}
+      >
+        <DialogTitle>Kliknutím vyber variantu</DialogTitle>
+        <Box className={result_styles.variant_output_only_result_boxes}>
+          {getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}
+        </Box>
+        <DialogActions>
+          <Button onClick={onVariantDialogClose}>Zavřít</Button>
+          <Button
+            onClick={memoOnCancelVariantClick}
+            disabled={deselectButtonDisabled}
+          >
+            Zrušit vybranou variantu
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }
