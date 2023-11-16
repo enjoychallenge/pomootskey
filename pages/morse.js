@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
-import { MorseCharsToShow } from '../app/decode/morse'
+import { MorseCharsToShow, MorseChars } from '../app/decode/morse'
 import LongPressButton from '../component/LongPressButton'
 import MorseResultBox from '../component/MorseResultBox'
 import {
@@ -19,7 +19,7 @@ import {
   longRightArrowClick,
   variantClick,
 } from '../features/morse/morseSlice'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
 import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
@@ -150,6 +150,36 @@ export default function MorsePage() {
       />
     )
   })
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const key = e.key
+      let char = null
+      switch (key) {
+        case '*':
+          char = MorseChars.dot
+          break
+        case ',':
+          char = MorseChars.dash
+          break
+        case ' ':
+          char = MorseChars.separator
+          break
+        default:
+          char = key
+      }
+      if (char in MorseCharsToShow) {
+        memoOnMorseButtonClick(char)
+      } else if (char == 'Backspace') {
+        onOneBackspaceClick()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown, true)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown, true)
+    }
+  }, [memoOnMorseButtonClick, onOneBackspaceClick])
 
   return (
     <>
