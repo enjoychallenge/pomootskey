@@ -110,36 +110,40 @@ export const getMorseButtons = createSelector(
   }
 )
 
-export const getAllResults = createSelector([getInput], (input) => {
-  const baseCharOrder = '-./'
-  const variantCharOrders = variantPermutations(baseCharOrder.split(''))
-  const decodedVariants = [
-    {
-      label: 'Základní řešení',
-      message: input,
-    },
-  ]
-    .concat(
-      variantCharOrders.map((altCharOrder) => {
+export const getAllResults = createSelector(
+  [getInput, getVariantId],
+  (input, variantId) => {
+    const baseCharOrder = '-./'
+    const variantCharOrders = variantPermutations(baseCharOrder.split(''))
+    const decodedVariants = [
+      {
+        label: 'Základní řešení',
+        message: input,
+      },
+    ]
+      .concat(
+        variantCharOrders.map((altCharOrder) => {
+          return {
+            label:
+              'Alternativní řešení ‒●/  ⇒  ' +
+              altCharOrder.reduce(
+                (accum, current) => accum + MorseCharsToShow[current],
+                ''
+              ),
+            message: rearrange(input, altCharOrder.join('')),
+          }
+        })
+      )
+      .map((variant) => {
         return {
-          label:
-            'Alternativní řešení ‒●/  ⇒  ' +
-            altCharOrder.reduce(
-              (accum, current) => accum + MorseCharsToShow[current],
-              ''
-            ),
-          message: rearrange(input, altCharOrder.join('')),
+          label: variant.label,
+          decoded: variant.message.length ? decode(variant.message) : [],
+          selected: variantId && variant.label === variantId,
         }
       })
-    )
-    .map((variant) => {
-      return {
-        label: variant.label,
-        decoded: variant.message.length ? decode(variant.message) : [],
-      }
-    })
-  return decodedVariants
-})
+    return decodedVariants
+  }
+)
 
 const getVariant = createSelector(
   [getVariantId, getAllResults],
