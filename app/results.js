@@ -29,7 +29,11 @@ export const getOutputChar = (decodedPart) => {
   return result
 }
 
-export function decodedToResultBox(decodedVariant, idx, onVariantClick = null) {
+export function decodedToVariantOutputOnlyBox(
+  decodedVariant,
+  idx,
+  onVariantClick = null
+) {
   let forReact = decodedVariant.decoded
     .map((part, partIdx) => {
       const outputCharType = PartTypeToOutputCharType[part.type]
@@ -70,6 +74,6 @@ export function getResultBoxes(variantArray, onVariantClick = null) {
         .sort((a, b) => scoreResult(a.decoded) - scoreResult(b.decoded))
     )
     .map((variant, idx) => {
-      return decodedToResultBox(variant, idx, onVariantClick)
+      return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
     })
 }
