@@ -170,7 +170,7 @@ export default function MorseResultBox({
     } else {
       cursorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }
-  })
+  }, [cursorIdx, cursorType])
 
   let currentOutput = null
   const partsJsx = inputItems.map((item, idx) => {
