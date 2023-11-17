@@ -64,15 +64,11 @@ const ResultItem = ({
   cursor = null,
   hasRightClickArea = false,
   resultItemRef = null,
+  variantProps = null,
 }) => {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
   }, [onInputItemClick, inputCharIdx])
-
-  const classNames = [morse_styles.result_item]
-  if (extraClass) {
-    classNames.push(extraClass)
-  }
 
   const inputCharClasses = [morse_styles.result_input_char]
   const cursorClass = CursorTypeToClass[cursor]
@@ -84,23 +80,51 @@ const ResultItem = ({
     <Box className={morse_styles.click_area} />
   ) : null
 
+  let variantJsx = null
+  if (variantProps) {
+    const classNames = [morse_styles.variant]
+    if (variantProps.extraClass) {
+      classNames.push(variantProps.extraClass)
+    }
+    variantJsx = (
+      <Box className={classNames.join(' ')}>
+        <Box
+          className={morse_styles.result_input_char}
+          sx={transparent ? null : { backgroundColor: 'background.paper' }}
+        >
+          {variantProps.inputChar}
+        </Box>
+        <Box
+          className={variantProps.joinerClass}
+          sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
+        />
+        <Box className={morse_styles.result_output_char}>
+          {variantProps.outputChar}
+        </Box>
+      </Box>
+    )
+  }
+
   return (
     <Box
-      className={classNames.join(' ')}
+      className={morse_styles.result_item}
       onClick={memoOnInputItemClick}
       ref={resultItemRef}
     >
-      <Box className={morse_styles.result_output_char}>{outputChar}</Box>
-      <Box
-        className={joinerClass}
-        sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
-      />
-      <Box
-        className={inputCharClasses.join(' ')}
-        sx={transparent ? null : { backgroundColor: 'background.paper' }}
-      >
-        {inputChar}
+      <Box className={extraClass}>
+        <Box className={morse_styles.result_output_char}>{outputChar}</Box>
+        <Box
+          className={joinerClass}
+          sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
+        />
+        <Box
+          className={inputCharClasses.join(' ')}
+          sx={transparent ? null : { backgroundColor: 'background.paper' }}
+        >
+          {inputChar}
+        </Box>
       </Box>
+      {variantJsx}
       {rightClickArea}
     </Box>
   )
@@ -114,6 +138,7 @@ export default function MorseResultBox({
   cursorType,
   onInputItemClick,
   onVariantClick,
+  variantInputItems,
   variants,
   deselectButtonDisabled,
 }) {
@@ -174,8 +199,21 @@ export default function MorseResultBox({
   }, [cursorIdx, cursorType])
 
   let currentOutput = null
+  let currentVariantOutput = null
   const partsJsx = inputItems.map((item, idx) => {
+    const variantItem = variantInputItems ? variantInputItems[idx] : null
     currentOutput = item.output || currentOutput
+    currentVariantOutput = variantItem
+      ? variantItem.output || currentVariantOutput
+      : null
+    const variantProps = variantItem
+      ? {
+          inputChar: getInputCharJsx(variantItem.input),
+          outputChar: variantItem.output?.char || '',
+          extraClass: CharTypeToExtraClass[currentVariantOutput.type],
+          joinerClass: JoinerTypeToClass[variantItem.joiner],
+        }
+      : null
     return (
       <ResultItem
         key={idx}
@@ -187,15 +225,18 @@ export default function MorseResultBox({
         joinerClass={JoinerTypeToClass[item.joiner]}
         cursor={idx === cursorIdx && cursorType}
         resultItemRef={idx === cursorIdx ? cursorRef : null}
+        variantProps={variantProps}
       />
     )
   })
+
+  const variantLabelJsx = variantLabel ? (
+    <Typography sx={{ color: 'variant.main' }}>{variantLabel}</Typography>
+  ) : null
   return (
     <Box className={morse_styles.result_cases} ref={resultCasesRef}>
-      <Typography sx={{ color: 'result.label' }}>
-        {label}
-        {variantLabel ? ' a ' + variantLabel : ''}
-      </Typography>
+      <Typography sx={{ color: 'result.label' }}>{label}</Typography>
+      {variantLabelJsx}
       <Box>
         {partsJsx}
         <ResultItem

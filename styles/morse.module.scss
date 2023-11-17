@@ -75,7 +75,13 @@
   user-select: none;
 }
 
-.result_item.wrong {
+.variant {
+  margin-top: var(--morseInputCharJoinerHeight);
+  color: var(--muiPaletteVariantMain);
+  fill: var(--muiPaletteVariantMain);
+  stroke: var(--muiPaletteVariantMain);
+}
+.wrong {
   color: var(--muiPaletteWarningMain);
   fill: var(--muiPaletteWarningMain);
   stroke: var(--muiPaletteWarningMain);
