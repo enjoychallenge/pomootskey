@@ -91,6 +91,7 @@ export const getAllResults = createSelector(
       .map((variant) => {
         return {
           label: variant.label,
+          input: variant.message,
           decoded: variant.message.length ? decode(variant.message) : [],
           selected: variantId && variant.label === variantId,
         }
@@ -112,4 +113,8 @@ export const getVariantLabel = createSelector([getVariant], (variant) => {
 
 export const getIsVariantSelected = createSelector([getVariant], (variant) => {
   return !!variant
+})
+
+export const getVariantInputItems = createSelector([getVariant], (variant) => {
+  return variant ? util.getInputItems(variant.input) : null
 })

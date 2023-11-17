@@ -14,6 +14,9 @@ export default responsiveFontSizes(
         main: '#eeeeee',
         label: '#cccccc',
       },
+      variant: {
+        main: '#08ff00',
+      },
       warning: {
         main: '#ff3333',
       },

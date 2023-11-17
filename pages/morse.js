@@ -95,6 +95,7 @@ export default function MorsePage() {
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
   const allVariants = useAppSelector(slctr.getAllResults)
+  const variantInputItems = useAppSelector(slctr.getVariantInputItems)
 
   const actionButtonsJsx = actionsButtons.map(({ type, disabled }, idx) => {
     switch (type) {
@@ -198,6 +199,7 @@ export default function MorsePage() {
               onInputItemClick={onInputItemClick}
               onVariantClick={onVariantClick}
               variants={allVariants}
+              variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
             />
           </Box>
