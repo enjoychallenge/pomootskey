@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
-import { JoinerTypes, CursorTypes } from '../features/morse/morseSelector'
+import { CursorTypes } from '../features/morse/morseSelector'
 import { useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
@@ -10,6 +10,7 @@ import { getVariantOutputOnlyBoxes, OutputCharTypes } from '../app/results'
 import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import result_styles from '../styles/common/result.module.scss'
+import { JoinerTypes } from '../features/morse/util'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: morse_styles.wrong,
