@@ -53,7 +53,7 @@ const getInputCharJsx = (inputChar) => {
   }
 }
 
-const ResultItem = ({
+const ResultItem = React.memo(function ResultItem({
   inputCharIdx,
   onInputItemClick,
   inputChar = '',
@@ -66,7 +66,7 @@ const ResultItem = ({
   hasRightClickArea = false,
   resultItemRef = null,
   variantProps = null,
-}) => {
+}) {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
   }, [onInputItemClick, inputCharIdx])
@@ -129,7 +129,7 @@ const ResultItem = ({
       {rightClickArea}
     </Box>
   )
-}
+})
 
 export default function MorseResultBox({
   label,
