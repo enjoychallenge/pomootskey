@@ -252,6 +252,7 @@ export default function MorseResultBox({
             variant="outlined"
             ref={variantButtonRef}
             onClick={onVariantButtonClick}
+            disabled={inputItems.length === 0}
           >
             <AltRoute />
           </Button>
