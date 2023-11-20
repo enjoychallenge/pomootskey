@@ -57,6 +57,7 @@ const ResultItem = ({
   inputCharIdx,
   onInputItemClick,
   inputChar = '',
+  renderInputChar,
   outputChar = '',
   joinerClass = morse_styles.result_input_char_joiner_hidden,
   transparent = false,
@@ -92,7 +93,7 @@ const ResultItem = ({
           className={morse_styles.result_input_char}
           sx={transparent ? null : { backgroundColor: 'background.paper' }}
         >
-          {variantProps.inputChar}
+          {renderInputChar(variantProps.inputChar)}
         </Box>
         <Box
           className={variantProps.joinerClass}
@@ -121,7 +122,7 @@ const ResultItem = ({
           className={inputCharClasses.join(' ')}
           sx={transparent ? null : { backgroundColor: 'background.paper' }}
         >
-          {inputChar}
+          {renderInputChar ? renderInputChar(inputChar) : inputChar}
         </Box>
       </Box>
       {variantJsx}
@@ -208,7 +209,7 @@ export default function MorseResultBox({
       : null
     const variantProps = variantItem
       ? {
-          inputChar: getInputCharJsx(variantItem.input),
+          inputChar: variantItem.input,
           outputChar: variantItem.output?.char || '',
           extraClass: CharTypeToExtraClass[currentVariantOutput.type],
           joinerClass: JoinerTypeToClass[variantItem.joiner],
@@ -219,7 +220,8 @@ export default function MorseResultBox({
         key={idx}
         inputCharIdx={idx}
         onInputItemClick={onInputItemClick}
-        inputChar={getInputCharJsx(item.input)}
+        inputChar={item.input}
+        renderInputChar={getInputCharJsx}
         outputChar={item.output?.char || ''}
         extraClass={CharTypeToExtraClass[currentOutput.type]}
         joinerClass={JoinerTypeToClass[item.joiner]}
