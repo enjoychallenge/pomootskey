@@ -31,9 +31,15 @@ const SemaphoreButton = ({
   onPointerEnter,
   onPointerLeave,
 }) => {
-  const memoOnPointerDown = useCallback(() => {
-    onPointerDown(value)
-  }, [onPointerDown, value])
+  const memoOnPointerDown = useCallback(
+    (e) => {
+      if (e.target.hasPointerCapture(e.pointerId)) {
+        e.target.releasePointerCapture(e.pointerId)
+      }
+      onPointerDown(value)
+    },
+    [onPointerDown, value]
+  )
   const memoOnPointerUp = useCallback(() => {
     onPointerUp(value)
   }, [onPointerUp, value])
