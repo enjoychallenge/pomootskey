@@ -6,10 +6,15 @@ import {
   rowsToColumns,
   toUtf,
 } from '../../app/decode/braille'
+import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
+import { JoinerTypes } from '../morse/util'
 
 export const getSelected = (state) => state.braille.selected
 export const getConfirmedInput = (state) => state.braille.confirmedInput
 export const getIsFocusing = (state) => state.braille.isFocusing
+
+export const getCursorIdx = (state) => state.braille.cursorIdx
+export const getCursorType = (state) => state.braille.cursorType
 
 export const getInput = createSelector(
   [getSelected, getConfirmedInput],
@@ -61,6 +66,24 @@ export const getAllResults = createSelector([getInput], (input) => {
   return decodedVariants
 })
 
-export const getInputSolution = createSelector([getInput], (input) => {
-  return input.map((entry) => toUtf(entry), '').join('')
+export const getIsVariantSelected = createSelector([], () => {
+  return false
+})
+
+const inputToDecodeItems = (input) => {
+  return input.map((msgPart) => {
+    const decoded = decode(msgPart)
+    return {
+      input: toUtf(msgPart),
+      output: {
+        type: PartTypeToOutputCharType[decoded.type],
+        char: getOutputChar(decoded),
+      },
+      joiner: JoinerTypes.single,
+    }
+  })
+}
+
+export const getInputItems = createSelector([getInput], (input) => {
+  return inputToDecodeItems(input)
 })
