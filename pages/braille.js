@@ -3,14 +3,11 @@ import { useCallback } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Backspace, Circle, CircleOutlined, Send } from '@mui/icons-material'
+import { Circle, CircleOutlined, Send } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
-import input_styles from '../styles/common/input.module.scss'
-import { Button, InputBase, Paper } from '@mui/material'
+import { Button } from '@mui/material'
 import {
   sendButtonClick,
-  oneBackspaceClick,
-  longBackspaceClick,
   brailleButtonPointerDown,
   brailleButtonPointerEnter,
   brailleButtonPointerLeave,
@@ -18,10 +15,9 @@ import {
   inputBoxPointerUp,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
-import { getVariantOutputOnlyBoxes } from '../app/results'
-import LongPressButton from '../component/LongPressButton'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
+import MorseResultBox from '../component/MorseResultBox'
 
 const elementOrParentIsOfClass = (baseElement, className) => {
   let element = baseElement
@@ -79,18 +75,16 @@ export default function BraillePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
   const isFocusing = useAppSelector(slctr.getIsFocusing)
+  const inputItems = useAppSelector(slctr.getInputItems)
+  const cursorIdx = useAppSelector(slctr.getCursorIdx)
+  const cursorType = useAppSelector(slctr.getCursorType)
+
+  const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
 
   const onSendButtonClick = useCallback(() => {
     dispatch(sendButtonClick())
   }, [dispatch])
 
-  const onOneBackspaceClick = useCallback(() => {
-    dispatch(oneBackspaceClick())
-  }, [dispatch])
-
-  const onLongBackspaceClick = useCallback(() => {
-    dispatch(longBackspaceClick())
-  }, [dispatch])
   const onInputBoxPointerLeave = useCallback(
     (e) => {
       const elFromPoint = document.elementFromPoint(e.clientX, e.clientY)
@@ -166,26 +160,18 @@ export default function BraillePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Box className={layout_styles.result_cases}>
-              {getVariantOutputOnlyBoxes(useAppSelector(slctr.getAllResults))}
-            </Box>
-            <Paper className={input_styles.input_paper}>
-              <InputBase
-                multiline
-                fullWidth
-                value={useAppSelector(slctr.getInputSolution)}
-                readOnly={true}
-                variant="filled"
-                size="small"
-                className={input_styles.text_input}
-              />
-              <LongPressButton
-                onClick={onOneBackspaceClick}
-                onLongPress={onLongBackspaceClick}
-              >
-                <Backspace />
-              </LongPressButton>
-            </Paper>
+            <MorseResultBox
+              label="Základní řešení"
+              variantLabel={null}
+              inputItems={inputItems}
+              cursorIdx={cursorIdx}
+              cursorType={cursorType}
+              onInputItemClick={() => {}}
+              onVariantClick={null}
+              variants={[]}
+              variantInputItems={null}
+              deselectButtonDisabled={!isVariantSelected}
+            />
           </Box>
         </Box>
       </Box>
