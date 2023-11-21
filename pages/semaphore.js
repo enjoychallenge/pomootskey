@@ -31,25 +31,6 @@ const SemaphoreButton = ({
   onPointerEnter,
   onPointerLeave,
 }) => {
-  const memoOnPointerDown = useCallback(
-    (e) => {
-      if (e.target.hasPointerCapture(e.pointerId)) {
-        e.target.releasePointerCapture(e.pointerId)
-      }
-      onPointerDown(value)
-    },
-    [onPointerDown, value]
-  )
-  const memoOnPointerUp = useCallback(() => {
-    onPointerUp(value)
-  }, [onPointerUp, value])
-  const memoOnPointerEnter = useCallback(() => {
-    onPointerEnter && onPointerEnter(value)
-  }, [onPointerEnter, value])
-  const memoOnPointerLeave = useCallback(() => {
-    onPointerLeave && onPointerLeave(value)
-  }, [onPointerLeave, value])
-
   const buttonClass = {
     1: semaphore_styles.semaphore_button_1,
     2: semaphore_styles.semaphore_button_2,
@@ -63,10 +44,21 @@ const SemaphoreButton = ({
   return (
     <Button
       className={buttonClass}
-      onPointerDown={memoOnPointerDown}
-      onPointerUp={memoOnPointerUp}
-      onPointerEnter={memoOnPointerEnter}
-      onPointerLeave={memoOnPointerLeave}
+      onPointerDown={(e) => {
+        if (e.target.hasPointerCapture(e.pointerId)) {
+          e.target.releasePointerCapture(e.pointerId)
+        }
+        onPointerDown(value)
+      }}
+      onPointerUp={() => {
+        onPointerUp(value)
+      }}
+      onPointerEnter={() => {
+        onPointerEnter && onPointerEnter(value)
+      }}
+      onPointerLeave={() => {
+        onPointerLeave && onPointerLeave(value)
+      }}
       disableRipple={true}
     >
       {isFocused ? (
