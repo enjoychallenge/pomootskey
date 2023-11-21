@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { createSlice } from '@reduxjs/toolkit'
+import { CursorTypes } from '../morse/morseSelector'
 
 const initialState = {
   selected: [],
@@ -7,6 +8,8 @@ const initialState = {
   isFocusing: false,
   isSwiping: false,
   autoSend: true,
+  cursorIdx: 0,
+  cursorType: CursorTypes.insert,
 }
 
 const send = (state) => {
@@ -17,6 +20,8 @@ const send = (state) => {
     newInput.push(oldState.selected)
   }
   newState.confirmedInput = newInput
+  newState.cursorIdx = oldState.cursorIdx + 1
+  newState.cursorType = CursorTypes.insert
   return newState
 }
 
@@ -44,6 +49,8 @@ export const brailleSlice = createSlice({
         state.autoSend = !state.selected.length
         state.selected.push(value)
       }
+      state.cursorType =
+        state.selected.length > 0 ? CursorTypes.edit : CursorTypes.insert
     },
     brailleButtonPointerEnter: (state, action) => {
       const { value } = action.payload
@@ -74,8 +81,6 @@ export const brailleSlice = createSlice({
 
 export const {
   sendButtonClick,
-  oneBackspaceClick,
-  longBackspaceClick,
   brailleButtonPointerDown,
   brailleButtonPointerEnter,
   brailleButtonPointerLeave,
