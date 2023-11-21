@@ -22,7 +22,7 @@ import { useTheme } from '@mui/material/styles'
 import LongPressButton from '../component/LongPressButton'
 import { useCallback } from 'react'
 
-const SemaphoreButton = ({
+const SemaphoreButton = React.memo(function SemaphoreButton({
   value,
   isFocused,
   isSelected,
@@ -30,7 +30,7 @@ const SemaphoreButton = ({
   onPointerUp,
   onPointerEnter,
   onPointerLeave,
-}) => {
+}) {
   const buttonClass = {
     1: semaphore_styles.semaphore_button_1,
     2: semaphore_styles.semaphore_button_2,
@@ -68,7 +68,7 @@ const SemaphoreButton = ({
       <Typography color={'result.main'}>{value}</Typography>
     </Button>
   )
-}
+})
 
 export default function SemaphorePage() {
   const dispatch = useAppDispatch()
