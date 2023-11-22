@@ -2,11 +2,11 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import morse_styles from '../styles/morse.module.scss'
-import { CursorTypes } from '../features/morse/morseSelector'
 import { useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
 import {
+  CursorTypes,
   getVariantOutputOnlyBoxes,
   JoinerTypes,
   OutputCharTypes,
