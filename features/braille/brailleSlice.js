@@ -1,10 +1,8 @@
-import cloneDeep from 'lodash/cloneDeep'
 import { createSlice } from '@reduxjs/toolkit'
 import { CursorTypes } from '../../app/results'
 
 const initialState = {
-  selected: [],
-  confirmedInput: [],
+  input: [],
   isFocusing: false,
   isSwiping: false,
   autoSend: true,
@@ -13,16 +11,11 @@ const initialState = {
 }
 
 const send = (state) => {
-  const newState = cloneDeep(initialState)
-  const oldState = cloneDeep(state)
-  const newInput = oldState.confirmedInput
-  if (oldState.selected.length) {
-    newInput.push(oldState.selected)
-  }
-  newState.confirmedInput = newInput
-  newState.cursorIdx = oldState.cursorIdx + 1
-  newState.cursorType = CursorTypes.insert
-  return newState
+  state.cursorIdx += 1
+  state.cursorType = CursorTypes.insert
+  state.autoSend = true
+  state.isSwiping = false
+  state.isFocusing = false
 }
 
 export const brailleSlice = createSlice({
@@ -30,32 +23,31 @@ export const brailleSlice = createSlice({
   initialState,
   reducers: {
     sendButtonClick: (state) => {
-      return send(state)
+      send(state)
     },
-    oneBackspaceClick: (state) => {
-      if (state.selected.length === 0) {
-        state.confirmedInput.pop()
-      }
-      state.selected = initialState.selected
-      state.autoSend = true
-    },
+    oneBackspaceClick: () => {},
     longBackspaceClick: () => initialState,
     brailleButtonPointerDown: (state, action) => {
       const { value } = action.payload
       state.isFocusing = true
-      if (state.selected.includes(value)) {
-        state.selected = state.selected.filter((item) => item !== value)
+      if (state.cursorType === CursorTypes.edit) {
+        if (state.input[state.cursorIdx].includes(value)) {
+          state.input[state.cursorIdx] = state.input[state.cursorIdx].filter(
+            (item) => item !== value
+          )
+        } else {
+          state.autoSend = !state.input[state.cursorIdx].length
+          state.input[state.cursorIdx].push(value)
+        }
       } else {
-        state.autoSend = !state.selected.length
-        state.selected.push(value)
+        state.input.push([value])
+        state.cursorType = CursorTypes.edit
       }
-      state.cursorType =
-        state.selected.length > 0 ? CursorTypes.edit : CursorTypes.insert
     },
     brailleButtonPointerEnter: (state, action) => {
       const { value } = action.payload
-      if (!state.selected.includes(value) && state.isSwiping) {
-        state.selected.push(value)
+      if (state.isSwiping && !state.input[state.cursorIdx].includes(value)) {
+        state.input[state.cursorIdx].push(value)
       }
     },
     brailleButtonPointerLeave: (state) => {
@@ -66,15 +58,17 @@ export const brailleSlice = createSlice({
       state.isFocusing = false
     },
     inputBoxPointerUp: (state) => {
-      let newState = cloneDeep(state)
       if (state.autoSend && state.isSwiping) {
-        newState = send(state)
+        send(state)
       } else {
-        newState.autoSend = false
-        newState.isFocusing = false
-        newState.isSwiping = false
+        state.autoSend = false
+        state.isFocusing = false
+        state.isSwiping = false
+        if (state.input[state.cursorIdx].length === 0) {
+          state.input.pop()
+          state.cursorType = CursorTypes.insert
+        }
       }
-      return newState
     },
   },
 })
