@@ -6,7 +6,7 @@ import {
 } from '../../app/decode/morse'
 import { variantPermutations } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
-import * as util from './util'
+import { getInputItemsMorse } from '../common/getInputItems'
 
 const getInput = (state) => state.morse.input
 const getVariantId = (state) => state.morse.variant
@@ -25,7 +25,7 @@ export const ActionButtons = {
 }
 
 export const getInputItems = createSelector([getInput], (input) => {
-  return util.getInputItems(input)
+  return getInputItemsMorse(input)
 })
 
 export const getInputActionButtons = createSelector(
@@ -116,5 +116,5 @@ export const getIsVariantSelected = createSelector([getVariant], (variant) => {
 })
 
 export const getVariantInputItems = createSelector([getVariant], (variant) => {
-  return variant ? util.getInputItems(variant.input) : null
+  return variant ? getInputItemsMorse(variant.input) : null
 })

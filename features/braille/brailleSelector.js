@@ -1,12 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit'
 import {
-  decode,
   columnsToRows,
+  decode,
   invertSelected,
   rowsToColumns,
-  toUtf,
 } from '../../app/decode/braille'
-import { getOutputChar, JoinerTypes, PartTypeToOutputCharType } from '../../app/results'
+import { getInputItemsBraille } from '../common/getInputItems'
 
 export const getSelected = (state) => state.braille.selected
 export const getConfirmedInput = (state) => state.braille.confirmedInput
@@ -69,20 +68,6 @@ export const getIsVariantSelected = createSelector([], () => {
   return false
 })
 
-const inputToDecodeItems = (input) => {
-  return input.map((msgPart) => {
-    const decoded = decode(msgPart)
-    return {
-      input: toUtf(msgPart),
-      output: {
-        type: PartTypeToOutputCharType[decoded.type],
-        char: getOutputChar(decoded),
-      },
-      joiner: JoinerTypes.single,
-    }
-  })
-}
-
 export const getInputItems = createSelector([getInput], (input) => {
-  return inputToDecodeItems(input)
+  return getInputItemsBraille(input)
 })
