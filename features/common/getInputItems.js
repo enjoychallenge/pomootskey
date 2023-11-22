@@ -1,11 +1,16 @@
-import { decode } from '../../app/decode/morse'
-import { getOutputChar, JoinerTypes, PartTypeToOutputCharType } from '../../app/results'
+import {
+  getOutputChar,
+  JoinerTypes,
+  PartTypeToOutputCharType,
+} from '../../app/results'
 import { PartTypes } from '../../app/decode/common'
+import { decode as decodeBraille, toUtf } from '../../app/decode/braille'
+import { decode as decodeMorse } from '../../app/decode/morse'
 
-export const getInputItems = (input) => {
+export const getInputItemsMorse = (input) => {
   const inputItems = []
 
-  decode(input).forEach((msgPart) => {
+  decodeMorse(input).forEach((msgPart) => {
     const outputChar = getOutputChar(msgPart)
     const outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
@@ -42,4 +47,18 @@ export const getInputItems = (input) => {
   })
 
   return inputItems
+}
+
+export const getInputItemsBraille = (input) => {
+  return input.map((msgPart) => {
+    const decoded = decodeBraille(msgPart)
+    return {
+      input: toUtf(msgPart),
+      output: {
+        type: PartTypeToOutputCharType[decoded.type],
+        char: getOutputChar(decoded),
+      },
+      joiner: JoinerTypes.single,
+    }
+  })
 }
