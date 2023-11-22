@@ -6,20 +6,13 @@ import {
   rowsToColumns,
 } from '../../app/decode/braille'
 import { getInputItemsBraille } from '../common/getInputItems'
+import { CursorTypes } from '../../app/results'
 
-export const getSelected = (state) => state.braille.selected
-export const getConfirmedInput = (state) => state.braille.confirmedInput
+export const getInput = (state) => state.braille.input
 export const getIsFocusing = (state) => state.braille.isFocusing
 
 export const getCursorIdx = (state) => state.braille.cursorIdx
 export const getCursorType = (state) => state.braille.cursorType
-
-export const getInput = createSelector(
-  [getSelected, getConfirmedInput],
-  (selected, confirmedInput) => {
-    return !selected.length ? confirmedInput : confirmedInput.concat([selected])
-  }
-)
 
 export const getAllResults = createSelector([getInput], (input) => {
   const allVariants = [
@@ -71,3 +64,10 @@ export const getIsVariantSelected = createSelector([], () => {
 export const getInputItems = createSelector([getInput], (input) => {
   return getInputItemsBraille(input)
 })
+
+export const getSelected = createSelector(
+  [getInput, getCursorType, getCursorIdx],
+  (input, cursorType, cursorIdx) => {
+    return cursorType === CursorTypes.edit ? input[cursorIdx] : []
+  }
+)
