@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { createSlice } from '@reduxjs/toolkit'
-import { CursorTypes } from '../morse/morseSelector'
+import { CursorTypes } from '../../app/results'
 
 const initialState = {
   selected: [],

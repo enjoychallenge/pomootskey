@@ -22,6 +22,12 @@ export const JoinerTypes = {
   middle: 'middle',
   single: 'single',
 }
+
+export const CursorTypes = {
+  insert: 'insert',
+  edit: 'edit',
+}
+
 export const getOutputChar = (decodedPart) => {
   let result = null
   if (decodedPart.type === PartTypes.char) {

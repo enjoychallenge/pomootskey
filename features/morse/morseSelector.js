@@ -7,16 +7,12 @@ import {
 import { variantPermutations } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 import { getInputItemsMorse } from '../common/getInputItems'
+import { CursorTypes } from '../../app/results'
 
 const getInput = (state) => state.morse.input
 const getVariantId = (state) => state.morse.variant
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
-
-export const CursorTypes = {
-  insert: 'insert',
-  edit: 'edit',
-}
 
 export const ActionButtons = {
   backspace: 'backspace',
