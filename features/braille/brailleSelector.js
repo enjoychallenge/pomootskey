@@ -6,8 +6,7 @@ import {
   rowsToColumns,
   toUtf,
 } from '../../app/decode/braille'
-import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
-import { JoinerTypes } from '../morse/util'
+import { getOutputChar, JoinerTypes, PartTypeToOutputCharType } from '../../app/results'
 
 export const getSelected = (state) => state.braille.selected
 export const getConfirmedInput = (state) => state.braille.confirmedInput

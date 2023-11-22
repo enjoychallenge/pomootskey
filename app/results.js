@@ -15,6 +15,13 @@ export const PartTypeToOutputCharType = {
   [PartTypes.undecodable]: OutputCharTypes.unknown,
 }
 
+export const JoinerTypes = {
+  hidden: 'hidden',
+  start: 'start',
+  end: 'end',
+  middle: 'middle',
+  single: 'single',
+}
 export const getOutputChar = (decodedPart) => {
   let result = null
   if (decodedPart.type === PartTypes.char) {

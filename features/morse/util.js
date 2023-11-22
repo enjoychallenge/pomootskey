@@ -1,14 +1,6 @@
 import { decode } from '../../app/decode/morse'
-import { getOutputChar, PartTypeToOutputCharType } from '../../app/results'
+import { getOutputChar, JoinerTypes, PartTypeToOutputCharType } from '../../app/results'
 import { PartTypes } from '../../app/decode/common'
-
-export const JoinerTypes = {
-  hidden: 'hidden',
-  start: 'start',
-  end: 'end',
-  middle: 'middle',
-  single: 'single',
-}
 
 export const getInputItems = (input) => {
   const inputItems = []
