@@ -6,7 +6,7 @@ import {
 } from '../../app/decode/morse'
 import { variantPermutations } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
-import { getInputItemsMorse } from '../common/getInputItems'
+import { getInputItemsMorse } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
 
 const getInput = (state) => state.morse.input
