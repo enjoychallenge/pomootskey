@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { MorseChars, MorseCharsToShow } from '../../app/decode/morse'
 import { CursorTypes } from '../../app/results'
-import { arrowMove } from '../../component/resultBox/util'
+import {
+  arrowMove,
+  backspace,
+  longBackspace,
+} from '../../component/resultBox/util'
 
 const initialState = {
   input: '',
@@ -24,20 +28,6 @@ const pasteToState = (state, msg) => {
     state.input.slice(0, state.cursorIdx) + msg + state.input.slice(postfixIdx)
   state.cursorIdx += msg.length
   state.cursorType = CursorTypes.insert
-}
-
-const backspace = (state) => {
-  if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {
-    state.input =
-      state.input.slice(0, state.cursorIdx - 1) +
-      state.input.slice(state.cursorIdx)
-    state.cursorIdx -= 1
-  } else if (state.cursorType === CursorTypes.edit) {
-    state.input =
-      state.input.slice(0, state.cursorIdx) +
-      state.input.slice(state.cursorIdx + 1)
-    state.cursorType = CursorTypes.insert
-  }
 }
 
 export const morseSlice = createSlice({
@@ -68,13 +58,7 @@ export const morseSlice = createSlice({
       backspace(state)
     },
     longBackspaceClick: (state) => {
-      if (state.cursorType === CursorTypes.insert && state.cursorIdx > 0) {
-        state.input = state.input.slice(state.cursorIdx)
-      } else if (state.cursorType === CursorTypes.edit) {
-        state.input = state.input.slice(state.cursorIdx + 1)
-      }
-      state.cursorType = CursorTypes.insert
-      state.cursorIdx = 0
+      longBackspace(state)
     },
     longLeftArrowClick: (state) => {
       state.cursorType = CursorTypes.insert

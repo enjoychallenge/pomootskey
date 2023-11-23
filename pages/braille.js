@@ -3,7 +3,13 @@ import { useCallback } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { ArrowBack, ArrowForward, Circle, CircleOutlined } from '@mui/icons-material'
+import {
+  ArrowBack,
+  ArrowForward,
+  Backspace,
+  Circle,
+  CircleOutlined,
+} from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import { Button } from '@mui/material'
 import {
@@ -16,6 +22,8 @@ import {
   inputBoxPointerLeave,
   inputBoxPointerUp,
   inputItemClick,
+  oneBackspaceClick,
+  longBackspaceClick,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -138,7 +146,18 @@ export default function BraillePage() {
             onPointerUp={isFocusing ? onInputBoxPointerUp : null}
           >
             <Box className={braille_styles.buttons}>
-              <Button disabled={true}></Button>
+              <LongPressButton
+                onClick={() => {
+                  dispatch(oneBackspaceClick())
+                }}
+                onLongPress={() => {
+                  dispatch(longBackspaceClick())
+                }}
+                variant="outlined"
+                disabled={cursorType === CursorTypes.insert && cursorIdx === 0}
+              >
+                <Backspace />
+              </LongPressButton>
               <BrailleButton value={1} selected={selected} {...buttonProps} />
               <BrailleButton value={4} selected={selected} {...buttonProps} />
 
