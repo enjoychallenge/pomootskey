@@ -13,6 +13,7 @@ import {
   brailleButtonPointerLeave,
   inputBoxPointerLeave,
   inputBoxPointerUp,
+  inputItemClick,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -166,7 +167,9 @@ export default function BraillePage() {
               inputItems={inputItems}
               cursorIdx={cursorIdx}
               cursorType={cursorType}
-              onInputItemClick={() => {}}
+              onInputItemClick={(itemIdx) => {
+                dispatch(inputItemClick({ itemIdx }))
+              }}
               onVariantClick={null}
               variants={[]}
               variantInputItems={null}

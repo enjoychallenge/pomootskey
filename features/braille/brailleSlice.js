@@ -40,7 +40,10 @@ export const brailleSlice = createSlice({
           state.input[state.cursorIdx].push(value)
         }
       } else {
-        state.input.push([value])
+        state.input = state.input
+          .slice(0, state.cursorIdx)
+          .concat([[value]])
+          .concat(state.input.slice(state.cursorIdx))
         state.cursorType = CursorTypes.edit
       }
     },
@@ -64,11 +67,25 @@ export const brailleSlice = createSlice({
         state.autoSend = false
         state.isFocusing = false
         state.isSwiping = false
-        if (state.input[state.cursorIdx].length === 0) {
-          state.input.pop()
+        if (
+          state.cursorIdx === state.input.length - 1 &&
+          state.input[state.cursorIdx].length === 0
+        ) {
+          state.input = state.input
+            .slice(0, state.cursorIdx)
+            .concat(state.input.slice(state.cursorIdx + 1))
           state.cursorType = CursorTypes.insert
+          state.autoSend = true
         }
       }
+    },
+    inputItemClick: (state, action) => {
+      const { itemIdx } = action.payload
+      state.cursorIdx = itemIdx
+      state.cursorType =
+        state.cursorIdx === state.input.length
+          ? CursorTypes.insert
+          : CursorTypes.edit
     },
   },
 })
@@ -80,6 +97,7 @@ export const {
   brailleButtonPointerLeave,
   inputBoxPointerLeave,
   inputBoxPointerUp,
+  inputItemClick,
 } = brailleSlice.actions
 
 export default brailleSlice.reducer
