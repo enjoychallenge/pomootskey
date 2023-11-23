@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { CursorTypes } from '../../app/results'
+import { arrowMove } from '../../component/resultBox/util'
+import { ArrowTypes } from '../morse/morseSlice'
 
 const initialState = {
   input: [],
@@ -10,20 +12,17 @@ const initialState = {
   cursorType: CursorTypes.insert,
 }
 
-const send = (state) => {
-  state.cursorIdx += 1
-  state.cursorType = CursorTypes.insert
-  state.autoSend = true
-  state.isSwiping = false
-  state.isFocusing = false
-}
-
 export const brailleSlice = createSlice({
   name: 'braille',
   initialState,
   reducers: {
-    sendButtonClick: (state) => {
-      send(state)
+    arrowClick: (state, action) => {
+      const { direction } = action.payload
+      arrowMove(state, direction)
+    },
+    longRightArrowClick: (state) => {
+      state.cursorType = CursorTypes.insert
+      state.cursorIdx = state.input.length
     },
     oneBackspaceClick: () => {},
     longBackspaceClick: () => initialState,
@@ -62,7 +61,7 @@ export const brailleSlice = createSlice({
     },
     inputBoxPointerUp: (state) => {
       if (state.autoSend && state.isSwiping) {
-        send(state)
+        arrowMove(state, ArrowTypes.right)
       } else {
         state.autoSend = false
         state.isFocusing = false
@@ -91,13 +90,14 @@ export const brailleSlice = createSlice({
 })
 
 export const {
-  sendButtonClick,
+  arrowClick,
   brailleButtonPointerDown,
   brailleButtonPointerEnter,
   brailleButtonPointerLeave,
   inputBoxPointerLeave,
   inputBoxPointerUp,
   inputItemClick,
+  longRightArrowClick,
 } = brailleSlice.actions
 
 export default brailleSlice.reducer
