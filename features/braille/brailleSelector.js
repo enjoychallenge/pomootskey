@@ -7,6 +7,7 @@ import {
 } from '../../app/decode/braille'
 import { getInputItemsBraille } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
+import * as util from '../../component/resultBox/util'
 
 export const getInput = (state) => state.braille.input
 export const getIsFocusing = (state) => state.braille.isFocusing
@@ -69,5 +70,19 @@ export const getSelected = createSelector(
   [getInput, getCursorType, getCursorIdx],
   (input, cursorType, cursorIdx) => {
     return cursorType === CursorTypes.edit ? input[cursorIdx] : []
+  }
+)
+
+export const getIsRightArrowDisabled = createSelector(
+  [getInput, getCursorType, getCursorIdx],
+  (input, cursorType, cursorIdx) => {
+    return util.getIsRightArrowDisabled({ input, cursorType, cursorIdx })
+  }
+)
+
+export const getIsLeftArrowDisabled = createSelector(
+  [getInput, getCursorType, getCursorIdx],
+  (input, cursorType, cursorIdx) => {
+    return util.getIsLeftArrowDisabled({ input, cursorType, cursorIdx })
   }
 )
