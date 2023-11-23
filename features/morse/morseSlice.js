@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { MorseChars, MorseCharsToShow } from '../../app/decode/morse'
 import { CursorTypes } from '../../app/results'
+import { arrowMove } from '../../component/resultBox/util'
 
 const initialState = {
   input: '',
@@ -23,27 +24,6 @@ const pasteToState = (state, msg) => {
     state.input.slice(0, state.cursorIdx) + msg + state.input.slice(postfixIdx)
   state.cursorIdx += msg.length
   state.cursorType = CursorTypes.insert
-}
-
-const arrowMove = (state, direction) => {
-  if (direction === ArrowTypes.right && state.cursorIdx < state.input.length) {
-    if (state.cursorType === CursorTypes.insert) {
-      state.cursorType = CursorTypes.edit
-    } else {
-      state.cursorIdx += 1
-      state.cursorType = CursorTypes.insert
-    }
-  } else if (
-    direction === ArrowTypes.left &&
-    (state.cursorIdx > 0 || state.cursorType === CursorTypes.edit)
-  ) {
-    if (state.cursorType === CursorTypes.edit) {
-      state.cursorType = CursorTypes.insert
-    } else {
-      state.cursorIdx -= 1
-      state.cursorType = CursorTypes.edit
-    }
-  }
 }
 
 const backspace = (state) => {

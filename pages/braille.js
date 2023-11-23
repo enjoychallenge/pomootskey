@@ -3,11 +3,12 @@ import { useCallback } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Circle, CircleOutlined, Send } from '@mui/icons-material'
+import { ArrowForward, Circle, CircleOutlined } from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
 import { Button } from '@mui/material'
 import {
-  sendButtonClick,
+  arrowClick,
+  longRightArrowClick,
   brailleButtonPointerDown,
   brailleButtonPointerEnter,
   brailleButtonPointerLeave,
@@ -19,6 +20,9 @@ import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 import MorseResultBox from '../component/MorseResultBox'
+import LongPressButton from '../component/LongPressButton'
+import { ArrowTypes } from '../features/morse/morseSlice'
+import { CursorTypes } from '../app/results'
 
 const elementOrParentIsOfClass = (baseElement, className) => {
   let element = baseElement
@@ -82,10 +86,6 @@ export default function BraillePage() {
 
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
 
-  const onSendButtonClick = useCallback(() => {
-    dispatch(sendButtonClick())
-  }, [dispatch])
-
   const onInputBoxPointerLeave = useCallback(
     (e) => {
       const elFromPoint = document.elementFromPoint(e.clientX, e.clientY)
@@ -145,14 +145,23 @@ export default function BraillePage() {
               <BrailleButton value={2} selected={selected} {...buttonProps} />
               <BrailleButton value={5} selected={selected} {...buttonProps} />
 
-              <Button
-                variant="outlined"
-                onClick={onSendButtonClick}
+              <LongPressButton
+                onClick={() => {
+                  dispatch(arrowClick({ direction: ArrowTypes.right }))
+                }}
+                onLongPress={() => {
+                  dispatch(longRightArrowClick())
+                }}
                 className={braille_styles.braille_button}
-                disabled={!selected.length}
+                middlePeriod={75}
+                variant="outlined"
+                disabled={
+                  cursorType === CursorTypes.insert &&
+                  cursorIdx === inputItems.length
+                }
               >
-                <Send />
-              </Button>
+                <ArrowForward />
+              </LongPressButton>
               <BrailleButton value={3} selected={selected} {...buttonProps} />
               <BrailleButton value={6} selected={selected} {...buttonProps} />
             </Box>
