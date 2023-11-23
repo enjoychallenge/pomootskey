@@ -8,6 +8,7 @@ import { variantPermutations } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 import { getInputItemsMorse } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
+import * as util from '../../component/resultBox/util'
 
 const getInput = (state) => state.morse.input
 const getVariantId = (state) => state.morse.variant
@@ -23,27 +24,6 @@ export const ActionButtons = {
 export const getInputItems = createSelector([getInput], (input) => {
   return getInputItemsMorse(input)
 })
-
-export const getInputActionButtons = createSelector(
-  [getInput, getCursorIdx, getCursorType],
-  (input, cursorIdx, cursorType) => {
-    return [
-      {
-        type: ActionButtons.backspace,
-        disabled: cursorType === CursorTypes.insert && cursorIdx === 0,
-      },
-      {
-        type: ActionButtons.leftArrow,
-        disabled: cursorType === CursorTypes.insert && cursorIdx === 0,
-      },
-      {
-        type: ActionButtons.rightArrow,
-        disabled:
-          cursorType === CursorTypes.insert && cursorIdx === input.length,
-      },
-    ]
-  }
-)
 
 export const getMorseButtons = createSelector(
   [getInput, getCursorIdx, getCursorType],
@@ -114,3 +94,17 @@ export const getIsVariantSelected = createSelector([getVariant], (variant) => {
 export const getVariantInputItems = createSelector([getVariant], (variant) => {
   return variant ? getInputItemsMorse(variant.input) : null
 })
+
+export const getIsRightArrowDisabled = createSelector(
+  [getInput, getCursorType, getCursorIdx],
+  (input, cursorType, cursorIdx) => {
+    return util.getIsRightArrowDisabled({ input, cursorType, cursorIdx })
+  }
+)
+
+export const getIsLeftArrowDisabled = createSelector(
+  [getInput, getCursorType, getCursorIdx],
+  (input, cursorType, cursorIdx) => {
+    return util.getIsLeftArrowDisabled({ input, cursorType, cursorIdx })
+  }
+)
