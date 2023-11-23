@@ -20,6 +20,10 @@ export const brailleSlice = createSlice({
       const { direction } = action.payload
       arrowMove(state, direction)
     },
+    longLeftArrowClick: (state) => {
+      state.cursorType = CursorTypes.insert
+      state.cursorIdx = 0
+    },
     longRightArrowClick: (state) => {
       state.cursorType = CursorTypes.insert
       state.cursorIdx = state.input.length
@@ -97,6 +101,7 @@ export const {
   inputBoxPointerLeave,
   inputBoxPointerUp,
   inputItemClick,
+  longLeftArrowClick,
   longRightArrowClick,
 } = brailleSlice.actions
 
