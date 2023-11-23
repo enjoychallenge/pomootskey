@@ -5,7 +5,7 @@ import {
   invertSelected,
   rowsToColumns,
 } from '../../app/decode/braille'
-import { getInputItemsBraille } from '../common/getInputItems'
+import { getInputItemsBraille } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
 
 export const getInput = (state) => state.braille.input
