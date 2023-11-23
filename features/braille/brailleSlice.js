@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { CursorTypes } from '../../app/results'
-import { arrowMove } from '../../component/resultBox/util'
+import {
+  arrowMove,
+  backspace,
+  longBackspace,
+} from '../../component/resultBox/util'
 import { ArrowTypes } from '../morse/morseSlice'
 
 const initialState = {
@@ -28,8 +32,12 @@ export const brailleSlice = createSlice({
       state.cursorType = CursorTypes.insert
       state.cursorIdx = state.input.length
     },
-    oneBackspaceClick: () => {},
-    longBackspaceClick: () => initialState,
+    oneBackspaceClick: (state) => {
+      backspace(state)
+    },
+    longBackspaceClick: (state) => {
+      longBackspace(state)
+    },
     brailleButtonPointerDown: (state, action) => {
       const { value } = action.payload
       state.isFocusing = true
@@ -103,6 +111,8 @@ export const {
   inputItemClick,
   longLeftArrowClick,
   longRightArrowClick,
+  oneBackspaceClick,
+  longBackspaceClick,
 } = brailleSlice.actions
 
 export default brailleSlice.reducer
