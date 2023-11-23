@@ -61,3 +61,11 @@ export const longBackspace = (state) => {
   state.cursorType = CursorTypes.insert
   state.cursorIdx = 0
 }
+
+export const getIsRightArrowDisabled = ({ input, cursorType, cursorIdx }) => {
+  return cursorType === CursorTypes.insert && cursorIdx === input.length
+}
+
+export const getIsLeftArrowDisabled = ({ input, cursorType, cursorIdx }) => {
+  return cursorType === CursorTypes.insert && cursorIdx === 0
+}

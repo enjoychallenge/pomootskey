@@ -31,7 +31,6 @@ import * as slctr from '../features/braille/brailleSelector'
 import MorseResultBox from '../component/MorseResultBox'
 import LongPressButton from '../component/LongPressButton'
 import { ArrowTypes } from '../features/morse/morseSlice'
-import { CursorTypes } from '../app/results'
 
 const elementOrParentIsOfClass = (baseElement, className) => {
   let element = baseElement
@@ -92,6 +91,8 @@ export default function BraillePage() {
   const inputItems = useAppSelector(slctr.getInputItems)
   const cursorIdx = useAppSelector(slctr.getCursorIdx)
   const cursorType = useAppSelector(slctr.getCursorType)
+  const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
+  const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
 
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
 
@@ -154,7 +155,7 @@ export default function BraillePage() {
                   dispatch(longBackspaceClick())
                 }}
                 variant="outlined"
-                disabled={cursorType === CursorTypes.insert && cursorIdx === 0}
+                disabled={isLeftArrowDisabled}
               >
                 <Backspace />
               </LongPressButton>
@@ -171,7 +172,7 @@ export default function BraillePage() {
                 className={braille_styles.braille_button}
                 middlePeriod={75}
                 variant="outlined"
-                disabled={cursorType === CursorTypes.insert && cursorIdx === 0}
+                disabled={isLeftArrowDisabled}
               >
                 <ArrowBack />
               </LongPressButton>
@@ -188,10 +189,7 @@ export default function BraillePage() {
                 className={braille_styles.braille_button}
                 middlePeriod={75}
                 variant="outlined"
-                disabled={
-                  cursorType === CursorTypes.insert &&
-                  cursorIdx === inputItems.length
-                }
+                disabled={isRightArrowDisabled}
               >
                 <ArrowForward />
               </LongPressButton>
