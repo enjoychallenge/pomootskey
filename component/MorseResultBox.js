@@ -1,7 +1,6 @@
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import morse_styles from '../styles/morse.module.scss'
 import { useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
@@ -16,20 +15,20 @@ import DialogTitle from '@mui/material/DialogTitle'
 import result_styles from '../styles/common/result.module.scss'
 
 const CharTypeToExtraClass = {
-  [OutputCharTypes.unknown]: morse_styles.wrong,
+  [OutputCharTypes.unknown]: result_styles.wrong,
 }
 
 const JoinerTypeToClass = {
-  [JoinerTypes.hidden]: morse_styles.result_input_char_joiner_hidden,
-  [JoinerTypes.start]: morse_styles.result_input_char_joiner_start,
-  [JoinerTypes.end]: morse_styles.result_input_char_joiner_end,
-  [JoinerTypes.middle]: morse_styles.result_input_char_joiner_middle,
-  [JoinerTypes.single]: morse_styles.result_input_char_joiner,
+  [JoinerTypes.hidden]: result_styles.result_input_char_joiner_hidden,
+  [JoinerTypes.start]: result_styles.result_input_char_joiner_start,
+  [JoinerTypes.end]: result_styles.result_input_char_joiner_end,
+  [JoinerTypes.middle]: result_styles.result_input_char_joiner_middle,
+  [JoinerTypes.single]: result_styles.result_input_char_joiner,
 }
 
 const CursorTypeToClass = {
-  [CursorTypes.insert]: morse_styles.result_input_char_cursor_insert,
-  [CursorTypes.edit]: morse_styles.result_input_char_cursor_edit,
+  [CursorTypes.insert]: result_styles.result_input_char_cursor_insert,
+  [CursorTypes.edit]: result_styles.result_input_char_cursor_edit,
 }
 
 const getInputCharJsx = (inputChar) => {
@@ -62,7 +61,7 @@ const ResultItem = React.memo(function ResultItem({
   inputChar = '',
   renderInputChar,
   outputChar = '',
-  joinerClass = morse_styles.result_input_char_joiner_hidden,
+  joinerClass = result_styles.result_input_char_joiner_hidden,
   transparent = false,
   extraClass = null,
   cursor = null,
@@ -74,26 +73,26 @@ const ResultItem = React.memo(function ResultItem({
     onInputItemClick(inputCharIdx)
   }, [onInputItemClick, inputCharIdx])
 
-  const inputCharClasses = [morse_styles.result_input_char]
+  const inputCharClasses = [result_styles.result_input_char]
   const cursorClass = CursorTypeToClass[cursor]
   if (cursorClass) {
     inputCharClasses.push(cursorClass)
   }
 
   const rightClickArea = hasRightClickArea ? (
-    <Box className={morse_styles.click_area} />
+    <Box className={result_styles.click_area} />
   ) : null
 
   let variantJsx = null
   if (variantProps) {
-    const classNames = [morse_styles.variant]
+    const classNames = [result_styles.variant]
     if (variantProps.extraClass) {
       classNames.push(variantProps.extraClass)
     }
     variantJsx = (
       <Box className={classNames.join(' ')}>
         <Box
-          className={morse_styles.result_input_char}
+          className={result_styles.result_input_char}
           sx={transparent ? null : { backgroundColor: 'background.paper' }}
         >
           {renderInputChar(variantProps.inputChar)}
@@ -102,7 +101,7 @@ const ResultItem = React.memo(function ResultItem({
           className={variantProps.joinerClass}
           sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
         />
-        <Box className={morse_styles.result_output_char}>
+        <Box className={result_styles.result_output_char}>
           {variantProps.outputChar}
         </Box>
       </Box>
@@ -111,12 +110,12 @@ const ResultItem = React.memo(function ResultItem({
 
   return (
     <Box
-      className={morse_styles.result_item}
+      className={result_styles.result_item}
       onClick={memoOnInputItemClick}
       ref={resultItemRef}
     >
       <Box className={extraClass}>
-        <Box className={morse_styles.result_output_char}>{outputChar}</Box>
+        <Box className={result_styles.result_output_char}>{outputChar}</Box>
         <Box
           className={joinerClass}
           sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
@@ -239,7 +238,7 @@ export default function MorseResultBox({
     <Typography sx={{ color: 'variant.main' }}>{variantLabel}</Typography>
   ) : null
   return (
-    <Box className={morse_styles.result_cases} ref={resultCasesRef}>
+    <Box className={result_styles.result_cases} ref={resultCasesRef}>
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       {variantLabelJsx}
       <Box>
@@ -252,7 +251,7 @@ export default function MorseResultBox({
           resultItemRef={cursorIdx === inputItems.length ? cursorRef : null}
           hasRightClickArea={true}
         />
-        <Box className={morse_styles.variant_button_wrapper}>
+        <Box className={result_styles.variant_button_wrapper}>
           <Button
             variant="outlined"
             ref={variantButtonRef}
