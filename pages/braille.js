@@ -24,6 +24,7 @@ import {
   inputItemClick,
   oneBackspaceClick,
   longBackspaceClick,
+  variantClick,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -107,7 +108,10 @@ export default function BraillePage() {
   const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
   const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
 
+  const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
+  const allVariants = useAppSelector(slctr.getAllResults)
+  const variantInputItems = useAppSelector(slctr.getVariantInputItems)
 
   const onInputBoxPointerLeave = useCallback(
     (e) => {
@@ -216,16 +220,18 @@ export default function BraillePage() {
           >
             <ResultBox
               label="Základní řešení"
-              variantLabel={null}
+              variantLabel={variantLabel}
               inputItems={inputItems}
               cursorIdx={cursorIdx}
               cursorType={cursorType}
               onInputItemClick={(itemIdx) => {
                 dispatch(inputItemClick({ itemIdx }))
               }}
-              onVariantClick={null}
-              variants={[]}
-              variantInputItems={null}
+              onVariantClick={(id, idx) => {
+                dispatch(variantClick({ id, idx }))
+              }}
+              variants={allVariants}
+              variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
                 item: braille_styles.result_item,
