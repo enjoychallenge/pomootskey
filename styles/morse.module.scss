@@ -46,3 +46,9 @@
   height: var(--morseInputCharHeight);
   font-size: var(--morseInputCharFontSize);
 }
+
+.result_cases {
+  & > div {
+    padding-right: var(--morseInputCharWidth);
+  }
+}
