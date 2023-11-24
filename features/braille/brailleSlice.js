@@ -16,6 +16,45 @@ const initialState = {
   variant: null,
 }
 
+const xorPoint = (state, value) => {
+  if (state.cursorType === CursorTypes.edit) {
+    if (state.input[state.cursorIdx].includes(value)) {
+      state.input[state.cursorIdx] = state.input[state.cursorIdx].filter(
+        (item) => item !== value
+      )
+    } else {
+      state.autoSend = !state.input[state.cursorIdx].length
+      state.input[state.cursorIdx].push(value)
+    }
+  } else {
+    state.input = state.input
+      .slice(0, state.cursorIdx)
+      .concat([[value]])
+      .concat(state.input.slice(state.cursorIdx))
+    state.cursorType = CursorTypes.edit
+  }
+}
+
+const afterClick = (state) => {
+  if (state.autoSend && state.isSwiping) {
+    arrowMove(state, ArrowTypes.right)
+  } else {
+    state.autoSend = false
+    state.isFocusing = false
+    state.isSwiping = false
+    if (
+      state.cursorIdx === state.input.length - 1 &&
+      state.input[state.cursorIdx].length === 0
+    ) {
+      state.input = state.input
+        .slice(0, state.cursorIdx)
+        .concat(state.input.slice(state.cursorIdx + 1))
+      state.cursorType = CursorTypes.insert
+      state.autoSend = true
+    }
+  }
+}
+
 export const brailleSlice = createSlice({
   name: 'braille',
   initialState,
@@ -41,22 +80,7 @@ export const brailleSlice = createSlice({
     brailleButtonPointerDown: (state, action) => {
       const { value } = action.payload
       state.isFocusing = true
-      if (state.cursorType === CursorTypes.edit) {
-        if (state.input[state.cursorIdx].includes(value)) {
-          state.input[state.cursorIdx] = state.input[state.cursorIdx].filter(
-            (item) => item !== value
-          )
-        } else {
-          state.autoSend = !state.input[state.cursorIdx].length
-          state.input[state.cursorIdx].push(value)
-        }
-      } else {
-        state.input = state.input
-          .slice(0, state.cursorIdx)
-          .concat([[value]])
-          .concat(state.input.slice(state.cursorIdx))
-        state.cursorType = CursorTypes.edit
-      }
+      xorPoint(state, value)
     },
     brailleButtonPointerEnter: (state, action) => {
       const { value } = action.payload
@@ -72,23 +96,7 @@ export const brailleSlice = createSlice({
       state.isFocusing = false
     },
     inputBoxPointerUp: (state) => {
-      if (state.autoSend && state.isSwiping) {
-        arrowMove(state, ArrowTypes.right)
-      } else {
-        state.autoSend = false
-        state.isFocusing = false
-        state.isSwiping = false
-        if (
-          state.cursorIdx === state.input.length - 1 &&
-          state.input[state.cursorIdx].length === 0
-        ) {
-          state.input = state.input
-            .slice(0, state.cursorIdx)
-            .concat(state.input.slice(state.cursorIdx + 1))
-          state.cursorType = CursorTypes.insert
-          state.autoSend = true
-        }
-      }
+      afterClick(state)
     },
     inputItemClick: (state, action) => {
       const { itemIdx } = action.payload
@@ -113,6 +121,15 @@ export const brailleSlice = createSlice({
           break
         case 'ArrowRight':
           arrowMove(state, ArrowTypes.right)
+          break
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+          xorPoint(state, parseInt(key))
+          afterClick(state)
           break
       }
     },
