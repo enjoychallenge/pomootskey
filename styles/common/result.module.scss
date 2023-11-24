@@ -47,10 +47,10 @@
     line-height: 1;
     display: flex;
     flex-wrap: wrap;
-    padding-right: var(--morseInputCharWidth);
-    padding-left: var(--morseInputCharGap);
-    column-gap: var(--morseInputCharGap);
-    row-gap: var(--morseLineGap);
+    padding-right: var(--baseInputCharWidth);
+    padding-left: var(--baseInputCharGap);
+    column-gap: var(--baseInputCharGap);
+    row-gap: var(--baseLineGap);
 
     font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace', 'monospace';
   }
@@ -83,7 +83,7 @@
 }
 
 .variant {
-  margin-top: var(--morseInputCharJoinerHeight);
+  margin-top: var(--baseInputCharJoinerHeight);
   color: var(--muiPaletteVariantMain);
   fill: var(--muiPaletteVariantMain);
   stroke: var(--muiPaletteVariantMain);
@@ -99,7 +99,7 @@
   width: 100vh;
   position: absolute;
   top: 0;
-  left: var(--morseInputCharWidth);
+  left: var(--baseInputCharWidth);
 }
 
 .variant_button_wrapper {
@@ -148,7 +148,7 @@
 .result_input_char_cursor_insert::before {
   content: '';
   position: absolute;
-  left: calc(-0.5 * var(--morseInputCharGap) - 1px);
+  left: calc(-0.5 * var(--baseInputCharGap) - 1px);
   width: 2px;
   height: 100%;
   background: var(--muiPalettePrimaryMain);
@@ -165,25 +165,25 @@
 }
 
 .result_input_char_joiner {
-  height: var(--morseInputCharJoinerHeight);
+  height: var(--baseInputCharJoinerHeight);
   position: relative;
 }
 
 .result_input_char_joiner_start {
   @extend .result_input_char_joiner;
-  width: calc(100% + var(--morseInputCharGap));
+  width: calc(100% + var(--baseInputCharGap));
 }
 
 .result_input_char_joiner_end {
   @extend .result_input_char_joiner;
-  left: calc(-1 * var(--morseInputCharGap));
-  width: calc(100% + var(--morseInputCharGap));
+  left: calc(-1 * var(--baseInputCharGap));
+  width: calc(100% + var(--baseInputCharGap));
 }
 
 .result_input_char_joiner_middle {
   @extend .result_input_char_joiner;
-  left: calc(-1 * var(--morseInputCharGap));
-  width: calc(100% + 2 * var(--morseInputCharGap));
+  left: calc(-1 * var(--baseInputCharGap));
+  width: calc(100% + 2 * var(--baseInputCharGap));
 }
 
 .result_input_char_joiner_hidden {
