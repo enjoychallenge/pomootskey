@@ -84,6 +84,19 @@ const BrailleButton = ({
   )
 }
 
+const getInputCharJsx = (pointList) => {
+  const pointsJsx = pointList.map((point, idx) => {
+    const cx = point < 4 ? 8 : 22
+    const cy = 8 + 15 * ((point - 1) % 3)
+    return <circle key={idx} cx={cx} cy={cy} r="4" />
+  })
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 30 50">
+      {pointsJsx}
+    </svg>
+  )
+}
+
 export default function BraillePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
@@ -219,6 +232,7 @@ export default function BraillePage() {
                 inputChar: braille_styles.result_input_char,
                 cases: null,
               }}
+              getInputCharJsx={getInputCharJsx}
             />
           </Box>
         </Box>
