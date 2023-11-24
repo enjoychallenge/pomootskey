@@ -1,5 +1,4 @@
-import { CursorTypes } from '../../app/results'
-import { ArrowTypes } from '../../features/morse/morseSlice'
+import { ArrowTypes, CursorTypes } from '../../app/results'
 
 const resetSwiping = (state) => {
   if ('autoSend' in state) {

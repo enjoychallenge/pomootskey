@@ -28,6 +28,11 @@ export const CursorTypes = {
   edit: 'edit',
 }
 
+export const ArrowTypes = {
+  left: 'left',
+  right: 'right',
+}
+
 export const getOutputChar = (decodedPart) => {
   let result = null
   if (decodedPart.type === PartTypes.char) {

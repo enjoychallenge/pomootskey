@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { CursorTypes } from '../../app/results'
+import { ArrowTypes, CursorTypes } from '../../app/results'
 import {
   arrowMove,
   backspace,
   longBackspace,
 } from '../../component/resultBox/util'
-import { ArrowTypes } from '../morse/morseSlice'
 
 const initialState = {
   input: [],
