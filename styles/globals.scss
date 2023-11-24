@@ -29,38 +29,42 @@ a {
   --muiPaletteWarningMain: #ff3333;
   --muiPaletteVariantMain: #08ff00;
   --muiPaletteBackgroundPaper: #303030;
-  --morseInputCharWidth: clamp(10px, 2.5vmin, 20px);
+
+  --baseInputCharWidth: clamp(10px, 2.5vmin, 20px);
+  --baseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
+  --baseLineGap: clamp(5px, 2vmin, 10px);
+  --baseInputCharJoinerHeight: clamp(3px, 0.5vmin, 5px);
+
+  --morseInputCharWidth: var(--baseInputCharWidth);
   --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
   --morseInputCharFontSize: calc(0.9 * var(--morseInputCharHeight));
-  --morseInputCharJoinerHeight: clamp(3px, 0.5vmin, 5px);
   --morseOutputCharHeight: calc(2 * var(--morseInputCharHeight));
   --morseOutputCharFontSize: calc(2 * var(--morseInputCharFontSize));
-  --morseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
-  --morseLineGap: clamp(5px, 2vmin, 10px);
-  --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
-  --brailleButtonGap: calc(0.7 * var(--brailleButtonSize));
   --morseVariantButtonSize: calc(
-    var(--morseInputCharHeight) + var(--morseInputCharJoinerHeight) +
+    var(--morseInputCharHeight) + var(--baseInputCharJoinerHeight) +
       var(--morseOutputCharHeight)
   );
-  --brailleInputCharWidth: calc(1.66 * var(--morseInputCharWidth));
+
+  --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
+  --brailleButtonGap: calc(0.7 * var(--brailleButtonSize));
+  --brailleInputCharWidth: calc(1.66 * var(--baseInputCharWidth));
   --brailleInputCharFontSize: var(--morseOutputCharFontSize);
   --brailleInputCharHeight: calc(0.75 * var(--morseOutputCharHeight));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
   :root {
-    --morseInputCharGap: 3px;
+    --baseInputCharGap: 3px;
   }
 }
 @media (min-width: 700px) {
   :root {
-    --morseInputCharGap: 4px;
+    --baseInputCharGap: 4px;
   }
 }
 @media (min-width: 1000px) {
   :root {
-    --morseInputCharGap: 5px;
+    --baseInputCharGap: 5px;
   }
 }
 
