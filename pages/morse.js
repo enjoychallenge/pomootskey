@@ -187,6 +187,10 @@ export default function MorsePage() {
               variants={allVariants}
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
+              styles={{
+                item: morse_styles.result_item,
+                inputChar: morse_styles.result_input_char,
+              }}
             />
           </Box>
         </Box>

@@ -214,6 +214,10 @@ export default function BraillePage() {
               variants={[]}
               variantInputItems={null}
               deselectButtonDisabled={!isVariantSelected}
+              styles={{
+                item: braille_styles.result_item,
+                inputChar: braille_styles.result_input_char,
+              }}
             />
           </Box>
         </Box>
