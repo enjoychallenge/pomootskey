@@ -66,6 +66,6 @@ export const getIsRightArrowDisabled = ({ input, cursorType, cursorIdx }) => {
   return cursorType === CursorTypes.insert && cursorIdx === input.length
 }
 
-export const getIsLeftArrowDisabled = ({ input, cursorType, cursorIdx }) => {
+export const getIsLeftArrowDisabled = ({ cursorType, cursorIdx }) => {
   return cursorType === CursorTypes.insert && cursorIdx === 0
 }
