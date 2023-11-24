@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -25,6 +25,7 @@ import {
   oneBackspaceClick,
   longBackspaceClick,
   variantClick,
+  keyDown,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
@@ -148,6 +149,19 @@ export default function BraillePage() {
     ),
     isFocusing: isFocusing,
   }
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const key = e.key
+      dispatch(keyDown({ key }))
+    }
+
+    document.addEventListener('keydown', handleKeyDown, true)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown, true)
+    }
+  }, [dispatch])
 
   return (
     <>
