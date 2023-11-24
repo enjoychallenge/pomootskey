@@ -102,6 +102,20 @@ export const brailleSlice = createSlice({
       const { id, idx } = action.payload
       state.variant = idx === 0 ? initialState.variant : id
     },
+    keyDown: (state, action) => {
+      const { key } = action.payload
+      switch (key) {
+        case 'Backspace':
+          backspace(state)
+          break
+        case 'ArrowLeft':
+          arrowMove(state, ArrowTypes.left)
+          break
+        case 'ArrowRight':
+          arrowMove(state, ArrowTypes.right)
+          break
+      }
+    },
   },
 })
 
@@ -118,6 +132,7 @@ export const {
   oneBackspaceClick,
   longBackspaceClick,
   variantClick,
+  keyDown,
 } = brailleSlice.actions
 
 export default brailleSlice.reducer
