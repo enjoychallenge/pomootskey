@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { MorseChars, MorseCharsToShow } from '../../app/decode/morse'
-import { CursorTypes } from '../../app/results'
+import { ArrowTypes, CursorTypes } from '../../app/results'
 import {
   arrowMove,
   backspace,
@@ -12,11 +12,6 @@ const initialState = {
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
   variant: null,
-}
-
-export const ArrowTypes = {
-  left: 'left',
-  right: 'right',
 }
 
 const pasteToState = (state, msg) => {

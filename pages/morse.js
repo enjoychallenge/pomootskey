@@ -14,7 +14,6 @@ import {
   longBackspaceClick,
   inputItemClick,
   arrowClick,
-  ArrowTypes,
   longLeftArrowClick,
   longRightArrowClick,
   variantClick,
@@ -25,6 +24,7 @@ import { useCallback, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/morse/morseSelector'
 import { ArrowForward, ArrowBack, Backspace } from '@mui/icons-material'
+import { ArrowTypes } from '../app/results'
 
 const MorseButton = ({ char, onClick, preselected }) => {
   const memoOnClick = useCallback(() => {
