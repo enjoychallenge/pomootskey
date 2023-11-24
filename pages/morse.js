@@ -7,7 +7,7 @@ import morse_styles from '../styles/morse.module.scss'
 import Button from '@mui/material/Button'
 import { MorseCharsToShow } from '../app/decode/morse'
 import LongPressButton from '../component/LongPressButton'
-import MorseResultBox from '../component/MorseResultBox'
+import ResultBox from '../component/resultBox/resultBox'
 import {
   onMorseButtonClick,
   oneBackspaceClick,
@@ -176,7 +176,7 @@ export default function MorsePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <MorseResultBox
+            <ResultBox
               label="Základní řešení"
               variantLabel={variantLabel}
               inputItems={inputItems}

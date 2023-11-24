@@ -9,10 +9,10 @@ import {
   getVariantOutputOnlyBoxes,
   JoinerTypes,
   OutputCharTypes,
-} from '../app/results'
+} from '../../app/results'
 import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
-import result_styles from '../styles/common/result.module.scss'
+import result_styles from '../../styles/common/result.module.scss'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: result_styles.wrong,
@@ -135,7 +135,7 @@ const ResultItem = React.memo(function ResultItem({
   )
 })
 
-export default function MorseResultBox({
+export default function ResultBox({
   label,
   variantLabel,
   inputItems,
