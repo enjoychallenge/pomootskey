@@ -57,7 +57,6 @@
 }
 
 .result_item {
-  width: var(--morseInputCharWidth);
   color: var(--muiPaletteResultMain);
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
@@ -71,7 +70,6 @@
 }
 
 .result_item {
-  width: var(--morseInputCharWidth);
   color: var(--muiPaletteResultMain);
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
@@ -133,8 +131,6 @@
 }
 
 .result_input_char {
-  height: var(--morseInputCharHeight);
-  font-size: var(--morseInputCharFontSize);
   position: relative;
   display: flex;
   justify-content: center;

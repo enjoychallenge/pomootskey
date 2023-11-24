@@ -68,16 +68,18 @@ const ResultItem = React.memo(function ResultItem({
   hasRightClickArea = false,
   resultItemRef = null,
   variantProps = null,
+  styles,
 }) {
   const memoOnInputItemClick = useCallback(() => {
     onInputItemClick(inputCharIdx)
   }, [onInputItemClick, inputCharIdx])
 
-  const inputCharClasses = [result_styles.result_input_char]
+  const inputCharClasses = [styles.inputChar, result_styles.result_input_char]
   const cursorClass = CursorTypeToClass[cursor]
   if (cursorClass) {
     inputCharClasses.push(cursorClass)
   }
+  const itemClasses = [styles.item, result_styles.result_item]
 
   const rightClickArea = hasRightClickArea ? (
     <Box className={result_styles.click_area} />
@@ -110,7 +112,7 @@ const ResultItem = React.memo(function ResultItem({
 
   return (
     <Box
-      className={result_styles.result_item}
+      className={itemClasses.join(' ')}
       onClick={memoOnInputItemClick}
       ref={resultItemRef}
     >
@@ -144,6 +146,7 @@ export default function MorseResultBox({
   variantInputItems,
   variants,
   deselectButtonDisabled,
+  styles,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)
@@ -230,6 +233,7 @@ export default function MorseResultBox({
         cursor={idx === cursorIdx && cursorType}
         resultItemRef={idx === cursorIdx ? cursorRef : null}
         variantProps={variantProps}
+        styles={styles}
       />
     )
   })
@@ -250,6 +254,7 @@ export default function MorseResultBox({
           cursor={cursorIdx === inputItems.length && cursorType}
           resultItemRef={cursorIdx === inputItems.length ? cursorRef : null}
           hasRightClickArea={true}
+          styles={styles}
         />
         <Box className={result_styles.variant_button_wrapper}>
           <Button
