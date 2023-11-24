@@ -14,6 +14,7 @@ const initialState = {
   autoSend: true,
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
+  variant: null,
 }
 
 export const brailleSlice = createSlice({
@@ -98,6 +99,10 @@ export const brailleSlice = createSlice({
           ? CursorTypes.insert
           : CursorTypes.edit
     },
+    variantClick: (state, action) => {
+      const { id, idx } = action.payload
+      state.variant = idx === 0 ? initialState.variant : id
+    },
   },
 })
 
@@ -113,6 +118,7 @@ export const {
   longRightArrowClick,
   oneBackspaceClick,
   longBackspaceClick,
+  variantClick,
 } = brailleSlice.actions
 
 export default brailleSlice.reducer
