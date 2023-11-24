@@ -56,14 +56,6 @@ export function decode(selected) {
   return result
 }
 
-export function toUtf(selected) {
-  const utfCode = [...selected].reduce(
-    (total, item) => total + Math.pow(2, item - 1),
-    10240
-  )
-  return String.fromCharCode(utfCode)
-}
-
 export function columnsToRows(byColumns) {
   return [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
 }
