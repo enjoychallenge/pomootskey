@@ -28,7 +28,7 @@ import {
 import braille_styles from '../styles/braille.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
-import MorseResultBox from '../component/MorseResultBox'
+import ResultBox from '../component/resultBox/resultBox'
 import LongPressButton from '../component/LongPressButton'
 import { ArrowTypes } from '../features/morse/morseSlice'
 
@@ -201,7 +201,7 @@ export default function BraillePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <MorseResultBox
+            <ResultBox
               label="Základní řešení"
               variantLabel={null}
               inputItems={inputItems}
