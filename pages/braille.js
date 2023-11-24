@@ -217,6 +217,7 @@ export default function BraillePage() {
               styles={{
                 item: braille_styles.result_item,
                 inputChar: braille_styles.result_input_char,
+                cases: null,
               }}
             />
           </Box>
