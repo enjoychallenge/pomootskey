@@ -103,8 +103,8 @@ export const getIsRightArrowDisabled = createSelector(
 )
 
 export const getIsLeftArrowDisabled = createSelector(
-  [getInput, getCursorType, getCursorIdx],
-  (input, cursorType, cursorIdx) => {
-    return util.getIsLeftArrowDisabled({ input, cursorType, cursorIdx })
+  [getCursorType, getCursorIdx],
+  (cursorType, cursorIdx) => {
+    return util.getIsLeftArrowDisabled({ cursorType, cursorIdx })
   }
 )
