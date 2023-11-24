@@ -31,30 +31,6 @@ const CursorTypeToClass = {
   [CursorTypes.edit]: result_styles.result_input_char_cursor_edit,
 }
 
-const getInputCharJsx = (inputChar) => {
-  if (inputChar === '.') {
-    return (
-      <svg width="100%" viewBox="0 0 30 50">
-        <circle cx="15" cy="35" r="6" />
-      </svg>
-    )
-  } else if (inputChar === '-') {
-    return (
-      <svg width="100%" height="100%" viewBox="0 0 30 50">
-        <path d="M 7 25 h 16" strokeWidth="6" strokeLinecap="round" />
-      </svg>
-    )
-  } else if (inputChar === '/') {
-    return (
-      <svg width="100%" height="100%" viewBox="0 0 30 50">
-        <path d="M 7 43 L 23 7" strokeWidth="6" strokeLinecap="round" />
-      </svg>
-    )
-  } else {
-    return inputChar
-  }
-}
-
 const ResultItem = React.memo(function ResultItem({
   inputCharIdx,
   onInputItemClick,
@@ -147,6 +123,7 @@ export default function ResultBox({
   variants,
   deselectButtonDisabled,
   styles,
+  getInputCharJsx,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)

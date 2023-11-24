@@ -4,7 +4,7 @@ import {
   PartTypeToOutputCharType,
 } from '../../app/results'
 import { PartTypes } from '../../app/decode/common'
-import { decode as decodeBraille, toUtf } from '../../app/decode/braille'
+import { decode as decodeBraille } from '../../app/decode/braille'
 import { decode as decodeMorse } from '../../app/decode/morse'
 
 export const getInputItemsMorse = (input) => {
@@ -53,7 +53,7 @@ export const getInputItemsBraille = (input) => {
   return input.map((msgPart) => {
     const decoded = decodeBraille(msgPart)
     return {
-      input: toUtf(msgPart),
+      input: msgPart,
       output: {
         type: PartTypeToOutputCharType[decoded.type],
         char: getOutputChar(decoded),

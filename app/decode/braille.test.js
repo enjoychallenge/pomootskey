@@ -1,10 +1,4 @@
-import {
-  columnsToRows,
-  decode,
-  invertSelected,
-  rowsToColumns,
-  toUtf,
-} from './braille'
+import { columnsToRows, decode, invertSelected, rowsToColumns } from './braille'
 
 describe('decode', () => {
   it.each([
@@ -33,11 +27,6 @@ describe('decode', () => {
     const result = decode(setToDecode)
     expect(result).toEqual(expResult)
   })
-})
-
-test('basic braille to utf char', () => {
-  const testSelected = new Set([1, 5, 3])
-  expect(toUtf(testSelected)).toEqual('⠕')
 })
 
 describe('columns to rows', () => {
