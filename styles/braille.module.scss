@@ -40,6 +40,10 @@
   & > * {
     height: var(--brailleButtonSize);
     width: var(--brailleButtonSize);
+    & > svg {
+      min-width: 60px;
+      min-height: 60px;
+    }
   }
 }
 
