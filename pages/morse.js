@@ -190,6 +190,7 @@ export default function MorsePage() {
               styles={{
                 item: morse_styles.result_item,
                 inputChar: morse_styles.result_input_char,
+                cases: morse_styles.result_cases,
               }}
             />
           </Box>

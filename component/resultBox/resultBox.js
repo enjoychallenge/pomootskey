@@ -152,6 +152,8 @@ export default function ResultBox({
   const cursorRef = useRef(null)
   const resultCasesRef = useRef(null)
 
+  const casesClasses = [styles.cases, result_styles.result_cases]
+
   const [isVariantDialogOpen, setIsVariantDialogOpen] = React.useState(false)
   const onVariantButtonClick = () => {
     setIsVariantDialogOpen(true)
@@ -242,7 +244,7 @@ export default function ResultBox({
     <Typography sx={{ color: 'variant.main' }}>{variantLabel}</Typography>
   ) : null
   return (
-    <Box className={result_styles.result_cases} ref={resultCasesRef}>
+    <Box className={casesClasses.join(' ')} ref={resultCasesRef}>
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       {variantLabelJsx}
       <Box>
