@@ -31,7 +31,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 import ResultBox from '../component/resultBox/resultBox'
 import LongPressButton from '../component/LongPressButton'
-import { ArrowTypes } from '../features/morse/morseSlice'
+import { ArrowTypes } from '../app/results'
 
 const elementOrParentIsOfClass = (baseElement, className) => {
   let element = baseElement
