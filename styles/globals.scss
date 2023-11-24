@@ -43,6 +43,9 @@ a {
     var(--morseInputCharHeight) + var(--morseInputCharJoinerHeight) +
       var(--morseOutputCharHeight)
   );
+  --brailleInputCharWidth: calc(1.66 * var(--morseInputCharWidth));
+  --brailleInputCharFontSize: var(--morseOutputCharFontSize);
+  --brailleInputCharHeight: calc(0.75 * var(--morseOutputCharHeight));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {

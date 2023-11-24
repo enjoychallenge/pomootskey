@@ -37,3 +37,12 @@
   border-width: 3px;
   border-color: var(--muiPalettePrimaryMain);
 }
+
+.result_item {
+  width: var(--morseInputCharWidth);
+}
+
+.result_input_char {
+  height: var(--morseInputCharHeight);
+  font-size: var(--morseInputCharFontSize);
+}
