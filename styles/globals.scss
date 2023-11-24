@@ -48,8 +48,8 @@ a {
   --brailleButtonSize: clamp(80px, 25vmin, min(13vh, 120px));
   --brailleButtonGap: calc(0.7 * var(--brailleButtonSize));
   --brailleInputCharWidth: calc(1.66 * var(--baseInputCharWidth));
-  --brailleInputCharFontSize: var(--morseOutputCharFontSize);
-  --brailleInputCharHeight: calc(0.75 * var(--morseOutputCharHeight));
+  --brailleInputCharFontSize: calc(3 * var(--baseInputCharWidth));
+  --brailleInputCharHeight: calc(2.5 * var(--baseInputCharWidth));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
