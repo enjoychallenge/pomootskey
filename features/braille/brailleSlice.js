@@ -14,6 +14,7 @@ const initialState = {
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
   variant: null,
+  preselected: [],
 }
 
 const xorPoint = (state, value) => {
@@ -105,6 +106,11 @@ export const brailleSlice = createSlice({
         state.cursorIdx === state.input.length
           ? CursorTypes.insert
           : CursorTypes.edit
+      state.preselected =
+        state.cursorType === CursorTypes.edit &&
+        state.cursorIdx < state.input.length
+          ? state.input[state.cursorIdx]
+          : []
     },
     variantClick: (state, action) => {
       const { id, idx } = action.payload

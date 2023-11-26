@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
 import morse_styles from '../styles/morse.module.scss'
+import button_styles from '../styles/common/button.scss'
 import Button from '@mui/material/Button'
 import { MorseCharsToShow } from '../app/decode/morse'
 import LongPressButton from '../component/LongPressButton'
@@ -31,7 +32,7 @@ const MorseButton = ({ char, onClick, preselected }) => {
     onClick(char)
   }, [onClick, char])
 
-  const className = preselected ? morse_styles.preselected_button : ''
+  const className = preselected ? button_styles.preselected_button : ''
 
   return (
     <Button
