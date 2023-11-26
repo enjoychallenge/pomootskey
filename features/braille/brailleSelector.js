@@ -15,6 +15,7 @@ export const getIsFocusing = (state) => state.braille.isFocusing
 const getVariantId = (state) => state.braille.variant
 export const getCursorIdx = (state) => state.braille.cursorIdx
 export const getCursorType = (state) => state.braille.cursorType
+export const getPreselected = (state) => state.braille.preselected
 
 export const getAllResults = createSelector(
   [getInput, getVariantId],

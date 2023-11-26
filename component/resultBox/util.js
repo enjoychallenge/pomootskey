@@ -10,6 +10,13 @@ const resetSwiping = (state) => {
   if ('isFocusing' in state) {
     state.isFocusing = false
   }
+  if ('preselected' in state) {
+    state.preselected =
+      state.cursorType === CursorTypes.edit &&
+      state.cursorIdx < state.input.length
+        ? state.input[state.cursorIdx]
+        : []
+  }
 }
 
 export const arrowMove = (state, direction) => {
