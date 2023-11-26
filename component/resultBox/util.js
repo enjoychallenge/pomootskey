@@ -1,6 +1,6 @@
 import { ArrowTypes, CursorTypes } from '../../app/results'
 
-const resetSwiping = (state) => {
+const resetButtons = (state) => {
   if ('autoSend' in state) {
     state.autoSend = true
   }
@@ -39,7 +39,7 @@ export const arrowMove = (state, direction) => {
     }
   }
 
-  resetSwiping(state)
+  resetButtons(state)
 }
 
 export const backspace = (state) => {
@@ -55,7 +55,7 @@ export const backspace = (state) => {
     state.cursorType = CursorTypes.insert
   }
 
-  resetSwiping(state)
+  resetButtons(state)
 }
 
 export const longBackspace = (state) => {
