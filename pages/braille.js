@@ -28,7 +28,7 @@ import {
   keyDown,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
-import button_styles from '../styles/common/button.scss'
+import button_styles from '../styles/common/button.module.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 import ResultBox from '../component/resultBox/resultBox'

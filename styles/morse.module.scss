@@ -1,4 +1,4 @@
-@use './common/button' as common_buttons;
+@use 'common/button.module' as common_buttons;
 @use 'common/media_condition.module' as media_condition;
 
 .buttons_box {
