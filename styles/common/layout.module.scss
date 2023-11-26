@@ -1,4 +1,4 @@
-@use './button' as common_buttons;
+@use 'button.module' as common_buttons;
 @use './media_condition.module' as media_condition;
 
 .page {
