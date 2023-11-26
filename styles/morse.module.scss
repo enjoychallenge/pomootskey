@@ -32,12 +32,6 @@
   }
 }
 
-.preselected_button,
-.preselected_button:hover {
-  border-width: 3px;
-  border-color: var(--muiPalettePrimaryMain);
-}
-
 .result_item {
   width: var(--morseInputCharWidth);
 }

@@ -28,6 +28,7 @@ import {
   keyDown,
 } from '../features/braille/brailleSlice'
 import braille_styles from '../styles/braille.module.scss'
+import button_styles from '../styles/common/button.scss'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import * as slctr from '../features/braille/brailleSelector'
 import ResultBox from '../component/resultBox/resultBox'
@@ -51,6 +52,7 @@ const BrailleButton = ({
   onPointerEnter,
   onPointerLeave,
   isFocusing,
+  preselected,
 }) => {
   const memoOnPointerEnter = useCallback(() => {
     onPointerEnter(value)
@@ -67,14 +69,18 @@ const BrailleButton = ({
     },
     [onPointerDown, value]
   )
-  const className =
+  const classNames = [
     value < 4
       ? braille_styles.braille_button
-      : braille_styles.braille_button_left
+      : braille_styles.braille_button_left,
+  ]
+  if (preselected.includes(value)) {
+    classNames.push(button_styles.preselected_button)
+  }
 
   return (
     <Button
-      className={className}
+      className={classNames.join(' ')}
       variant="outlined"
       onPointerDown={memoOnPointerDown}
       onPointerEnter={isFocusing ? memoOnPointerEnter : null}
@@ -108,6 +114,7 @@ export default function BraillePage() {
   const cursorType = useAppSelector(slctr.getCursorType)
   const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
   const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
+  const preselected = useAppSelector(slctr.getPreselected)
 
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
@@ -148,6 +155,7 @@ export default function BraillePage() {
       [dispatch]
     ),
     isFocusing: isFocusing,
+    preselected: preselected,
   }
 
   useEffect(() => {

@@ -21,3 +21,9 @@
     font-weight: bold;
   }
 }
+
+.preselected_button,
+.preselected_button:hover {
+  border-width: 5px;
+  border-color: var(--muiPalettePrimaryMain);
+}
