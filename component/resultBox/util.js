@@ -1,6 +1,6 @@
 import { ArrowTypes, CursorTypes } from '../../app/results'
 
-const resetButtons = (state) => {
+export const resetButtons = (state) => {
   if ('autoSend' in state) {
     state.autoSend = true
   }
