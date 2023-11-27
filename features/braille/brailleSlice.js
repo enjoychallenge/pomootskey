@@ -4,6 +4,7 @@ import {
   arrowMove,
   backspace,
   longBackspace,
+  resetButtons,
 } from '../../component/resultBox/util'
 
 const initialState = {
@@ -106,11 +107,7 @@ export const brailleSlice = createSlice({
         state.cursorIdx === state.input.length
           ? CursorTypes.insert
           : CursorTypes.edit
-      state.preselected =
-        state.cursorType === CursorTypes.edit &&
-        state.cursorIdx < state.input.length
-          ? state.input[state.cursorIdx]
-          : []
+      resetButtons(state)
     },
     variantClick: (state, action) => {
       const { id, idx } = action.payload
