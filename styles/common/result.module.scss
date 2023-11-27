@@ -47,9 +47,9 @@
     line-height: 1;
     display: flex;
     flex-wrap: wrap;
-    padding-left: var(--baseInputCharGap);
-    column-gap: var(--baseInputCharGap);
-    row-gap: var(--baseLineGap);
+    padding-left: var(--commonInputCharGap);
+    column-gap: var(--commonInputCharGap);
+    row-gap: var(--commonLineGap);
 
     font-family: 'DejaVu Sans Mono', 'ui-monospace', 'monospace', 'monospace';
   }
@@ -82,7 +82,7 @@
 }
 
 .variant {
-  margin-top: var(--baseInputCharJoinerHeight);
+  margin-top: var(--commonInputCharJoinerHeight);
   color: var(--muiPaletteVariantMain);
   fill: var(--muiPaletteVariantMain);
   stroke: var(--muiPaletteVariantMain);
@@ -147,7 +147,7 @@
 .result_input_char_cursor_insert::before {
   content: '';
   position: absolute;
-  left: calc(-0.5 * var(--baseInputCharGap) - 1px);
+  left: calc(-0.5 * var(--commonInputCharGap) - 1px);
   width: 2px;
   height: 100%;
   background: var(--muiPalettePrimaryMain);
@@ -164,25 +164,25 @@
 }
 
 .result_input_char_joiner {
-  height: var(--baseInputCharJoinerHeight);
+  height: var(--commonInputCharJoinerHeight);
   position: relative;
 }
 
 .result_input_char_joiner_start {
   @extend .result_input_char_joiner;
-  width: calc(100% + var(--baseInputCharGap));
+  width: calc(100% + var(--commonInputCharGap));
 }
 
 .result_input_char_joiner_end {
   @extend .result_input_char_joiner;
-  left: calc(-1 * var(--baseInputCharGap));
-  width: calc(100% + var(--baseInputCharGap));
+  left: calc(-1 * var(--commonInputCharGap));
+  width: calc(100% + var(--commonInputCharGap));
 }
 
 .result_input_char_joiner_middle {
   @extend .result_input_char_joiner;
-  left: calc(-1 * var(--baseInputCharGap));
-  width: calc(100% + 2 * var(--baseInputCharGap));
+  left: calc(-1 * var(--commonInputCharGap));
+  width: calc(100% + 2 * var(--commonInputCharGap));
 }
 
 .result_input_char_joiner_hidden {

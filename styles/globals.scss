@@ -31,9 +31,10 @@ a {
   --muiPaletteBackgroundPaper: #303030;
 
   --baseInputCharWidth: clamp(10px, 2.5vmin, 20px);
-  --baseInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
-  --baseLineGap: clamp(5px, 2vmin, 10px);
-  --baseInputCharJoinerHeight: clamp(3px, 0.5vmin, 5px);
+
+  --commonInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
+  --commonLineGap: clamp(5px, 2vmin, 10px);
+  --commonInputCharJoinerHeight: clamp(3px, 0.5vmin, 5px);
 
   --morseInputCharWidth: var(--baseInputCharWidth);
   --morseInputCharHeight: calc(1.66 * var(--morseInputCharWidth));
@@ -41,7 +42,7 @@ a {
   --morseOutputCharHeight: calc(2 * var(--morseInputCharHeight));
   --morseOutputCharFontSize: calc(2 * var(--morseInputCharFontSize));
   --morseVariantButtonSize: calc(
-    var(--morseInputCharHeight) + var(--baseInputCharJoinerHeight) +
+    var(--morseInputCharHeight) + var(--commonInputCharJoinerHeight) +
       var(--morseOutputCharHeight)
   );
 
@@ -54,17 +55,17 @@ a {
 
 @media (min-width: 500px) and (min-height: 500px) {
   :root {
-    --baseInputCharGap: 3px;
+    --commonInputCharGap: 3px;
   }
 }
 @media (min-width: 700px) {
   :root {
-    --baseInputCharGap: 4px;
+    --commonInputCharGap: 4px;
   }
 }
 @media (min-width: 1000px) {
   :root {
-    --baseInputCharGap: 5px;
+    --commonInputCharGap: 5px;
   }
 }
 
