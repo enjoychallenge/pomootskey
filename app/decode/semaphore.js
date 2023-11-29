@@ -30,7 +30,7 @@ const codeTable = {
 }
 
 export function decode(selected) {
-  const decodedChar = decodeBySet(selected, codeTable)
+  const decodedChar = decodeBySet(new Set(selected), codeTable)
   const result =
     decodedChar === String.fromCharCode(10734)
       ? {

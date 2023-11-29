@@ -1,4 +1,4 @@
-@use 'common/input.module' as input_layout;
+@use 'common/button.module' as common_buttons;
 @use 'common/media_condition.module' as media_condition;
 
 @mixin semaphore_button_mixin {
@@ -93,6 +93,40 @@
   opacity: 0.5;
 }
 
+.semaphore_small_hand {
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.all_buttons_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.action_buttons_box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  gap: 2vmin;
+
+  & > * {
+    @include common_buttons.button;
+    height: 25vmin;
+    width: 20vmin;
+    min-width: 60px;
+    min-height: 80px;
+    max-width: 120px;
+    max-height: 120px;
+
+    & > svg {
+      min-width: 55px;
+      min-height: 55px;
+    }
+  }
+}
+
 .semaphore_buttons_box {
   display: compact;
   margin: 0 auto;
@@ -109,15 +143,10 @@
   }
 }
 
-@font-face {
-  font-family: 'EnigmailedSemaphore';
-  src: url('fonts/EnigmailedSemaphore-Regular.ttf') format('truetype');
+.result_item {
+  width: var(--semaphoreInputCharSize);
 }
 
-.text_input {
-  @include input_layout.text_input_mixin;
-  & textarea {
-    font-family: 'EnigmailedSemaphore';
-    font-size: x-large;
-  }
+.result_input_char {
+  height: var(--semaphoreInputCharSize);
 }
