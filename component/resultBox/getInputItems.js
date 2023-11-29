@@ -6,6 +6,7 @@ import {
 import { PartTypes } from '../../app/decode/common'
 import { decode as decodeBraille } from '../../app/decode/braille'
 import { decode as decodeMorse } from '../../app/decode/morse'
+import { decode as decodeSemaphore } from '../../app/decode/semaphore'
 
 export const getInputItemsMorse = (input) => {
   const inputItems = []
@@ -52,6 +53,20 @@ export const getInputItemsMorse = (input) => {
 export const getInputItemsBraille = (input) => {
   return input.map((msgPart) => {
     const decoded = decodeBraille(msgPart)
+    return {
+      input: msgPart,
+      output: {
+        type: PartTypeToOutputCharType[decoded.type],
+        char: getOutputChar(decoded),
+      },
+      joiner: JoinerTypes.single,
+    }
+  })
+}
+
+export const getInputItemsSemaphore = (input) => {
+  return input.map((msgPart) => {
+    const decoded = decodeSemaphore(msgPart)
     return {
       input: msgPart,
       output: {

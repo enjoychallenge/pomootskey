@@ -10,12 +10,18 @@ export const resetButtons = (state) => {
   if ('isFocusing' in state) {
     state.isFocusing = false
   }
+  if ('focused' in state) {
+    state.focused = null
+  }
   if ('preselected' in state) {
     state.preselected =
       state.cursorType === CursorTypes.edit &&
       state.cursorIdx < state.input.length
         ? state.input[state.cursorIdx]
         : []
+  }
+  if ('lastSelected' in state) {
+    state.lastSelected = []
   }
 }
 

@@ -5,22 +5,34 @@ import {
   buttonPointerUp,
   buttonPointerEnter,
   buttonPointerLeave,
-  oneBackspaceClick,
+  variantClick,
+  inputItemClick,
   longBackspaceClick,
+  oneBackspaceClick,
+  arrowClick,
+  longLeftArrowClick,
+  longRightArrowClick,
+  keyDown,
 } from '../features/semaphore/semaphoreSlice'
 import * as React from 'react'
 import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Backspace, Circle, CircleOutlined } from '@mui/icons-material'
+import {
+  ArrowBack,
+  ArrowForward,
+  Backspace,
+  Circle,
+  CircleOutlined,
+} from '@mui/icons-material'
 import layout_styles from '../styles/common/layout.module.scss'
-import input_styles from '../styles/common/input.module.scss'
-import { Button, InputBase, Paper } from '@mui/material'
+import { Button } from '@mui/material'
 import semaphore_styles from '../styles/semaphore.module.scss'
-import { getVariantOutputOnlyBoxes } from '../app/results'
 import { useTheme } from '@mui/material/styles'
+import { useCallback, useEffect } from 'react'
+import ResultBox from '../component/resultBox/resultBox'
 import LongPressButton from '../component/LongPressButton'
-import { useCallback } from 'react'
+import { ArrowTypes } from '../app/results'
 
 const SemaphoreButton = React.memo(function SemaphoreButton({
   value,
@@ -70,19 +82,40 @@ const SemaphoreButton = React.memo(function SemaphoreButton({
   )
 })
 
+const getInputCharJsx = (pointList) => {
+  const handsJsx = pointList.map((value) => {
+    return (
+      <path
+        key={value}
+        d="M0,0 L0 40"
+        className={semaphore_styles.semaphore_small_hand}
+        transform={`translate(50 50) rotate(${(value - 1) * 45})`}
+      />
+    )
+  })
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 100 100">
+      {handsJsx}
+    </svg>
+  )
+}
+
 export default function SemaphorePage() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector(slctr.getSelected)
+  const lastSelected = useAppSelector(slctr.getLastSelected)
   const isFocusing = useAppSelector(slctr.getIsFocusing)
   const focused = useAppSelector(slctr.getFocused)
+  const inputItems = useAppSelector(slctr.getInputItems)
+  const cursorIdx = useAppSelector(slctr.getCursorIdx)
+  const cursorType = useAppSelector(slctr.getCursorType)
+  const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
+  const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
 
-  const onOneBackspaceClick = useCallback(() => {
-    dispatch(oneBackspaceClick())
-  }, [dispatch])
-
-  const onLongBackspaceClick = useCallback(() => {
-    dispatch(longBackspaceClick())
-  }, [dispatch])
+  const variantLabel = useAppSelector(slctr.getVariantLabel)
+  const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
+  const allVariants = useAppSelector(slctr.getAllResults)
+  const variantInputItems = useAppSelector(slctr.getVariantInputItems)
 
   const onSemaphoreButtonPointerDown = useCallback(
     (value) => {
@@ -128,9 +161,11 @@ export default function SemaphorePage() {
       />
     )
   }
-  const selectedHands = Array.from(selected).map((value) => {
-    return valueToHand(value, false)
-  })
+  const selectedHands = Array.from(lastSelected.concat(selected)).map(
+    (value) => {
+      return valueToHand(value, false)
+    }
+  )
   const focusedHand = focused === null ? null : valueToHand(focused, true)
 
   const buttons = [...Array(8).keys()].map((idx) => {
@@ -139,7 +174,7 @@ export default function SemaphorePage() {
       <SemaphoreButton
         key={value}
         value={value}
-        isSelected={selected.includes(value)}
+        isSelected={selected.includes(value) || lastSelected.includes(value)}
         isFocused={focused === value}
         onPointerDown={onSemaphoreButtonPointerDown}
         onPointerUp={onSemaphoreButtonPointerUp}
@@ -148,6 +183,62 @@ export default function SemaphorePage() {
       />
     )
   })
+
+  const actionButtonsJsx = (
+    <>
+      <LongPressButton
+        onClick={() => {
+          dispatch(oneBackspaceClick())
+        }}
+        onLongPress={() => {
+          dispatch(longBackspaceClick())
+        }}
+        variant="outlined"
+        disabled={isLeftArrowDisabled}
+      >
+        <Backspace />
+      </LongPressButton>
+      <LongPressButton
+        onClick={() => {
+          dispatch(arrowClick({ direction: ArrowTypes.left }))
+        }}
+        onLongPress={() => {
+          dispatch(longLeftArrowClick())
+        }}
+        middlePeriod={75}
+        variant="outlined"
+        disabled={isLeftArrowDisabled}
+      >
+        <ArrowBack />
+      </LongPressButton>
+      <LongPressButton
+        onClick={() => {
+          dispatch(arrowClick({ direction: ArrowTypes.right }))
+        }}
+        onLongPress={() => {
+          dispatch(longRightArrowClick())
+        }}
+        middlePeriod={75}
+        variant="outlined"
+        disabled={isRightArrowDisabled}
+      >
+        <ArrowForward />
+      </LongPressButton>
+    </>
+  )
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const key = e.key
+      dispatch(keyDown({ key }))
+    }
+
+    document.addEventListener('keydown', handleKeyDown, true)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown, true)
+    }
+  }, [dispatch])
 
   return (
     <>
@@ -158,7 +249,14 @@ export default function SemaphorePage() {
           className={layout_styles.main_decoder}
           sx={{ color: 'primary.main' }}
         >
-          <Box className={layout_styles.inputs_box}>
+          <Box
+            className={
+              (layout_styles.inputs_box, semaphore_styles.all_buttons_box)
+            }
+          >
+            <Box className={semaphore_styles.action_buttons_box}>
+              {actionButtonsJsx}
+            </Box>
             <Box className={semaphore_styles.semaphore_buttons_box}>
               <svg width="100%" height="100%" viewBox="0 0 100 100">
                 {selectedHands}
@@ -171,24 +269,28 @@ export default function SemaphorePage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <Box className={layout_styles.result_cases}>
-              {getVariantOutputOnlyBoxes(useAppSelector(slctr.getAllResults))}
-            </Box>
-            <Paper className={input_styles.input_paper}>
-              <InputBase
-                multiline
-                fullWidth
-                value={useAppSelector(slctr.getMessageString)}
-                readOnly={true}
-                className={semaphore_styles.text_input}
-              />
-              <LongPressButton
-                onClick={onOneBackspaceClick}
-                onLongPress={onLongBackspaceClick}
-              >
-                <Backspace />
-              </LongPressButton>
-            </Paper>
+            <ResultBox
+              label="Základní řešení"
+              variantLabel={variantLabel}
+              inputItems={inputItems}
+              cursorIdx={cursorIdx}
+              cursorType={cursorType}
+              onInputItemClick={(itemIdx) => {
+                dispatch(inputItemClick({ itemIdx }))
+              }}
+              onVariantClick={(id, idx) => {
+                dispatch(variantClick({ id, idx }))
+              }}
+              variants={allVariants}
+              variantInputItems={variantInputItems}
+              deselectButtonDisabled={!isVariantSelected}
+              styles={{
+                item: semaphore_styles.result_item,
+                inputChar: semaphore_styles.result_input_char,
+                cases: null,
+              }}
+              getInputCharJsx={getInputCharJsx}
+            />
           </Box>
         </Box>
       </Box>
