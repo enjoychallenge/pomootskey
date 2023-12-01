@@ -70,7 +70,7 @@ const ResultItem = React.memo(function ResultItem({
     variantJsx = (
       <Box className={classNames.join(' ')}>
         <Box
-          className={result_styles.result_input_char}
+          className={inputCharClasses.join(' ')}
           sx={transparent ? null : { backgroundColor: 'background.paper' }}
         >
           {renderInputChar(variantProps.inputChar)}
