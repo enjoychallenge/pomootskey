@@ -122,37 +122,36 @@ export default function MorsePage() {
   const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
   const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
 
-  const actionButtonsJsx = [
-    <LongPressButton
-      onClick={onOneBackspaceClick}
-      onLongPress={onLongBackspaceClick}
-      variant="outlined"
-      disabled={isLeftArrowDisabled}
-      key={0}
-    >
-      <Backspace />
-    </LongPressButton>,
-    <LongPressButton
-      onClick={onLeftArrowClick}
-      onLongPress={onLongLeftArrowClick}
-      middlePeriod={75}
-      variant="outlined"
-      disabled={isLeftArrowDisabled}
-      key={1}
-    >
-      <ArrowBack />
-    </LongPressButton>,
-    <LongPressButton
-      onClick={onRightArrowClick}
-      onLongPress={onLongRightArrowClick}
-      middlePeriod={75}
-      variant="outlined"
-      disabled={isRightArrowDisabled}
-      key={2}
-    >
-      <ArrowForward />
-    </LongPressButton>,
-  ]
+  const actionButtonsJsx = (
+    <>
+      <LongPressButton
+        onClick={onOneBackspaceClick}
+        onLongPress={onLongBackspaceClick}
+        variant="outlined"
+        disabled={isLeftArrowDisabled}
+      >
+        <Backspace />
+      </LongPressButton>
+      <LongPressButton
+        onClick={onLeftArrowClick}
+        onLongPress={onLongLeftArrowClick}
+        middlePeriod={75}
+        variant="outlined"
+        disabled={isLeftArrowDisabled}
+      >
+        <ArrowBack />
+      </LongPressButton>
+      <LongPressButton
+        onClick={onRightArrowClick}
+        onLongPress={onLongRightArrowClick}
+        middlePeriod={75}
+        variant="outlined"
+        disabled={isRightArrowDisabled}
+      >
+        <ArrowForward />
+      </LongPressButton>
+    </>
+  )
 
   const morseButtonsJsx = morseButtons.map(({ char, preselected }, idx) => {
     return (
