@@ -51,6 +51,7 @@ const ResultItem = React.memo(function ResultItem({
   }, [onInputItemClick, inputCharIdx])
 
   const inputCharClasses = [styles.inputChar, result_styles.result_input_char]
+  const variantInputCharClasses = [...inputCharClasses]
   const cursorClass = CursorTypeToClass[cursor]
   if (cursorClass) {
     inputCharClasses.push(cursorClass)
@@ -70,7 +71,7 @@ const ResultItem = React.memo(function ResultItem({
     variantJsx = (
       <Box className={classNames.join(' ')}>
         <Box
-          className={inputCharClasses.join(' ')}
+          className={variantInputCharClasses.join(' ')}
           sx={transparent ? null : { backgroundColor: 'background.paper' }}
         >
           {renderInputChar(variantProps.inputChar)}
