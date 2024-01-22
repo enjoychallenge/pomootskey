@@ -41,8 +41,9 @@ export function permute(permutation) {
   return result
 }
 
-export function variantPermutations(listToPermutate) {
-  return permute(listToPermutate).slice(1)
+export function variantPermutations(listToPermutate, removeFirst = true) {
+  const allPermutations = permute(listToPermutate.slice())
+  return removeFirst ? allPermutations.slice(1) : allPermutations
 }
 
 export function scoreResult(result) {
@@ -50,3 +51,6 @@ export function scoreResult(result) {
     return accum + (iter.type === PartTypes.unknown ? 1 : 0)
   }, 0)
 }
+
+export const cartesian = (...a) =>
+  a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
