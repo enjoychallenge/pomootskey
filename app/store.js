@@ -5,6 +5,7 @@ import counterReducer from '../features/counter/counterSlice'
 import semaphoreReducer from '../features/semaphore/semaphoreSlice'
 import brailleReducer from '../features/braille/brailleSlice'
 import morseReducer from '../features/morse/morseSlice'
+import ternaryReducer from '../features/ternary/ternarySlice'
 
 export function makeStore() {
   return configureStore({
@@ -13,6 +14,7 @@ export function makeStore() {
       semaphore: semaphoreReducer,
       braille: brailleReducer,
       morse: morseReducer,
+      ternary: ternaryReducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().prepend(listenerMiddleware.middleware)
