@@ -7,11 +7,29 @@ export const TernaryChars = {
   two: '2',
 }
 
+export const alphabetVariants = [
+  {
+    label: 'A=0, bez Ch',
+    alphabet: 'abcdefghijklmnopqrstuvwxyz␣'.split(''),
+  },
+  {
+    label: 'A=1, bez Ch',
+    alphabet: '␣abcdefghijklmnopqrstuvwxyz'.split(''),
+  },
+  {
+    label: 'A=0, s Ch',
+    alphabet: 'abcdefgh'
+      .split('')
+      .concat(['ch'])
+      .concat('ijklmnopqrstuvwxyz'.split('')),
+  },
+]
+
 export const charToValueIndex = (char) => {
   return parseInt(char)
 }
 
-export function decode(message) {
+export function decode(message, alphabet) {
   const matches = message.match(/.{1,3}/g) || []
   const parts = matches.map((match) => {
     const part = {
@@ -22,12 +40,8 @@ export function decode(message) {
       if (match.length === 3) {
         let value =
           parseInt(match[0]) * 9 + parseInt(match[1]) * 3 + parseInt(match[2])
-        if (value === 26) {
-          part.type = PartTypes.unknown
-        } else {
-          part.type = PartTypes.char
-          part.char = String.fromCharCode('A'.charCodeAt(0) + value)
-        }
+        part.type = PartTypes.char
+        part.char = alphabet[value]
       } else {
         part.type = PartTypes.unknown
       }

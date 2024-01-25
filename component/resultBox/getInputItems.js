@@ -79,9 +79,9 @@ export const getInputItemsSemaphore = (input) => {
   })
 }
 
-export const getInputItemsTernary = (input, labels) => {
+export const getInputItemsTernary = (input, labels, alphabet) => {
   const inputItems = []
-  decodeTernary(input).forEach((msgPart) => {
+  decodeTernary(input, alphabet.alphabet).forEach((msgPart) => {
     const outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
       msgPart.input.length === 1 ? JoinerTypes.single : JoinerTypes.start
