@@ -14,6 +14,3 @@ Náměty na rozvoj a hlášení chyb prosím zadávejte na [GitHub](https://gith
 
 ## Licence
 Aplikace je vyvíjena jako Open Source pod [MIT licencí](./LICENSE).
-
-## Credits
-Pro zobrazení znaků vlajkového semaforu je použit [Enigmailed Semaphore font](https://www.dafont.com/enigmailed-semaphore.font).
