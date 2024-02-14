@@ -26,6 +26,17 @@ export default function AboutDialog({ open, handleClose }) {
           </Link>{' '}
           od Vaška Potočka, na které navazujeme.
         </Typography>
+        <Typography paragraph={true}>
+          Projektový repozitář se nachází na{' '}
+          <Link
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/enjoychallenge/pomootskey"
+          >
+            GitHubu
+          </Link>
+          .
+        </Typography>
         <Typography variant="h6" gutterBottom>
           Autoři
         </Typography>
