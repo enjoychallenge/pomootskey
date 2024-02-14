@@ -14,3 +14,6 @@ Náměty na rozvoj a hlášení chyb prosím zadávejte na [GitHub](https://gith
 
 ## Licence
 Aplikace je vyvíjena jako Open Source pod [MIT licencí](./LICENSE).
+
+## Rozvoj
+Aktuálně pracujeme na projektu ve svém volném čase, kterého není vzhledem k množství našich zájmů a dětí příliš a vyskytuje se nárazově a náhodně. Budeme rádi za každou zpětnou vazbu nebo názor, byť nedokážeme zaručit rychlou reakci. Pokud máte někdo chuť nám s vývojem pomoci, nebojte se na nás obrátit nebo vytvořit Pull Request.
