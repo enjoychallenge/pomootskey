@@ -40,6 +40,12 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">Trojkovka</Typography>
               </Button>
             </NextLink>
+            <NextLink href="/colors" passHref>
+              <Button>
+                <img src="icons/colors.svg" alt="Barvy" />
+                <Typography variant="h5">Barvy</Typography>
+              </Button>
+            </NextLink>
           </Box>
         </Box>
       </Box>

@@ -1,0 +1,59 @@
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin: 0 auto;
+  gap: 1vmin;
+  justify-content: space-evenly;
+  touch-action: none;
+
+  & > * {
+    height: var(--colorsButtonSize);
+    width: var(--colorsButtonSize);
+    flex: 1 1 0;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}
+
+.selected {
+  opacity: 0.4;
+  stroke-width: 0.3;
+  stroke: var(--muiPalettePrimaryMain);
+}
+
+.unselected {
+  opacity: 1;
+  stroke-width: 0.7;
+  stroke: var(--muiPalettePrimaryMain);
+}
+
+.groups {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+
+  & > * {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2vmin;
+    justify-content: left;
+
+    & > p {
+      text-wrap: nowrap;
+      width: var(--colorsGroupNameWidth);
+    }
+
+    & > div {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+  }
+}
+
+.groupColors {
+  width: var(--colorsGroupColorWidth);
+}
