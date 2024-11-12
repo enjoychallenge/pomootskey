@@ -19,6 +19,10 @@ describe('decode', () => {
       expResult: { char: 'g', type: 'char' },
     },
     {
+      setToDecode: [1, 6],
+      expResult: { char: 'á', type: 'char' },
+    },
+    {
       setToDecode: [2, 5],
       expResult: { type: 'unknown' },
     },
