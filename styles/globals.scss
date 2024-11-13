@@ -55,8 +55,12 @@ a {
 
   --ternaryInputCharWidth: var(--baseInputCharWidth);
   --ternaryInputCharHeight: calc(1.66 * var(--ternaryInputCharWidth));
-  --ternaryInputCharWidth: var(--baseInputCharWidth);
   --ternaryInputCharFontSize: calc(0.9 * var(--ternaryInputCharHeight));
+
+  --colorsButtonSize: clamp(75px, 25vmin, min(13vh, 120px));
+  --colorsGroupNameWidth: clamp(122px, 38vmin, min(13vh, 120px));
+  --colorsGroupColorsWidth: clamp(100px, 35vmin, min(13vh, 120px));
+  --colorsGroupColorWidth: clamp(10px, 7vmin, min(13vh, 120px));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
