@@ -26,6 +26,7 @@ const codeTable = {
   ó: new Set([2, 4, 6]),
   p: new Set([1, 2, 3, 4]),
   q: new Set([1, 2, 3, 4, 5]),
+  r: new Set([1, 2, 3, 5]),
   ř: new Set([2, 4, 5, 6]),
   s: new Set([2, 3, 4]),
   š: new Set([1, 5, 6]),
