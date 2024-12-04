@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { PartTypes } from './common'
+import { PartTypes, variantPermutations } from './common'
 
 const codeTable = {
   a: '.-',
@@ -99,4 +99,36 @@ export function rearrange(message, newChars) {
     }
   })
   return rearrangedMessage
+}
+
+export function getAllVariants(input) {
+  const baseCharOrder = '-./'
+  const variantCharOrders = variantPermutations(baseCharOrder.split(''))
+  const decodedVariants = [
+    {
+      label: 'Základní řešení',
+      message: input,
+    },
+  ]
+    .concat(
+      variantCharOrders.map((altCharOrder) => {
+        return {
+          label:
+            'Alternativní řešení ‒●/  ⇒  ' +
+            altCharOrder.reduce(
+              (accum, current) => accum + MorseCharsToShow[current],
+              ''
+            ),
+          message: rearrange(input, altCharOrder.join('')),
+        }
+      })
+    )
+    .map((variant) => {
+      return {
+        label: variant.label,
+        input: variant.message,
+        decoded: variant.message.length ? decode(variant.message) : [],
+      }
+    })
+  return decodedVariants
 }

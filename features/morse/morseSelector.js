@@ -1,10 +1,4 @@
-import {
-  decode,
-  MorseChars,
-  MorseCharsToShow,
-  rearrange,
-} from '../../app/decode/morse'
-import { variantPermutations } from '../../app/decode/common'
+import { MorseChars, getAllVariants } from '../../app/decode/morse'
 import { createSelector } from '@reduxjs/toolkit'
 import { getInputItemsMorse } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
@@ -43,36 +37,10 @@ export const getMorseButtons = createSelector(
 export const getAllResults = createSelector(
   [getInput, getVariantId],
   (input, variantId) => {
-    const baseCharOrder = '-./'
-    const variantCharOrders = variantPermutations(baseCharOrder.split(''))
-    const decodedVariants = [
-      {
-        label: 'Základní řešení',
-        message: input,
-      },
-    ]
-      .concat(
-        variantCharOrders.map((altCharOrder) => {
-          return {
-            label:
-              'Alternativní řešení ‒●/  ⇒  ' +
-              altCharOrder.reduce(
-                (accum, current) => accum + MorseCharsToShow[current],
-                ''
-              ),
-            message: rearrange(input, altCharOrder.join('')),
-          }
-        })
-      )
-      .map((variant) => {
-        return {
-          label: variant.label,
-          input: variant.message,
-          decoded: variant.message.length ? decode(variant.message) : [],
-          selected: variantId && variant.label === variantId,
-        }
-      })
-    return decodedVariants
+    return getAllVariants(input).map((variant) => {
+      variant.selected = variantId && variant.label === variantId
+      return variant
+    })
   }
 )
 
