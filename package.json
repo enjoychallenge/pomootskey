@@ -5,7 +5,7 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "test": "jest",
+    "test": "jest --verbose",
     "lint": "next lint",
     "format": "prettier --check .",
     "format-fix": "prettier --write .",
