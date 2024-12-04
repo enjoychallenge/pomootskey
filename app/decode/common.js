@@ -1,3 +1,5 @@
+import ngram_scores from './ngram_scores.json'
+
 export const PartTypes = {
   char: 'char',
   separator: 'sep',
@@ -46,11 +48,54 @@ export function variantPermutations(listToPermutate, removeFirst = true) {
   return removeFirst ? allPermutations.slice(1) : allPermutations
 }
 
-export function scoreResult(result) {
-  return result.reduce((accum, iter) => {
-    return accum + (iter.type === PartTypes.unknown ? 1 : 0)
-  }, 0)
-}
-
 export const cartesian = (...a) =>
   a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
+
+// Result should be in [1, 0], lower is better
+export function scoreResult(result) {
+  const ngramSizes = [1, 2, 3]
+  const startValue = { unknowns: 0 }
+  ngramSizes.forEach((value) => {
+    startValue[value] = {
+      score: 0.0,
+      count: 0,
+    }
+  })
+
+  const subscores = result.reduce((accum, iter, idx) => {
+    accum.unknowns += iter.type === PartTypes.unknown ? 1 : 0
+
+    ngramSizes.forEach((ngramSize) => {
+      accum[ngramSize].count += idx < result.length - ngramSize + 1 ? 1 : 0
+      const ngram =
+        idx <= result.length - ngramSize &&
+        result
+          .slice(idx, idx + ngramSize)
+          .every((el) => el.type === PartTypes.char)
+          ? result
+              .slice(idx, idx + ngramSize)
+              .reduce(
+                (accumNgram, part) => accumNgram + part.char.toLowerCase(),
+                ''
+              )
+          : null
+      accum[ngramSize].score +=
+        (ngram_scores['cs']?.[ngramSize.toString()]?.[ngram] || 0.0) +
+        (2 * ngram_scores['solutions']?.[ngramSize.toString()]?.[ngram] || 0.0)
+      return accum
+    })
+    return accum
+  }, startValue)
+
+  const score =
+    1 -
+    ngramSizes.reduce(
+      (score, ngramSize) =>
+        score +
+        ngramSize *
+          (subscores[ngramSize].score /
+            Math.max(subscores[ngramSize].count, 1)),
+      0.0
+    )
+  return score
+}
