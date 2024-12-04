@@ -47,15 +47,15 @@ describe('scoreResult', () => {
   it.each([
     {
       input: [],
-      expResult: 0,
+      expResult: 1,
     },
     {
       input: [{ type: PartTypes.unknown }],
       expResult: 1,
     },
     {
-      input: [{ type: PartTypes.separator }, { type: PartTypes.char }],
-      expResult: 0,
+      input: [{ type: PartTypes.separator }],
+      expResult: 1,
     },
   ])('scoreResult $input to $expResult', ({ input, expResult }) => {
     expect(scoreResult(input)).toEqual(expResult)
@@ -162,4 +162,44 @@ describe('solutionToParts', () => {
   ])('solutionToParts $input to $expResult', ({ input, expResult }) => {
     expect(solutionToParts(input)).toEqual(expResult)
   })
+})
+
+describe('scoreResultComparison', () => {
+  it.each([
+    {
+      betterSolution: 'a',
+      worseSolution: 'q',
+    },
+    {
+      betterSolution: 'a',
+      worseSolution: '?',
+    },
+    {
+      betterSolution: 'a',
+      worseSolution: ' ',
+    },
+    {
+      betterSolution: 'rohvdjchvalovka',
+      worseSolution: 'roh???chvalovka',
+    },
+    {
+      betterSolution: 'rohvdjchvalovka',
+      worseSolution: 'rohqqqchvalovka',
+    },
+    {
+      betterSolution: 'VJV',
+      worseSolution: 'FRF',
+    },
+    {
+      betterSolution: 'KRIZVJV',
+      worseSolution: 'QJSBFRF',
+    },
+  ])(
+    'scoreComparison $betterSolution is better than $worseSolution',
+    ({ betterSolution, worseSolution }) => {
+      const betterParts = solutionToParts(betterSolution)
+      const worseParts = solutionToParts(worseSolution)
+      expect(scoreResult(betterParts)).toBeLessThan(scoreResult(worseParts))
+    }
+  )
 })
