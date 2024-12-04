@@ -1,4 +1,5 @@
 import { permute, variantPermutations, scoreResult, PartTypes } from './common'
+import { codeMessage, getAllVariants } from './morse'
 
 describe('permute', () => {
   it.each([
@@ -202,4 +203,30 @@ describe('scoreResultComparison', () => {
       expect(scoreResult(betterParts)).toBeLessThan(scoreResult(worseParts))
     }
   )
+})
+
+describe('solution is better than all morse variants', () => {
+  it.each([
+    {
+      solution: 'a',
+    },
+    {
+      solution: 'DETHRNAROKYTCE',
+    },
+    {
+      solution: 'VJV',
+    },
+    {
+      solution: 'KRIZVJV',
+    },
+  ])('solution $solution', ({ solution }) => {
+    const solutionCoded = codeMessage(solution.toLowerCase())
+    const allVariants = getAllVariants(solutionCoded).slice(1)
+    allVariants.forEach((variant) => {
+      const solutionParts = solutionToParts(solution.toLowerCase())
+      expect(scoreResult(solutionParts)).toBeLessThan(
+        scoreResult(variant.decoded)
+      )
+    })
+  })
 })

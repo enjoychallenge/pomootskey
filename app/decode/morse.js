@@ -86,6 +86,23 @@ export function decode(message) {
   return parts
 }
 
+export function codeChar(char) {
+  switch (char) {
+    case ' ':
+      return MorseChars.separator
+    default:
+      return codeTable[char]
+  }
+}
+
+export function codeMessage(message) {
+  const coded = message.split('').reduce((accum, char) => {
+    accum += codeChar(char) + MorseChars.separator
+    return accum
+  }, '')
+  return coded
+}
+
 export function rearrange(message, newChars) {
   let rearrangedMessage = new String(message)
   rearrangedMessage = rearrangedMessage.replaceAll(/[-./]/g, (char) => {
