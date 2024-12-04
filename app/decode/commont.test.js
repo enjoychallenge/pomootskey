@@ -13,7 +13,7 @@ describe('permute', () => {
         ['-', '.'],
       ],
     },
-  ])('permute', ({ input, expResult }) => {
+  ])('permute $input to $expResult', ({ input, expResult }) => {
     expect(permute(input)).toEqual(expResult)
   })
 })
@@ -38,7 +38,7 @@ describe('variantPermutations', () => {
         ['/', '-', '.'],
       ],
     },
-  ])('variantPermutations', ({ input, expResult }) => {
+  ])('variantPermutations $input to $expResult', ({ input, expResult }) => {
     expect(variantPermutations(input)).toEqual(expResult)
   })
 })
@@ -57,7 +57,7 @@ describe('scoreResult', () => {
       input: [{ type: PartTypes.separator }, { type: PartTypes.char }],
       expResult: 0,
     },
-  ])('scoreResult', ({ input, expResult }) => {
+  ])('scoreResult $input to $expResult', ({ input, expResult }) => {
     expect(scoreResult(input)).toEqual(expResult)
   })
 })
