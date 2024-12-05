@@ -53,7 +53,7 @@ export const cartesian = (...a) =>
 
 // Result should be non-negative float, higher is better
 export function scoreResult(result) {
-  const ngramSizes = [1, 2, 3]
+  const ngramSizes = ngram_scores['ngramSizes']
   const startValue = { unknowns: 0 }
   ngramSizes.forEach((value) => {
     startValue[value] = {

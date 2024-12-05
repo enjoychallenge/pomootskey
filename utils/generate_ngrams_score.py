@@ -79,6 +79,7 @@ if __name__ == '__main__':
     ngrams_cs_filepath = os.path.join(DIR_PATH, 'ngram_counts_cs.json')
     solutions_filepath = os.path.join(DIR_PATH, 'solutions_from_games.txt')
     result = {
+        'ngramSizes': [1, 2, 3],
         'cs': calculate_cs_ngram_scores(ngrams_cs_filepath=ngrams_cs_filepath),
         'solutions': calculate_solutions_ngram_scores(solutions_filepath=solutions_filepath),
     }
