@@ -1,4 +1,10 @@
-import { permute, variantPermutations, scoreResult, PartTypes } from './common'
+import {
+  permute,
+  variantPermutations,
+  scoreResult,
+  PartTypes,
+  getNgramScores,
+} from './common'
 import { codeMessage, getAllVariants } from './morse'
 
 describe('permute', () => {
@@ -195,11 +201,27 @@ describe('scoreResultComparison', () => {
       betterSolution: 'KRIZVJV',
       worseSolution: 'QJSBFRF',
     },
+    {
+      betterSolution: 'KRIZVJV',
+      worseSolution: 'TVENORO',
+    },
   ])(
     'scoreComparison $betterSolution is better than $worseSolution',
     ({ betterSolution, worseSolution }) => {
       const betterParts = solutionToParts(betterSolution)
       const worseParts = solutionToParts(worseSolution)
+      if (scoreResult(betterParts) <= scoreResult(worseParts)) {
+        const shouldBeBetterNgrams = getNgramScores(betterParts)
+        const shouldBeWorseNgrams = getNgramScores(worseParts)
+        console.log('shouldBeBetterNgrams', shouldBeBetterNgrams)
+        console.log('shouldBeWorseNgrams', shouldBeWorseNgrams)
+        console.log(
+          'scoreResult(betterParts)',
+          scoreResult(betterParts),
+          'scoreResult(worseParts)',
+          scoreResult(worseParts)
+        )
+      }
       expect(scoreResult(betterParts)).toBeGreaterThan(scoreResult(worseParts))
     }
   )

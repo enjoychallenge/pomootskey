@@ -51,7 +51,7 @@ export function variantPermutations(listToPermutate, removeFirst = true) {
 export const cartesian = (...a) =>
   a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
 
-function getNgramScores(result) {
+export function getNgramScores(result) {
   const ngramLengths = ngram_scores['ngramLengths']
 
   const ngrams = result.reduce(
@@ -108,7 +108,7 @@ export function scoreResult(result) {
   const score = ngramLengths.reduce(
     (score, legth) =>
       score +
-      legth *
+      legth ** 2 *
         (ngramLengthScore[legth] / Math.max(ngramScores.counts[legth], 1)),
     0.0
   )
