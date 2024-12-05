@@ -51,47 +51,65 @@ export function variantPermutations(listToPermutate, removeFirst = true) {
 export const cartesian = (...a) =>
   a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
 
+function getNgramScores(result) {
+  const ngramLengths = ngram_scores['ngramLengths']
+
+  const ngrams = result.reduce(
+    (accum, iter, idx) => {
+      ngramLengths.forEach((ngramLength) => {
+        const ngram =
+          idx <= result.length - ngramLength &&
+          result
+            .slice(idx, idx + ngramLength)
+            .every((el) => el.type === PartTypes.char)
+            ? result
+                .slice(idx, idx + ngramLength)
+                .reduce(
+                  (accumNgram, part) => accumNgram + part.char.toLowerCase(),
+                  ''
+                )
+            : null
+        accum.counts[ngramLength] +=
+          idx < result.length - ngramLength + 1 ? 1 : 0
+        if (ngram) {
+          accum.ngrams.push({
+            ngram: ngram,
+            score:
+              (ngram_scores['cs']?.[ngramLength.toString()]?.[ngram] || 0.0) +
+              (2 *
+                ngram_scores['solutions']?.[ngramLength.toString()]?.[ngram] ||
+                0.0),
+          })
+        }
+      })
+      return accum
+    },
+    {
+      counts: Object.fromEntries(ngramLengths.map((length) => [length, 0])),
+      ngrams: [],
+    }
+  )
+  return ngrams
+}
+
 // Result should be non-negative float, higher is better
 export function scoreResult(result) {
-  const ngramSizes = ngram_scores['ngramSizes']
-  const startValue = { unknowns: 0 }
-  ngramSizes.forEach((value) => {
-    startValue[value] = {
-      score: 0.0,
-      count: 0,
-    }
-  })
+  const ngramLengths = ngram_scores['ngramLengths']
+  const startValue = Object.fromEntries(
+    ngramLengths.map((length) => [length, 0.0])
+  )
 
-  const subscores = result.reduce((accum, iter, idx) => {
-    accum.unknowns += iter.type === PartTypes.unknown ? 1 : 0
-
-    ngramSizes.forEach((ngramSize) => {
-      accum[ngramSize].count += idx < result.length - ngramSize + 1 ? 1 : 0
-      const ngram =
-        idx <= result.length - ngramSize &&
-        result
-          .slice(idx, idx + ngramSize)
-          .every((el) => el.type === PartTypes.char)
-          ? result
-              .slice(idx, idx + ngramSize)
-              .reduce(
-                (accumNgram, part) => accumNgram + part.char.toLowerCase(),
-                ''
-              )
-          : null
-      accum[ngramSize].score +=
-        (ngram_scores['cs']?.[ngramSize.toString()]?.[ngram] || 0.0) +
-        (2 * ngram_scores['solutions']?.[ngramSize.toString()]?.[ngram] || 0.0)
-      return accum
-    })
+  const ngramScores = getNgramScores(result)
+  const ngramLengthScore = ngramScores.ngrams.reduce((accum, ngram) => {
+    accum[ngram.ngram.length] += ngram.score
     return accum
   }, startValue)
 
-  const score = ngramSizes.reduce(
-    (score, ngramSize) =>
+  const score = ngramLengths.reduce(
+    (score, legth) =>
       score +
-      ngramSize *
-        (subscores[ngramSize].score / Math.max(subscores[ngramSize].count, 1)),
+      legth *
+        (ngramLengthScore[legth] / Math.max(ngramScores.counts[legth], 1)),
     0.0
   )
   return score
