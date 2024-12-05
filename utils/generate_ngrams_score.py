@@ -54,8 +54,8 @@ def save_ngram_scores(scores: dict) -> None:
 
 
 def calculate_solutions_ngram_scores(solutions_filepath: str) -> dict:
-    ngram_sizes = [1, 2, 3]
-    ngram_counts = {size: {} for size in ngram_sizes}
+    ngram_lengths = [1, 2, 3]
+    ngram_counts = {length: {} for length in ngram_lengths}
     with open(solutions_filepath) as file:
         for raw_line in file:
             if not raw_line.strip().startswith('#'):
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     ngrams_cs_filepath = os.path.join(DIR_PATH, 'ngram_counts_cs.json')
     solutions_filepath = os.path.join(DIR_PATH, 'solutions_from_games.txt')
     result = {
-        'ngramSizes': [1, 2, 3],
+        'ngramLengths': [1, 2, 3],
         'cs': calculate_cs_ngram_scores(ngrams_cs_filepath=ngrams_cs_filepath),
         'solutions': calculate_solutions_ngram_scores(solutions_filepath=solutions_filepath),
     }
