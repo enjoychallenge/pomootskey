@@ -90,7 +90,7 @@ export function getVariantOutputOnlyBoxes(variantArray, onVariantClick = null) {
     .concat(
       variantArray
         .slice(1)
-        .sort((a, b) => scoreResult(a.decoded) - scoreResult(b.decoded))
+        .sort((a, b) => scoreResult(b.decoded) - scoreResult(a.decoded))
     )
     .map((variant, idx) => {
       return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)

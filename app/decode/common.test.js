@@ -48,15 +48,15 @@ describe('scoreResult', () => {
   it.each([
     {
       input: [],
-      expResult: 1,
+      expResult: 0,
     },
     {
       input: [{ type: PartTypes.unknown }],
-      expResult: 1,
+      expResult: 0,
     },
     {
       input: [{ type: PartTypes.separator }],
-      expResult: 1,
+      expResult: 0,
     },
   ])('scoreResult $input to $expResult', ({ input, expResult }) => {
     expect(scoreResult(input)).toEqual(expResult)
@@ -200,7 +200,7 @@ describe('scoreResultComparison', () => {
     ({ betterSolution, worseSolution }) => {
       const betterParts = solutionToParts(betterSolution)
       const worseParts = solutionToParts(worseSolution)
-      expect(scoreResult(betterParts)).toBeLessThan(scoreResult(worseParts))
+      expect(scoreResult(betterParts)).toBeGreaterThan(scoreResult(worseParts))
     }
   )
 })
@@ -224,7 +224,7 @@ describe('solution is better than all morse variants', () => {
     const allVariants = getAllVariants(solutionCoded).slice(1)
     allVariants.forEach((variant) => {
       const solutionParts = solutionToParts(solution.toLowerCase())
-      expect(scoreResult(solutionParts)).toBeLessThan(
+      expect(scoreResult(solutionParts)).toBeGreaterThan(
         scoreResult(variant.decoded)
       )
     })

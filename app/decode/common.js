@@ -51,7 +51,7 @@ export function variantPermutations(listToPermutate, removeFirst = true) {
 export const cartesian = (...a) =>
   a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
 
-// Result should be in [1, 0], lower is better
+// Result should be non-negative float, higher is better
 export function scoreResult(result) {
   const ngramSizes = [1, 2, 3]
   const startValue = { unknowns: 0 }
@@ -87,15 +87,12 @@ export function scoreResult(result) {
     return accum
   }, startValue)
 
-  const score =
-    1 -
-    ngramSizes.reduce(
-      (score, ngramSize) =>
-        score +
-        ngramSize *
-          (subscores[ngramSize].score /
-            Math.max(subscores[ngramSize].count, 1)),
-      0.0
-    )
+  const score = ngramSizes.reduce(
+    (score, ngramSize) =>
+      score +
+      ngramSize *
+        (subscores[ngramSize].score / Math.max(subscores[ngramSize].count, 1)),
+    0.0
+  )
   return score
 }
