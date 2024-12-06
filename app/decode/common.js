@@ -51,9 +51,7 @@ export function variantPermutations(listToPermutate, removeFirst = true) {
 export const cartesian = (...a) =>
   a.reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())))
 
-export function getNgramScores(result) {
-  const ngramLengths = ngram_scores['ngramLengths']
-
+export function getNgramScores(result, ngramLengths) {
   const ngrams = result.reduce(
     (accum, iter, idx) => {
       ngramLengths.forEach((ngramLength) => {
@@ -94,12 +92,18 @@ export function getNgramScores(result) {
 
 // Result should be non-negative float, higher is better
 export function scoreResult(result) {
-  const ngramLengths = ngram_scores['ngramLengths']
+  const ngramLengths = [
+    ...new Set(
+      Object.keys(ngram_scores['cs']).concat(
+        Object.keys(ngram_scores['solutions'])
+      )
+    ),
+  ].map((ngramLength) => parseInt(ngramLength))
   const startValue = Object.fromEntries(
     ngramLengths.map((length) => [length, 0.0])
   )
 
-  const ngramScores = getNgramScores(result)
+  const ngramScores = getNgramScores(result, ngramLengths)
   const ngramLengthScore = ngramScores.ngrams.reduce((accum, ngram) => {
     accum[ngram.ngram.length] += ngram.score
     return accum
