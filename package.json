@@ -7,8 +7,8 @@
     "start": "next start",
     "test": "jest --verbose",
     "lint": "next lint",
-    "format": "prettier --check .",
-    "format-fix": "prettier --write .",
+    "format": "prettier --check . && black --check utils",
+    "format-fix": "prettier --write . && black utils",
     "deploy-do": "next build && next export && mv out/manifest-preprod.json out/manifest.json && ./deploy.sh SSH_PREPROD",
     "deploy-do-production": "NEXT_PUBLIC_DOMAIN=production next build && rm -f out/manifest-preprod.json && next export && ./deploy.sh SSH_PRODUCTION",
     "generate_ngrams_score": "python3 utils/generate_ngrams_score.py"
