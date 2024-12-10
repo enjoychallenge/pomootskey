@@ -113,7 +113,7 @@ export const getAllResults = createSelector(
           label: variant.label,
           input: variant.message,
           decoded: variant.message.length
-            ? decode(variant.message, variant.alphabet.alphabet)
+            ? decode(variant.message, variant.alphabet)
             : [],
           selected: variantId && variant.label === variantId,
           alphabet: variant.alphabet,
