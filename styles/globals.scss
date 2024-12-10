@@ -56,6 +56,10 @@ a {
   --ternaryInputCharWidth: var(--baseInputCharWidth);
   --ternaryInputCharHeight: calc(1.66 * var(--ternaryInputCharWidth));
   --ternaryInputCharFontSize: calc(0.9 * var(--ternaryInputCharHeight));
+
+  --binaryInputCharWidth: var(--baseInputCharWidth);
+  --binaryInputCharHeight: calc(1.66 * var(--binaryInputCharWidth));
+  --binaryInputCharFontSize: calc(0.9 * var(--binaryInputCharHeight));
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
