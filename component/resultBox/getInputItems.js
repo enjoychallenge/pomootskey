@@ -8,6 +8,7 @@ import { decode as decodeBraille } from '../../app/decode/braille'
 import { decode as decodeMorse } from '../../app/decode/morse'
 import { decode as decodeSemaphore } from '../../app/decode/semaphore'
 import { decode as decodeTernary } from '../../app/decode/ternary'
+import { decode as decodeBinary } from '../../app/decode/binary'
 
 export const getInputItemsMorse = (input) => {
   const inputItems = []
@@ -121,3 +122,6 @@ const getInputItemsNumberSystem = (input, labels, alphabet, decode) => {
 
 export const getInputItemsTernary = (input, labels, alphabet) =>
   getInputItemsNumberSystem(input, labels, alphabet, decodeTernary)
+
+export const getInputItemsBinary = (input, labels, alphabet) =>
+  getInputItemsNumberSystem(input, labels, alphabet, decodeBinary)

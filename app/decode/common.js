@@ -1,5 +1,7 @@
 import ngram_scores from './ngram_scores.json'
 
+export const AlphabetEn = 'abcdefghijklmnopqrstuvwxyz'
+
 export const PartTypes = {
   char: 'char',
   separator: 'sep',
