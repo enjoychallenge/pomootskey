@@ -8,6 +8,7 @@ import { decode as decodeBraille } from '../../app/decode/braille'
 import { decode as decodeMorse } from '../../app/decode/morse'
 import { decode as decodeSemaphore } from '../../app/decode/semaphore'
 import { decode as decodeTernary } from '../../app/decode/ternary'
+import { decode as decodeBinary } from '../../app/decode/binary'
 
 export const getInputItemsMorse = (input) => {
   const inputItems = []
@@ -79,9 +80,9 @@ export const getInputItemsSemaphore = (input) => {
   })
 }
 
-export const getInputItemsTernary = (input, labels, alphabet) => {
+const getInputItemsNumberSystem = (input, labels, alphabet, decode) => {
   const inputItems = []
-  decodeTernary(input, alphabet.alphabet).forEach((msgPart) => {
+  decode(input, alphabet).forEach((msgPart) => {
     const outputCharType = PartTypeToOutputCharType[msgPart.type]
     let firstJoiner =
       msgPart.input.length === 1 ? JoinerTypes.single : JoinerTypes.start
@@ -118,3 +119,9 @@ export const getInputItemsTernary = (input, labels, alphabet) => {
 
   return inputItems
 }
+
+export const getInputItemsTernary = (input, labels, alphabet) =>
+  getInputItemsNumberSystem(input, labels, alphabet, decodeTernary)
+
+export const getInputItemsBinary = (input, labels, alphabet) =>
+  getInputItemsNumberSystem(input, labels, alphabet, decodeBinary)

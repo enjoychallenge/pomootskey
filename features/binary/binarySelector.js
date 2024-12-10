@@ -1,48 +1,46 @@
 import {
   decode,
   rearrange,
-  TernaryChars,
+  BinaryChars,
   charToValueIndex,
   alphabetVariants,
-} from '../../app/decode/ternary'
+} from '../../app/decode/binary'
 import { variantPermutations, cartesian } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
-import { getInputItemsTernary } from '../../component/resultBox/getInputItems'
+import { getInputItemsBinary } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
 import * as util from '../../component/resultBox/util'
 
-const getInput = (state) => state.ternary.input
-const getVariantId = (state) => state.ternary.variant
-export const getCursorIdx = (state) => state.ternary.cursorIdx
-export const getCursorType = (state) => state.ternary.cursorType
-const getLabels = (state) => state.ternary.labels
+const getInput = (state) => state.binary.input
+const getVariantId = (state) => state.binary.variant
+export const getCursorIdx = (state) => state.binary.cursorIdx
+export const getCursorType = (state) => state.binary.cursorType
+const getLabels = (state) => state.binary.labels
 
 export const getInputItems = createSelector(
   [getInput, getLabels],
   (input, labels) => {
-    return getInputItemsTernary(input, labels, alphabetVariants[0])
+    return getInputItemsBinary(input, labels, alphabetVariants[0])
   }
 )
 
-export const getTernaryButtons = createSelector(
+export const getBinaryButtons = createSelector(
   [getInput, getCursorIdx, getCursorType, getLabels],
   (input, cursorIdx, cursorType, labels) => {
-    return [TernaryChars.zero, TernaryChars.one, TernaryChars.two].map(
-      (char) => {
-        return {
-          char: char,
-          label: labels[charToValueIndex(char)],
-          preselected:
-            cursorType === CursorTypes.edit && input[cursorIdx] === char,
-        }
+    return [BinaryChars.zero, BinaryChars.one].map((char) => {
+      return {
+        char: char,
+        label: labels[charToValueIndex(char)],
+        preselected:
+          cursorType === CursorTypes.edit && input[cursorIdx] === char,
       }
-    )
+    })
   }
 )
 
-const getTernaryLabel = (labels, altChars, altOrder, alphabet) => {
+const getBinaryLabel = (labels, altChars, alphabet) => {
   return (
-    'Trojkovka (hodnoty ' +
+    'Binár (hodnoty ' +
     labels[0] +
     '=' +
     altChars[0] +
@@ -50,17 +48,6 @@ const getTernaryLabel = (labels, altChars, altOrder, alphabet) => {
     labels[1] +
     '=' +
     altChars[1] +
-    ', ' +
-    labels[2] +
-    '=' +
-    altChars[2] +
-    '; pořadí ' +
-    altOrder[0] +
-    '.=>1., ' +
-    altOrder[1] +
-    '.=>2., ' +
-    altOrder[2] +
-    '.=>3.' +
     '; ' +
     alphabet.label +
     ')'
@@ -70,27 +57,16 @@ const getTernaryLabel = (labels, altChars, altOrder, alphabet) => {
 export const getAllResults = createSelector(
   [getInput, getVariantId, getLabels],
   (input, variantId, labels) => {
-    const baseChars = TernaryChars.zero + TernaryChars.one + TernaryChars.two
-    const baseOrders = [1, 2, 3]
+    const baseChars = BinaryChars.zero + BinaryChars.one
     const variantChars = variantPermutations(baseChars.split(''), false).map(
       (variantAsArray) => variantAsArray.join('')
     )
-    const variantOrders = variantPermutations(baseOrders, false).map(
-      (order) => [order]
+    const variantDefinitions = cartesian(variantChars, alphabetVariants).slice(
+      1
     )
-    const variantDefinitions = cartesian(
-      variantChars,
-      variantOrders,
-      alphabetVariants
-    ).slice(1)
     const decodedVariants = [
       {
-        label: getTernaryLabel(
-          labels,
-          baseChars,
-          baseOrders,
-          alphabetVariants[0]
-        ),
+        label: getBinaryLabel(labels, baseChars, alphabetVariants[0]),
         message: input,
         alphabet: alphabetVariants[0],
       },
@@ -98,11 +74,10 @@ export const getAllResults = createSelector(
       .concat(
         variantDefinitions.map((variantDefinition) => {
           const altChars = variantDefinition[0]
-          const altOrder = variantDefinition[1]
-          const alphabet = variantDefinition[2]
-          const message = rearrange(input, altChars, altOrder)
+          const alphabet = variantDefinition[1]
+          const message = rearrange(input, altChars)
           return {
-            label: getTernaryLabel(labels, altChars, altOrder, alphabet),
+            label: getBinaryLabel(labels, altChars, alphabet),
             message: message,
             alphabet: alphabet,
           }
@@ -140,9 +115,9 @@ export const getIsVariantSelected = createSelector([getVariant], (variant) => {
 
 export const getVariantInputItems = createSelector([getVariant], (variant) => {
   return variant
-    ? getInputItemsTernary(
+    ? getInputItemsBinary(
         variant.input,
-        TernaryChars.zero + TernaryChars.one + TernaryChars.two,
+        BinaryChars.zero + BinaryChars.one,
         variant.alphabet
       )
     : null

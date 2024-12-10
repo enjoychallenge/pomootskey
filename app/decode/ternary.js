@@ -41,7 +41,7 @@ export function decode(message, alphabet) {
         let value =
           parseInt(match[0]) * 9 + parseInt(match[1]) * 3 + parseInt(match[2])
         part.type = PartTypes.char
-        part.char = alphabet[value]
+        part.char = alphabet.alphabet[value]
       } else {
         part.type = PartTypes.unknown
       }

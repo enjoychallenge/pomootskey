@@ -33,16 +33,16 @@
 }
 
 .result_item {
-  width: var(--ternaryInputCharWidth);
+  width: var(--binaryInputCharWidth);
 }
 
 .result_input_char {
-  height: var(--ternaryInputCharHeight);
-  font-size: var(--ternaryInputCharFontSize);
+  height: var(--binaryInputCharHeight);
+  font-size: var(--binaryInputCharFontSize);
 }
 
 .result_cases {
   & > div {
-    padding-right: var(--ternaryInputCharWidth);
+    padding-right: var(--binaryInputCharWidth);
   }
 }
