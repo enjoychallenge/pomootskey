@@ -11,7 +11,7 @@ export const BinaryChars = {
 
 const partLength = 5
 
-const chars = Object.values(BinaryChars)
+export const chars = Object.values(BinaryChars)
 
 export const alphabetVariants = [
   {
