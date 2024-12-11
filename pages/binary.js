@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import LongPressButton from '../component/LongPressButton'
 import ResultBox from '../component/resultBox/resultBox'
 import {
-  onBinaryButtonClick,
+  onNumberButtonClick,
   oneBackspaceClick,
   longBackspaceClick,
   inputItemClick,
@@ -53,7 +53,7 @@ export default function BinaryPage() {
 
   const memoOnBinaryButtonClick = useCallback(
     (char) => {
-      dispatch(onBinaryButtonClick({ char }))
+      dispatch(onNumberButtonClick({ char }))
     },
     [dispatch]
   )

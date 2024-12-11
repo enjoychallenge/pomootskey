@@ -30,7 +30,7 @@ export const ternarySlice = createSlice({
   name: 'ternary',
   initialState,
   reducers: {
-    onTernaryButtonClick: (state, action) => {
+    onNumberButtonClick: (state, action) => {
       const { char } = action.payload
       pasteToState(state, char)
     },
@@ -96,7 +96,7 @@ export const ternarySlice = createSlice({
 })
 
 export const {
-  onTernaryButtonClick,
+  onNumberButtonClick,
   inputItemClick,
   oneBackspaceClick,
   longBackspaceClick,
