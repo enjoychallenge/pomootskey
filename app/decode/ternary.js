@@ -2,6 +2,7 @@ import {
   decode as commonDecode,
   rearrange as commonRearrange,
 } from './numberSystems'
+import { AlphabetEn } from './common'
 
 export const TernaryChars = {
   zero: '0',
@@ -16,11 +17,11 @@ const chars = Object.values(TernaryChars)
 export const alphabetVariants = [
   {
     label: 'A=0, bez Ch',
-    alphabet: 'abcdefghijklmnopqrstuvwxyz␣'.split(''),
+    alphabet: AlphabetEn + '␣',
   },
   {
     label: 'A=1, bez Ch',
-    alphabet: '␣abcdefghijklmnopqrstuvwxyz'.split(''),
+    alphabet: '␣' + AlphabetEn,
   },
   {
     label: 'A=0, s Ch',
