@@ -1,6 +1,5 @@
 import Head from 'next/head'
 
-import Counter from '../features/counter/Counter'
 import styles from '../styles/Home.module.css'
 
 const IndexPage = () => {
@@ -11,7 +10,6 @@ const IndexPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={styles.header}>
-        <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>

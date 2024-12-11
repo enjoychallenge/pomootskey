@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import listenerMiddleware from './listenerMiddleware'
-import counterReducer from '../features/counter/counterSlice'
 import semaphoreReducer from '../features/semaphore/semaphoreSlice'
 import brailleReducer from '../features/braille/brailleSlice'
 import morseReducer from '../features/morse/morseSlice'
@@ -11,7 +10,6 @@ import binaryReducer from '../features/binary/binarySlice'
 export function makeStore() {
   return configureStore({
     reducer: {
-      counter: counterReducer,
       semaphore: semaphoreReducer,
       braille: brailleReducer,
       morse: morseReducer,
