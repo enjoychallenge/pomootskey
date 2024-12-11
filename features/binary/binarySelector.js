@@ -24,7 +24,7 @@ export const getInputItems = createSelector(
   }
 )
 
-export const getBinaryButtons = createSelector(
+export const getNumberButtons = createSelector(
   [getInput, getCursorIdx, getCursorType, getLabels],
   (input, cursorIdx, cursorType, labels) => {
     return [BinaryChars.zero, BinaryChars.one].map((char) => {

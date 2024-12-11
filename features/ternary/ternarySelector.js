@@ -24,7 +24,7 @@ export const getInputItems = createSelector(
   }
 )
 
-export const getTernaryButtons = createSelector(
+export const getNumberButtons = createSelector(
   [getInput, getCursorIdx, getCursorType, getLabels],
   (input, cursorIdx, cursorType, labels) => {
     return [TernaryChars.zero, TernaryChars.one, TernaryChars.two].map(
