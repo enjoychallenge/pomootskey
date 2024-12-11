@@ -12,7 +12,7 @@ export const TernaryChars = {
 
 const partLength = 3
 
-const chars = Object.values(TernaryChars)
+export const chars = Object.values(TernaryChars)
 
 export const alphabetVariants = [
   {
