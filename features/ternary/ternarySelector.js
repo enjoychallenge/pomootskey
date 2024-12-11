@@ -2,7 +2,6 @@ import {
   decode,
   rearrange,
   TernaryChars,
-  charToValueIndex,
   alphabetVariants,
 } from '../../app/decode/ternary'
 import { variantPermutations, cartesian } from '../../app/decode/common'
@@ -10,6 +9,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { getInputItemsTernary } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
 import * as util from '../../component/resultBox/util'
+import { charToValueIndex } from '../../app/decode/numberSystems'
 
 const getInput = (state) => state.ternary.input
 const getVariantId = (state) => state.ternary.variant
