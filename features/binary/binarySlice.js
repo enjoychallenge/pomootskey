@@ -30,7 +30,7 @@ export const binarySlice = createSlice({
   name: 'binary',
   initialState,
   reducers: {
-    onBinaryButtonClick: (state, action) => {
+    onNumberButtonClick: (state, action) => {
       const { char } = action.payload
       pasteToState(state, char)
     },
@@ -93,7 +93,7 @@ export const binarySlice = createSlice({
 })
 
 export const {
-  onBinaryButtonClick: onBinaryButtonClick,
+  onNumberButtonClick: onNumberButtonClick,
   inputItemClick,
   oneBackspaceClick,
   longBackspaceClick,

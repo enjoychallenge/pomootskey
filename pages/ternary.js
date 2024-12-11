@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import LongPressButton from '../component/LongPressButton'
 import ResultBox from '../component/resultBox/resultBox'
 import {
-  onTernaryButtonClick,
+  onNumberButtonClick,
   oneBackspaceClick,
   longBackspaceClick,
   inputItemClick,
@@ -53,7 +53,7 @@ export default function TernaryPage() {
 
   const memoOnTernaryButtonClick = useCallback(
     (char) => {
-      dispatch(onTernaryButtonClick({ char }))
+      dispatch(onNumberButtonClick({ char }))
     },
     [dispatch]
   )
