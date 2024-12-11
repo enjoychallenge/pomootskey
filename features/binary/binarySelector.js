@@ -38,7 +38,7 @@ export const getBinaryButtons = createSelector(
   }
 )
 
-const getBinaryLabel = (labels, altChars, alphabet) => {
+const getBinaryLabel = (labels, altChars, altOrder, alphabet) => {
   return (
     'Binár (hodnoty ' +
     labels[0] +
@@ -48,6 +48,12 @@ const getBinaryLabel = (labels, altChars, alphabet) => {
     labels[1] +
     '=' +
     altChars[1] +
+    '; pořadí =>' +
+    altOrder[0] +
+    altOrder[1] +
+    altOrder[2] +
+    altOrder[3] +
+    altOrder[4] +
     '; ' +
     alphabet.label +
     ')'
@@ -57,16 +63,27 @@ const getBinaryLabel = (labels, altChars, alphabet) => {
 export const getAllResults = createSelector(
   [getInput, getVariantId, getLabels],
   (input, variantId, labels) => {
+    const baseOrders = [1, 2, 3, 4, 5]
     const baseChars = BinaryChars.zero + BinaryChars.one
     const variantChars = variantPermutations(baseChars.split(''), false).map(
       (variantAsArray) => variantAsArray.join('')
     )
-    const variantDefinitions = cartesian(variantChars, alphabetVariants).slice(
-      1
+    const variantOrders = variantPermutations(baseOrders, false).map(
+      (order) => [order]
     )
+    const variantDefinitions = cartesian(
+      variantChars,
+      variantOrders,
+      alphabetVariants
+    ).slice(1)
     const decodedVariants = [
       {
-        label: getBinaryLabel(labels, baseChars, alphabetVariants[0]),
+        label: getBinaryLabel(
+          labels,
+          baseChars,
+          baseOrders,
+          alphabetVariants[0]
+        ),
         message: input,
         alphabet: alphabetVariants[0],
       },
@@ -74,10 +91,11 @@ export const getAllResults = createSelector(
       .concat(
         variantDefinitions.map((variantDefinition) => {
           const altChars = variantDefinition[0]
-          const alphabet = variantDefinition[1]
-          const message = rearrange(input, altChars)
+          const altOrder = variantDefinition[1]
+          const alphabet = variantDefinition[2]
+          const message = rearrange(input, altChars, altOrder)
           return {
-            label: getBinaryLabel(labels, altChars, alphabet),
+            label: getBinaryLabel(labels, altChars, altOrder, alphabet),
             message: message,
             alphabet: alphabet,
           }
