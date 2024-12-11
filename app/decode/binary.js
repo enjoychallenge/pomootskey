@@ -8,12 +8,12 @@ export const BinaryChars = {
 
 export const alphabetVariants = [
   {
-    label: 'A=0',
-    valueToIndex: (x) => x,
-  },
-  {
     label: 'A=1',
     valueToIndex: (x) => x - 1,
+  },
+  {
+    label: 'A=0',
+    valueToIndex: (x) => x,
   },
 ]
 
@@ -58,10 +58,27 @@ export function decode(message, alphabet) {
   return parts
 }
 
-export function rearrange(message, newChars) {
+export function rearrange(message, newChars, newOrder) {
   const replacedMessage = message.replaceAll(/[01]/g, (char) => {
     return newChars[charToValueIndex(char)]
   })
 
-  return replacedMessage
+  const matches = replacedMessage.match(/.{1,5}/g) || []
+  const rearrangedMessage = matches
+    .map((match) => {
+      if (match.length === 5) {
+        return (
+          match[newOrder[0] - 1] +
+          match[newOrder[1] - 1] +
+          match[newOrder[2] - 1] +
+          match[newOrder[3] - 1] +
+          match[newOrder[4] - 1]
+        )
+      } else {
+        return match
+      }
+    })
+    .join('')
+
+  return rearrangedMessage
 }
