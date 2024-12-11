@@ -6,23 +6,13 @@ import {
   backspace,
   longBackspace,
 } from '../../component/resultBox/util'
+import { pasteToState } from '../common/utils'
 
 const initialState = {
   input: '',
   cursorIdx: 0,
   cursorType: CursorTypes.insert,
   variant: null,
-}
-
-const pasteToState = (state, msg) => {
-  const postfixIdx =
-    state.cursorType === CursorTypes.insert
-      ? state.cursorIdx
-      : state.cursorIdx + 1
-  state.input =
-    state.input.slice(0, state.cursorIdx) + msg + state.input.slice(postfixIdx)
-  state.cursorIdx += msg.length
-  state.cursorType = CursorTypes.insert
 }
 
 export const morseSlice = createSlice({
