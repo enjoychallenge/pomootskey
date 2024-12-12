@@ -7,6 +7,13 @@ import {
 import { pasteToState } from './utils'
 
 export function numeralSystemsSlice(name, chars) {
+  const initialState = {
+    input: '',
+    cursorIdx: 0,
+    cursorType: CursorTypes.insert,
+    variant: null,
+    labels: chars.join(''),
+  }
   return {
     name: name,
     initialState: {
