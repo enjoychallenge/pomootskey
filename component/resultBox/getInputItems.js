@@ -80,7 +80,7 @@ export const getInputItemsSemaphore = (input) => {
   })
 }
 
-const getInputItemsNumberSystem = (input, labels, alphabet, decode) => {
+const getInputItemsNumeralSystem = (input, labels, alphabet, decode) => {
   const inputItems = []
   decode(input, alphabet).forEach((msgPart) => {
     const outputCharType = PartTypeToOutputCharType[msgPart.type]
@@ -121,7 +121,7 @@ const getInputItemsNumberSystem = (input, labels, alphabet, decode) => {
 }
 
 export const getInputItemsTernary = (input, labels, alphabet) =>
-  getInputItemsNumberSystem(input, labels, alphabet, decodeTernary)
+  getInputItemsNumeralSystem(input, labels, alphabet, decodeTernary)
 
 export const getInputItemsBinary = (input, labels, alphabet) =>
-  getInputItemsNumberSystem(input, labels, alphabet, decodeBinary)
+  getInputItemsNumeralSystem(input, labels, alphabet, decodeBinary)
