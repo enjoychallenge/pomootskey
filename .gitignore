@@ -50,3 +50,8 @@ next-env.d.ts
 
 # env files
 .env
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
