@@ -1,7 +1,4 @@
-import {
-  decode as commonDecode,
-  rearrange as commonRearrange,
-} from './numeralSystems'
+import { decode as commonDecode } from './numeralSystems'
 import { AlphabetEn } from './common'
 
 export const TernaryChars = {
@@ -10,7 +7,7 @@ export const TernaryChars = {
   two: '2',
 }
 
-const partLength = 3
+export const partLength = 3
 
 export const chars = Object.values(TernaryChars)
 
@@ -34,8 +31,4 @@ export const alphabetVariants = [
 
 export function decode(message, alphabet) {
   return commonDecode(message, alphabet, partLength, chars)
-}
-
-export function rearrange(message, newChars, newOrder) {
-  return commonRearrange(message, newChars, newOrder, partLength, chars)
 }

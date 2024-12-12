@@ -1,15 +1,13 @@
 import {
-  decode,
-  rearrange,
+  chars,
+  partLength,
   BinaryChars,
   alphabetVariants,
 } from '../../app/decode/binary'
-import { variantPermutations, cartesian } from '../../app/decode/common'
 import { createSelector } from '@reduxjs/toolkit'
 import { getInputItemsBinary } from '../../component/resultBox/getInputItems'
-import { CursorTypes } from '../../app/results'
 import * as util from '../../component/resultBox/util'
-import { charToValueIndex } from '../../app/decode/numeralSystems'
+import * as numeralSystems from '../common/numeralSystemsSelector'
 
 const getInput = (state) => state.binary.input
 const getVariantId = (state) => state.binary.variant
@@ -26,16 +24,8 @@ export const getInputItems = createSelector(
 
 export const getNumberButtons = createSelector(
   [getInput, getCursorIdx, getCursorType, getLabels],
-  (input, cursorIdx, cursorType, labels) => {
-    return [BinaryChars.zero, BinaryChars.one].map((char) => {
-      return {
-        char: char,
-        label: labels[charToValueIndex(char)],
-        preselected:
-          cursorType === CursorTypes.edit && input[cursorIdx] === char,
-      }
-    })
-  }
+  (input, cursorIdx, cursorType, labels) =>
+    numeralSystems.getNumberButtons(chars, input, cursorIdx, cursorType, labels)
 )
 
 const getBinaryLabel = (labels, altChars, altOrder, alphabet) => {
@@ -62,58 +52,16 @@ const getBinaryLabel = (labels, altChars, altOrder, alphabet) => {
 
 export const getAllResults = createSelector(
   [getInput, getVariantId, getLabels],
-  (input, variantId, labels) => {
-    const baseOrders = [1, 2, 3, 4, 5]
-    const baseChars = BinaryChars.zero + BinaryChars.one
-    const variantChars = variantPermutations(baseChars.split(''), false).map(
-      (variantAsArray) => variantAsArray.join('')
+  (input, variantId, labels) =>
+    numeralSystems.getAllResults(
+      alphabetVariants,
+      chars,
+      partLength,
+      getBinaryLabel,
+      input,
+      variantId,
+      labels
     )
-    const variantOrders = variantPermutations(baseOrders, false).map(
-      (order) => [order]
-    )
-    const variantDefinitions = cartesian(
-      variantChars,
-      variantOrders,
-      alphabetVariants
-    ).slice(1)
-    const decodedVariants = [
-      {
-        label: getBinaryLabel(
-          labels,
-          baseChars,
-          baseOrders,
-          alphabetVariants[0]
-        ),
-        message: input,
-        alphabet: alphabetVariants[0],
-      },
-    ]
-      .concat(
-        variantDefinitions.map((variantDefinition) => {
-          const altChars = variantDefinition[0]
-          const altOrder = variantDefinition[1]
-          const alphabet = variantDefinition[2]
-          const message = rearrange(input, altChars, altOrder)
-          return {
-            label: getBinaryLabel(labels, altChars, altOrder, alphabet),
-            message: message,
-            alphabet: alphabet,
-          }
-        })
-      )
-      .map((variant) => {
-        return {
-          label: variant.label,
-          input: variant.message,
-          decoded: variant.message.length
-            ? decode(variant.message, variant.alphabet)
-            : [],
-          selected: variantId && variant.label === variantId,
-          alphabet: variant.alphabet,
-        }
-      })
-    return decodedVariants
-  }
 )
 
 const getVariant = createSelector(
