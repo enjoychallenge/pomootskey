@@ -35,7 +35,7 @@ const getInputCharJsx = (inputChar) => {
   return inputChar
 }
 
-export default function NumberSystemPage(slice, selector) {
+export default function NumeralSystemPage(slice, selector) {
   const dispatch = useAppDispatch()
 
   const memoOnNumberButtonClick = useCallback(

@@ -6,7 +6,7 @@ import {
 } from '../../component/resultBox/util'
 import { pasteToState } from './utils'
 
-export function numberSystemsSlice(name, chars) {
+export function numeralSystemsSlice(name, chars) {
   return {
     name: name,
     initialState: {

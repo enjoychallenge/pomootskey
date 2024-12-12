@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { numberSystemsSlice } from '../common/numberSystemsSlice'
+import { numeralSystemsSlice } from '../common/numeralSystemsSlice'
 import { chars } from '../../app/decode/binary'
 
-export const binarySlice = createSlice(numberSystemsSlice('binary', chars))
+export const binarySlice = createSlice(numeralSystemsSlice('binary', chars))
 
 export const {
   onNumberButtonClick: onNumberButtonClick,

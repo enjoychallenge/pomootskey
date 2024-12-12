@@ -1,7 +1,7 @@
 import {
   decode as commonDecode,
   rearrange as commonRearrange,
-} from './numberSystems'
+} from './numeralSystems'
 import { AlphabetEn } from './common'
 
 export const TernaryChars = {
