@@ -3,7 +3,7 @@ import AppBar from '../component/AppBar'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import layout_styles from '../styles/common/layout.module.scss'
-import binary_styles from '../styles/binary.module.scss'
+import numeralSystem_styles from '../styles/numeralSystem.module.scss'
 import button_styles from '../styles/common/button.module.scss'
 import Button from '@mui/material/Button'
 import LongPressButton from '../component/LongPressButton'
@@ -162,8 +162,12 @@ export default function NumeralSystemPage(slice, selector) {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box className={binary_styles.buttons_box}>{actionButtonsJsx}</Box>
-            <Box className={binary_styles.buttons_box}>{numberButtonsJsx}</Box>
+            <Box className={numeralSystem_styles.buttons_box}>
+              {actionButtonsJsx}
+            </Box>
+            <Box className={numeralSystem_styles.buttons_box}>
+              {numberButtonsJsx}
+            </Box>
           </Box>
           <Box
             sx={{ color: 'result.main' }}
@@ -181,9 +185,9 @@ export default function NumeralSystemPage(slice, selector) {
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
-                item: binary_styles.result_item,
-                inputChar: binary_styles.result_input_char,
-                cases: binary_styles.result_cases,
+                item: numeralSystem_styles.result_item,
+                inputChar: numeralSystem_styles.result_input_char,
+                cases: numeralSystem_styles.result_cases,
               }}
               getInputCharJsx={getInputCharJsx}
             />
