@@ -257,7 +257,9 @@ export default function ResultBox({
           className={result_styles.variant_output_only_result_boxes}
           onTouchMove={memoOnTouchMove}
         >
-          <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
+          {isVariantDialogOpen && (
+            <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
+          )}
         </Box>
         <DialogActions>
           <Button onClick={onVariantDialogClose}>Zavřít</Button>
