@@ -11,8 +11,21 @@ npm run dev
 ```
 
 ## Test
+### Unit tests
+Unit tests use [jest](https://jestjs.io/).
 ```
 npm test
+```
+
+### Integration tests
+Integration tests [playwright](https://playwright.dev/).
+```
+yarn playwright test
+```
+
+For local installation of playwright dependencies, you can run
+```
+yarn playwright install --with-deps
 ```
 
 ## Lint

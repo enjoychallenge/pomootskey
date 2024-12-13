@@ -86,6 +86,7 @@ const ResultItem = React.memo(function ResultItem({
       </Box>
     )
   }
+  const outputTestId = outputChar ? 'outputChar' : null
 
   return (
     <Box
@@ -94,7 +95,12 @@ const ResultItem = React.memo(function ResultItem({
       ref={resultItemRef}
     >
       <Box className={extraClass}>
-        <Box className={result_styles.result_output_char}>{outputChar}</Box>
+        <Box
+          className={result_styles.result_output_char}
+          data-testid={outputTestId}
+        >
+          {outputChar}
+        </Box>
         <Box
           className={joinerClass}
           sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
