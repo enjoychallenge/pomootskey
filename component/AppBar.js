@@ -7,14 +7,16 @@ import HelpIcon from '@mui/icons-material/Help'
 import AboutDialog from './AboutDialog'
 import NextLink from 'next/link'
 import { Home } from '@mui/icons-material'
-import styles from '../styles/appbar.module.css'
+import styles from '../styles/appbar.module.scss'
 
 const barTitle =
   process.env.NEXT_PUBLIC_DOMAIN === 'production'
     ? 'Enjoy Pomootskey'
     : 'PreProd Pomootskey'
-const barClassName =
-  process.env.NEXT_PUBLIC_DOMAIN === 'production' ? null : styles.preprod
+const barClassNames = [
+  styles.appbar,
+  process.env.NEXT_PUBLIC_DOMAIN === 'production' ? null : styles.preprod,
+]
 
 export default function EnjoyAppBar() {
   const [aboutOpen, setAboutOpen] = React.useState(false)
@@ -29,10 +31,15 @@ export default function EnjoyAppBar() {
 
   return (
     <>
-      <AppBar position="static" className={barClassName}>
-        <Toolbar>
+      <AppBar position="static" className={barClassNames.join(' ')}>
+        <Toolbar className={styles.toolbar}>
           <NextLink href="/" passHref>
-            <Typography variant="h6" sx={{ flexGrow: 1 }} component="a">
+            <Typography
+              noWrap
+              variant="h6"
+              component="a"
+              className={styles.title}
+            >
               {barTitle}
             </Typography>
           </NextLink>
