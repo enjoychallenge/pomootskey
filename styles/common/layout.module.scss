@@ -6,9 +6,15 @@
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  @include media_condition.media('landscape_mode') {
+    flex-direction: row;
+    height: unset;
+    width: 100dvw;
+  }
 }
 
 .main {

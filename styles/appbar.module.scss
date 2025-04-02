@@ -1,0 +1,30 @@
+@use 'common/media_condition.module' as media_condition;
+
+.appbar {
+  @include media_condition.media('landscape_mode') {
+    width: unset;
+    height: 100%;
+  }
+}
+
+.preprod {
+  background-color: #734444;
+}
+
+.toolbar {
+  @include media_condition.media('landscape_mode') {
+    flex-direction: column;
+    width: 56px;
+    min-width: 56px;
+    height: 100%;
+  }
+}
+
+.title {
+  flex-grow: 1;
+  @include media_condition.media('landscape_mode') {
+    padding-top: 20px;
+    writing-mode: vertical-lr;
+    transform: rotate(-180deg);
+  }
+}
