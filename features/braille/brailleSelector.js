@@ -1,13 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
-import {
-  columnsToRows,
-  decode,
-  invertSelected,
-  rowsToColumns,
-} from '../../app/decode/braille'
+import { decode, invertSelected } from '../../app/decode/braille'
 import { getInputItemsBraille } from '../../component/resultBox/getInputItems'
 import { CursorTypes } from '../../app/results'
 import * as util from '../../component/resultBox/util'
+import { cartesian, variantPermutations } from '../../app/decode/common'
 
 export const getInput = (state) => state.braille.input
 export const getIsFocusing = (state) => state.braille.isFocusing
@@ -20,46 +16,56 @@ export const getPreselected = (state) => state.braille.preselected
 export const getAllResults = createSelector(
   [getInput, getVariantId],
   (input, variantId) => {
-    const allVariants = [
+    const partLength = 6
+    const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
+    const variantOrders = variantPermutations(baseOrders, false).map(
+      (order) => [order]
+    )
+    const variantInverted = [false, true]
+    const variantDefinitions = cartesian(variantInverted, variantOrders).slice(
+      1
+    )
+    const decodedVariants = [
       {
         label: 'Základní řešení 123456',
-        input: input.map((item) => {
-          return new Set(item)
-        }),
-      },
-      {
-        label: 'Alternativní řešení 123456 invertovaně',
-        input: input.map(invertSelected),
-      },
-      {
-        label: 'Alternativní řešení číslování po řádcích 135246',
-        input: input.map(columnsToRows),
-      },
-      {
-        label: 'Alternativní řešení číslování po řádcích 135246 invertovaně',
-        input: input.map((item) => {
-          return columnsToRows(invertSelected(item))
-        }),
-      },
-      {
-        label: 'Alternativní řešení číslování po řádcích inverzně 142536',
-        input: input.map(rowsToColumns),
-      },
-      {
-        label:
-          'Alternativní řešení číslování po řádcích inverzně 142536 invertovaně',
-        input: input.map((item) => {
-          return rowsToColumns(invertSelected(item))
-        }),
+        message: input,
       },
     ]
-    const decodedVariants = allVariants.map((variant) => {
-      return {
-        ...variant,
-        decoded: variant.input.map((selected) => decode(selected)),
-        selected: variantId && variant.label === variantId,
-      }
-    })
+      .concat(
+        variantDefinitions.map((variantDefinition) => {
+          const inverted = variantDefinition[0]
+          const altOrder = variantDefinition[1]
+          const message = (
+            inverted
+              ? input.map((item) => {
+                  return invertSelected(item)
+                })
+              : input
+          ).map((item) => {
+            return item.map((point) => altOrder[point - 1])
+          })
+          return {
+            label:
+              'Alternativní řešení 123456 => ' +
+              altOrder[0] +
+              altOrder[1] +
+              altOrder[2] +
+              altOrder[3] +
+              altOrder[4] +
+              altOrder[5] +
+              (inverted ? ' invertovaně' : ''),
+            message: message,
+          }
+        })
+      )
+      .map((variant) => {
+        return {
+          label: variant.label,
+          input: variant.message,
+          decoded: variant.message.map((selected) => decode(selected)),
+          selected: variantId && variant.label === variantId,
+        }
+      })
     return decodedVariants
   }
 )
