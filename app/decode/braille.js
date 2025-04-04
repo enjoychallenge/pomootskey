@@ -71,20 +71,6 @@ export function decode(selected) {
   return result
 }
 
-export function columnsToRows(byColumns) {
-  return [...byColumns].map((itemByColumn) => byColumn2byRow[itemByColumn])
-}
-
-export function rowsToColumns(byRows) {
-  return [...byRows].map((itemByRow) =>
-    Number(
-      Object.entries(byColumn2byRow).find(
-        ([_, value]) => value === itemByRow
-      )[0]
-    )
-  )
-}
-
 export function invertSelected(selected) {
   const result = [...allItem].filter((x) => !selected.includes(x))
   return result
