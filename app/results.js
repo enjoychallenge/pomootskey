@@ -84,7 +84,13 @@ function decodedToVariantOutputOnlyBox(
   return variantBox
 }
 
-export function getVariantOutputOnlyBoxes(variantArray, onVariantClick = null) {
+export function getVariantOutputOnlyBoxes(
+  variantArray,
+  onVariantClick = null,
+  firstItem = 0,
+  pageSize = null
+) {
+  const lastItem = firstItem + pageSize || variantArray.length - 1
   return variantArray
     .slice(0, 1)
     .concat(
@@ -95,4 +101,5 @@ export function getVariantOutputOnlyBoxes(variantArray, onVariantClick = null) {
     .map((variant, idx) => {
       return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
     })
+    .slice(firstItem, lastItem)
 }
