@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import { useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
 import {
@@ -117,6 +117,74 @@ const ResultItem = React.memo(function ResultItem({
     </Box>
   )
 })
+
+function VariantsBox({ variants, onTouchMove, onVariantClick }) {
+  const [items, setItems] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [index, setIndex] = useState(1)
+  const loaderRef = useRef(null)
+  const pageSize = 5
+
+  const fetchData = useCallback(async () => {
+    if (isLoading) return
+
+    setIsLoading(true)
+    const nextVariants = getVariantOutputOnlyBoxes(
+      variants,
+      onVariantClick,
+      index * pageSize,
+      pageSize
+    )
+    setItems((prevVariants) => [...prevVariants, ...nextVariants])
+    setIndex((prevIndex) => prevIndex + 1)
+    setIsLoading(false)
+  }, [variants, index, isLoading, onVariantClick])
+
+  useEffect(() => {
+    const loaderRefLocal = loaderRef.current
+    const observer = new IntersectionObserver((entries) => {
+      const target = entries[0]
+      if (target.isIntersecting) {
+        fetchData()
+      }
+    })
+
+    if (loaderRefLocal) {
+      observer.observe(loaderRefLocal)
+    }
+
+    return () => {
+      if (loaderRefLocal) {
+        observer.unobserve(loaderRefLocal)
+      }
+    }
+  }, [fetchData])
+
+  useEffect(() => {
+    const getData = async () => {
+      setIsLoading(true)
+      const firstVariants = getVariantOutputOnlyBoxes(
+        variants,
+        onVariantClick,
+        0,
+        pageSize
+      )
+      setItems(firstVariants)
+      setIsLoading(false)
+    }
+    getData()
+  }, [variants, onVariantClick])
+
+  return (
+    <Box
+      className={result_styles.variant_output_only_result_boxes}
+      onTouchMove={onTouchMove}
+    >
+      <div>{items}</div>
+      <div ref={loaderRef} className={result_styles.observer} />
+    </Box>
+  )
+}
 
 export default function ResultBox({
   label,
@@ -259,14 +327,13 @@ export default function ResultBox({
         fullScreen={true}
       >
         <DialogTitle>Kliknutím vyber variantu</DialogTitle>
-        <Box
-          className={result_styles.variant_output_only_result_boxes}
-          onTouchMove={memoOnTouchMove}
-        >
-          {isVariantDialogOpen && (
-            <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
-          )}
-        </Box>
+        {isVariantDialogOpen && (
+          <VariantsBox
+            variants={variants}
+            onTouchMove={memoOnTouchMove}
+            onVariantClick={memoOnVariantClick}
+          />
+        )}
         <DialogActions>
           <Button onClick={onVariantDialogClose}>Zavřít</Button>
           <Button

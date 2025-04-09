@@ -4,7 +4,7 @@
   white-space: nowrap;
   background-color: var(--muiPaletteBackgroundPaper);
 
-  & > div {
+  & > div:first-child {
     min-width: 100%;
     display: inline-block;
 
@@ -30,6 +30,11 @@
       }
     }
   }
+}
+
+.observer {
+  min-width: 1px;
+  height: 1px;
 }
 
 .result_cases {
