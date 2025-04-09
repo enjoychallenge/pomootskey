@@ -25,46 +25,49 @@ export const getInput = createSelector(
   }
 )
 
-export const getAllResults = createSelector(
-  [getInput, getVariantId],
-  (input, variantId) => {
-    const partLength = 8
-    const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
-    const variantOrders = variantPermutations(baseOrders)
-    const decodedVariants = [
-      {
-        label: 'Základní řešení 12345678',
-        message: input,
-      },
-    ]
-      .concat(
-        variantOrders.map((altOrder) => {
-          const message = input.map((item) => {
-            return item.map((point) => altOrder[point - 1])
-          })
-          return {
-            label:
-              'Alternativní řešení 12345678 => ' +
-              altOrder[0] +
-              altOrder[1] +
-              altOrder[2] +
-              altOrder[3] +
-              altOrder[4] +
-              altOrder[5] +
-              altOrder[6] +
-              altOrder[7],
-            message: message,
-          }
-        })
-      )
-      .map((variant) => {
-        return {
-          label: variant.label,
-          input: variant.message,
-          decoded: variant.message.map((selected) => decode(selected)),
-          selected: variantId && variant.label === variantId,
-        }
+const getAllInputVariants = createSelector([getInput], (input) => {
+  const partLength = 8
+  const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
+  const variantOrders = variantPermutations(baseOrders)
+  const inputVariants = [
+    {
+      label: 'Základní řešení 12345678',
+      message: input,
+    },
+  ].concat(
+    variantOrders.map((altOrder) => {
+      const message = input.map((item) => {
+        return item.map((point) => altOrder[point - 1])
       })
+      return {
+        label:
+          'Alternativní řešení 12345678 => ' +
+          altOrder[0] +
+          altOrder[1] +
+          altOrder[2] +
+          altOrder[3] +
+          altOrder[4] +
+          altOrder[5] +
+          altOrder[6] +
+          altOrder[7],
+        message: message,
+      }
+    })
+  )
+  return inputVariants
+})
+
+export const getAllResults = createSelector(
+  [getAllInputVariants, getVariantId],
+  (allInputVariants, variantId) => {
+    const decodedVariants = allInputVariants.map((variant) => {
+      return {
+        label: variant.label,
+        input: variant.message,
+        decoded: variant.message.map((selected) => decode(selected)),
+        selected: variantId && variant.label === variantId,
+      }
+    })
     return decodedVariants
   }
 )
@@ -88,9 +91,18 @@ export const getIsLeftArrowDisabled = createSelector(
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllResults],
-  (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.label === variantId) : null
+  [getVariantId, getAllInputVariants],
+  (variantId, allInputVariants) => {
+    if (!variantId) {
+      return null
+    }
+    const variant = allInputVariants.find((res) => res.label === variantId)
+    return {
+      label: variant.label,
+      input: variant.message,
+      decoded: variant.message.map((selected) => decode(selected)),
+      selected: true,
+    }
   }
 )
 
