@@ -38,7 +38,7 @@
 }
 
 .result_cases {
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   position: relative;
@@ -199,4 +199,5 @@
   height: var(--morseOutputCharHeight);
   font-size: var(--morseOutputCharFontSize);
   white-space: nowrap;
+  align-content: end;
 }
