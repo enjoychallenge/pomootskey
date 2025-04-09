@@ -42,6 +42,7 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  height: 100%;
 
   & > p {
     font-size: x-small;
@@ -199,4 +200,5 @@
   height: var(--morseOutputCharHeight);
   font-size: var(--morseOutputCharFontSize);
   white-space: nowrap;
+  align-content: end;
 }
