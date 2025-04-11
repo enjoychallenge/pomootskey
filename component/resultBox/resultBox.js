@@ -13,6 +13,7 @@ import {
 import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import result_styles from '../../styles/common/result.module.scss'
+import { useAppSelector } from '../../app/hooks'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: result_styles.wrong,
@@ -118,12 +119,14 @@ const ResultItem = React.memo(function ResultItem({
   )
 })
 
-function VariantsBox({ variants, onTouchMove, onVariantClick }) {
+function VariantsBox({ selector, onTouchMove, onVariantClick }) {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [index, setIndex] = useState(1)
   const loaderRef = useRef(null)
   const pageSize = 5
+
+  const variants = useAppSelector(selector.getAllResults)
 
   const fetchData = useCallback(async () => {
     if (isLoading) return
@@ -195,10 +198,10 @@ export default function ResultBox({
   onInputItemClick,
   onVariantClick,
   variantInputItems,
-  variants,
   deselectButtonDisabled,
   styles,
   getInputCharJsx,
+  selector,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)
@@ -329,7 +332,7 @@ export default function ResultBox({
         <DialogTitle>Kliknutím vyber variantu</DialogTitle>
         {isVariantDialogOpen && (
           <VariantsBox
-            variants={variants}
+            selector={selector}
             onTouchMove={memoOnTouchMove}
             onVariantClick={memoOnVariantClick}
           />

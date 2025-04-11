@@ -114,7 +114,6 @@ export default function SemaphorePage() {
 
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
-  const allVariants = useAppSelector(slctr.getAllResults)
   const variantInputItems = useAppSelector(slctr.getVariantInputItems)
 
   const onSemaphoreButtonPointerDown = useCallback(
@@ -281,7 +280,6 @@ export default function SemaphorePage() {
               onVariantClick={(id, idx) => {
                 dispatch(variantClick({ id, idx }))
               }}
-              variants={allVariants}
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
@@ -290,6 +288,7 @@ export default function SemaphorePage() {
                 cases: null,
               }}
               getInputCharJsx={getInputCharJsx}
+              selector={slctr}
             />
           </Box>
         </Box>
