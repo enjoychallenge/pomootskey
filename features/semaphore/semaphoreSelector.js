@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { decode } from '../../app/decode/semaphore'
-import { getVariants } from './util'
 import { getInputItemsSemaphore } from '../../component/resultBox/getInputItems'
 import * as util from '../../component/resultBox/util'
 import { CursorTypes } from '../../app/results'
+import { variantPermutations } from '../../app/decode/common'
 
 export const getIsFocusing = (state) => state.semaphore.isFocusing
 export const getFocused = (state) => state.semaphore.focused
@@ -25,41 +25,50 @@ export const getInput = createSelector(
   }
 )
 
-const getHorizontalFlip = createSelector([getInput], (input) => {
-  return input.map((item) => {
-    return [...item].map((button) => {
+const getAllInputVariants = createSelector([getInput], (input) => {
+  const partLength = 8
+  const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
+  const variantOrders = variantPermutations(baseOrders)
+  const inputVariants = [
+    {
+      label: 'Základní řešení 12345678',
+      message: input,
+    },
+  ].concat(
+    variantOrders.map((altOrder) => {
+      const message = input.map((item) => {
+        return item.map((point) => altOrder[point - 1])
+      })
       return {
-        1: 1,
-        2: 8,
-        3: 7,
-        4: 6,
-        5: 5,
-        6: 4,
-        7: 3,
-        8: 2,
-      }[button]
+        label:
+          'Alternativní řešení 12345678 => ' +
+          altOrder[0] +
+          altOrder[1] +
+          altOrder[2] +
+          altOrder[3] +
+          altOrder[4] +
+          altOrder[5] +
+          altOrder[6] +
+          altOrder[7],
+        message: message,
+      }
     })
-  })
+  )
+  return inputVariants
 })
 
 export const getAllResults = createSelector(
-  [getInput, getHorizontalFlip, getVariantId],
-  (input, horizontalFlip, variantId) => {
-    const allVariants = [
-      {
-        label: 'Základní řešení',
-        input: input,
-      },
-    ]
-      .concat(getVariants(input))
-      .concat(getVariants(horizontalFlip, 'zrcadlově, ', false))
-    return allVariants.map((variant) => {
+  [getAllInputVariants, getVariantId],
+  (allInputVariants, variantId) => {
+    const decodedVariants = allInputVariants.map((variant) => {
       return {
-        ...variant,
-        decoded: variant.input.map(decode),
+        label: variant.label,
+        input: variant.message,
+        decoded: variant.message.map((selected) => decode(selected)),
         selected: variantId && variant.label === variantId,
       }
     })
+    return decodedVariants
   }
 )
 
@@ -82,9 +91,18 @@ export const getIsLeftArrowDisabled = createSelector(
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllResults],
-  (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.label === variantId) : null
+  [getVariantId, getAllInputVariants],
+  (variantId, allInputVariants) => {
+    if (!variantId) {
+      return null
+    }
+    const variant = allInputVariants.find((res) => res.label === variantId)
+    return {
+      label: variant.label,
+      input: variant.message,
+      decoded: variant.message.map((selected) => decode(selected)),
+      selected: true,
+    }
   }
 )
 

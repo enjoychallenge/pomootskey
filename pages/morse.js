@@ -117,7 +117,6 @@ export default function MorsePage() {
   const morseButtons = useAppSelector(slctr.getMorseButtons)
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
-  const allVariants = useAppSelector(slctr.getAllResults)
   const variantInputItems = useAppSelector(slctr.getVariantInputItems)
   const isRightArrowDisabled = useAppSelector(slctr.getIsRightArrowDisabled)
   const isLeftArrowDisabled = useAppSelector(slctr.getIsLeftArrowDisabled)
@@ -208,7 +207,6 @@ export default function MorsePage() {
               cursorType={cursorType}
               onInputItemClick={onInputItemClick}
               onVariantClick={onVariantClick}
-              variants={allVariants}
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
@@ -217,6 +215,7 @@ export default function MorsePage() {
                 cases: morse_styles.result_cases,
               }}
               getInputCharJsx={getInputCharJsx}
+              selector={slctr}
             />
           </Box>
         </Box>

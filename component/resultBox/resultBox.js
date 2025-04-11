@@ -1,18 +1,19 @@
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import { useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
 import {
   CursorTypes,
-  getVariantOutputOnlyBoxes,
   JoinerTypes,
   OutputCharTypes,
+  decodedToVariantOutputOnlyBox,
 } from '../../app/results'
 import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import result_styles from '../../styles/common/result.module.scss'
+import { useAppSelector } from '../../app/hooks'
 
 const CharTypeToExtraClass = {
   [OutputCharTypes.unknown]: result_styles.wrong,
@@ -118,6 +119,79 @@ const ResultItem = React.memo(function ResultItem({
   )
 })
 
+function VariantsBox({ selector, onTouchMove, onVariantClick }) {
+  const [items, setItems] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [pageIndex, setPageIndex] = useState(0)
+  const loaderRef = useRef(null)
+  const workerRef = useRef(null)
+  const pageSize = 50
+
+  const variants = useAppSelector(selector.getAllResults)
+
+  const fetchData = useCallback(async () => {
+    if (isLoading) return
+
+    setIsLoading(true)
+    workerRef.current.postMessage({
+      variants,
+      firstItem: pageIndex * pageSize,
+      pageSize,
+    })
+  }, [variants, pageIndex, isLoading])
+
+  useEffect(() => {
+    const loaderRefLocal = loaderRef.current
+    const observer = new IntersectionObserver((entries) => {
+      const target = entries[0]
+      if (target.isIntersecting) {
+        fetchData()
+      }
+    })
+
+    if (loaderRefLocal) {
+      observer.observe(loaderRefLocal)
+    }
+
+    return () => {
+      if (loaderRefLocal) {
+        observer.unobserve(loaderRefLocal)
+      }
+    }
+  }, [fetchData])
+
+  useEffect(() => {
+    workerRef.current = new Worker(
+      new URL('../../sortVariants.worker', import.meta.url)
+    )
+    workerRef.current.onmessage = function (event) {
+      const sortedVariants = event.data
+      const variantsJsx = sortedVariants.map((variant, idx) => {
+        return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
+      })
+      setItems((previousVariants) => [...previousVariants, ...variantsJsx])
+      setPageIndex((prevIndex) => prevIndex + 1)
+      setIsLoading(false)
+    }
+    setIsLoading(true)
+    workerRef.current.postMessage({ variants, firstItem: 0, pageSize })
+
+    return () => {
+      workerRef.current?.terminate()
+    }
+  }, [variants, onVariantClick])
+
+  return (
+    <Box
+      className={result_styles.variant_output_only_result_boxes}
+      onTouchMove={onTouchMove}
+    >
+      <div>{items}</div>
+      <div ref={loaderRef} className={result_styles.observer} />
+    </Box>
+  )
+}
+
 export default function ResultBox({
   label,
   variantLabel,
@@ -127,10 +201,10 @@ export default function ResultBox({
   onInputItemClick,
   onVariantClick,
   variantInputItems,
-  variants,
   deselectButtonDisabled,
   styles,
   getInputCharJsx,
+  selector,
 }) {
   const variantButtonRef = useRef(null)
   const cursorRef = useRef(null)
@@ -259,14 +333,13 @@ export default function ResultBox({
         fullScreen={true}
       >
         <DialogTitle>Kliknutím vyber variantu</DialogTitle>
-        <Box
-          className={result_styles.variant_output_only_result_boxes}
-          onTouchMove={memoOnTouchMove}
-        >
-          {isVariantDialogOpen && (
-            <div>{getVariantOutputOnlyBoxes(variants, memoOnVariantClick)}</div>
-          )}
-        </Box>
+        {isVariantDialogOpen && (
+          <VariantsBox
+            selector={selector}
+            onTouchMove={memoOnTouchMove}
+            onVariantClick={memoOnVariantClick}
+          />
+        )}
         <DialogActions>
           <Button onClick={onVariantDialogClose}>Zavřít</Button>
           <Button

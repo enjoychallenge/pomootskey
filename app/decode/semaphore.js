@@ -1,4 +1,4 @@
-import { decodeBySet, PartTypes } from './common'
+import { PartTypes } from './common'
 
 const codeTable = {
   a: new Set([1, 2]),
@@ -29,8 +29,21 @@ const codeTable = {
   z: new Set([7, 8]),
 }
 
+function points2String(points) {
+  const arr = Array.from(points, Number)
+  arr.sort()
+  return arr.join('')
+}
+
+const decodeTable = Object.keys(codeTable).reduce((acc, character) => {
+  const pointsString = points2String(codeTable[character])
+  acc[pointsString] = character
+  return acc
+}, {})
+
 export function decode(selected) {
-  const decodedChar = decodeBySet(new Set(selected), codeTable)
+  const pointsString = points2String(selected)
+  const decodedChar = decodeTable[pointsString] || String.fromCharCode(10734)
   const result =
     decodedChar === String.fromCharCode(10734)
       ? {

@@ -118,7 +118,6 @@ export default function BraillePage() {
 
   const variantLabel = useAppSelector(slctr.getVariantLabel)
   const isVariantSelected = useAppSelector(slctr.getIsVariantSelected)
-  const allVariants = useAppSelector(slctr.getAllResults)
   const variantInputItems = useAppSelector(slctr.getVariantInputItems)
 
   const onInputBoxPointerLeave = useCallback(
@@ -252,7 +251,6 @@ export default function BraillePage() {
               onVariantClick={(id, idx) => {
                 dispatch(variantClick({ id, idx }))
               }}
-              variants={allVariants}
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
@@ -261,6 +259,7 @@ export default function BraillePage() {
                 cases: null,
               }}
               getInputCharJsx={getInputCharJsx}
+              selector={slctr}
             />
           </Box>
         </Box>
