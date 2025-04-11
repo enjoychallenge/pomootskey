@@ -83,10 +83,11 @@ const SemaphoreButton = React.memo(function SemaphoreButton({
 })
 
 const getInputCharJsx = (pointList) => {
-  const handsJsx = pointList.map((value) => {
+  const uniqueValues = [...new Set(pointList)]
+  const handsJsx = uniqueValues.map((value) => {
     return (
       <path
-        key={value}
+        key={'input_jsx_' + value}
         d="M0,0 L0 40"
         className={semaphore_styles.semaphore_small_hand}
         transform={`translate(50 50) rotate(${(value - 1) * 45})`}
@@ -148,7 +149,7 @@ export default function SemaphorePage() {
   const valueToHand = (value, focused) => {
     return (
       <path
-        key={value}
+        key={'hand_' + value}
         d="M0,0 L0 20"
         className={
           focused
@@ -160,7 +161,7 @@ export default function SemaphorePage() {
       />
     )
   }
-  const selectedHands = Array.from(lastSelected.concat(selected)).map(
+  const selectedHands = Array.from(new Set(lastSelected.concat(selected))).map(
     (value) => {
       return valueToHand(value, false)
     }
@@ -171,7 +172,7 @@ export default function SemaphorePage() {
     const value = idx + 1
     return (
       <SemaphoreButton
-        key={value}
+        key={'SemaphoreButton_' + value}
         value={value}
         isSelected={selected.includes(value) || lastSelected.includes(value)}
         isFocused={focused === value}
