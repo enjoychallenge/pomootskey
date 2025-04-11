@@ -181,7 +181,6 @@ export default function NumeralSystemPage(slice, selector) {
               cursorType={cursorType}
               onInputItemClick={onInputItemClick}
               onVariantClick={onVariantClick}
-              variants={allVariants}
               variantInputItems={variantInputItems}
               deselectButtonDisabled={!isVariantSelected}
               styles={{
@@ -190,6 +189,7 @@ export default function NumeralSystemPage(slice, selector) {
                 cases: numeralSystem_styles.result_cases,
               }}
               getInputCharJsx={getInputCharJsx}
+              selector={selector}
             />
           </Box>
         </Box>
