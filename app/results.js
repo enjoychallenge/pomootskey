@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography'
 import Placeholder from '../component/Placeholder'
 import * as React from 'react'
 import VariantOutputOnlyBox from '../component/VariantOutputOnlyBox'
-import { PartTypes, scoreResult } from './decode/common'
+import { PartTypes } from './decode/common'
 
 export const OutputCharTypes = {
   known: 'known',
@@ -47,7 +47,7 @@ export const getOutputChar = (decodedPart) => {
   return result
 }
 
-function decodedToVariantOutputOnlyBox(
+export function decodedToVariantOutputOnlyBox(
   decodedVariant,
   idx,
   onVariantClick = null
@@ -82,24 +82,4 @@ function decodedToVariantOutputOnlyBox(
     />
   )
   return variantBox
-}
-
-export function getVariantOutputOnlyBoxes(
-  variantArray,
-  onVariantClick = null,
-  firstItem = 0,
-  pageSize = null
-) {
-  const lastItem = firstItem + pageSize || variantArray.length - 1
-  return variantArray
-    .slice(0, 1)
-    .concat(
-      variantArray
-        .slice(1)
-        .sort((a, b) => scoreResult(b.decoded) - scoreResult(a.decoded))
-    )
-    .map((variant, idx) => {
-      return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
-    })
-    .slice(firstItem, lastItem)
 }
