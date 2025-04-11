@@ -6,9 +6,9 @@ import Button from '@mui/material/Button'
 import { AltRoute } from '@mui/icons-material'
 import {
   CursorTypes,
-  getVariantOutputOnlyBoxes,
   JoinerTypes,
   OutputCharTypes,
+  decodedToVariantOutputOnlyBox,
 } from '../../app/results'
 import { Dialog, DialogActions } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -122,9 +122,10 @@ const ResultItem = React.memo(function ResultItem({
 function VariantsBox({ selector, onTouchMove, onVariantClick }) {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [index, setIndex] = useState(1)
+  const [pageIndex, setPageIndex] = useState(0)
   const loaderRef = useRef(null)
-  const pageSize = 5
+  const workerRef = useRef(null)
+  const pageSize = 50
 
   const variants = useAppSelector(selector.getAllResults)
 
@@ -132,16 +133,12 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
     if (isLoading) return
 
     setIsLoading(true)
-    const nextVariants = getVariantOutputOnlyBoxes(
+    workerRef.current.postMessage({
       variants,
-      onVariantClick,
-      index * pageSize,
-      pageSize
-    )
-    setItems((prevVariants) => [...prevVariants, ...nextVariants])
-    setIndex((prevIndex) => prevIndex + 1)
-    setIsLoading(false)
-  }, [variants, index, isLoading, onVariantClick])
+      firstItem: pageIndex * pageSize,
+      pageSize,
+    })
+  }, [variants, pageIndex, isLoading])
 
   useEffect(() => {
     const loaderRefLocal = loaderRef.current
@@ -164,18 +161,24 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
   }, [fetchData])
 
   useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true)
-      const firstVariants = getVariantOutputOnlyBoxes(
-        variants,
-        onVariantClick,
-        0,
-        pageSize
-      )
-      setItems(firstVariants)
+    workerRef.current = new Worker(
+      new URL('../../sortVariants.worker', import.meta.url)
+    )
+    workerRef.current.onmessage = function (event) {
+      const sortedVariants = event.data
+      const variantsJsx = sortedVariants.map((variant, idx) => {
+        return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
+      })
+      setItems((previousVariants) => [...previousVariants, ...variantsJsx])
+      setPageIndex((prevIndex) => prevIndex + 1)
       setIsLoading(false)
     }
-    getData()
+    setIsLoading(true)
+    workerRef.current.postMessage({ variants, firstItem: 0, pageSize })
+
+    return () => {
+      workerRef.current?.terminate()
+    }
   }, [variants, onVariantClick])
 
   return (
