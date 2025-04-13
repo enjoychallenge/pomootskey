@@ -1,18 +1,32 @@
-import { scoreResult } from './app/decode/common'
+import { scoreResult, quickSortByScore } from './app/decode/common'
 
 onmessage = function (e) {
   if (!e) return
-  const { variants, firstItem, pageSize } = e.data
-  const lastItem = firstItem + pageSize || variantArray.length - 1
+  const { variants } = e.data
 
-  const results = variants
-    .slice(0, 1)
-    .concat(
-      variants
-        .slice(1)
-        .sort((a, b) => scoreResult(b.decoded) - scoreResult(a.decoded))
+  const baseVariant = variants.slice(0, 1)
+  const variantsToSort = variants.slice(1)
+  const sizes = [500, 10000, variantsToSort.length].filter(
+    (size) => size <= variantsToSort.length
+  )
+  sizes.forEach((size) => {
+    const scoredVariants = variantsToSort.slice(0, size).map((variant) => {
+      return {
+        ...variant,
+        score: -scoreResult(variant.decoded),
+      }
+    })
+
+    quickSortByScore(
+      scoredVariants,
+      0,
+      scoredVariants.length - 1,
+      scoredVariants.length
     )
-    .slice(firstItem, lastItem)
 
-  postMessage(results)
+    postMessage({
+      sorted: baseVariant.concat(scoredVariants),
+      last: size === variantsToSort.length ? true : false,
+    })
+  })
 }

@@ -121,31 +121,38 @@ const ResultItem = React.memo(function ResultItem({
 
 function VariantsBox({ selector, onTouchMove, onVariantClick }) {
   const [items, setItems] = useState([])
+  const [sorted, setsortedVariants] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useState(1)
   const loaderRef = useRef(null)
   const workerRef = useRef(null)
   const pageSize = 50
 
   const variants = useAppSelector(selector.getAllResults)
 
-  const fetchData = useCallback(async () => {
+  const addPage = useCallback(async () => {
     if (isLoading) return
 
     setIsLoading(true)
-    workerRef.current.postMessage({
-      variants,
-      firstItem: pageIndex * pageSize,
-      pageSize,
+
+    const variantsToShow = sorted.slice(
+      pageSize * pageIndex,
+      pageSize * (pageIndex + 1)
+    )
+    const variantsJsx = variantsToShow.map((variant, idx) => {
+      return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
     })
-  }, [variants, pageIndex, isLoading])
+    setItems((prevVariants) => [...prevVariants, variantsJsx])
+    setPageIndex((prevIndex) => prevIndex + 1)
+    setIsLoading(false)
+  }, [sorted, pageIndex, isLoading, onVariantClick])
 
   useEffect(() => {
     const loaderRefLocal = loaderRef.current
     const observer = new IntersectionObserver((entries) => {
       const target = entries[0]
       if (target.isIntersecting) {
-        fetchData()
+        addPage()
       }
     })
 
@@ -158,23 +165,24 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
         observer.unobserve(loaderRefLocal)
       }
     }
-  }, [fetchData])
+  }, [addPage])
 
   useEffect(() => {
     workerRef.current = new Worker(
       new URL('../../sortVariants.worker', import.meta.url)
     )
     workerRef.current.onmessage = function (event) {
-      const sortedVariants = event.data
-      const variantsJsx = sortedVariants.map((variant, idx) => {
+      const { sorted, last } = event.data
+      setsortedVariants(sorted)
+      const variantsToShow = sorted.slice(0, pageSize)
+      const variantsJsx = variantsToShow.map((variant, idx) => {
         return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
       })
-      setItems((previousVariants) => [...previousVariants, ...variantsJsx])
-      setPageIndex((prevIndex) => prevIndex + 1)
-      setIsLoading(false)
+      setItems(variantsJsx)
+      setIsLoading(!last)
     }
     setIsLoading(true)
-    workerRef.current.postMessage({ variants, firstItem: 0, pageSize })
+    workerRef.current.postMessage({ variants })
 
     return () => {
       workerRef.current?.terminate()
