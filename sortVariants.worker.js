@@ -1,4 +1,4 @@
-import { scoreResult, quickSortByScore } from './app/decode/common'
+import { scoreResult, addToOrderedArray } from './app/decode/common'
 
 onmessage = function (e) {
   if (!e) return
@@ -9,24 +9,21 @@ onmessage = function (e) {
   const sizes = [500, 10000, variantsToSort.length].filter(
     (size) => size <= variantsToSort.length
   )
-  sizes.forEach((size) => {
-    const scoredVariants = variantsToSort.slice(0, size).map((variant) => {
-      return {
-        ...variant,
-        score: -scoreResult(variant.decoded),
-      }
-    })
+  const scoredVariants = variantsToSort.map((variant) => {
+    return {
+      ...variant,
+      score: -scoreResult(variant.decoded),
+    }
+  })
 
-    quickSortByScore(
-      scoredVariants,
-      0,
-      scoredVariants.length - 1,
-      scoredVariants.length
-    )
-
-    postMessage({
-      sorted: baseVariant.concat(scoredVariants),
-      last: size === variantsToSort.length ? true : false,
-    })
+  const orderedVariants = []
+  scoredVariants.forEach((variant, index) => {
+    addToOrderedArray(orderedVariants, variant)
+    if (sizes.includes(index + 1)) {
+      postMessage({
+        sorted: baseVariant.concat(orderedVariants),
+        last: index + 1 === variantsToSort.length,
+      })
+    }
   })
 }
