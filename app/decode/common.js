@@ -121,40 +121,16 @@ export function scoreResult(result) {
   return score
 }
 
-function quickSortSwap(arr, el1, el2) {
-  let swapedElem = arr[el1]
-  arr[el1] = arr[el2]
-  arr[el2] = swapedElem
-}
+export function addToOrderedArray(orderedArray, newVariant) {
+  const value = newVariant.score
+  let low = 0,
+    high = orderedArray.length,
+    mid = 0
 
-export function quickSortByScore(arr, leftPos, rightPos, arrLength) {
-  let initialLeftPos = leftPos
-  let initialRightPos = rightPos
-  let direction = true
-  let pivot = rightPos
-  while (leftPos - rightPos < 0) {
-    if (direction) {
-      if (arr[pivot].score < arr[leftPos].score) {
-        quickSortSwap(arr, pivot, leftPos)
-        pivot = leftPos
-        rightPos--
-        direction = !direction
-      } else leftPos++
-    } else {
-      if (arr[pivot].score <= arr[rightPos].score) {
-        rightPos--
-      } else {
-        quickSortSwap(arr, pivot, rightPos)
-        leftPos++
-        pivot = rightPos
-        direction = !direction
-      }
-    }
+  while (low < high) {
+    mid = (low + high) >>> 1
+    if (orderedArray[mid] < value) low = mid + 1
+    else high = mid
   }
-  if (pivot - 1 > initialLeftPos) {
-    quickSortByScore(arr, initialLeftPos, pivot - 1, arrLength)
-  }
-  if (pivot + 1 < initialRightPos) {
-    quickSortByScore(arr, pivot + 1, initialRightPos, arrLength)
-  }
+  orderedArray.splice(low, 0, newVariant)
 }
