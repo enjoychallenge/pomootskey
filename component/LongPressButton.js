@@ -7,6 +7,7 @@ export default function LongPressButton({
   variant = 'text',
   disabled = false,
   middlePeriod = 150,
+  alt = '',
   children,
 }) {
   const [pressed, setPressed] = useState(false)
@@ -71,6 +72,7 @@ export default function LongPressButton({
       onPointerLeave={stopPress}
       variant={variant}
       disabled={disabled}
+      alt={alt}
     >
       {children}
     </Button>

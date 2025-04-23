@@ -23,6 +23,7 @@ export default function VariantOutputOnlyBox({
       sx={{ backgroundColor: bgColor }}
       onClick={memoOnVariantClick}
       className={className}
+      data-testid={variantKey}
     >
       <Typography sx={{ color: 'result.label' }}>{label}</Typography>
       <Typography>{message}</Typography>

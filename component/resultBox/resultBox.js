@@ -337,6 +337,7 @@ export default function ResultBox({
         />
         <Box className={result_styles.variant_button_wrapper}>
           <Button
+            alt="VariantsButton"
             variant="outlined"
             ref={variantButtonRef}
             onClick={onVariantButtonClick}
