@@ -51,6 +51,7 @@ const getAllInputVariants = createSelector([getInput], (input) => {
           altOrder[6] +
           altOrder[7],
         message: message,
+        key: altOrder.join('')
       }
     })
   )
@@ -65,7 +66,8 @@ export const getAllResults = createSelector(
         label: variant.label,
         input: variant.message,
         decoded: variant.message.map((selected) => decode(selected)),
-        selected: variantId && variant.label === variantId,
+        selected: variantId && variant.key === variantId,
+        key: variant.key,
       }
     })
     return decodedVariants
@@ -96,12 +98,13 @@ const getVariant = createSelector(
     if (!variantId) {
       return null
     }
-    const variant = allInputVariants.find((res) => res.label === variantId)
+    const variant = allInputVariants.find((res) => res.key === variantId)
     return {
       label: variant.label,
       input: variant.message,
       decoded: variant.message.map((selected) => decode(selected)),
       selected: true,
+      key: variant.key,
     }
   }
 )

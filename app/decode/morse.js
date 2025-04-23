@@ -145,6 +145,7 @@ export function getAllVariants(input) {
         label: variant.label,
         input: variant.message,
         decoded: variant.message.length ? decode(variant.message) : [],
+        key: variant.label,
       }
     })
   return decodedVariants

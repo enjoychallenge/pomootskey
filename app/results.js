@@ -74,6 +74,7 @@ export function decodedToVariantOutputOnlyBox(
   const variantBox = (
     <VariantOutputOnlyBox
       key={idx}
+      variantKey={decodedVariant.key}
       label={decodedVariant.label}
       message={forReact}
       idx={idx}

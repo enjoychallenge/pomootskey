@@ -5,6 +5,7 @@ import { useCallback } from 'react'
 import general_styles from '../styles/common/general.module.scss'
 
 export default function VariantOutputOnlyBox({
+  variantKey,
   label,
   message,
   idx,
@@ -12,8 +13,8 @@ export default function VariantOutputOnlyBox({
   selected = false,
 }) {
   const memoOnVariantClick = useCallback(() => {
-    onVariantClick && onVariantClick(label, idx)
-  }, [onVariantClick, label, idx])
+    onVariantClick && onVariantClick(variantKey, idx)
+  }, [onVariantClick, variantKey, idx])
 
   const className = onVariantClick ? general_styles.clickable : null
   const bgColor = selected ? 'primary.main' : 'background.paper'

@@ -77,8 +77,9 @@ export const getAllResults = (
         decoded: variant.message.length
           ? commonDecode(variant.message, variant.alphabet, partLength, chars)
           : [],
-        selected: variantId && variant.label === variantId,
+        selected: variantId && variant.key === variantId,
         alphabet: variant.alphabet,
+        key: variant.label,
       }
     })
   return decodedVariants
