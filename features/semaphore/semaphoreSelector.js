@@ -25,43 +25,43 @@ export const getInput = createSelector(
   }
 )
 
-const getAllInputVariants = createSelector([getInput], (input) => {
-  const partLength = 8
-  const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
-  const variantOrders = variantPermutations(baseOrders)
-  const inputVariants = [
-    {
-      label: 'Základní řešení 12345678',
-      message: input,
-    },
-  ].concat(
-    variantOrders.map((altOrder) => {
-      const message = input.map((item) => {
-        return item.map((point) => altOrder[point - 1])
-      })
-      return {
-        label:
-          'Alternativní řešení 12345678 => ' +
-          altOrder[0] +
-          altOrder[1] +
-          altOrder[2] +
-          altOrder[3] +
-          altOrder[4] +
-          altOrder[5] +
-          altOrder[6] +
-          altOrder[7],
-        message: message,
-        key: altOrder.join('')
-      }
-    })
-  )
-  return inputVariants
-})
+function keyToVariant(input, altOrder) {
+  const message = input.map((item) => {
+    return item.map((point) => altOrder[point - 1])
+  })
+  return {
+    label:
+      'Alternativní řešení 12345678 => ' +
+      altOrder[0] +
+      altOrder[1] +
+      altOrder[2] +
+      altOrder[3] +
+      altOrder[4] +
+      altOrder[5] +
+      altOrder[6] +
+      altOrder[7],
+    message: message,
+    key: altOrder.join(''),
+  }
+}
 
 export const getAllResults = createSelector(
-  [getAllInputVariants, getVariantId],
-  (allInputVariants, variantId) => {
-    const decodedVariants = allInputVariants.map((variant) => {
+  [getInput, getVariantId],
+  (input, variantId) => {
+    const partLength = 8
+    const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
+    const variantOrders = variantPermutations(baseOrders)
+    const inputVariants = [
+      {
+        label: 'Základní řešení 12345678',
+        message: input,
+      },
+    ].concat(
+      variantOrders.map((altOrder) => {
+        return keyToVariant(input, altOrder)
+      })
+    )
+    const decodedVariants = inputVariants.map((variant) => {
       return {
         label: variant.label,
         input: variant.message,
@@ -93,12 +93,13 @@ export const getIsLeftArrowDisabled = createSelector(
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllInputVariants],
-  (variantId, allInputVariants) => {
+  [getVariantId, getInput],
+  (variantId, input) => {
     if (!variantId) {
       return null
     }
-    const variant = allInputVariants.find((res) => res.key === variantId)
+    const altOrder = variantId.split('').map((item) => parseInt(item))
+    const variant = keyToVariant(input, altOrder)
     return {
       label: variant.label,
       input: variant.message,
