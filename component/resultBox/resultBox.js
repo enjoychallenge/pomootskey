@@ -120,8 +120,7 @@ const ResultItem = React.memo(function ResultItem({
 })
 
 function VariantsBox({ selector, onTouchMove, onVariantClick }) {
-  const [items, setItems] = useState([])
-  const [sorted, setsortedVariants] = useState([])
+  const [sorted, setSortedVariants] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [pageIndex, setPageIndex] = useState(1)
   const loaderRef = useRef(null)
@@ -129,6 +128,13 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
   const pageSize = 50
 
   const variants = useAppSelector(selector.getAllResults)
+  const baseVariantsJsx = variants
+    .slice(0, 1)
+    .concat(variants.filter((variant) => variant.selected))
+    .map((variant, idx) => {
+      return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
+    })
+  const [items, setItems] = useState(baseVariantsJsx)
 
   const addPage = useCallback(async () => {
     if (isLoading) return
@@ -173,7 +179,7 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
     )
     workerRef.current.onmessage = function (event) {
       const { sorted, last } = event.data
-      setsortedVariants(sorted)
+      setSortedVariants(sorted)
       const variantsToShow = sorted.slice(0, pageSize)
       const variantsJsx = variantsToShow.map((variant, idx) => {
         return decodedToVariantOutputOnlyBox(variant, idx, onVariantClick)
