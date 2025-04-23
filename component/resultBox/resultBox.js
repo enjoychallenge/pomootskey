@@ -182,7 +182,12 @@ function VariantsBox({ selector, onTouchMove, onVariantClick }) {
       setIsLoading(!last)
     }
     setIsLoading(true)
-    workerRef.current.postMessage({ variants })
+    const variantsToSend = variants.map((variant) => {
+      const variantToSend = { ...variant }
+      if ('alphabet' in variantToSend) delete variantToSend['alphabet']
+      return variantToSend
+    })
+    workerRef.current.postMessage({ variants: variantsToSend })
 
     return () => {
       workerRef.current?.terminate()
