@@ -55,6 +55,7 @@ export const getAllResults = createSelector(
               altOrder[5] +
               (inverted ? ' invertovaně' : ''),
             message: message,
+            key: altOrder.join('') + '-' + inverted,
           }
         })
       )
@@ -63,7 +64,8 @@ export const getAllResults = createSelector(
           label: variant.label,
           input: variant.message,
           decoded: variant.message.map((selected) => decode(selected)),
-          selected: variantId && variant.label === variantId,
+          selected: variantId && variant.key === variantId,
+          key: variant.key,
         }
       })
     return decodedVariants
@@ -98,7 +100,7 @@ export const getIsLeftArrowDisabled = createSelector(
 const getVariant = createSelector(
   [getVariantId, getAllResults],
   (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.label === variantId) : null
+    return variantId ? allResults.find((res) => res.key === variantId) : null
   }
 )
 
