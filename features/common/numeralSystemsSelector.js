@@ -28,7 +28,7 @@ export const getAllResults = (
   partLength,
   getLabel,
   input,
-  variantId,
+  variantKey,
   labels
 ) => {
   const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
@@ -77,7 +77,7 @@ export const getAllResults = (
         decoded: variant.message.length
           ? commonDecode(variant.message, variant.alphabet, partLength, chars)
           : [],
-        selected: variantId && variant.key === variantId,
+        selected: variantKey && variant.key === variantKey,
         alphabet: variant.alphabet,
         key: variant.label,
       }

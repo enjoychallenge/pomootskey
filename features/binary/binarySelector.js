@@ -10,7 +10,7 @@ import * as util from '../../component/resultBox/util'
 import * as numeralSystems from '../common/numeralSystemsSelector'
 
 const getInput = (state) => state.binary.input
-const getVariantId = (state) => state.binary.variant
+const getVariantKey = (state) => state.binary.variant
 export const getCursorIdx = (state) => state.binary.cursorIdx
 export const getCursorType = (state) => state.binary.cursorType
 const getLabels = (state) => state.binary.labels
@@ -51,23 +51,23 @@ const getBinaryLabel = (labels, altChars, altOrder, alphabet) => {
 }
 
 export const getAllResults = createSelector(
-  [getInput, getVariantId, getLabels],
-  (input, variantId, labels) =>
+  [getInput, getVariantKey, getLabels],
+  (input, variantKey, labels) =>
     numeralSystems.getAllResults(
       alphabetVariants,
       chars,
       partLength,
       getBinaryLabel,
       input,
-      variantId,
+      variantKey,
       labels
     )
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllResults],
-  (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.label === variantId) : null
+  [getVariantKey, getAllResults],
+  (variantKey, allResults) => {
+    return variantKey ? allResults.find((res) => res.key === variantKey) : null
   }
 )
 

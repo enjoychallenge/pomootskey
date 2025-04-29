@@ -8,7 +8,7 @@ import { variantPermutations } from '../../app/decode/common'
 export const getIsFocusing = (state) => state.semaphore.isFocusing
 export const getFocused = (state) => state.semaphore.focused
 const getRawInput = (state) => state.semaphore.input
-const getVariantId = (state) => state.semaphore.variant
+const getVariantKey = (state) => state.semaphore.variant
 export const getCursorIdx = (state) => state.semaphore.cursorIdx
 export const getCursorType = (state) => state.semaphore.cursorType
 export const getLastSelected = (state) => state.semaphore.lastSelected
@@ -46,8 +46,8 @@ function keyToVariant(input, altOrder) {
 }
 
 export const getAllResults = createSelector(
-  [getInput, getVariantId],
-  (input, variantId) => {
+  [getInput, getVariantKey],
+  (input, variantKey) => {
     const partLength = 8
     const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
     const variantOrders = variantPermutations(baseOrders)
@@ -66,7 +66,7 @@ export const getAllResults = createSelector(
         label: variant.label,
         input: variant.message,
         decoded: variant.message.map((selected) => decode(selected)),
-        selected: variantId && variant.key === variantId,
+        selected: variantKey && variant.key === variantKey,
         key: variant.key,
       }
     })
@@ -93,12 +93,12 @@ export const getIsLeftArrowDisabled = createSelector(
 )
 
 const getVariant = createSelector(
-  [getVariantId, getInput],
-  (variantId, input) => {
-    if (!variantId) {
+  [getVariantKey, getInput],
+  (variantKey, input) => {
+    if (!variantKey) {
       return null
     }
-    const altOrder = variantId.split('').map((item) => parseInt(item))
+    const altOrder = variantKey.split('').map((item) => parseInt(item))
     const variant = keyToVariant(input, altOrder)
     return {
       label: variant.label,
