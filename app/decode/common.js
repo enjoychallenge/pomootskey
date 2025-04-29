@@ -129,7 +129,7 @@ export function addToOrderedArray(orderedArray, newVariant) {
 
   while (low < high) {
     mid = (low + high) >>> 1
-    if (orderedArray[mid] < value) low = mid + 1
+    if (orderedArray[mid].score < value) low = mid + 1
     else high = mid
   }
   orderedArray.splice(low, 0, newVariant)
