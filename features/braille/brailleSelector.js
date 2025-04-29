@@ -8,14 +8,14 @@ import { cartesian, variantPermutations } from '../../app/decode/common'
 export const getInput = (state) => state.braille.input
 export const getIsFocusing = (state) => state.braille.isFocusing
 
-const getVariantId = (state) => state.braille.variant
+const getVariantKey = (state) => state.braille.variant
 export const getCursorIdx = (state) => state.braille.cursorIdx
 export const getCursorType = (state) => state.braille.cursorType
 export const getPreselected = (state) => state.braille.preselected
 
 export const getAllResults = createSelector(
-  [getInput, getVariantId],
-  (input, variantId) => {
+  [getInput, getVariantKey],
+  (input, variantKey) => {
     const partLength = 6
     const baseOrders = [...Array(partLength).keys()].map((item) => item + 1)
     const variantOrders = variantPermutations(baseOrders, false).map(
@@ -64,7 +64,7 @@ export const getAllResults = createSelector(
           label: variant.label,
           input: variant.message,
           decoded: variant.message.map((selected) => decode(selected)),
-          selected: variantId && variant.key === variantId,
+          selected: variantKey && variant.key === variantKey,
           key: variant.key,
         }
       })
@@ -98,9 +98,9 @@ export const getIsLeftArrowDisabled = createSelector(
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllResults],
-  (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.key === variantId) : null
+  [getVariantKey, getAllResults],
+  (variantKey, allResults) => {
+    return variantKey ? allResults.find((res) => res.key === variantKey) : null
   }
 )
 

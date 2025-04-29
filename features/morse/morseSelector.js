@@ -5,7 +5,7 @@ import { CursorTypes } from '../../app/results'
 import * as util from '../../component/resultBox/util'
 
 const getInput = (state) => state.morse.input
-const getVariantId = (state) => state.morse.variant
+const getVariantKey = (state) => state.morse.variant
 export const getCursorIdx = (state) => state.morse.cursorIdx
 export const getCursorType = (state) => state.morse.cursorType
 
@@ -35,19 +35,21 @@ export const getMorseButtons = createSelector(
 )
 
 export const getAllResults = createSelector(
-  [getInput, getVariantId],
-  (input, variantId) => {
+  [getInput, getVariantKey],
+  (input, variantKey) => {
     return getAllVariants(input).map((variant) => {
-      variant.selected = variantId && variant.label === variantId
+      variant.selected = variantKey && variant.key === variantKey
       return variant
     })
   }
 )
 
 const getVariant = createSelector(
-  [getVariantId, getAllResults],
-  (variantId, allResults) => {
-    return variantId ? allResults.find((res) => res.label === variantId) : null
+  [getVariantKey, getAllResults],
+  (variantKey, allResults) => {
+    return variantKey
+      ? allResults.find((res) => res.label === variantKey)
+      : null
   }
 )
 
