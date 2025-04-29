@@ -25,7 +25,7 @@ export const getInput = createSelector(
   }
 )
 
-function keyToVariant(input, altOrder) {
+function inputToVariant(input, altOrder) {
   const message = input.map((item) => {
     return item.map((point) => altOrder[point - 1])
   })
@@ -58,7 +58,7 @@ export const getAllResults = createSelector(
       },
     ].concat(
       variantOrders.map((altOrder) => {
-        return keyToVariant(input, altOrder)
+        return inputToVariant(input, altOrder)
       })
     )
     const decodedVariants = inputVariants.map((variant) => {
@@ -99,7 +99,7 @@ const getVariant = createSelector(
       return null
     }
     const altOrder = variantKey.split('').map((item) => parseInt(item))
-    const variant = keyToVariant(input, altOrder)
+    const variant = inputToVariant(input, altOrder)
     return {
       label: variant.label,
       input: variant.message,
