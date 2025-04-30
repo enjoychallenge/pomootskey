@@ -1,5 +1,32 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 ;[
+  {
+    pageAlt: 'morse',
+    buttons: [
+      [
+        '●',
+        '‒',
+        '●',
+        '/',
+        '‒',
+        '●',
+        '‒',
+        '/',
+        '‒',
+        '‒',
+        '/',
+        '●',
+        '●',
+        '‒',
+        '‒',
+        '/',
+        '‒',
+        '‒',
+        '‒',
+      ],
+    ],
+    variantId: 'Alternativní řešení ‒●/  ⇒  ●‒/',
+  },
   {
     pageAlt: 'braille',
     buttons: [
@@ -9,8 +36,9 @@ import { test } from '@playwright/test'
       ['2', '4'],
       ['1', '5', '6'],
     ],
+    variantId: '123456-true',
   },
-].forEach(({ pageAlt, buttons }) => {
+].forEach(({ pageAlt, buttons, variantId }) => {
   test(`${pageAlt}, KRIZS, as variant by buttons`, async ({ page }) => {
     await page.getByAltText(pageAlt).click()
 
@@ -18,13 +46,16 @@ import { test } from '@playwright/test'
       for (const buttonText of charButtonText) {
         await page.locator('button').filter({ hasText: buttonText }).click()
       }
-      await page.getByAltText('forwardButton').click()
+      const forwardButton = page.getByAltText('forwardButton')
+      if (await forwardButton.isEnabled()) {
+        await forwardButton.click()
+      }
     }
 
     await page.getByAltText('VariantsButton').click()
 
     await page.waitForTimeout(100)
-    await page.getByTestId('123456-true').click()
+    await page.getByTestId(variantId).click()
     const variantOutput = await page.getByTestId('variantOutputChar')
 
     let expectedVariantOutput = 'KRIZS'

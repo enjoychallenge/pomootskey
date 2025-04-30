@@ -128,6 +128,7 @@ export default function MorsePage() {
         onLongPress={onLongBackspaceClick}
         variant="outlined"
         disabled={isLeftArrowDisabled}
+        alt="backspaceButton"
       >
         <Backspace />
       </LongPressButton>
@@ -137,6 +138,7 @@ export default function MorsePage() {
         middlePeriod={75}
         variant="outlined"
         disabled={isLeftArrowDisabled}
+        alt="backButton"
       >
         <ArrowBack />
       </LongPressButton>
@@ -146,6 +148,7 @@ export default function MorsePage() {
         middlePeriod={75}
         variant="outlined"
         disabled={isRightArrowDisabled}
+        alt="forwardButton"
       >
         <ArrowForward />
       </LongPressButton>
