@@ -25,6 +25,13 @@ import { test } from '@playwright/test'
 
     await page.waitForTimeout(100)
     await page.getByTestId('123456-true').click()
+    const variantOutput = await page.getByTestId('variantOutputChar')
+
+    let expectedVariantOutput = 'KRIZS'
+    await expect(variantOutput).toHaveCount(expectedVariantOutput.length)
+    for (let i = 0; i < expectedVariantOutput.length; i++) {
+      await expect(variantOutput.nth(i)).toHaveText(expectedVariantOutput[i])
+    }
   })
 })
 

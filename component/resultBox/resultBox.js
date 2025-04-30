@@ -81,7 +81,10 @@ const ResultItem = React.memo(function ResultItem({
           className={variantProps.joinerClass}
           sx={transparent ? null : { backgroundColor: 'background.lightPaper' }}
         />
-        <Box className={result_styles.result_output_char}>
+        <Box
+          className={result_styles.result_output_char}
+          data-testid={'variantOutputChar'}
+        >
           {variantProps.outputChar}
         </Box>
       </Box>
