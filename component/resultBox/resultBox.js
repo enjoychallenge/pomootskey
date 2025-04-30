@@ -69,6 +69,7 @@ const ResultItem = React.memo(function ResultItem({
     if (variantProps.extraClass) {
       classNames.push(variantProps.extraClass)
     }
+    const outputTestId = outputChar ? 'variantOutputChar' : null
     variantJsx = (
       <Box className={classNames.join(' ')}>
         <Box
@@ -83,7 +84,7 @@ const ResultItem = React.memo(function ResultItem({
         />
         <Box
           className={result_styles.result_output_char}
-          data-testid={'variantOutputChar'}
+          data-testid={outputTestId}
         >
           {variantProps.outputChar}
         </Box>
