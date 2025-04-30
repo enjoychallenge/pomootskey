@@ -95,6 +95,7 @@ export default function NumeralSystemPage(slice, selector) {
         onLongPress={onLongBackspaceClick}
         variant="outlined"
         disabled={isLeftArrowDisabled}
+        alt="backspaceButton"
       >
         <Backspace />
       </LongPressButton>
@@ -104,6 +105,7 @@ export default function NumeralSystemPage(slice, selector) {
         middlePeriod={75}
         variant="outlined"
         disabled={isLeftArrowDisabled}
+        alt="backButton"
       >
         <ArrowBack />
       </LongPressButton>
@@ -113,6 +115,7 @@ export default function NumeralSystemPage(slice, selector) {
         middlePeriod={75}
         variant="outlined"
         disabled={isRightArrowDisabled}
+        alt="forwardButton"
       >
         <ArrowForward />
       </LongPressButton>
