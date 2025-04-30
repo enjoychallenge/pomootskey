@@ -23,6 +23,17 @@ import { expect, test } from '@playwright/test'
         '‒',
         '‒',
         '‒',
+        '●',
+        '/',
+        '‒',
+        '●',
+        '●',
+        '●',
+        '/',
+        '‒',
+        '‒',
+        '‒',
+        '●',
       ],
     ],
     variantId: 'Alternativní řešení ‒●/  ⇒  ●‒/',
@@ -34,12 +45,27 @@ import { expect, test } from '@playwright/test'
       ['4', '6'],
       ['1', '3', '5', '6'],
       ['2', '4'],
-      ['1', '5', '6'],
+      ['4', '5'],
+      ['1', '3', '6'],
+      ['4', '5'],
     ],
     variantId: '123456-true',
   },
+  {
+    pageAlt: 'semaphore',
+    buttons: [
+      ['1', '4'],
+      ['2', '6'],
+      ['1', '3'],
+      ['6', '7'],
+      ['4', '7'],
+      ['4', '6'],
+      ['4', '7'],
+    ],
+    variantId: '23456781',
+  },
 ].forEach(({ pageAlt, buttons, variantId }) => {
-  test(`${pageAlt}, KRIZS, as variant by buttons`, async ({ page }) => {
+  test(`${pageAlt}, KRIZVJV, as variant by buttons`, async ({ page }) => {
     await page.getByAltText(pageAlt).click()
 
     for (const charButtonText of buttons) {
@@ -58,7 +84,7 @@ import { expect, test } from '@playwright/test'
     await page.getByTestId(variantId).click()
     const variantOutput = await page.getByTestId('variantOutputChar')
 
-    let expectedVariantOutput = 'KRIZS'
+    let expectedVariantOutput = 'KRIZVJV'
     await expect(variantOutput).toHaveCount(expectedVariantOutput.length)
     for (let i = 0; i < expectedVariantOutput.length; i++) {
       await expect(variantOutput.nth(i)).toHaveText(expectedVariantOutput[i])
