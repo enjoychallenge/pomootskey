@@ -69,7 +69,7 @@ def save_ngram_scores(scores: dict) -> None:
 
 
 def calculate_solutions_ngram_scores(solutions_filepath: str) -> dict:
-    ngram_lengths = [1, 2, 3]
+    ngram_lengths = [1, 2, 3, 4, 5]
     ngram_counts = {length: {} for length in ngram_lengths}
     with open(solutions_filepath) as file:
         for raw_line in file:
@@ -85,10 +85,19 @@ def calculate_solutions_ngram_scores(solutions_filepath: str) -> dict:
                             ngram_counts[3][trigram] = (
                                 ngram_counts[3].get(trigram, 0) + 1
                             )
+                            if idx < len(line) - 3:
+                                gram_4 = line[idx : idx + 4]
+                                ngram_counts[4][gram_4] = (
+                                    ngram_counts[4].get(gram_4, 0) + 1
+                                )
+                                if idx < len(line) - 4:
+                                    gram_5 = line[idx : idx + 5]
+                                    ngram_counts[5][gram_5] = (
+                                        ngram_counts[5].get(gram_5, 0) + 1
+                                    )
+
     return {
-        1: calculate_ngram_scores(ngram_counts[1]),
-        2: calculate_ngram_scores(ngram_counts[2]),
-        3: calculate_ngram_scores(ngram_counts[3]),
+        length: calculate_ngram_scores(ngram_counts[length]) for length in ngram_lengths
     }
 
 
