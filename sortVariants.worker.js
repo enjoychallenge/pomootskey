@@ -10,9 +10,10 @@ onmessage = function (e) {
     (size) => size <= variantsToSort.length
   )
   const scoredVariants = variantsToSort.map((variant) => {
+    const decoded = variant.decoded.filter((part) => part.type !== 'sep')
     return {
       ...variant,
-      score: -scoreResult(variant.decoded),
+      score: -scoreResult(decoded),
     }
   })
 
