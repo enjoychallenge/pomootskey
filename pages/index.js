@@ -46,6 +46,12 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">Binárka</Typography>
               </Button>
             </NextLink>
+            <NextLink href="/words" passHref>
+              <Button>
+                <img src="icons/words.svg" alt="Words" />
+                <Typography variant="h5">Slova</Typography>
+              </Button>
+            </NextLink>
           </Box>
         </Box>
       </Box>
