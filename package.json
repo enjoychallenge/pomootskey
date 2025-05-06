@@ -11,7 +11,8 @@
     "format-fix": "prettier --write . && black utils",
     "deploy-do": "next build && next export && mv out/manifest-preprod.json out/manifest.json && ./deploy.sh SSH_PREPROD",
     "deploy-do-production": "NEXT_PUBLIC_DOMAIN=production next build && rm -f out/manifest-preprod.json && next export && ./deploy.sh SSH_PRODUCTION",
-    "generate_ngrams_score": "python3 utils/generate_ngrams_score.py"
+    "generate_ngrams_score": "python3 utils/generate_ngrams_score.py",
+    "transform_cs_dictionary": "python3 utils/transform_cs_dictionary.py"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
