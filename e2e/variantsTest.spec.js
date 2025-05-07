@@ -2,40 +2,7 @@ import { expect, test } from '@playwright/test'
 ;[
   {
     pageAlt: 'morse',
-    buttons: [
-      [
-        '●',
-        '‒',
-        '●',
-        '/',
-        '‒',
-        '●',
-        '‒',
-        '/',
-        '‒',
-        '‒',
-        '/',
-        '●',
-        '●',
-        '‒',
-        '‒',
-        '/',
-        '‒',
-        '‒',
-        '‒',
-        '●',
-        '/',
-        '‒',
-        '●',
-        '●',
-        '●',
-        '/',
-        '‒',
-        '‒',
-        '‒',
-        '●',
-      ],
-    ],
+    buttons: ['●‒●/‒●‒/‒‒/●●‒‒/‒‒‒●/‒●●●/‒‒‒●'],
     variantKey: 'Alternativní řešení ‒●/  ⇒  ●‒/',
   },
   {
@@ -66,73 +33,13 @@ import { expect, test } from '@playwright/test'
   },
   {
     pageAlt: 'ternary',
-    buttons: [
-      [
-        '0',
-        '2',
-        '1',
-        '1',
-        '2',
-        '2',
-        '0',
-        '2',
-        '2',
-        '1',
-        '1',
-        '1',
-        '1',
-        '0',
-        '0',
-        '0',
-        '2',
-        '0',
-        '1',
-        '0',
-        '0',
-      ],
-    ],
+    buttons: ['021122022111100020100'],
     variantKey:
       'Trojkovka (hodnoty 0=1, 1=2, 2=0; pořadí 1.=>1., 2.=>2., 3.=>3.; A=0, s Ch)',
   },
   {
     pageAlt: 'binary',
-    buttons: [
-      '1',
-      '0',
-      '1',
-      '0',
-      '0',
-      '0',
-      '1',
-      '1',
-      '0',
-      '1',
-      '1',
-      '0',
-      '1',
-      '1',
-      '0',
-      '0',
-      '0',
-      '1',
-      '0',
-      '1',
-      '0',
-      '1',
-      '0',
-      '0',
-      '1',
-      '1',
-      '0',
-      '1',
-      '0',
-      '1',
-      '0',
-      '1',
-      '0',
-      '0',
-      '1',
-    ],
+    buttons: ['10100011011011000101010011010101001'],
     variantKey: 'Binár (hodnoty 0=1, 1=0; pořadí =>12345; A=1)',
   },
 ].forEach(({ pageAlt, buttons, variantKey }) => {
@@ -140,7 +47,11 @@ import { expect, test } from '@playwright/test'
     await page.getByAltText(pageAlt).click()
 
     for (const charButtonText of buttons) {
-      for (const buttonText of charButtonText) {
+      const charButtons =
+        charButtonText.constructor === Array
+          ? charButtonText
+          : charButtonText.split('')
+      for (const buttonText of charButtons) {
         await page.locator('button').filter({ hasText: buttonText }).click()
       }
       const forwardButton = page.getByAltText('forwardButton')
