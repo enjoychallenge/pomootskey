@@ -36,7 +36,7 @@ import { expect, test } from '@playwright/test'
         '●',
       ],
     ],
-    variantId: 'Alternativní řešení ‒●/  ⇒  ●‒/',
+    variantKey: 'Alternativní řešení ‒●/  ⇒  ●‒/',
   },
   {
     pageAlt: 'braille',
@@ -49,7 +49,7 @@ import { expect, test } from '@playwright/test'
       ['1', '3', '6'],
       ['4', '5'],
     ],
-    variantId: '123456-true',
+    variantKey: '123456-true',
   },
   {
     pageAlt: 'semaphore',
@@ -62,7 +62,7 @@ import { expect, test } from '@playwright/test'
       ['4', '6'],
       ['4', '7'],
     ],
-    variantId: '23456781',
+    variantKey: '23456781',
   },
   {
     pageAlt: 'ternary',
@@ -91,7 +91,7 @@ import { expect, test } from '@playwright/test'
         '0',
       ],
     ],
-    variantId:
+    variantKey:
       'Trojkovka (hodnoty 0=1, 1=2, 2=0; pořadí 1.=>1., 2.=>2., 3.=>3.; A=0, s Ch)',
   },
   {
@@ -133,9 +133,9 @@ import { expect, test } from '@playwright/test'
       '0',
       '1',
     ],
-    variantId: 'Binár (hodnoty 0=1, 1=0; pořadí =>12345; A=1)',
+    variantKey: 'Binár (hodnoty 0=1, 1=0; pořadí =>12345; A=1)',
   },
-].forEach(({ pageAlt, buttons, variantId }) => {
+].forEach(({ pageAlt, buttons, variantKey }) => {
   test(`${pageAlt}, KRIZVJV, as variant by buttons`, async ({ page }) => {
     await page.getByAltText(pageAlt).click()
 
@@ -152,7 +152,7 @@ import { expect, test } from '@playwright/test'
     await page.getByAltText('VariantsButton').click()
 
     await page.waitForTimeout(100)
-    await page.getByTestId(variantId).click()
+    await page.getByTestId(variantKey).click()
     const variantOutput = await page.getByTestId('variantOutputChar')
 
     let expectedVariantOutput = 'KRIZVJV'
