@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   chars: '',
+  lenInterval: [3, 14],
 }
 
 export const wordsSlice = createSlice({
@@ -11,9 +12,12 @@ export const wordsSlice = createSlice({
     setChars: (state, action) => {
       state.chars = action.payload.value
     },
+    setLenInterval: (state, action) => {
+      state.lenInterval = action.payload.value
+    },
   },
 })
 
-export const { setChars } = wordsSlice.actions
+export const { setChars, setLenInterval } = wordsSlice.actions
 
 export default wordsSlice.reducer
