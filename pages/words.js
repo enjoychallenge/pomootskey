@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography, Slider } from '@mui/material'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import AppBar from '../component/AppBar'
 import * as slctr from '../features/words/wordsSelector'
 import layout_styles from '../styles/common/layout.module.scss'
-import { setChars } from '../features/words/wordsSlice'
+import { setChars, setLenInterval } from '../features/words/wordsSlice'
 import result_styles from '../styles/common/result.module.scss'
 import * as React from 'react'
 
@@ -15,6 +15,8 @@ export default function WordsPage() {
   const dispatch = useAppDispatch()
   const chars = useAppSelector(slctr.getChars)
   const allWords = useAppSelector(slctr.getWords)
+  const wordLenInterval = useAppSelector(slctr.getLenInterval)
+  const wordLenIntervalEnable = useAppSelector(slctr.getLenIntervalEnabled)
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
@@ -76,6 +78,13 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  const onLenIntervalChange = useCallback(
+    (value) => {
+      dispatch(setLenInterval({ value }))
+    },
+    [dispatch]
+  )
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -93,6 +102,17 @@ export default function WordsPage() {
                 label="Hledané znaky"
                 value={chars}
                 onChange={(event) => onCharsChange(event.target.value)}
+              />
+              <Slider
+                aria-label="Délka slova"
+                value={wordLenInterval}
+                onChange={(event, newValue) => onLenIntervalChange(newValue)}
+                min={1}
+                max={14}
+                step={1}
+                valueLabelDisplay="auto"
+                marks={true}
+                disabled={!wordLenIntervalEnable}
               />
             </Box>
           </Box>
