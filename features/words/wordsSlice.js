@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   chars: '',
   lenInterval: [3, 14],
+  caseInsensitive: true,
 }
 
 export const wordsSlice = createSlice({
@@ -15,9 +16,13 @@ export const wordsSlice = createSlice({
     setLenInterval: (state, action) => {
       state.lenInterval = action.payload.value
     },
+    setCaseInsensitive: (state, action) => {
+      state.caseInsensitive = action.payload.value
+    },
   },
 })
 
-export const { setChars, setLenInterval } = wordsSlice.actions
+export const { setChars, setLenInterval, setCaseInsensitive } =
+  wordsSlice.actions
 
 export default wordsSlice.reducer

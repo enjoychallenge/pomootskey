@@ -1,10 +1,22 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { Box, TextField, Typography, Slider } from '@mui/material'
+import {
+  Box,
+  TextField,
+  Typography,
+  Slider,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+} from '@mui/material'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import AppBar from '../component/AppBar'
 import * as slctr from '../features/words/wordsSelector'
 import layout_styles from '../styles/common/layout.module.scss'
-import { setChars, setLenInterval } from '../features/words/wordsSlice'
+import {
+  setChars,
+  setLenInterval,
+  setCaseInsensitive,
+} from '../features/words/wordsSlice'
 import result_styles from '../styles/common/result.module.scss'
 import * as React from 'react'
 
@@ -16,6 +28,7 @@ export default function WordsPage() {
   const chars = useAppSelector(slctr.getChars)
   const allWords = useAppSelector(slctr.getWords)
   const wordLenInterval = useAppSelector(slctr.getLenInterval)
+  const caseInsensitive = useAppSelector(slctr.getCaseInsensitive)
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
@@ -84,6 +97,13 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  const onCaseInsensitiveChange = useCallback(
+    (value) => {
+      dispatch(setCaseInsensitive({ value }))
+    },
+    [dispatch]
+  )
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -112,6 +132,20 @@ export default function WordsPage() {
                 valueLabelDisplay="auto"
                 marks={true}
               />
+              <FormGroup>
+                <FormControlLabel
+                  label="A=a"
+                  control={
+                    <Checkbox
+                      checked={caseInsensitive}
+                      label="A=a"
+                      onChange={(event, newValue) =>
+                        onCaseInsensitiveChange(newValue)
+                      }
+                    />
+                  }
+                />
+              </FormGroup>
             </Box>
           </Box>
           <Box
