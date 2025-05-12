@@ -1,9 +1,10 @@
 import words_file from './words.json'
 
-export function findWords(substr, lenInterval) {
+export function findWords(substr, lenInterval, normalize) {
+  const normalizedSubstr = normalize(substr)
   const results = words_file.filter(
     (word) =>
-      word.includes(substr) &&
+      normalize(word).includes(normalizedSubstr) &&
       word.length >= lenInterval[0] &&
       word.length <= lenInterval[1]
   )
