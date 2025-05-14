@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { searchTypeEnum } from '../../app/decode/words'
 
 const initialState = {
   chars: '',
+  searchType: searchTypeEnum.Subtring,
   lenInterval: [3, 14],
   caseInsensitive: true,
 }
@@ -19,10 +21,13 @@ export const wordsSlice = createSlice({
     setCaseInsensitive: (state, action) => {
       state.caseInsensitive = action.payload.value
     },
+    setSearchType: (state, action) => {
+      state.searchType = action.payload.value
+    },
   },
 })
 
-export const { setChars, setLenInterval, setCaseInsensitive } =
+export const { setChars, setSearchType, setLenInterval, setCaseInsensitive } =
   wordsSlice.actions
 
 export default wordsSlice.reducer

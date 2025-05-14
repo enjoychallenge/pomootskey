@@ -1,19 +1,33 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { findWords } from '../../app/decode/words'
+import { findWords, searchTypeEnum } from '../../app/decode/words'
 
 export const getChars = (state) => state.words.chars
+export const getSearchType = (state) => state.words.searchType
 export const getLenInterval = (state) => state.words.lenInterval
 export const getCaseInsensitive = (state) => state.words.caseInsensitive
 
-export const getNormalize = createSelector(
-  [getCaseInsensitive],
-  (caseInsensitive) => {
-    return (x) => (caseInsensitive ? x.toLowerCase() : x)
+const getNormalize = createSelector([getCaseInsensitive], (caseInsensitive) => {
+  return (x) => (caseInsensitive ? x.toLowerCase() : x)
+})
+
+const getSearchMethod = createSelector(
+  [getSearchType],
+  (searchType) => {
+    switch (searchType) {
+      case searchTypeEnum.Subtring:
+        return (word, normalizedChars) =>
+          word.includes(normalizedChars)
+      case searchTypeEnum.Anagram:
+        return (word, normalizedChars) =>
+          word.split('').sort().join('') ===
+          normalizedChars.split('').sort().join('')
+    }
   }
 )
+
 export const getWords = createSelector(
-  [getChars, getLenInterval, getNormalize],
-  (chars, lenInterval, normalize) => {
-    return chars ? findWords(chars, lenInterval, normalize) : []
+  [getChars, getLenInterval, getNormalize, getSearchMethod],
+  (chars, lenInterval, normalize, searchMethod) => {
+    return chars ? findWords(chars, lenInterval, normalize, searchMethod) : []
   }
 )

@@ -5,6 +5,8 @@ import {
   Typography,
   Slider,
   Checkbox,
+  Select,
+  MenuItem,
   FormGroup,
   FormControlLabel,
 } from '@mui/material'
@@ -14,9 +16,11 @@ import * as slctr from '../features/words/wordsSelector'
 import layout_styles from '../styles/common/layout.module.scss'
 import {
   setChars,
+  setSearchType,
   setLenInterval,
   setCaseInsensitive,
 } from '../features/words/wordsSlice'
+import { searchTypeEnum } from '../app/decode/words'
 import result_styles from '../styles/common/result.module.scss'
 import * as React from 'react'
 
@@ -26,6 +30,7 @@ export default function WordsPage() {
   const loaderRef = useRef(null)
   const dispatch = useAppDispatch()
   const chars = useAppSelector(slctr.getChars)
+  const searchType = useAppSelector(slctr.getSearchType)
   const allWords = useAppSelector(slctr.getWords)
   const wordLenInterval = useAppSelector(slctr.getLenInterval)
   const caseInsensitive = useAppSelector(slctr.getCaseInsensitive)
@@ -41,6 +46,14 @@ export default function WordsPage() {
       )
     })
   }
+
+  const filterMethodsJsx = Object.entries(searchTypeEnum).map(
+    ([key, value]) => (
+      <MenuItem key={key} value={value}>
+        {value}
+      </MenuItem>
+    )
+  )
 
   const addPage = useCallback(async () => {
     if (isLoading) return
@@ -90,6 +103,13 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  const onSearchTypeChange = useCallback(
+    (value) => {
+      dispatch(setSearchType({ value }))
+    },
+    [dispatch]
+  )
+
   const onLenIntervalChange = useCallback(
     (value) => {
       dispatch(setLenInterval({ value }))
@@ -122,6 +142,12 @@ export default function WordsPage() {
                 value={chars}
                 onChange={(event) => onCharsChange(event.target.value)}
               />
+              <Select
+                value={searchType}
+                onChange={(event) => onSearchTypeChange(event.target.value)}
+              >
+                {filterMethodsJsx}
+              </Select>
               <Slider
                 aria-label="Délka slova"
                 value={wordLenInterval}
