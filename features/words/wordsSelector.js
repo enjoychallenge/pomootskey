@@ -30,20 +30,19 @@ export const getLenInterval = createSelector(
   }
 )
 
-const getSearchMethod = createSelector(
-  [getSearchType],
-  (searchType) => {
-    switch (searchType) {
-      case searchTypeEnum.Subtring:
-        return (word, normalizedChars) =>
-          word.includes(normalizedChars)
-      case searchTypeEnum.Anagram:
-        return (word, normalizedChars) =>
-          word.split('').sort().join('') ===
-          normalizedChars.split('').sort().join('')
-    }
+const getSearchMethod = createSelector([getSearchType], (searchType) => {
+  switch (searchType) {
+    case searchTypeEnum.Subtring:
+      return (word, normalizedChars) => word.includes(normalizedChars)
+    case searchTypeEnum.Anagram:
+      return (word, normalizedChars) =>
+        word.split('').sort().join('') ===
+        normalizedChars.split('').sort().join('')
+    case searchTypeEnum.Regex:
+      return (word, normalizedChars) =>
+        new RegExp(normalizedChars, 'g').test(word)
   }
-)
+})
 
 export const getWords = createSelector(
   [getChars, getLenInterval, getNormalize, getSearchMethod],
