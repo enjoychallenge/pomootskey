@@ -3,6 +3,7 @@ import words_file from './words.json'
 export const searchTypeEnum = {
   Subtring: 'Podřetězec',
   Anagram: 'Přesmyčka',
+  Regex: 'Regex',
 }
 
 export function findWords(substr, lenInterval, normalize, filterMethod) {

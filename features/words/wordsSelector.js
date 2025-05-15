@@ -29,6 +29,9 @@ const getSearchMethod = createSelector([getSearchType], (searchType) => {
       return (word, normalizedChars) =>
         word.split('').sort().join('') ===
         normalizedChars.split('').sort().join('')
+    case searchTypeEnum.Regex:
+      return (word, normalizedChars) =>
+        new RegExp(normalizedChars, 'g').test(word)
   }
 })
 
