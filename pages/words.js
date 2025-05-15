@@ -19,6 +19,7 @@ import {
   setSearchType,
   setLenInterval,
   setCaseInsensitive,
+  setDiacriticsInsensitive,
 } from '../features/words/wordsSlice'
 import { searchTypeEnum } from '../app/decode/words'
 import result_styles from '../styles/common/result.module.scss'
@@ -35,6 +36,7 @@ export default function WordsPage() {
   const wordLenInterval = useAppSelector(slctr.getLenInterval)
   const wordLenIntervalEnable = useAppSelector(slctr.getLenIntervalEnabled)
   const caseInsensitive = useAppSelector(slctr.getCaseInsensitive)
+  const diacriticsInsensitive = useAppSelector(slctr.getDiacriticsInsensitive)
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
@@ -118,6 +120,20 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  const onCaseInsensitiveChange = useCallback(
+    (value) => {
+      dispatch(setCaseInsensitive({ value }))
+    },
+    [dispatch]
+  )
+
+  const onDiacriticsInsensitiveChange = useCallback(
+    (value) => {
+      dispatch(setDiacriticsInsensitive({ value }))
+    },
+    [dispatch]
+  )
+
   return (
     <>
       <Box className={layout_styles.page}>
@@ -162,6 +178,18 @@ export default function WordsPage() {
                       label="A=a"
                       onChange={(event, newValue) =>
                         onCaseInsensitiveChange(newValue)
+                      }
+                    />
+                  }
+                />
+                <FormControlLabel
+                  label="ř=r"
+                  control={
+                    <Checkbox
+                      checked={diacriticsInsensitive}
+                      label="A=a"
+                      onChange={(event, newValue) =>
+                        onDiacriticsInsensitiveChange(newValue)
                       }
                     />
                   }
