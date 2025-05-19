@@ -150,6 +150,12 @@ export default function WordsPage() {
                 label="Hledané znaky"
                 value={chars}
                 onChange={(event) => onCharsChange(event.target.value)}
+                inputProps={{
+                  autocomplete: 'off',
+                  autocorrect: 'off',
+                  autocapitalize: 'off',
+                  spellcheck: 'false',
+                }}
               />
               <Select
                 value={searchType}
