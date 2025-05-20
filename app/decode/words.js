@@ -6,7 +6,7 @@ export const searchTypeEnum = {
   Regex: 'Regex',
 }
 
-export function findWords(substr, lenInterval, normalize, filterMethod) {
+export function filterWords(substr, lenInterval, normalize, filterMethod) {
   const normalizedSubstr = normalize(substr)
   const results = words_file
     .filter((word) => filterMethod(normalize(word), normalizedSubstr))
@@ -14,4 +14,8 @@ export function findWords(substr, lenInterval, normalize, filterMethod) {
       (word) => word.length >= lenInterval[0] && word.length <= lenInterval[1]
     )
   return results
+}
+
+export function isAnagram(word1, word2) {
+  return word1.split('').sort().join('') === word2.split('').sort().join('')
 }

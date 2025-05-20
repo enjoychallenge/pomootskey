@@ -28,16 +28,20 @@ import * as React from 'react'
 export default function WordsPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [pageIndex, setPageIndex] = useState(0)
+  const [results, setResults] = useState([])
+  const [wordsJsx, setWordsJsx] = useState([])
+
   const loaderRef = useRef(null)
+  const workerRef = useRef(null)
   const dispatch = useAppDispatch()
+
   const chars = useAppSelector(slctr.getChars)
   const searchType = useAppSelector(slctr.getSearchType)
-  const allWords = useAppSelector(slctr.getWords)
   const wordLenInterval = useAppSelector(slctr.getLenInterval)
   const caseInsensitive = useAppSelector(slctr.getCaseInsensitive)
   const diacriticsInsensitive = useAppSelector(slctr.getDiacriticsInsensitive)
+
   const pageSize = 50
-  const [wordsJsx, setWordsJsx] = useState([])
 
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {
@@ -62,21 +66,21 @@ export default function WordsPage() {
 
     setIsLoading(true)
 
-    const newWords = allWords.slice(
+    const newWords = results.slice(
       pageSize * pageIndex,
       pageSize * (pageIndex + 1)
     )
     setWordsJsx((prevWords) => [...prevWords, wordsToJsx(newWords)])
     setPageIndex((prevIndex) => prevIndex + 1)
     setIsLoading(false)
-  }, [isLoading, allWords, pageIndex])
+  }, [isLoading, results, pageIndex])
 
   useEffect(() => {
     setIsLoading(true)
-    setWordsJsx(wordsToJsx(allWords.slice(0, pageSize)))
+    setWordsJsx(wordsToJsx(results.slice(0, pageSize)))
     setPageIndex(1)
     setIsLoading(false)
-  }, [allWords])
+  }, [results])
 
   useEffect(() => {
     const loaderRefLocal = loaderRef.current
@@ -97,6 +101,39 @@ export default function WordsPage() {
       }
     }
   }, [addPage])
+
+  useEffect(() => {
+    setResults([])
+    if (chars === '') return
+    workerRef.current = new Worker(
+      new URL('../searchWords.worker', import.meta.url)
+    )
+
+    workerRef.current.onmessage = function (event) {
+      const { results } = event.data
+      setResults(results)
+      setIsLoading(false)
+    }
+
+    setIsLoading(true)
+    workerRef.current.postMessage({
+      input: chars,
+      lenInterval: wordLenInterval,
+      caseInsensitive: caseInsensitive,
+      diacriticsInsensitive: diacriticsInsensitive,
+      searchType: searchType,
+    })
+
+    return () => {
+      workerRef.current?.terminate()
+    }
+  }, [
+    caseInsensitive,
+    chars,
+    diacriticsInsensitive,
+    searchType,
+    wordLenInterval,
+  ])
 
   const onCharsChange = useCallback(
     (value) => {
