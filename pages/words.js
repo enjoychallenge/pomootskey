@@ -110,9 +110,10 @@ export default function WordsPage() {
     )
 
     workerRef.current.onmessage = function (event) {
-      const { results } = event.data
-      setResults(results)
-      setIsLoading(false)
+      const messageType = event.data.type
+      if (messageType === 'result')
+        setResults((results) => [...results, event.data.result])
+      else setIsLoading(false)
     }
 
     setIsLoading(true)

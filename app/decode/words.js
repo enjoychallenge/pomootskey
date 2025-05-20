@@ -6,14 +6,18 @@ export const searchTypeEnum = {
   Regex: 'Regex',
 }
 
-export function filterWords(substr, lenInterval, normalize, filterMethod) {
+export function* searchWords(substr, lenInterval, normalize, filterMethod) {
   const normalizedSubstr = normalize(substr)
-  const results = words_file
-    .filter((word) => filterMethod(normalize(word), normalizedSubstr))
-    .filter(
-      (word) => word.length >= lenInterval[0] && word.length <= lenInterval[1]
-    )
-  return results
+  for (const [i, word1] of words_file.entries()) {
+    const word = normalize(word1)
+    if (
+      word.length >= lenInterval[0] &&
+      word.length <= lenInterval[1] &&
+      filterMethod(word, normalizedSubstr)
+    ) {
+      yield word1
+    }
+  }
 }
 
 export function isAnagram(word1, word2) {
