@@ -1,4 +1,4 @@
-import { isAnagram, searchTypeEnum, searchWords } from './app/decode/words'
+import { isAnagram, searchTypeEnum, filterWords } from './app/decode/words'
 
 const getNormalize = (caseInsensitive, diacriticsInsensitive) => {
   return (x) => {
@@ -33,6 +33,7 @@ onmessage = function (e) {
   const {
     input,
     lenInterval,
+    wordsCount,
     caseInsensitive,
     diacriticsInsensitive,
     searchType,
@@ -41,7 +42,8 @@ onmessage = function (e) {
   const normalize = getNormalize(caseInsensitive, diacriticsInsensitive)
 
   const filterMethod = getFilterMethod(searchType)
-  const resultsIter = searchWords(input, lenInterval, normalize, filterMethod)
+  const normalizedInput = normalize(input)
+  const resultsIter = filterWords(normalizedInput, filterMethod, normalize, wordsCount, [], 0)
   for (const result of resultsIter) {
     postMessage({
       type: 'result',

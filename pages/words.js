@@ -18,6 +18,7 @@ import {
   setChars,
   setSearchType,
   setLenInterval,
+  setWordsCount,
   setCaseInsensitive,
   setDiacriticsInsensitive,
 } from '../features/words/wordsSlice'
@@ -38,6 +39,7 @@ export default function WordsPage() {
   const chars = useAppSelector(slctr.getChars)
   const searchType = useAppSelector(slctr.getSearchType)
   const wordLenInterval = useAppSelector(slctr.getLenInterval)
+  const wordsCount = useAppSelector(slctr.getWordsCount)
   const caseInsensitive = useAppSelector(slctr.getCaseInsensitive)
   const diacriticsInsensitive = useAppSelector(slctr.getDiacriticsInsensitive)
 
@@ -120,6 +122,7 @@ export default function WordsPage() {
     workerRef.current.postMessage({
       input: chars,
       lenInterval: wordLenInterval,
+      wordsCount: wordsCount,
       caseInsensitive: caseInsensitive,
       diacriticsInsensitive: diacriticsInsensitive,
       searchType: searchType,
@@ -153,6 +156,13 @@ export default function WordsPage() {
   const onLenIntervalChange = useCallback(
     (value) => {
       dispatch(setLenInterval({ value }))
+    },
+    [dispatch]
+  )
+
+  const onWordsCountChange = useCallback(
+    (value) => {
+      dispatch(setWordsCount({ value }))
     },
     [dispatch]
   )
@@ -207,6 +217,16 @@ export default function WordsPage() {
                 onChange={(event, newValue) => onLenIntervalChange(newValue)}
                 min={1}
                 max={14}
+                step={1}
+                valueLabelDisplay="auto"
+                marks={true}
+              />
+              <Slider
+                aria-label="Počet slov"
+                value={wordsCount}
+                onChange={(event, newValue) => onWordsCountChange(newValue)}
+                min={1}
+                max={6}
                 step={1}
                 valueLabelDisplay="auto"
                 marks={true}

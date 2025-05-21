@@ -5,6 +5,7 @@ const initialState = {
   chars: '',
   searchType: searchTypeEnum.Subtring,
   lenInterval: [3, 14],
+  wordsCount: 1,
   caseInsensitive: true,
   diacriticsInsensitive: true,
 }
@@ -18,6 +19,9 @@ export const wordsSlice = createSlice({
     },
     setLenInterval: (state, action) => {
       state.lenInterval = action.payload.value
+    },
+    setWordsCount: (state, action) => {
+      state.wordsCount = action.payload.value
     },
     setCaseInsensitive: (state, action) => {
       state.caseInsensitive = action.payload.value
@@ -35,6 +39,7 @@ export const {
   setChars,
   setSearchType,
   setLenInterval,
+  setWordsCount,
   setCaseInsensitive,
   setDiacriticsInsensitive,
 } = wordsSlice.actions
