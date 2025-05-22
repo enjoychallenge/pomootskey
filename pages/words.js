@@ -23,6 +23,7 @@ import {
 } from '../features/words/wordsSlice'
 import { searchTypeEnum } from '../app/decode/words'
 import result_styles from '../styles/common/result.module.scss'
+import words_styles from '../styles/words.module.scss'
 import * as React from 'react'
 
 export default function WordsPage() {
@@ -144,7 +145,7 @@ export default function WordsPage() {
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
-            <Box>
+            <Box className={words_styles.inputs_type_box}>
               <TextField
                 required
                 id="input-chars"
@@ -164,6 +165,8 @@ export default function WordsPage() {
               >
                 {filterMethodsJsx}
               </Select>
+            </Box>
+            <Box className={words_styles.slider}>
               <Slider
                 aria-label="Délka slova"
                 value={wordLenInterval}
@@ -175,33 +178,34 @@ export default function WordsPage() {
                 marks={true}
                 disabled={!wordLenIntervalEnable}
               />
-              <FormGroup>
-                <FormControlLabel
-                  label="A=a"
-                  control={
-                    <Checkbox
-                      checked={caseInsensitive}
-                      label="A=a"
-                      onChange={(event, newValue) =>
-                        onCaseInsensitiveChange(newValue)
-                      }
-                    />
-                  }
-                />
-                <FormControlLabel
-                  label="ř=r"
-                  control={
-                    <Checkbox
-                      checked={diacriticsInsensitive}
-                      label="A=a"
-                      onChange={(event, newValue) =>
-                        onDiacriticsInsensitiveChange(newValue)
-                      }
-                    />
-                  }
-                />
-              </FormGroup>
+              <Typography>Délka slova</Typography>
             </Box>
+            <FormGroup className={words_styles.checkboxes_group}>
+              <FormControlLabel
+                label="A=a"
+                control={
+                  <Checkbox
+                    checked={caseInsensitive}
+                    label="A=a"
+                    onChange={(event, newValue) =>
+                      onCaseInsensitiveChange(newValue)
+                    }
+                  />
+                }
+              />
+              <FormControlLabel
+                label="ř=r"
+                control={
+                  <Checkbox
+                    checked={diacriticsInsensitive}
+                    label="A=a"
+                    onChange={(event, newValue) =>
+                      onDiacriticsInsensitiveChange(newValue)
+                    }
+                  />
+                }
+              />
+            </FormGroup>
           </Box>
           <Box
             sx={{ color: 'result.main' }}
