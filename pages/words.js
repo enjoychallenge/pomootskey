@@ -168,7 +168,7 @@ export default function WordsPage() {
             </Box>
             <Box className={words_styles.slider}>
               <Slider
-                aria-label="Délka slova"
+                name="Délka slova"
                 value={wordLenInterval}
                 onChange={(event, newValue) => onLenIntervalChange(newValue)}
                 min={1}
