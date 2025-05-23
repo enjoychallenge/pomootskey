@@ -41,6 +41,76 @@ export default function WordsPage() {
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
+  useEffect(() => {
+    window.addEventListener('native.showkeyboard', () => {
+      console.log(
+        '**************************************************** native.showkeyboard'
+      )
+      dispatch(setChars('native.showkeyboard'))
+      const w = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+      const h = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      )
+      document.documentElement.style.width = w + 'px'
+      document.documentElement.style.height = h + 'px'
+      document.body.style.width = w + 'px'
+      document.body.style.height = h + 'px'
+    })
+
+    window.addEventListener('native.hidekeyboard', () => {
+      console.log(
+        '**************************************************** native.hidekeyboard'
+      )
+      dispatch(setChars('native.hidekeyboard'))
+      const w = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+      const h = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      )
+      document.documentElement.style.width = w + 'px'
+      document.documentElement.style.height = h + 'px'
+      document.body.style.width = w + 'px'
+      document.body.style.height = h + 'px'
+    })
+
+    window.visualViewport.addEventListener('resize', event => () => {
+      console.log(
+        '**************************************************** resize'
+      )
+      dispatch(setChars('resize'))
+      const w = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      )
+      const h = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      )
+      document.documentElement.style.width = w + 'px'
+      document.documentElement.style.height = h + 'px'
+      document.body.style.width = w + 'px'
+      document.body.style.height = h + 'px'
+    })
+  })
+
+  // window.addEventListener('native.hidekeyboard', keyboardHideHandler);
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   console.log('****************************************************')
+  //   const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+  //   const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  //   document.documentElement.style.width = w + 'px'
+  //   document.documentElement.style.height = h + 'px'
+  //   document.body.style.width = w + 'px'
+  //   document.body.style.height = h + 'px'
+  // })
+
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {
       return (
@@ -141,7 +211,9 @@ export default function WordsPage() {
         <AppBar />
         <Box
           component="main"
-          className={layout_styles.main_decoder}
+          className={[layout_styles.main_decoder, words_styles.main_div].join(
+            ' '
+          )}
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
