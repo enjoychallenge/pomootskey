@@ -141,7 +141,7 @@ export default function WordsPage() {
         <AppBar />
         <Box
           component="main"
-          className={layout_styles.main_decoder}
+          className={[layout_styles.main_decoder, words_styles.main_div].join(' ')}
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
