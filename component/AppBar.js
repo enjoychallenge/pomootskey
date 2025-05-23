@@ -18,7 +18,7 @@ const barClassNames = [
   process.env.NEXT_PUBLIC_DOMAIN === 'production' ? null : styles.preprod,
 ]
 
-export default function EnjoyAppBar() {
+export default function EnjoyAppBar({ customStyles }) {
   const [aboutOpen, setAboutOpen] = React.useState(false)
 
   const handleAboutClick = () => {
@@ -29,9 +29,11 @@ export default function EnjoyAppBar() {
     setAboutOpen(false)
   }
 
+  const barStyles = barClassNames.concat(customStyles)
+
   return (
     <>
-      <AppBar position="static" className={barClassNames.join(' ')}>
+      <AppBar position="static" className={barStyles.join(' ')}>
         <Toolbar className={styles.toolbar}>
           <NextLink href="/" passHref>
             <Typography

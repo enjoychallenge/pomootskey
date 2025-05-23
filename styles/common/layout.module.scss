@@ -7,9 +7,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100dvh;
+  height: calc(100dvh - calc(var(--virtualKeyboardHeight) * 1px));
   display: flex;
   flex-direction: column;
+  margin-top: calc(var(--virtualKeyboardHeight) * 1px);
   @include media_condition.media('landscape_mode') {
     flex-direction: row;
     height: unset;
@@ -81,4 +82,8 @@
     width: 25px;
     height: 25px;
   }
+}
+
+.hide {
+  display: none;
 }
