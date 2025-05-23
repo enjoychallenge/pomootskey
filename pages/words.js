@@ -40,6 +40,30 @@ export default function WordsPage() {
   const diacriticsInsensitive = useAppSelector(slctr.getDiacriticsInsensitive)
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
+  const [hideStyles, setHideStyles] = useState([])
+  const timeoutId = useRef()
+
+  const resizeListener = () => {
+    timeoutId.current = setTimeout(() => {
+      const offsetTop = window.visualViewport.offsetTop
+      setHideStyles(offsetTop > 0 ? [layout_styles.hide] : [])
+      document.documentElement.style.setProperty(
+        '--virtualKeyboardHeight',
+        offsetTop.toString()
+      )
+    }, 150)
+  }
+
+  useEffect(() => {
+    window.visualViewport.addEventListener('resize', resizeListener)
+    return () => {
+      window.visualViewport.removeEventListener('resize', resizeListener)
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current)
+        timeoutId.current = null
+      }
+    }
+  }, [])
 
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {
@@ -135,10 +159,12 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  const optionsStyles = [words_styles.options].concat(hideStyles)
+
   return (
     <>
       <Box className={layout_styles.page}>
-        <AppBar />
+        <AppBar customStyles={hideStyles} />
         <Box
           component="main"
           className={layout_styles.main_decoder}
@@ -167,46 +193,48 @@ export default function WordsPage() {
                 {filterMethodsJsx}
               </Select>
             </Box>
-            <Box className={words_styles.slider}>
-              <Slider
-                name="Délka slova"
-                value={wordLenInterval}
-                onChange={(event, newValue) => onLenIntervalChange(newValue)}
-                min={1}
-                max={38}
-                step={1}
-                valueLabelDisplay="auto"
-                marks={true}
-                disabled={!wordLenIntervalEnable}
-              />
-              <Typography>Délka slova</Typography>
+            <Box className={optionsStyles.join(' ')}>
+              <Box className={words_styles.slider}>
+                <Slider
+                  name="Délka slova"
+                  value={wordLenInterval}
+                  onChange={(event, newValue) => onLenIntervalChange(newValue)}
+                  min={1}
+                  max={38}
+                  step={1}
+                  valueLabelDisplay="auto"
+                  marks={true}
+                  disabled={!wordLenIntervalEnable}
+                />
+                <Typography>Délka slova</Typography>
+              </Box>
+              <FormGroup className={words_styles.checkboxes_group}>
+                <FormControlLabel
+                  label="A=a"
+                  control={
+                    <Checkbox
+                      checked={caseInsensitive}
+                      label="A=a"
+                      onChange={(event, newValue) =>
+                        onCaseInsensitiveChange(newValue)
+                      }
+                    />
+                  }
+                />
+                <FormControlLabel
+                  label="ř=r"
+                  control={
+                    <Checkbox
+                      checked={diacriticsInsensitive}
+                      label="A=a"
+                      onChange={(event, newValue) =>
+                        onDiacriticsInsensitiveChange(newValue)
+                      }
+                    />
+                  }
+                />
+              </FormGroup>
             </Box>
-            <FormGroup className={words_styles.checkboxes_group}>
-              <FormControlLabel
-                label="A=a"
-                control={
-                  <Checkbox
-                    checked={caseInsensitive}
-                    label="A=a"
-                    onChange={(event, newValue) =>
-                      onCaseInsensitiveChange(newValue)
-                    }
-                  />
-                }
-              />
-              <FormControlLabel
-                label="ř=r"
-                control={
-                  <Checkbox
-                    checked={diacriticsInsensitive}
-                    label="A=a"
-                    onChange={(event, newValue) =>
-                      onDiacriticsInsensitiveChange(newValue)
-                    }
-                  />
-                }
-              />
-            </FormGroup>
           </Box>
           <Box
             sx={{ color: 'result.main' }}
