@@ -8,10 +8,14 @@ export const searchTypeEnum = {
 
 export function findWords(substr, lenInterval, normalize, filterMethod) {
   const normalizedSubstr = normalize(substr)
-  const results = words_file
-    .filter((word) => filterMethod(normalize(word), normalizedSubstr))
-    .filter(
-      (word) => word.length >= lenInterval[0] && word.length <= lenInterval[1]
-    )
-  return results
+  try {
+    const results = words_file
+      .filter((word) => filterMethod(normalize(word), normalizedSubstr))
+      .filter(
+        (word) => word.length >= lenInterval[0] && word.length <= lenInterval[1]
+      )
+    return results
+  } catch (error) {
+    return []
+  }
 }
