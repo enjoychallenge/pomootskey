@@ -53,7 +53,7 @@ export default function WordsPage() {
 
   const filterMethodsJsx = Object.entries(searchTypeEnum).map(
     ([key, value]) => (
-      <MenuItem key={key} value={value}>
+      <MenuItem key={key} value={value} data-testid={value}>
         {value}
       </MenuItem>
     )
@@ -162,6 +162,7 @@ export default function WordsPage() {
               <Select
                 value={searchType}
                 onChange={(event) => onSearchTypeChange(event.target.value)}
+                data-testid={'searchTypeSelect'}
               >
                 {filterMethodsJsx}
               </Select>
@@ -211,7 +212,7 @@ export default function WordsPage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <div>{wordsJsx}</div>
+            <div data-testid={'results'}>{wordsJsx}</div>
             <div ref={loaderRef} className={result_styles.observer} />
           </Box>
         </Box>
