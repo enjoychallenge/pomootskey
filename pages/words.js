@@ -41,62 +41,14 @@ export default function WordsPage() {
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
+  const [notes2, setNotes2] = useState('')
+  const [topMargin, setTopMargin] = useState('0')
+
   useEffect(() => {
-    window.addEventListener('native.showkeyboard', () => {
-      console.log(
-        '**************************************************** native.showkeyboard'
-      )
-      dispatch(setChars('native.showkeyboard'))
-      const w = Math.max(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0
-      )
-      const h = Math.max(
-        document.documentElement.clientHeight,
-        window.innerHeight || 0
-      )
-      document.documentElement.style.width = w + 'px'
-      document.documentElement.style.height = h + 'px'
-      document.body.style.width = w + 'px'
-      document.body.style.height = h + 'px'
+    window.visualViewport.addEventListener('resize', () => {
+      setTopMargin(window.visualViewport.offsetTop + 'px')
     })
-
-    window.addEventListener('native.hidekeyboard', () => {
-      console.log(
-        '**************************************************** native.hidekeyboard'
-      )
-      dispatch(setChars('native.hidekeyboard'))
-      const w = Math.max(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0
-      )
-      const h = Math.max(
-        document.documentElement.clientHeight,
-        window.innerHeight || 0
-      )
-      document.documentElement.style.width = w + 'px'
-      document.documentElement.style.height = h + 'px'
-      document.body.style.width = w + 'px'
-      document.body.style.height = h + 'px'
-    })
-
-    window.visualViewport.addEventListener('resize', (event) => () => {
-      console.log('**************************************************** resize')
-      dispatch(setChars('resize'))
-      const w = Math.max(
-        document.documentElement.clientWidth,
-        window.innerWidth || 0
-      )
-      const h = Math.max(
-        document.documentElement.clientHeight,
-        window.innerHeight || 0
-      )
-      document.documentElement.style.width = w + 'px'
-      document.documentElement.style.height = h + 'px'
-      document.body.style.width = w + 'px'
-      document.body.style.height = h + 'px'
-    })
-  })
+  }, [])
 
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {
@@ -192,9 +144,44 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  setInterval(() => {
+    setNotes2(
+      'Window: w' +
+        window.innerWidth +
+        'x h' +
+        window.innerHeight +
+        '\n\nVisualWindow: offsetTop ' +
+        window.visualViewport.offsetTop +
+        ' - offsetLeft ' +
+        window.visualViewport.offsetLeft +
+        '\n\nScreen: w' +
+        window.screen.width +
+        'x h' +
+        window.screen.height +
+        '\n\nScreen: aw' +
+        window.screen.availWidth +
+        'x ah' +
+        window.screen.availHeight +
+        '\n\nDocument: w' +
+        document.documentElement.clientWidth +
+        'x h' +
+        document.documentElement.clientHeight +
+        '\n\nBody.style: w' +
+        document.body.style.width +
+        'x h' +
+        document.body.style.height
+    )
+    setTopMargin(window.visualViewport.offsetTop + 'px')
+  }, 1000)
+
   return (
     <>
-      <Box className={layout_styles.page}>
+      <Box
+        className={layout_styles.page}
+        sx={{
+          marginTop: topMargin,
+        }}
+      >
         <AppBar />
         <Box
           component="main"
@@ -211,7 +198,7 @@ export default function WordsPage() {
                 label="Hledané znaky"
                 value={chars}
                 onChange={(event) => onCharsChange(event.target.value)}
-                onFocusCapture={() => onCharsChange( 'focus' )}
+                onFocusCapture={() => onInputFocus()}
                 inputProps={{
                   autoComplete: 'off',
                   autoCorrect: 'off',
@@ -274,6 +261,7 @@ export default function WordsPage() {
           >
             <div data-testid={'results'}>{wordsJsx}</div>
             <div ref={loaderRef} className={result_styles.observer} />
+            <div>{notes2}</div>
           </Box>
         </Box>
       </Box>
