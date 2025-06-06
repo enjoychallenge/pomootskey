@@ -41,6 +41,15 @@ export default function WordsPage() {
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
 
+  const [notes2, setNotes2] = useState('')
+  const [topMargin, setTopMargin] = useState('0')
+
+  useEffect(() => {
+    window.visualViewport.addEventListener('resize', () => {
+      setTopMargin(window.visualViewport.offsetTop + 'px')
+    })
+  }, [])
+
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {
       return (
@@ -53,7 +62,7 @@ export default function WordsPage() {
 
   const filterMethodsJsx = Object.entries(searchTypeEnum).map(
     ([key, value]) => (
-      <MenuItem key={key} value={value}>
+      <MenuItem key={key} value={value} data-testid={value}>
         {value}
       </MenuItem>
     )
@@ -135,13 +144,50 @@ export default function WordsPage() {
     [dispatch]
   )
 
+  setInterval(() => {
+    setNotes2(
+      'Window: w' +
+        window.innerWidth +
+        'x h' +
+        window.innerHeight +
+        '\n\nVisualWindow: offsetTop ' +
+        window.visualViewport.offsetTop +
+        ' - offsetLeft ' +
+        window.visualViewport.offsetLeft +
+        '\n\nScreen: w' +
+        window.screen.width +
+        'x h' +
+        window.screen.height +
+        '\n\nScreen: aw' +
+        window.screen.availWidth +
+        'x ah' +
+        window.screen.availHeight +
+        '\n\nDocument: w' +
+        document.documentElement.clientWidth +
+        'x h' +
+        document.documentElement.clientHeight +
+        '\n\nBody.style: w' +
+        document.body.style.width +
+        'x h' +
+        document.body.style.height
+    )
+    setTopMargin(window.visualViewport.offsetTop + 'px')
+  }, 1000)
+
   return (
     <>
-      <Box className={layout_styles.page}>
+      <Box
+        className={layout_styles.page}
+        sx={{
+          marginTop: topMargin,
+        }}
+      >
         <AppBar />
         <Box
           component="main"
-          className={layout_styles.main_decoder}
+          className={[layout_styles.main_decoder, words_styles.main_div].join(
+            ' '
+          )}
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>
@@ -152,6 +198,7 @@ export default function WordsPage() {
                 label="Hledané znaky"
                 value={chars}
                 onChange={(event) => onCharsChange(event.target.value)}
+                onFocusCapture={() => onInputFocus()}
                 inputProps={{
                   autoComplete: 'off',
                   autoCorrect: 'off',
@@ -162,6 +209,7 @@ export default function WordsPage() {
               <Select
                 value={searchType}
                 onChange={(event) => onSearchTypeChange(event.target.value)}
+                data-testid={'searchTypeSelect'}
               >
                 {filterMethodsJsx}
               </Select>
@@ -211,8 +259,9 @@ export default function WordsPage() {
             sx={{ color: 'result.main' }}
             className={layout_styles.results_box}
           >
-            <div>{wordsJsx}</div>
+            <div data-testid={'results'}>{wordsJsx}</div>
             <div ref={loaderRef} className={result_styles.observer} />
+            <div>{notes2}</div>
           </Box>
         </Box>
       </Box>
