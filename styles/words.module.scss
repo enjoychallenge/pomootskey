@@ -7,6 +7,12 @@
   }
 }
 
+.options {
+  @if var(--virtualKeyboardHeight) {
+    display: none;
+  }
+}
+
 .slider {
   width: 95%;
   display: flex;

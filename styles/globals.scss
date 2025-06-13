@@ -30,6 +30,8 @@ a {
   --muiPaletteVariantMain: #08ff00;
   --muiPaletteBackgroundPaper: #303030;
 
+  --virtualKeyboardHeight: 0;
+
   --baseInputCharWidth: clamp(10px, 2.5vmin, 20px);
 
   --commonInputCharGap: 2px; /* if the value is not rounded to 1px, gap widths are different, that looks bad */
