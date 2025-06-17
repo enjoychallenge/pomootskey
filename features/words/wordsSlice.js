@@ -4,7 +4,7 @@ import { searchTypeEnum } from '../../app/decode/words'
 const initialState = {
   chars: '',
   searchType: searchTypeEnum.Subtring,
-  lenInterval: [1, 14],
+  lenInterval: [1, 38],
   caseInsensitive: true,
   diacriticsInsensitive: true,
 }

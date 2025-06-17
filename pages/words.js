@@ -173,7 +173,7 @@ export default function WordsPage() {
                 value={wordLenInterval}
                 onChange={(event, newValue) => onLenIntervalChange(newValue)}
                 min={1}
-                max={14}
+                max={38}
                 step={1}
                 valueLabelDisplay="auto"
                 marks={true}
