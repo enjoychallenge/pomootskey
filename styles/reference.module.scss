@@ -13,6 +13,17 @@
 }
 
 .row {
-  line-height: 1;
-  max-height: 20px;
+  & > td {
+    padding: 3px;
+  }
+}
+
+.morse_cell {
+  color: var(--muiPaletteResultMain);
+  fill: var(--muiPaletteResultMain);
+  stroke: var(--muiPaletteResultMain);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: calc(4 * var(--morseInputCharWidth));
 }

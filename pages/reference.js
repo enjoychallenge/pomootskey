@@ -6,10 +6,13 @@ import {
   TableContainer,
   TableRow,
 } from '@mui/material'
+import { codeChar as morseCode } from '../app/decode/morse'
+import { getInputCharJsx as morseCharJsx } from './morse'
 
 import AppBar from '../component/AppBar'
 import layout_styles from '../styles/common/layout.module.scss'
 import reference_styles from '../styles/reference.module.scss'
+import morse_styles from '../styles/morse.module.scss'
 import * as React from 'react'
 
 export default function WordsPage() {
@@ -19,6 +22,17 @@ export default function WordsPage() {
       <TableRow key={char} className={reference_styles.row}>
         <TableCell>{index + 1}</TableCell>
         <TableCell>{char.toUpperCase()}</TableCell>
+        <TableCell>
+          <Box className={reference_styles.morse_cell}>
+            {morseCode(char)
+              .split('')
+              .map((c) => (
+                <Box key={char} className={morse_styles.result_input_char}>
+                  {morseCharJsx(c)}
+                </Box>
+              ))}
+          </Box>
+        </TableCell>
       </TableRow>
     )
   })
