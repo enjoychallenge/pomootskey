@@ -52,6 +52,12 @@ export default function ButtonAppBar() {
                 <Typography variant="h5">Slova</Typography>
               </Button>
             </NextLink>
+            <NextLink href="/reference" passHref>
+              <Button>
+                <img src="icons/reference.svg" alt="Reference" />
+                <Typography variant="h5">Reference</Typography>
+              </Button>
+            </NextLink>
           </Box>
         </Box>
       </Box>

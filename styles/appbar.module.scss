@@ -14,8 +14,8 @@
 .toolbar {
   @include media_condition.media('landscape_mode') {
     flex-direction: column;
-    width: 56px;
-    min-width: 56px;
+    width: var(--toolbarWidth);
+    min-width: var(--toolbarWidth);
     height: 100%;
   }
 }
