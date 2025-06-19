@@ -1,0 +1,18 @@
+.main {
+  padding: clamp(4px, 1vmin, 10px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  & > div {
+    width: fit-content;
+  }
+}
+
+.row {
+  line-height: 1;
+  max-height: 20px;
+}
