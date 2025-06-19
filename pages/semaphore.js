@@ -82,7 +82,7 @@ const SemaphoreButton = React.memo(function SemaphoreButton({
   )
 })
 
-const getInputCharJsx = (pointList) => {
+export const getInputCharJsx = (pointList) => {
   const uniqueValues = [...new Set(pointList)]
   const handsJsx = uniqueValues.map((value) => {
     return (

@@ -75,3 +75,7 @@ export function invertSelected(selected) {
   const result = [...allItem].filter((x) => !selected.includes(x))
   return result
 }
+
+export function codeChar(char) {
+  return [...codeTable[char]]
+}

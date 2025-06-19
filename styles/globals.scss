@@ -31,6 +31,7 @@ a {
   --muiPaletteBackgroundPaper: #303030;
 
   --virtualKeyboardHeight: 0;
+  --toolbarWidth: 56px;
 
   --baseInputCharWidth: clamp(10px, 2.5vmin, 20px);
 
@@ -62,6 +63,8 @@ a {
   --numeralSystemInputCharFontSize: calc(
     0.9 * var(--numeralSystemInputCharHeight)
   );
+
+  --referencePagePadding: clamp(4px, 1vmin, 10px);
 }
 
 @media (min-width: 500px) and (min-height: 500px) {

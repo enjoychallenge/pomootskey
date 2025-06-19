@@ -1,0 +1,59 @@
+@use 'common/media_condition.module' as media_condition;
+
+.main {
+  padding: var(--referencePagePadding);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  & > table {
+    width: fit-content;
+  }
+
+  @include media_condition.media('landscape_mode') {
+    width: calc(100dvw - var(--toolbarWidth) - 2 * var(--referencePagePadding));
+  }
+}
+
+.row {
+  color: var(--muiPaletteResultMain);
+  fill: var(--muiPaletteResultMain);
+  stroke: var(--muiPaletteResultMain);
+  & > td {
+    padding: 3px 3px 3px 10px;
+    font-size: 2rem;
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: var(--brailleInputCharWidth);
+    }
+  }
+
+  & > td:nth-of-type(even) {
+    color: var(--muiPalettePrimaryMain);
+    fill: var(--muiPalettePrimaryMain);
+    stroke: var(--muiPalettePrimaryMain);
+  }
+}
+
+.number_cell {
+  text-align: right;
+}
+
+.morse_cell {
+  width: calc(4 * var(--morseInputCharWidth)) !important;
+
+  & > div {
+    width: var(--morseInputCharWidth);
+  }
+}
+
+.svg_cell {
+  background-color: rgb(48, 48, 48);
+}
