@@ -1,0 +1,40 @@
+.main {
+  padding: clamp(4px, 1vmin, 10px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  & > div {
+    width: fit-content;
+  }
+}
+
+.row {
+  color: var(--muiPaletteResultMain);
+  fill: var(--muiPaletteResultMain);
+  stroke: var(--muiPaletteResultMain);
+  & > td {
+    padding: 3px 3px 3px 10px;
+    font-size: 2rem;
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: var(--brailleInputCharWidth);
+    }
+  }
+
+  & > td:nth-of-type(even) {
+    color: var(--muiPalettePrimaryMain);
+    fill: var(--muiPalettePrimaryMain);
+    stroke: var(--muiPalettePrimaryMain);
+  }
+}
+
+.morse_cell {
+  width: calc(4 * var(--morseInputCharWidth)) !important;
+}

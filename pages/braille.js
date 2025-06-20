@@ -92,7 +92,7 @@ const BrailleButton = ({
   )
 }
 
-const getInputCharJsx = (pointList) => {
+export const getInputCharJsx = (pointList) => {
   const pointsJsx = pointList.map((point, idx) => {
     const cx = point < 4 ? 8 : 22
     const cy = 8 + 15 * ((point - 1) % 3)

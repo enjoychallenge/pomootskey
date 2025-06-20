@@ -45,10 +45,10 @@ const MorseButton = ({ char, onClick, preselected }) => {
   )
 }
 
-const getInputCharJsx = (inputChar) => {
+export const getInputCharJsx = (inputChar) => {
   if (inputChar === '.') {
     return (
-      <svg width="100%" viewBox="0 0 30 50">
+      <svg width="100%" height="100%" viewBox="0 0 30 50">
         <circle cx="15" cy="35" r="6" />
       </svg>
     )
