@@ -17,8 +17,14 @@
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
   & > td {
-    padding: 3px 3px 3px 6px;
+    padding: 3px 3px 3px 10px;
     font-size: 2rem;
+  }
+
+  & > td:nth-of-type(even) {
+    color: var(--muiPalettePrimaryMain);
+    fill: var(--muiPalettePrimaryMain);
+    stroke: var(--muiPalettePrimaryMain);
   }
 }
 

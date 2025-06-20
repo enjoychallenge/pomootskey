@@ -57,3 +57,7 @@ export function decode(selected) {
         }
   return result
 }
+
+export function codeChar(char) {
+  return [...codeTable[char]]
+}
