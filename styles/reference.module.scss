@@ -13,15 +13,16 @@
 }
 
 .row {
+  color: var(--muiPaletteResultMain);
+  fill: var(--muiPaletteResultMain);
+  stroke: var(--muiPaletteResultMain);
   & > td {
-    padding: 3px;
+    padding: 3px 3px 3px 6px;
+    font-size: 2rem;
   }
 }
 
 .morse_cell {
-  color: var(--muiPaletteResultMain);
-  fill: var(--muiPaletteResultMain);
-  stroke: var(--muiPaletteResultMain);
   display: flex;
   flex-direction: row;
   justify-content: center;

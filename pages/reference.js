@@ -7,12 +7,15 @@ import {
   TableRow,
 } from '@mui/material'
 import { codeChar as morseCode } from '../app/decode/morse'
+import { codeChar as brailleCode } from '../app/decode/braille'
 import { getInputCharJsx as morseCharJsx } from './morse'
+import { getInputCharJsx as brailleCharJsx } from './braille'
 
 import AppBar from '../component/AppBar'
 import layout_styles from '../styles/common/layout.module.scss'
 import reference_styles from '../styles/reference.module.scss'
 import morse_styles from '../styles/morse.module.scss'
+import braille_styles from '../styles/braille.module.scss'
 import * as React from 'react'
 
 export default function WordsPage() {
@@ -31,6 +34,11 @@ export default function WordsPage() {
                   {morseCharJsx(c)}
                 </Box>
               ))}
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box className={braille_styles.result_input_char}>
+            {brailleCharJsx(brailleCode(char))}
           </Box>
         </TableCell>
       </TableRow>
