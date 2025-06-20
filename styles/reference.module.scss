@@ -19,6 +19,13 @@
   & > td {
     padding: 3px 3px 3px 10px;
     font-size: 2rem;
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: var(--brailleInputCharWidth);
+    }
   }
 
   & > td:nth-of-type(even) {
@@ -29,8 +36,5 @@
 }
 
 .morse_cell {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: calc(4 * var(--morseInputCharWidth));
+  width: calc(4 * var(--morseInputCharWidth)) !important;
 }
