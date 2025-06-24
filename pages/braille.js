@@ -93,10 +93,11 @@ const BrailleButton = ({
 }
 
 export const getInputCharJsx = (pointList) => {
-  const pointsJsx = pointList.map((point, idx) => {
+  const pointsJsx = [1, 2, 3, 4, 5, 6].map((point) => {
     const cx = point < 4 ? 8 : 22
     const cy = 8 + 15 * ((point - 1) % 3)
-    return <circle key={idx} cx={cx} cy={cy} r="4" />
+    const fill = pointList.includes(point) ? 'inherit' : 'none'
+    return <circle key={point} cx={cx} cy={cy} r="4" fill={fill} />
   })
   return (
     <svg width="100%" height="100%" viewBox="0 0 30 50">

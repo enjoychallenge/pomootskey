@@ -83,13 +83,19 @@ const SemaphoreButton = React.memo(function SemaphoreButton({
 })
 
 export const getInputCharJsx = (pointList) => {
-  const uniqueValues = [...new Set(pointList)]
-  const handsJsx = uniqueValues.map((value) => {
-    return (
+  const handsJsx = [1, 2, 3, 4, 5, 6, 7, 8].map((value) => {
+    return pointList.includes(value) ? (
       <path
         key={'input_jsx_' + value}
         d="M0,0 L0 40"
         className={semaphore_styles.semaphore_small_hand}
+        transform={`translate(50 50) rotate(${(value - 1) * 45})`}
+      />
+    ) : (
+      <path
+        key={'input_jsx_' + value}
+        d="M0,30 L0 40"
+        className={semaphore_styles.semaphore_empty_hand}
         transform={`translate(50 50) rotate(${(value - 1) * 45})`}
       />
     )
