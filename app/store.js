@@ -7,6 +7,7 @@ import morseReducer from '../features/morse/morseSlice'
 import ternaryReducer from '../features/ternary/ternarySlice'
 import binaryReducer from '../features/binary/binarySlice'
 import wordsReducer from '../features/words/wordsSlice'
+import referenceReducer from '../features/reference/referenceSlice'
 
 export function makeStore() {
   return configureStore({
@@ -17,6 +18,7 @@ export function makeStore() {
       ternary: ternaryReducer,
       binary: binaryReducer,
       words: wordsReducer,
+      reference: referenceReducer,
     },
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().prepend(listenerMiddleware.middleware)
