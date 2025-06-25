@@ -65,7 +65,9 @@ a {
   );
 
   --referencePagePadding: clamp(4px, 1vmin, 10px);
-  --referenceCellHeigh: calc(0.7*var(--brailleInputCharHeight));
+  --referenceCellHeigh: calc(1.4 * var(--brailleInputCharHeight));
+  --referenceNumberCellWidth: calc(1.66 * var(--brailleInputCharHeight));
+  --referenceFontSize: var(--morseOutputCharFontSize);
 }
 
 @media (min-width: 500px) and (min-height: 500px) {
