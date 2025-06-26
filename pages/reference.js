@@ -46,7 +46,7 @@ export default function WordsPage() {
           <Box
             className={[
               braille_styles.result_input_char,
-              reference_styles.svg_cell,
+              reference_styles.braille_cell,
             ].join(' ')}
           >
             {brailleCharJsx(brailleCode(char))}
@@ -56,7 +56,7 @@ export default function WordsPage() {
           <Box
             className={[
               semaphore_styles.result_input_char,
-              reference_styles.svg_cell,
+              reference_styles.semaphore_cell,
             ].join(' ')}
           >
             {semaphoreCharJsx(semaphoreCode(char))}
