@@ -42,6 +42,22 @@ const codeTable = {
   ý: new Set([1, 2, 3, 4, 6]),
   z: new Set([1, 3, 5, 6]),
   ž: new Set([2, 3, 4, 6]),
+  ',': new Set([2]),
+  '.': new Set([3]),
+  ';': new Set([2, 3]),
+  '`': new Set([4]),
+  ':': new Set([2, 5]),
+  '*': new Set([3, 5]),
+  '!': new Set([2, 3, 5]),
+  '?': new Set([2, 6]),
+  '-': new Set([3, 6]),
+  '(': new Set([2, 3, 6]),
+  '+': new Set([2, 5, 6]),
+  ')': new Set([3, 5, 6]),
+  '"': new Set([2, 3, 5, 6]),
+  '|': new Set([4, 5, 6]),
+  '/': new Set([1, 2, 4, 5, 6]),
+  '■': new Set([1, 2, 3, 4, 5, 6]),
 }
 
 const byColumn2byRow = {
