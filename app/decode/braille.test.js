@@ -8,6 +8,14 @@ describe('decode', () => {
     },
     {
       setToDecode: [2],
+      expResult: { char: ',', type: 'char' },
+    },
+    {
+      setToDecode: [6],
+      expResult: { type: 'unknown' },
+    },
+    {
+      setToDecode: [0],
       expResult: { type: 'unknown' },
     },
     {
@@ -24,7 +32,7 @@ describe('decode', () => {
     },
     {
       setToDecode: [2, 5],
-      expResult: { type: 'unknown' },
+      expResult: { char: ':', type: 'char' },
     },
   ])('decode test', ({ setToDecode, expResult }) => {
     expResult.input = setToDecode
