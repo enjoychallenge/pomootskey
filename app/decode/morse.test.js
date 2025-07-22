@@ -43,12 +43,16 @@ describe('decode morse message', () => {
         { input: '--', char: 'm', type: 'char' },
         { input: '?', type: 'undecodable' },
         { input: '///', type: 'sep' },
-        { input: '----', type: 'unknown' },
+        { input: '----', char: 'ch', type: 'char' },
       ],
     },
     {
       morseMessage: '----.',
-      expParts: [{ input: '----.', type: 'unknown' }],
+      expParts: [{ input: '----.', char: '9', type: 'char' }],
+    },
+    {
+      morseMessage: '------.',
+      expParts: [{ input: '------.', type: 'unknown' }],
     },
     {
       morseMessage: '////',
