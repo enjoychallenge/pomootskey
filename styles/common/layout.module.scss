@@ -21,6 +21,8 @@
 .main {
   padding: 2vmin;
   flex-grow: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .main_decoder {
