@@ -14,6 +14,7 @@ import {
 } from '@mui/material'
 import { Add, Remove } from '@mui/icons-material'
 import { AlphabetEn } from '../app/decode/common'
+import { decimalToRoman } from '../app/decode/numeralSystems'
 import { codeChar as morseCode } from '../app/decode/morse'
 import { codeChar as brailleCode } from '../app/decode/braille'
 import { codeChar as semaphoreCode } from '../app/decode/semaphore'
@@ -202,6 +203,20 @@ export default function ReferencePage() {
               className={reference_styles.ternary_cell}
             >
               {(index + 1).toString(3).padStart(3, '0')}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box>
+            <Typography
+              component={'span'}
+              display="inline"
+              noWrap={true}
+              variant="h5"
+              align="right"
+              className={reference_styles.roman_cell}
+            >
+              {decimalToRoman(index + 1)}
             </Typography>
           </Box>
         </TableCell>
