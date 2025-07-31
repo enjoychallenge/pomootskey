@@ -90,3 +90,10 @@
   font-size: calc(0.7 * var(--referenceFontSize));
   text-align: center;
 }
+
+.roman_cell {
+  writing-mode: vertical-lr;
+  transform: rotate(-180deg);
+  font-size: calc(0.5 * var(--referenceFontSize));
+  text-align: center;
+}
