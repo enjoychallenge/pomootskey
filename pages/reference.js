@@ -15,6 +15,7 @@ import {
 import StarOutlineIcon from '@mui/icons-material/StarOutline'
 import StarIcon from '@mui/icons-material/Star'
 import { AlphabetEn } from '../app/decode/common'
+import { decimalToRoman } from '../app/decode/numeralSystems'
 import { codeChar as morseCode } from '../app/decode/morse'
 import { codeChar as brailleCode } from '../app/decode/braille'
 import { codeChar as semaphoreCode } from '../app/decode/semaphore'
@@ -47,6 +48,52 @@ const FavoriteStar = ({ char, favorites, onStarClick }) => {
     <IconButton onClick={onClick} alt={char}>
       {favorites.includes(char) ? <StarIcon /> : <StarOutlineIcon />}
     </IconButton>
+  )
+}
+
+const getBinaryJsx = (decimalValue) => {
+  const base = 2
+  const binaryStr = decimalValue.toString(base).padStart(5, '0')
+  const squaresJsx = binaryStr.split('').map((value, index) => {
+    const fill = value === '1' ? 'inherit' : 'none'
+    return (
+      <rect
+        key={index + 'B'}
+        width="20"
+        height="20"
+        x="20"
+        y={index * 20}
+        fill={fill}
+      />
+    )
+  })
+  const numbersJsx = binaryStr.split('').map((value, index) => {
+    if (value === '1') {
+      return (
+        <line
+          key={index + '1'}
+          x1="2"
+          y1={index * 20 + 10}
+          x2="18"
+          y2={index * 20 + 10}
+        />
+      )
+    }
+    return (
+      <circle
+        key={index + '0'}
+        cx="10"
+        cy={index * 20 + 10}
+        r="8"
+        fill="none"
+      />
+    )
+  })
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 40 100" stroke-width="2">
+      {numbersJsx}
+      {squaresJsx}
+    </svg>
   )
 }
 
@@ -160,6 +207,37 @@ export default function ReferencePage() {
         <TableCell>
           <Box className={[semaphore_styles.result_input_char].join(' ')}>
             {semaphoreCharJsx(semaphoreCode(char))}
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box>{getBinaryJsx(index + 1)}</Box>
+        </TableCell>
+        <TableCell>
+          <Box>
+            <Typography
+              component={'span'}
+              display="inline"
+              noWrap={true}
+              variant="h5"
+              align="right"
+              className={reference_styles.ternary_cell}
+            >
+              {(index + 1).toString(3).padStart(3, '0')}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box>
+            <Typography
+              component={'span'}
+              display="inline"
+              noWrap={true}
+              variant="h5"
+              align="right"
+              className={reference_styles.roman_cell}
+            >
+              {decimalToRoman(index + 1)}
+            </Typography>
           </Box>
         </TableCell>
       </TableRow>

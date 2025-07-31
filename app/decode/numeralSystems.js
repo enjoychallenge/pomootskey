@@ -1,6 +1,27 @@
 import { PartTypes } from './common'
 import assert from 'assert'
 
+export function decimalToRoman(decimalValue) {
+  const romanSymbols = [
+    { value: 10, symbol: 'X' },
+    { value: 9, symbol: 'IX' },
+    { value: 5, symbol: 'V' },
+    { value: 4, symbol: 'IV' },
+    { value: 1, symbol: 'I' },
+  ]
+
+  let romanNumber = ''
+
+  for (let i = 0; i < romanSymbols.length; i++) {
+    while (decimalValue >= romanSymbols[i].value) {
+      romanNumber += romanSymbols[i].symbol
+      decimalValue -= romanSymbols[i].value
+    }
+  }
+
+  return romanNumber
+}
+
 function regexForGroupLength(length) {
   return new RegExp('.{1,' + length + '}', 'g')
 }
