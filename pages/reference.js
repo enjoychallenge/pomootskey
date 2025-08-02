@@ -36,7 +36,8 @@ import {
   favoritesInputChange,
   showFavoritesSwitch,
 } from '../features/reference/referenceSlice'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback } from 'react'
+import { useHideStyles } from '../hooks/useHideStyles'
 
 const FavoriteStar = ({ char, favorites, onStarClick }) => {
   const onClick = useCallback(() => {
@@ -54,8 +55,7 @@ export default function ReferencePage() {
   const dispatch = useAppDispatch()
   const favorites = useAppSelector(slctr.getFavorites)
   const showFavorites = useAppSelector(slctr.getShowFavorites)
-  const [hideStyles, setHideStyles] = useState([])
-  const timeoutId = useRef()
+  const hideStyles = useHideStyles()
 
   const onStarClick = useCallback(
     (char) => dispatch(favoriteStarClick({ char })),
@@ -73,36 +73,15 @@ export default function ReferencePage() {
     [dispatch]
   )
 
-  const resizeListener = () => {
-    timeoutId.current = setTimeout(() => {
-      const offsetTop = window.visualViewport.offsetTop
-      setHideStyles(offsetTop > 0 ? [layout_styles.hide] : [])
-      document.documentElement.style.setProperty(
-        '--virtualKeyboardHeight',
-        offsetTop.toString()
-      )
-    }, 150)
-  }
-
-  useEffect(() => {
-    window.visualViewport.addEventListener('resize', resizeListener)
-    return () => {
-      window.visualViewport.removeEventListener('resize', resizeListener)
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current)
-        timeoutId.current = null
-      }
-    }
-  }, [])
-
   const chars =
     showFavorites && favorites.length > 0
       ? favorites
+          .map((c) => c.toLowerCase())
           .filter((c) => AlphabetEn.includes(c))
           .slice()
-          .sort()
       : AlphabetEn.split('')
-  const getCharRowJsx = (char) => {
+
+  const getCharRowJsx = (char, key) => {
     const index = AlphabetEn.indexOf(char)
     const starJsx = (
       <TableCell className={reference_styles.star_cell}>
@@ -114,7 +93,7 @@ export default function ReferencePage() {
       </TableCell>
     )
     return (
-      <TableRow key={char} className={reference_styles.row}>
+      <TableRow key={key} className={reference_styles.row}>
         {starJsx}
         <TableCell className={reference_styles.number_cell}>
           <Typography
@@ -166,8 +145,8 @@ export default function ReferencePage() {
     )
   }
 
-  const tableRowsJsw = chars.map((char) => {
-    return getCharRowJsx(char)
+  const tableRowsJsw = chars.map((char, index) => {
+    return getCharRowJsx(char, index)
   })
 
   return (
@@ -176,7 +155,7 @@ export default function ReferencePage() {
         <AppBar customStyles={hideStyles} />
         <Box
           component="main"
-          className={layout_styles.main_decoder}
+          className={reference_styles.main}
           sx={{ color: 'primary.main' }}
         >
           <Box className={layout_styles.inputs_box}>

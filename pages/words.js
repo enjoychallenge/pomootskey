@@ -11,6 +11,7 @@ import {
   FormControlLabel,
 } from '@mui/material'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useHideStyles } from '../hooks/useHideStyles'
 import AppBar from '../component/AppBar'
 import * as slctr from '../features/words/wordsSelector'
 import layout_styles from '../styles/common/layout.module.scss'
@@ -40,30 +41,7 @@ export default function WordsPage() {
   const diacriticsInsensitive = useAppSelector(slctr.getDiacriticsInsensitive)
   const pageSize = 50
   const [wordsJsx, setWordsJsx] = useState([])
-  const [hideStyles, setHideStyles] = useState([])
-  const timeoutId = useRef()
-
-  const resizeListener = () => {
-    timeoutId.current = setTimeout(() => {
-      const offsetTop = window.visualViewport.offsetTop
-      setHideStyles(offsetTop > 0 ? [layout_styles.hide] : [])
-      document.documentElement.style.setProperty(
-        '--virtualKeyboardHeight',
-        offsetTop.toString()
-      )
-    }, 150)
-  }
-
-  useEffect(() => {
-    window.visualViewport.addEventListener('resize', resizeListener)
-    return () => {
-      window.visualViewport.removeEventListener('resize', resizeListener)
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current)
-        timeoutId.current = null
-      }
-    }
-  }, [])
+  const hideStyles = useHideStyles()
 
   function wordsToJsx(wordsToShow) {
     return wordsToShow.map((word, idx) => {

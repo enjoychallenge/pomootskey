@@ -15,7 +15,7 @@ export const referenceSlice = createSlice({
       if (clickedCharIndex === -1) {
         state.favorites.push(char)
       } else {
-        state.favorites.splice(clickedCharIndex, 1)
+        state.favorites = state.favorites.filter((c) => c !== char)
       }
       if (state.favorites.length === 0) {
         state.showFavorites = false
@@ -23,7 +23,7 @@ export const referenceSlice = createSlice({
     },
     favoritesInputChange: (state, action) => {
       const input = action.payload
-      state.favorites = [...new Set(input.split(''))]
+      state.favorites = input.split('')
       state.showFavorites = state.favorites.length > 0
     },
     showFavoritesSwitch: (state) => {
