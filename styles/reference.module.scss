@@ -83,3 +83,17 @@
     width: var(--morseInputCharWidth);
   }
 }
+
+.binary_cell {
+  width: var(--referenceNumberCellWidth);
+}
+
+.ternary_cell {
+  font-size: calc(0.7 * var(--referenceFontSize));
+  text-align: center;
+}
+
+.roman_cell {
+  font-size: calc(0.5 * var(--referenceFontSize));
+  text-align: center;
+}

@@ -14,6 +14,7 @@ import {
 } from '@mui/material'
 import { Add, Remove } from '@mui/icons-material'
 import { AlphabetEn } from '../app/decode/common'
+import { decimalToRoman } from '../app/decode/numeralSystems'
 import { codeChar as morseCode } from '../app/decode/morse'
 import { codeChar as brailleCode } from '../app/decode/braille'
 import { codeChar as semaphoreCode } from '../app/decode/semaphore'
@@ -54,6 +55,38 @@ const AddOrRemove = ({
     <IconButton onClick={onClick} alt={char}>
       {showFavorites ? <Remove /> : <Add />}
     </IconButton>
+  )
+}
+
+const getBinaryJsx = (decimalValue) => {
+  const base = 2
+  const binaryStr = decimalValue.toString(base).padStart(5, '0')
+  const numbersJsx = binaryStr.split('').map((value, index) => {
+    if (value === '1') {
+      return (
+        <line
+          key={index + '1'}
+          x1={index * 20 + 10}
+          y1="2"
+          x2={index * 20 + 10}
+          y2="18"
+        />
+      )
+    }
+    return (
+      <circle
+        key={index + '0'}
+        cx={index * 20 + 10}
+        cy="10"
+        r="8"
+        fill="none"
+      />
+    )
+  })
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 100 20" strokeWidth="2">
+      {numbersJsx}
+    </svg>
   )
 }
 
@@ -152,6 +185,39 @@ export default function ReferencePage() {
         <TableCell>
           <Box className={[semaphore_styles.result_input_char].join(' ')}>
             {semaphoreCharJsx(semaphoreCode(char))}
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box className={reference_styles.binary_cell}>
+            {getBinaryJsx(index + 1)}
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box>
+            <Typography
+              component={'span'}
+              display="inline"
+              noWrap={true}
+              variant="h5"
+              align="right"
+              className={reference_styles.ternary_cell}
+            >
+              {(index + 1).toString(3).padStart(3, '0')}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Box>
+            <Typography
+              component={'span'}
+              display="inline"
+              noWrap={true}
+              variant="h5"
+              align="right"
+              className={reference_styles.roman_cell}
+            >
+              {decimalToRoman(index + 1)}
+            </Typography>
           </Box>
         </TableCell>
       </TableRow>
