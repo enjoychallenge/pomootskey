@@ -177,12 +177,12 @@ export default function ReferencePage() {
               ))}
           </Box>
         </TableCell>
-        <TableCell>
+        <TableCell className={reference_styles.braille_cell}>
           <Box className={[braille_styles.result_input_char].join(' ')}>
             {brailleCharJsx(brailleCode(char))}
           </Box>
         </TableCell>
-        <TableCell>
+        <TableCell className={reference_styles.semaphore_cell}>
           <Box className={[semaphore_styles.result_input_char].join(' ')}>
             {semaphoreCharJsx(semaphoreCode(char))}
           </Box>
