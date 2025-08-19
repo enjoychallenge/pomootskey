@@ -39,7 +39,7 @@
   fill: var(--muiPaletteResultMain);
   stroke: var(--muiPaletteResultMain);
   & > td {
-    padding: 0 3px 0 10px;
+    padding: 0 3px 0 5px;
     font-size: 2rem;
     border: 0;
 
@@ -85,6 +85,14 @@
 }
 
 .binary_cell {
+  width: var(--referenceNumberCellWidth);
+}
+
+.braille_cell {
+  width: var(--referenceNumberCellWidth);
+}
+
+.semaphore_cell {
   width: var(--referenceNumberCellWidth);
 }
 
