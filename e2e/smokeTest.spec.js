@@ -6,7 +6,7 @@ const title = 'PreProd Pomootskey'
   { pageAlt: 'morse', buttons: ['●', '‒', '/'] },
   { pageAlt: 'braille', buttons: ['1'] },
   { pageAlt: 'semaphore', buttons: ['1', '2'] },
-  { pageAlt: 'ternary', buttons: ['0', '0', '0'] },
+  { pageAlt: 'ternary', buttons: ['0', '0', '1'] },
   { pageAlt: 'binary', buttons: ['0', '0', '0', '0', '1'] },
 ].forEach(({ pageAlt, buttons }) => {
   test(`${pageAlt}, A, by buttons`, async ({ page }) => {
