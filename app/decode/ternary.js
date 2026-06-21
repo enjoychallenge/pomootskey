@@ -13,12 +13,12 @@ export const chars = Object.values(TernaryChars)
 
 export const alphabetVariants = [
   {
-    label: 'A=0, bez Ch',
-    alphabet: AlphabetEn + '␣',
-  },
-  {
     label: 'A=1, bez Ch',
     alphabet: '␣' + AlphabetEn,
+  },
+  {
+    label: 'A=0, bez Ch',
+    alphabet: AlphabetEn + '␣',
   },
   {
     label: 'A=0, s Ch',
